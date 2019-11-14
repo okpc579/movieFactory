@@ -1,3 +1,15 @@
+drop SEQUENCE m_rev_comn_seq;
+CREATE SEQUENCE m_rev_comn_seq MinVALUE 0; 
+select m_rev_comn_seq.nextval from dual;
+
+drop SEQUENCE m_rev_seq;
+CREATE SEQUENCE m_rev_seq MinVALUE 0; 
+select m_rev_seq.nextval from dual;
+
+drop sequence coll_seq;
+CREATE SEQUENCE coll_seq minvalue 0; 
+select coll_seq.nextval from dual;
+
 ALTER TABLE product
 	DROP
 		CONSTRAINT FK_p_cate_TO_product
@@ -108,14 +120,14 @@ ALTER TABLE p_rev_rep
 		CONSTRAINT FK_p_rep_cate_TO_p_rev_rep
 		CASCADE;
 
-ALTER TABLE m_comn
+ALTER TABLE m_cmnt
 	DROP
-		CONSTRAINT FK_m_rev_TO_m_comn
+		CONSTRAINT FK_m_rev_TO_m_cmnt
 		CASCADE;
 
-ALTER TABLE m_comn
+ALTER TABLE m_cmnt
 	DROP
-		CONSTRAINT FK_member_TO_m_comn
+		CONSTRAINT FK_member_TO_m_cmnt
 		CASCADE;
 
 ALTER TABLE m_rev_like
@@ -128,14 +140,14 @@ ALTER TABLE m_rev_like
 		CONSTRAINT FK_m_rev_TO_m_rev_like
 		CASCADE;
 
-ALTER TABLE m_comn_like
+ALTER TABLE m_cmnt_like
 	DROP
-		CONSTRAINT FK_member_TO_m_comn_like
+		CONSTRAINT FK_member_TO_m_cmnt_like
 		CASCADE;
 
-ALTER TABLE m_comn_like
+ALTER TABLE m_cmnt_like
 	DROP
-		CONSTRAINT FK_m_comn_TO_m_comn_like
+		CONSTRAINT FK_m_cmnt_TO_m_cmnt_like
 		CASCADE;
 
 ALTER TABLE coll
@@ -183,19 +195,19 @@ ALTER TABLE m_rev_rep
 		CONSTRAINT FK_m_rep_cate_TO_m_rev_rep
 		CASCADE;
 
-ALTER TABLE m_comn_rep
+ALTER TABLE m_cmnt_rep
 	DROP
-		CONSTRAINT FK_m_rep_cate_TO_m_comn_rep
+		CONSTRAINT FK_m_rep_cate_TO_m_cmnt_rep
 		CASCADE;
 
-ALTER TABLE m_comn_rep
+ALTER TABLE m_cmnt_rep
 	DROP
-		CONSTRAINT FK_m_comn_TO_m_comn_rep
+		CONSTRAINT FK_m_cmnt_TO_m_cmnt_rep
 		CASCADE;
 
-ALTER TABLE m_comn_rep
+ALTER TABLE m_cmnt_rep
 	DROP
-		CONSTRAINT FK_member_TO_m_comn_rep
+		CONSTRAINT FK_member_TO_m_cmnt_rep
 		CASCADE;
 
 ALTER TABLE seller_rep
@@ -309,7 +321,7 @@ ALTER TABLE p_rev_rep
 		CASCADE
 		KEEP INDEX;
 
-ALTER TABLE m_comn
+ALTER TABLE m_cmnt
 	DROP
 		PRIMARY KEY
 		CASCADE
@@ -321,7 +333,7 @@ ALTER TABLE m_rev_like
 		CASCADE
 		KEEP INDEX;
 
-ALTER TABLE m_comn_like
+ALTER TABLE m_cmnt_like
 	DROP
 		PRIMARY KEY
 		CASCADE
@@ -381,7 +393,7 @@ ALTER TABLE m_rev_rep
 		CASCADE
 		KEEP INDEX;
 
-ALTER TABLE m_comn_rep
+ALTER TABLE m_cmnt_rep
 	DROP
 		PRIMARY KEY
 		CASCADE
@@ -449,11 +461,11 @@ DROP INDEX PK_m_rev;
 
 DROP INDEX PK_p_rev_rep;
 
-DROP INDEX PK_m_comn;
+DROP INDEX PK_m_cmnt;
 
 DROP INDEX PK_m_rev_like;
 
-DROP INDEX PK_m_comn_like;
+DROP INDEX PK_m_cmnt_like;
 
 DROP INDEX PK_coll;
 
@@ -473,7 +485,7 @@ DROP INDEX PK_p_rep_cate;
 
 DROP INDEX PK_m_rev_rep;
 
-DROP INDEX PK_m_comn_rep;
+DROP INDEX PK_m_cmnt_rep;
 
 DROP INDEX PK_m_rep_cate;
 
@@ -550,7 +562,7 @@ DROP TABLE p_rev_rep
 	CASCADE CONSTRAINTS;
 
 /* 영화리뷰댓글 */
-DROP TABLE m_comn 
+DROP TABLE m_cmnt 
 	CASCADE CONSTRAINTS;
 
 /* 영화리뷰좋아요목록 */
@@ -558,7 +570,7 @@ DROP TABLE m_rev_like
 	CASCADE CONSTRAINTS;
 
 /* 영화리뷰댓글좋아요목록 */
-DROP TABLE m_comn_like 
+DROP TABLE m_cmnt_like 
 	CASCADE CONSTRAINTS;
 
 /* 컬렉션 */
@@ -598,7 +610,7 @@ DROP TABLE m_rev_rep
 	CASCADE CONSTRAINTS;
 
 /* 영화리뷰댓글신고 */
-DROP TABLE m_comn_rep 
+DROP TABLE m_cmnt_rep 
 	CASCADE CONSTRAINTS;
 
 /* 영화신고유형 */
@@ -1030,7 +1042,7 @@ ALTER TABLE p_rev_rep
 		);
 
 /* 영화리뷰댓글 */
-CREATE TABLE m_comn (
+CREATE TABLE m_cmnt (
 	m_rev_cmnt_no NUMBER(20) NOT NULL, /* 영화리뷰댓글번호 */
 	m_rev_no NUMBER(20) NOT NULL, /* 영화리뷰번호 */
 	username VARCHAR2(20) NOT NULL, /* 아이디 */
@@ -1039,14 +1051,14 @@ CREATE TABLE m_comn (
 	writing_date DATE NOT NULL /* 작성일 */
 );
 
-CREATE UNIQUE INDEX PK_m_comn
-	ON m_comn (
+CREATE UNIQUE INDEX PK_m_cmnt
+	ON m_cmnt (
 		m_rev_cmnt_no ASC
 	);
 
-ALTER TABLE m_comn
+ALTER TABLE m_cmnt
 	ADD
-		CONSTRAINT PK_m_comn
+		CONSTRAINT PK_m_cmnt
 		PRIMARY KEY (
 			m_rev_cmnt_no
 		);
@@ -1072,21 +1084,21 @@ ALTER TABLE m_rev_like
 		);
 
 /* 영화리뷰댓글좋아요목록 */
-CREATE TABLE m_comn_like (
+CREATE TABLE m_cmnt_like (
 	cmnt_like_no NUMBER(20) NOT NULL, /* 댓글좋아요번호 */
 	m_rev_cmnt_no NUMBER(20) NOT NULL, /* 영화리뷰댓글번호 */
 	username VARCHAR2(20) NOT NULL, /* 아이디 */
 	like_reg_date DATE NOT NULL /* 좋아요등록일 */
 );
 
-CREATE UNIQUE INDEX PK_m_comn_like
-	ON m_comn_like (
+CREATE UNIQUE INDEX PK_m_cmnt_like
+	ON m_cmnt_like (
 		cmnt_like_no ASC
 	);
 
-ALTER TABLE m_comn_like
+ALTER TABLE m_cmnt_like
 	ADD
-		CONSTRAINT PK_m_comn_like
+		CONSTRAINT PK_m_cmnt_like
 		PRIMARY KEY (
 			cmnt_like_no
 		);
@@ -1274,7 +1286,7 @@ ALTER TABLE m_rev_rep
 		);
 
 /* 영화리뷰댓글신고 */
-CREATE TABLE m_comn_rep (
+CREATE TABLE m_cmnt_rep (
 	m_rev_cmnt_no NUMBER(20) NOT NULL, /* 영화리뷰댓글번호 */
 	username VARCHAR2(20) NOT NULL, /* 신고자아이디 */
 	title VARCHAR2(150) NOT NULL, /* 신고제목 */
@@ -1283,15 +1295,15 @@ CREATE TABLE m_comn_rep (
 	m_rep_cate VARCHAR2(30) NOT NULL /* 영화신고유형 */
 );
 
-CREATE UNIQUE INDEX PK_m_comn_rep
-	ON m_comn_rep (
+CREATE UNIQUE INDEX PK_m_cmnt_rep
+	ON m_cmnt_rep (
 		m_rev_cmnt_no ASC,
 		username ASC
 	);
 
-ALTER TABLE m_comn_rep
+ALTER TABLE m_cmnt_rep
 	ADD
-		CONSTRAINT PK_m_comn_rep
+		CONSTRAINT PK_m_cmnt_rep
 		PRIMARY KEY (
 			m_rev_cmnt_no,
 			username
@@ -1627,9 +1639,9 @@ ALTER TABLE p_rev_rep
 			p_rep_cate
 		);
 
-ALTER TABLE m_comn
+ALTER TABLE m_cmnt
 	ADD
-		CONSTRAINT FK_m_rev_TO_m_comn
+		CONSTRAINT FK_m_rev_TO_m_cmnt
 		FOREIGN KEY (
 			m_rev_no
 		)
@@ -1637,9 +1649,9 @@ ALTER TABLE m_comn
 			m_rev_no
 		);
 
-ALTER TABLE m_comn
+ALTER TABLE m_cmnt
 	ADD
-		CONSTRAINT FK_member_TO_m_comn
+		CONSTRAINT FK_member_TO_m_cmnt
 		FOREIGN KEY (
 			username
 		)
@@ -1667,9 +1679,9 @@ ALTER TABLE m_rev_like
 			m_rev_no
 		);
 
-ALTER TABLE m_comn_like
+ALTER TABLE m_cmnt_like
 	ADD
-		CONSTRAINT FK_member_TO_m_comn_like
+		CONSTRAINT FK_member_TO_m_cmnt_like
 		FOREIGN KEY (
 			username
 		)
@@ -1677,13 +1689,13 @@ ALTER TABLE m_comn_like
 			username
 		);
 
-ALTER TABLE m_comn_like
+ALTER TABLE m_cmnt_like
 	ADD
-		CONSTRAINT FK_m_comn_TO_m_comn_like
+		CONSTRAINT FK_m_cmnt_TO_m_cmnt_like
 		FOREIGN KEY (
 			m_rev_cmnt_no
 		)
-		REFERENCES m_comn (
+		REFERENCES m_cmnt (
 			m_rev_cmnt_no
 		);
 
@@ -1777,9 +1789,9 @@ ALTER TABLE m_rev_rep
 			m_rep_cate
 		);
 
-ALTER TABLE m_comn_rep
+ALTER TABLE m_cmnt_rep
 	ADD
-		CONSTRAINT FK_m_rep_cate_TO_m_comn_rep
+		CONSTRAINT FK_m_rep_cate_TO_m_cmnt_rep
 		FOREIGN KEY (
 			m_rep_cate
 		)
@@ -1787,19 +1799,19 @@ ALTER TABLE m_comn_rep
 			m_rep_cate
 		);
 
-ALTER TABLE m_comn_rep
+ALTER TABLE m_cmnt_rep
 	ADD
-		CONSTRAINT FK_m_comn_TO_m_comn_rep
+		CONSTRAINT FK_m_cmnt_TO_m_cmnt_rep
 		FOREIGN KEY (
 			m_rev_cmnt_no
 		)
-		REFERENCES m_comn (
+		REFERENCES m_cmnt (
 			m_rev_cmnt_no
 		);
 
-ALTER TABLE m_comn_rep
+ALTER TABLE m_cmnt_rep
 	ADD
-		CONSTRAINT FK_member_TO_m_comn_rep
+		CONSTRAINT FK_member_TO_m_cmnt_rep
 		FOREIGN KEY (
 			username
 		)

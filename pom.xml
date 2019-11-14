@@ -4,8 +4,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.icia</groupId>
-	<artifactId>aboard</artifactId>
-	<name>aboard</name>
+	<artifactId>moviefactory</artifactId>
+	<name>moviefactory</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<!-- gradle, maven : 빌드도구(의존성 관리) -->

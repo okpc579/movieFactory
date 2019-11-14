@@ -75,7 +75,7 @@
 	</bean>
 		
 	<!-- 필요한 객체들 생성하는 부분 -->
-	<bean id="mailUtil" class="com.icia.moviefactory.util.MailUtil" />
+	<!-- <bean id="mailUtil" class="com.icia.moviefactory.util.MailUtil" /> -->
 	<bean id="pwdEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 	<bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper" />	
 	<bean id="modelMapper" class="org.modelmapper.ModelMapper" />
