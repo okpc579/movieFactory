@@ -1,0 +1,1838 @@
+ALTER TABLE product
+	DROP
+		CONSTRAINT FK_p_cate_TO_product
+		CASCADE;
+
+ALTER TABLE product
+	DROP
+		CONSTRAINT FK_seller_TO_product
+		CASCADE;
+
+ALTER TABLE p_rev
+	DROP
+		CONSTRAINT FK_product_TO_p_rev
+		CASCADE;
+
+ALTER TABLE p_rev
+	DROP
+		CONSTRAINT FK_orderdetail_TO_p_rev
+		CASCADE;
+
+ALTER TABLE p_rev
+	DROP
+		CONSTRAINT FK_member_TO_p_rev
+		CASCADE;
+
+ALTER TABLE p_ask
+	DROP
+		CONSTRAINT FK_p_ask_cate_TO_p_ask
+		CASCADE;
+
+ALTER TABLE p_ask
+	DROP
+		CONSTRAINT FK_product_TO_p_ask
+		CASCADE;
+
+ALTER TABLE p_ask
+	DROP
+		CONSTRAINT FK_answ_state_cate_TO_p_ask
+		CASCADE;
+
+ALTER TABLE p_ask
+	DROP
+		CONSTRAINT FK_member_TO_p_ask
+		CASCADE;
+
+ALTER TABLE orders
+	DROP
+		CONSTRAINT FK_pay_TO_orders
+		CASCADE;
+
+ALTER TABLE orders
+	DROP
+		CONSTRAINT FK_member_TO_orders
+		CASCADE;
+
+ALTER TABLE orderdetail
+	DROP
+		CONSTRAINT FK_product_TO_orderdetail
+		CASCADE;
+
+ALTER TABLE orderdetail
+	DROP
+		CONSTRAINT FK_orders_TO_orderdetail
+		CASCADE;
+
+ALTER TABLE orderdetail
+	DROP
+		CONSTRAINT FK_ordercate_TO_orderdetail
+		CASCADE;
+
+ALTER TABLE cart
+	DROP
+		CONSTRAINT FK_member_TO_cart
+		CASCADE;
+
+ALTER TABLE cart
+	DROP
+		CONSTRAINT FK_product_TO_cart
+		CASCADE;
+
+ALTER TABLE addrbook
+	DROP
+		CONSTRAINT FK_member_TO_addrbook
+		CASCADE;
+
+ALTER TABLE adminask
+	DROP
+		CONSTRAINT FK_adminaskstate_TO_adminask
+		CASCADE;
+
+ALTER TABLE m_rev
+	DROP
+		CONSTRAINT FK_member_TO_m_rev
+		CASCADE;
+
+ALTER TABLE p_rev_rep
+	DROP
+		CONSTRAINT FK_p_rev_TO_p_rev_rep
+		CASCADE;
+
+ALTER TABLE p_rev_rep
+	DROP
+		CONSTRAINT FK_member_TO_p_rev_rep
+		CASCADE;
+
+ALTER TABLE p_rev_rep
+	DROP
+		CONSTRAINT FK_p_rep_cate_TO_p_rev_rep
+		CASCADE;
+
+ALTER TABLE m_comn
+	DROP
+		CONSTRAINT FK_m_rev_TO_m_comn
+		CASCADE;
+
+ALTER TABLE m_comn
+	DROP
+		CONSTRAINT FK_member_TO_m_comn
+		CASCADE;
+
+ALTER TABLE m_rev_like
+	DROP
+		CONSTRAINT FK_member_TO_m_rev_like
+		CASCADE;
+
+ALTER TABLE m_rev_like
+	DROP
+		CONSTRAINT FK_m_rev_TO_m_rev_like
+		CASCADE;
+
+ALTER TABLE m_comn_like
+	DROP
+		CONSTRAINT FK_member_TO_m_comn_like
+		CASCADE;
+
+ALTER TABLE m_comn_like
+	DROP
+		CONSTRAINT FK_m_comn_TO_m_comn_like
+		CASCADE;
+
+ALTER TABLE coll
+	DROP
+		CONSTRAINT FK_member_TO_coll
+		CASCADE;
+
+ALTER TABLE coll_detaill
+	DROP
+		CONSTRAINT FK_coll_TO_coll_detaill
+		CASCADE;
+
+ALTER TABLE coll_like
+	DROP
+		CONSTRAINT FK_coll_TO_coll_like
+		CASCADE;
+
+ALTER TABLE coll_like
+	DROP
+		CONSTRAINT FK_member_TO_coll_like
+		CASCADE;
+
+ALTER TABLE fav_m
+	DROP
+		CONSTRAINT FK_member_TO_fav_m
+		CASCADE;
+
+ALTER TABLE fav_m_detail
+	DROP
+		CONSTRAINT FK_fav_m_TO_fav_m_detail
+		CASCADE;
+
+ALTER TABLE m_rev_rep
+	DROP
+		CONSTRAINT FK_m_rev_TO_m_rev_rep
+		CASCADE;
+
+ALTER TABLE m_rev_rep
+	DROP
+		CONSTRAINT FK_member_TO_m_rev_rep
+		CASCADE;
+
+ALTER TABLE m_rev_rep
+	DROP
+		CONSTRAINT FK_m_rep_cate_TO_m_rev_rep
+		CASCADE;
+
+ALTER TABLE m_comn_rep
+	DROP
+		CONSTRAINT FK_m_rep_cate_TO_m_comn_rep
+		CASCADE;
+
+ALTER TABLE m_comn_rep
+	DROP
+		CONSTRAINT FK_m_comn_TO_m_comn_rep
+		CASCADE;
+
+ALTER TABLE m_comn_rep
+	DROP
+		CONSTRAINT FK_member_TO_m_comn_rep
+		CASCADE;
+
+ALTER TABLE seller_rep
+	DROP
+		CONSTRAINT FK_member_TO_seller_rep
+		CASCADE;
+
+ALTER TABLE seller_rep
+	DROP
+		CONSTRAINT FK_seller_TO_seller_rep
+		CASCADE;
+
+ALTER TABLE pay
+	DROP
+		CONSTRAINT FK_orders_TO_pay
+		CASCADE;
+
+ALTER TABLE member
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE seller
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE product
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE p_cate
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE p_rev
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE p_ask
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE p_ask_cate
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE orders
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE orderdetail
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE cart
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE addrbook
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE notice
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE adminask
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE adminaskstate
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE m_rev
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE p_rev_rep
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE m_comn
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE m_rev_like
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE m_comn_like
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE coll
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE coll_detaill
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE coll_like
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE follow
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE fav_m
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE fav_m_detail
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE authorities
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE p_rep_cate
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE m_rev_rep
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE m_comn_rep
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE m_rep_cate
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE seller_rep
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE pay
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE ordercate
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+ALTER TABLE answ_state_cate
+	DROP
+		PRIMARY KEY
+		CASCADE
+		KEEP INDEX;
+
+DROP INDEX PK_member;
+
+DROP INDEX PK_seller;
+
+DROP INDEX PK_product;
+
+DROP INDEX PK_p_cate;
+
+DROP INDEX PK_p_rev;
+
+DROP INDEX PK_p_ask;
+
+DROP INDEX PK_p_ask_cate;
+
+DROP INDEX PK_orders;
+
+DROP INDEX PK_orderdetail;
+
+DROP INDEX PK_cart;
+
+DROP INDEX PK_addrbook;
+
+DROP INDEX PK_notice;
+
+DROP INDEX PK_adminask;
+
+DROP INDEX PK_adminaskstate;
+
+DROP INDEX PK_m_rev;
+
+DROP INDEX PK_p_rev_rep;
+
+DROP INDEX PK_m_comn;
+
+DROP INDEX PK_m_rev_like;
+
+DROP INDEX PK_m_comn_like;
+
+DROP INDEX PK_coll;
+
+DROP INDEX PK_coll_detaill;
+
+DROP INDEX PK_coll_like;
+
+DROP INDEX PK_follow;
+
+DROP INDEX PK_fav_m;
+
+DROP INDEX PK_fav_m_detail;
+
+DROP INDEX PK_authorities;
+
+DROP INDEX PK_p_rep_cate;
+
+DROP INDEX PK_m_rev_rep;
+
+DROP INDEX PK_m_comn_rep;
+
+DROP INDEX PK_m_rep_cate;
+
+DROP INDEX PK_seller_rep;
+
+DROP INDEX PK_pay;
+
+DROP INDEX PK_ordercate;
+
+DROP INDEX PK_answ_state_cate;
+
+/* 일반회원 */
+DROP TABLE member 
+	CASCADE CONSTRAINTS;
+
+/* 판매자 */
+DROP TABLE seller 
+	CASCADE CONSTRAINTS;
+
+/* 상품 */
+DROP TABLE product 
+	CASCADE CONSTRAINTS;
+
+/* 상품카테고리 */
+DROP TABLE p_cate 
+	CASCADE CONSTRAINTS;
+
+/* 상품리뷰 */
+DROP TABLE p_rev 
+	CASCADE CONSTRAINTS;
+
+/* 상품문의 */
+DROP TABLE p_ask 
+	CASCADE CONSTRAINTS;
+
+/* 상품문의종류 */
+DROP TABLE p_ask_cate 
+	CASCADE CONSTRAINTS;
+
+/* 주문 */
+DROP TABLE orders 
+	CASCADE CONSTRAINTS;
+
+/* 주문상세 */
+DROP TABLE orderdetail 
+	CASCADE CONSTRAINTS;
+
+/* 장바구니 */
+DROP TABLE cart 
+	CASCADE CONSTRAINTS;
+
+/* 주소록 */
+DROP TABLE addrbook 
+	CASCADE CONSTRAINTS;
+
+/* 공지사항 */
+DROP TABLE notice 
+	CASCADE CONSTRAINTS;
+
+/* 관리자문의 */
+DROP TABLE adminask 
+	CASCADE CONSTRAINTS;
+
+/* 관리자문의상태 */
+DROP TABLE adminaskstate 
+	CASCADE CONSTRAINTS;
+
+/* 영화리뷰 */
+DROP TABLE m_rev 
+	CASCADE CONSTRAINTS;
+
+/* 상품리뷰신고 */
+DROP TABLE p_rev_rep 
+	CASCADE CONSTRAINTS;
+
+/* 영화리뷰댓글 */
+DROP TABLE m_comn 
+	CASCADE CONSTRAINTS;
+
+/* 영화리뷰좋아요목록 */
+DROP TABLE m_rev_like 
+	CASCADE CONSTRAINTS;
+
+/* 영화리뷰댓글좋아요목록 */
+DROP TABLE m_comn_like 
+	CASCADE CONSTRAINTS;
+
+/* 컬렉션 */
+DROP TABLE coll 
+	CASCADE CONSTRAINTS;
+
+/* 컬렉션상세 */
+DROP TABLE coll_detaill 
+	CASCADE CONSTRAINTS;
+
+/* 컬렉션좋아요목록 */
+DROP TABLE coll_like 
+	CASCADE CONSTRAINTS;
+
+/* 팔로우 */
+DROP TABLE follow 
+	CASCADE CONSTRAINTS;
+
+/* 내가좋아하는영화 */
+DROP TABLE fav_m 
+	CASCADE CONSTRAINTS;
+
+/* 내가좋아하는영화상세 */
+DROP TABLE fav_m_detail 
+	CASCADE CONSTRAINTS;
+
+/* 권한 */
+DROP TABLE authorities 
+	CASCADE CONSTRAINTS;
+
+/* 상품신고유형 */
+DROP TABLE p_rep_cate 
+	CASCADE CONSTRAINTS;
+
+/* 영화리뷰신고 */
+DROP TABLE m_rev_rep 
+	CASCADE CONSTRAINTS;
+
+/* 영화리뷰댓글신고 */
+DROP TABLE m_comn_rep 
+	CASCADE CONSTRAINTS;
+
+/* 영화신고유형 */
+DROP TABLE m_rep_cate 
+	CASCADE CONSTRAINTS;
+
+/* 판매자신고 */
+DROP TABLE seller_rep 
+	CASCADE CONSTRAINTS;
+
+/* 결제 */
+DROP TABLE pay 
+	CASCADE CONSTRAINTS;
+
+/* 주문상태카테고리 */
+DROP TABLE ordercate 
+	CASCADE CONSTRAINTS;
+
+/* 답변상태종류 */
+DROP TABLE answ_state_cate 
+	CASCADE CONSTRAINTS;
+
+/* 일반회원 */
+CREATE TABLE member (
+	username VARCHAR2(20) NOT NULL, /* 아이디 */
+	password VARCHAR2(20) NOT NULL, /* 비밀번호 */
+	name VARCHAR2(20) NOT NULL, /* 이름 */
+	nick VARCHAR2(30) NOT NULL, /* 닉네임 */
+	email VARCHAR2(30) NOT NULL, /* 이메일 */
+	base_addr VARCHAR2(300) NOT NULL, /* 기본주소 */
+	zip_code CHAR(5) NOT NULL, /* 우편번호 */
+	tel CHAR(11) NOT NULL, /* 핸드폰번호 */
+	photo CLOB, /* 사진 */
+	birth NUMBER(6) NOT NULL, /* 생년월일 */
+	gender NUMBER(1) NOT NULL, /* 성별 */
+	blind_cnt NUMBER(2), /* 블라인드횟수 */
+	is_block NUMBER(1) NOT NULL, /* 계정블락여부 */
+	reg_date DATE NOT NULL, /* 가입일 */
+	intro CLOB, /* 소개 */
+	last_login_date DATE, /* 지난접속일 */
+	recent_login_date DATE, /* 최근접속일 */
+	login_failure_cnt NUMBER(1), /* 로그인틀린횟수 */
+	is_resign NUMBER(1) NOT NULL /* 탈퇴회원여부 */
+);
+
+CREATE UNIQUE INDEX PK_member
+	ON member (
+		username ASC
+	);
+
+ALTER TABLE member
+	ADD
+		CONSTRAINT PK_member
+		PRIMARY KEY (
+			username
+		);
+
+/* 판매자 */
+CREATE TABLE seller (
+	username VARCHAR2(10) NOT NULL, /* 사업자등록번호 */
+	password VARCHAR2(20) NOT NULL, /* 비밀번호 */
+	com_name VARCHAR2(50) NOT NULL, /* 상호명 */
+	ceo VARCHAR2(20) NOT NULL, /* 대표자명 */
+	email VARCHAR2(30) NOT NULL, /* 이메일 */
+	com_tel CHAR(10) NOT NULL, /* 회사전화번호 */
+	account VARCHAR2(20) NOT NULL, /* 계좌 */
+	photo CLOB, /* 프로필사진 */
+	reg_date DATE NOT NULL, /* 가입일 */
+	warning_cnt NUMBER(2), /* 경고횟수 */
+	is_block NUMBER(1) NOT NULL /* 계정블락여부 */
+);
+
+CREATE UNIQUE INDEX PK_seller
+	ON seller (
+		username ASC
+	);
+
+ALTER TABLE seller
+	ADD
+		CONSTRAINT PK_seller
+		PRIMARY KEY (
+			username
+		);
+
+/* 상품 */
+CREATE TABLE product (
+	p_no NUMBER(20) NOT NULL, /* 상품번호 */
+	license_no VARCHAR2(10) NOT NULL, /* 판매자사업자등록번호 */
+	p_name VARCHAR2(300) NOT NULL, /* 상품이름 */
+	p_price NUMBER(10) NOT NULL, /* 상품가격 */
+	p_stock NUMBER(10) NOT NULL, /* 상품재고 */
+	origin VARCHAR2(60) NOT NULL, /* 원산지 */
+	p_main_photo CLOB NOT NULL, /* 상품메인사진 */
+	p_info_photo CLOB, /* 상품정보사진 */
+	p_info_explain CLOB, /* 상품상세설명 */
+	cate_name VARCHAR2(30) NOT NULL, /* 카테고리이름 */
+	reg_date DATE NOT NULL, /* 등록일 */
+	vendor VARCHAR2(50) NOT NULL, /* 제조사 */
+	is_p_buy NUMBER(1) NOT NULL, /* 상품구매가능여부 */
+	del_cost NUMBER(5) NOT NULL, /* 배송비 */
+	is_blind NUMBER(1) NOT NULL /* 블라인드여부 */
+);
+
+CREATE UNIQUE INDEX PK_product
+	ON product (
+		p_no ASC,
+		license_no ASC
+	);
+
+ALTER TABLE product
+	ADD
+		CONSTRAINT PK_product
+		PRIMARY KEY (
+			p_no,
+			license_no
+		);
+
+/* 상품카테고리 */
+CREATE TABLE p_cate (
+	cate_name VARCHAR2(30) NOT NULL /* 카테고리이름 */
+);
+
+CREATE UNIQUE INDEX PK_p_cate
+	ON p_cate (
+		cate_name ASC
+	);
+
+ALTER TABLE p_cate
+	ADD
+		CONSTRAINT PK_p_cate
+		PRIMARY KEY (
+			cate_name
+		);
+
+/* 상품리뷰 */
+CREATE TABLE p_rev (
+	p_rev_no NUMBER(20) NOT NULL, /* 상품리뷰번호 */
+	license_no VARCHAR2(10) NOT NULL, /* 판매자사업자등록번호 */
+	p_no NUMBER(20) NOT NULL, /* 상품번호 */
+	order_no NUMBER(20) NOT NULL, /* 주문번호 */
+	username VARCHAR2(20) NOT NULL, /* 아이디 */
+	title VARCHAR2(150) NOT NULL, /* 리뷰제목 */
+	content CLOB NOT NULL, /* 리뷰내용 */
+	writing_date DATE NOT NULL, /* 작성일 */
+	is_blind NUMBER(1) NOT NULL, /* 블라인드여부 */
+	photo CLOB /* 사진 */
+);
+
+CREATE UNIQUE INDEX PK_p_rev
+	ON p_rev (
+		p_rev_no ASC,
+		license_no ASC,
+		p_no ASC,
+		order_no ASC
+	);
+
+ALTER TABLE p_rev
+	ADD
+		CONSTRAINT PK_p_rev
+		PRIMARY KEY (
+			p_rev_no,
+			license_no,
+			p_no,
+			order_no
+		);
+
+/* 상품문의 */
+CREATE TABLE p_ask (
+	p_ask_no NUMBER(20) NOT NULL, /* 상품문의번호 */
+	license_no VARCHAR2(10) NOT NULL, /* 판매자사업자등록번호 */
+	p_no NUMBER(20) NOT NULL, /* 상품번호 */
+	username VARCHAR2(20) NOT NULL, /* 아이디 */
+	title VARCHAR2(150) NOT NULL, /* 상품문의제목 */
+	content CLOB NOT NULL, /* 상품문의내용 */
+	answer CLOB, /* 상품문의답변내용 */
+	ask_reg_date DATE NOT NULL, /* 문의등록일 */
+	answer_reg_date DATE, /* 답변등록일 */
+	answer_state VARCHAR2(30) NOT NULL, /* 답변상태 */
+	p_ask_cate VARCHAR2(30) NOT NULL /* 상품문의종류 */
+);
+
+CREATE UNIQUE INDEX PK_p_ask
+	ON p_ask (
+		p_ask_no ASC,
+		license_no ASC,
+		p_no ASC
+	);
+
+ALTER TABLE p_ask
+	ADD
+		CONSTRAINT PK_p_ask
+		PRIMARY KEY (
+			p_ask_no,
+			license_no,
+			p_no
+		);
+
+/* 상품문의종류 */
+CREATE TABLE p_ask_cate (
+	p_ask_cate VARCHAR2(30) NOT NULL /* 상품문의종류 */
+);
+
+CREATE UNIQUE INDEX PK_p_ask_cate
+	ON p_ask_cate (
+		p_ask_cate ASC
+	);
+
+ALTER TABLE p_ask_cate
+	ADD
+		CONSTRAINT PK_p_ask_cate
+		PRIMARY KEY (
+			p_ask_cate
+		);
+
+/* 주문 */
+CREATE TABLE orders (
+	order_no NUMBER(20) NOT NULL, /* 주문번호 */
+	order_date DATE NOT NULL, /* 주문일 */
+	total_price NUMBER(10), /* 총가격 */
+	username VARCHAR2(20) NOT NULL, /* 아이디 */
+	name VARCHAR2(20) NOT NULL, /* 이름 */
+	zip_code CHAR(5) NOT NULL, /* 우편번호 */
+	tel CHAR(11) NOT NULL, /* 핸드폰번호 */
+	del_addr VARCHAR2(300) NOT NULL, /* 배송주소 */
+	request CLOB, /* 요청사항 */
+	pay_no NUMBER(20) NOT NULL /* 결제번호 */
+);
+
+CREATE UNIQUE INDEX PK_orders
+	ON orders (
+		order_no ASC
+	);
+
+ALTER TABLE orders
+	ADD
+		CONSTRAINT PK_orders
+		PRIMARY KEY (
+			order_no
+		);
+
+/* 주문상세 */
+CREATE TABLE orderdetail (
+	order_no NUMBER(20) NOT NULL, /* 주문번호 */
+	p_no NUMBER(20) NOT NULL, /* 상품번호 */
+	license_no VARCHAR2(10) NOT NULL, /* 판매자사업자등록번호 */
+	cnt NUMBER(10), /* 수량 */
+	price NUMBER(10), /* 가격 */
+	order_state VARCHAR2(30) NOT NULL, /* 주문상태 */
+	del_no NUMBER(20) /* 송장번호 */
+);
+
+CREATE UNIQUE INDEX PK_orderdetail
+	ON orderdetail (
+		order_no ASC,
+		p_no ASC,
+		license_no ASC
+	);
+
+ALTER TABLE orderdetail
+	ADD
+		CONSTRAINT PK_orderdetail
+		PRIMARY KEY (
+			order_no,
+			p_no,
+			license_no
+		);
+
+/* 장바구니 */
+CREATE TABLE cart (
+	cart_no NUMBER(20) NOT NULL, /* 장바구니번호 */
+	username VARCHAR2(20) NOT NULL, /* 아이디 */
+	p_no NUMBER(20) NOT NULL, /* 상품번호 */
+	license_no VARCHAR2(10) NOT NULL, /* 판매자사업자등록번호 */
+	cnt NUMBER(10) NOT NULL /* 수량 */
+);
+
+CREATE UNIQUE INDEX PK_cart
+	ON cart (
+		cart_no ASC
+	);
+
+ALTER TABLE cart
+	ADD
+		CONSTRAINT PK_cart
+		PRIMARY KEY (
+			cart_no
+		);
+
+/* 주소록 */
+CREATE TABLE addrbook (
+	addrbook_no NUMBER(20) NOT NULL, /* 주소록번호 */
+	username VARCHAR2(20) NOT NULL, /* 아이디 */
+	addr VARCHAR2(300) NOT NULL, /* 주소 */
+	name VARCHAR2(20) NOT NULL, /* 이름 */
+	zip_code CHAR(5) NOT NULL, /* 우편번호 */
+	tel CHAR(11) NOT NULL, /* 핸드폰번호 */
+	is_base_addr NUMBER(1) NOT NULL, /* 기본주소록여부 */
+	addr_name VARCHAR2(30) NOT NULL /* 주소록이름 */
+);
+
+CREATE UNIQUE INDEX PK_addrbook
+	ON addrbook (
+		addrbook_no ASC
+	);
+
+ALTER TABLE addrbook
+	ADD
+		CONSTRAINT PK_addrbook
+		PRIMARY KEY (
+			addrbook_no
+		);
+
+/* 공지사항 */
+CREATE TABLE notice (
+	notice_no NUMBER(10) NOT NULL, /* 공지사항번호 */
+	title VARCHAR2(150), /* 공지사항제목 */
+	content CLOB, /* 공지사항내용 */
+	writing_date DATE /* 작성일 */
+);
+
+CREATE UNIQUE INDEX PK_notice
+	ON notice (
+		notice_no ASC
+	);
+
+ALTER TABLE notice
+	ADD
+		CONSTRAINT PK_notice
+		PRIMARY KEY (
+			notice_no
+		);
+
+/* 관리자문의 */
+CREATE TABLE adminask (
+	admin_ask_no NUMBER(20) NOT NULL, /* 관리자문의번호 */
+	username VARCHAR2(20) NOT NULL, /* 아이디 */
+	title VARCHAR2(150) NOT NULL, /* 문의제목 */
+	content CLOB NOT NULL, /* 문의내용 */
+	writing_date DATE NOT NULL, /* 작성일 */
+	ask_answer CLOB, /* 문의답변 */
+	ask_state_content VARCHAR2(30) NOT NULL /* 문의상태내용 */
+);
+
+CREATE UNIQUE INDEX PK_adminask
+	ON adminask (
+		admin_ask_no ASC
+	);
+
+ALTER TABLE adminask
+	ADD
+		CONSTRAINT PK_adminask
+		PRIMARY KEY (
+			admin_ask_no
+		);
+
+/* 관리자문의상태 */
+CREATE TABLE adminaskstate (
+	ask_state_content VARCHAR2(30) NOT NULL /* 문의상태내용 */
+);
+
+CREATE UNIQUE INDEX PK_adminaskstate
+	ON adminaskstate (
+		ask_state_content ASC
+	);
+
+ALTER TABLE adminaskstate
+	ADD
+		CONSTRAINT PK_adminaskstate
+		PRIMARY KEY (
+			ask_state_content
+		);
+
+/* 영화리뷰 */
+CREATE TABLE m_rev (
+	m_rev_no NUMBER(20) NOT NULL, /* 영화리뷰번호 */
+	username VARCHAR2(20) NOT NULL, /* 아이디 */
+	m_no NUMBER(20) NOT NULL, /* 영화번호 */
+	rating NUMBER(2) NOT NULL, /* 별점 */
+	m_rev_content CLOB NOT NULL, /* 영화리뷰내용 */
+	is_spo NUMBER(1) NOT NULL, /* 스포일러설정 */
+	writing_date DATE NOT NULL, /* 작성일 */
+	genre VARCHAR2(30) NOT NULL, /* 장르 */
+	is_blind NUMBER(1) NOT NULL /* 블라인드여부 */
+);
+
+CREATE UNIQUE INDEX PK_m_rev
+	ON m_rev (
+		m_rev_no ASC
+	);
+
+ALTER TABLE m_rev
+	ADD
+		CONSTRAINT PK_m_rev
+		PRIMARY KEY (
+			m_rev_no
+		);
+
+/* 상품리뷰신고 */
+CREATE TABLE p_rev_rep (
+	p_rev_no NUMBER(20) NOT NULL, /* 상품리뷰번호 */
+	username VARCHAR2(20) NOT NULL, /* 아이디 */
+	p_no NUMBER(20) NOT NULL, /* 상품번호 */
+	license_no VARCHAR2(10) NOT NULL, /* 판매자사업자등록번호 */
+	order_no NUMBER(20) NOT NULL, /* 주문번호 */
+	title VARCHAR2(150) NOT NULL, /* 신고제목 */
+	writing_date DATE NOT NULL, /* 작성일 */
+	content CLOB NOT NULL, /* 신고내용 */
+	p_rep_cate VARCHAR2(30) NOT NULL /* 상품리뷰신고유형 */
+);
+
+CREATE UNIQUE INDEX PK_p_rev_rep
+	ON p_rev_rep (
+		p_rev_no ASC,
+		username ASC,
+		p_no ASC,
+		license_no ASC,
+		order_no ASC
+	);
+
+ALTER TABLE p_rev_rep
+	ADD
+		CONSTRAINT PK_p_rev_rep
+		PRIMARY KEY (
+			p_rev_no,
+			username,
+			p_no,
+			license_no,
+			order_no
+		);
+
+/* 영화리뷰댓글 */
+CREATE TABLE m_comn (
+	m_rev_cmnt_no NUMBER(20) NOT NULL, /* 영화리뷰댓글번호 */
+	m_rev_no NUMBER(20) NOT NULL, /* 영화리뷰번호 */
+	username VARCHAR2(20) NOT NULL, /* 아이디 */
+	content CLOB NOT NULL, /* 댓글내용 */
+	is_blind NUMBER(1) NOT NULL, /* 블라인드여부 */
+	writing_date DATE NOT NULL /* 작성일 */
+);
+
+CREATE UNIQUE INDEX PK_m_comn
+	ON m_comn (
+		m_rev_cmnt_no ASC
+	);
+
+ALTER TABLE m_comn
+	ADD
+		CONSTRAINT PK_m_comn
+		PRIMARY KEY (
+			m_rev_cmnt_no
+		);
+
+/* 영화리뷰좋아요목록 */
+CREATE TABLE m_rev_like (
+	m_rev_like_no NUMBER(20) NOT NULL, /* 영화리뷰좋아요번호 */
+	m_rev_no NUMBER(20) NOT NULL, /* 영화리뷰번호 */
+	username VARCHAR2(20) NOT NULL, /* 아이디 */
+	like_reg_date DATE NOT NULL /* 좋아요등록일 */
+);
+
+CREATE UNIQUE INDEX PK_m_rev_like
+	ON m_rev_like (
+		m_rev_like_no ASC
+	);
+
+ALTER TABLE m_rev_like
+	ADD
+		CONSTRAINT PK_m_rev_like
+		PRIMARY KEY (
+			m_rev_like_no
+		);
+
+/* 영화리뷰댓글좋아요목록 */
+CREATE TABLE m_comn_like (
+	cmnt_like_no NUMBER(20) NOT NULL, /* 댓글좋아요번호 */
+	m_rev_cmnt_no NUMBER(20) NOT NULL, /* 영화리뷰댓글번호 */
+	username VARCHAR2(20) NOT NULL, /* 아이디 */
+	like_reg_date DATE NOT NULL /* 좋아요등록일 */
+);
+
+CREATE UNIQUE INDEX PK_m_comn_like
+	ON m_comn_like (
+		cmnt_like_no ASC
+	);
+
+ALTER TABLE m_comn_like
+	ADD
+		CONSTRAINT PK_m_comn_like
+		PRIMARY KEY (
+			cmnt_like_no
+		);
+
+/* 컬렉션 */
+CREATE TABLE coll (
+	coll_no NUMBER(20) NOT NULL, /* 컬렉션번호 */
+	coll_name VARCHAR2(150) NOT NULL, /* 컬렉션이름 */
+	username VARCHAR2(20) NOT NULL, /* 아이디 */
+	writing_date DATE NOT NULL, /* 작성일 */
+	coll_intro CLOB /* 컬렉션소개 */
+);
+
+CREATE UNIQUE INDEX PK_coll
+	ON coll (
+		coll_no ASC
+	);
+
+ALTER TABLE coll
+	ADD
+		CONSTRAINT PK_coll
+		PRIMARY KEY (
+			coll_no
+		);
+
+/* 컬렉션상세 */
+CREATE TABLE coll_detaill (
+	m_no NUMBER(20) NOT NULL, /* 영화번호 */
+	coll_no NUMBER(20) NOT NULL, /* 컬렉션번호 */
+	reg_date DATE NOT NULL /* 등록일 */
+);
+
+CREATE UNIQUE INDEX PK_coll_detaill
+	ON coll_detaill (
+		m_no ASC,
+		coll_no ASC
+	);
+
+ALTER TABLE coll_detaill
+	ADD
+		CONSTRAINT PK_coll_detaill
+		PRIMARY KEY (
+			m_no,
+			coll_no
+		);
+
+/* 컬렉션좋아요목록 */
+CREATE TABLE coll_like (
+	coll_like_no NUMBER(20) NOT NULL, /* 컬렉션좋아요번호 */
+	coll_no NUMBER(20) NOT NULL, /* 컬렉션번호 */
+	username VARCHAR2(20) NOT NULL, /* 아이디 */
+	like_reg_date DATE NOT NULL /* 좋아요등록일 */
+);
+
+CREATE UNIQUE INDEX PK_coll_like
+	ON coll_like (
+		coll_like_no ASC
+	);
+
+ALTER TABLE coll_like
+	ADD
+		CONSTRAINT PK_coll_like
+		PRIMARY KEY (
+			coll_like_no
+		);
+
+/* 팔로우 */
+CREATE TABLE follow (
+	follower_username VARCHAR2(20) NOT NULL, /* 팔로워 아이디 */
+	following_username VARCHAR2(20) NOT NULL /* 팔로잉 아이디 */
+);
+
+CREATE UNIQUE INDEX PK_follow
+	ON follow (
+		follower_username ASC,
+		following_username ASC
+	);
+
+ALTER TABLE follow
+	ADD
+		CONSTRAINT PK_follow
+		PRIMARY KEY (
+			follower_username,
+			following_username
+		);
+
+/* 내가좋아하는영화 */
+CREATE TABLE fav_m (
+	m_like_no NUMBER(20) NOT NULL, /* 내가좋아하는영화번호 */
+	username VARCHAR2(20) NOT NULL /* 아이디 */
+);
+
+CREATE UNIQUE INDEX PK_fav_m
+	ON fav_m (
+		m_like_no ASC
+	);
+
+ALTER TABLE fav_m
+	ADD
+		CONSTRAINT PK_fav_m
+		PRIMARY KEY (
+			m_like_no
+		);
+
+/* 내가좋아하는영화상세 */
+CREATE TABLE fav_m_detail (
+	m_no NUMBER(20) NOT NULL, /* 영화번호 */
+	m_like_no NUMBER(20) NOT NULL, /* 내가좋아하는영화번호 */
+	writing_date DATE NOT NULL /* 작성일 */
+);
+
+CREATE UNIQUE INDEX PK_fav_m_detail
+	ON fav_m_detail (
+		m_no ASC,
+		m_like_no ASC
+	);
+
+ALTER TABLE fav_m_detail
+	ADD
+		CONSTRAINT PK_fav_m_detail
+		PRIMARY KEY (
+			m_no,
+			m_like_no
+		);
+
+/* 권한 */
+CREATE TABLE authorities (
+	username VARCHAR2(20) NOT NULL, /* 아이디 */
+	authority VARCHAR2(20) NOT NULL /* 유저등급 */
+);
+
+CREATE UNIQUE INDEX PK_authorities
+	ON authorities (
+		username ASC,
+		authority ASC
+	);
+
+ALTER TABLE authorities
+	ADD
+		CONSTRAINT PK_authorities
+		PRIMARY KEY (
+			username,
+			authority
+		);
+
+/* 상품신고유형 */
+CREATE TABLE p_rep_cate (
+	p_rep_cate VARCHAR2(30) NOT NULL /* 상품리뷰신고유형 */
+);
+
+CREATE UNIQUE INDEX PK_p_rep_cate
+	ON p_rep_cate (
+		p_rep_cate ASC
+	);
+
+ALTER TABLE p_rep_cate
+	ADD
+		CONSTRAINT PK_p_rep_cate
+		PRIMARY KEY (
+			p_rep_cate
+		);
+
+/* 영화리뷰신고 */
+CREATE TABLE m_rev_rep (
+	username VARCHAR2(20) NOT NULL, /* 아이디 */
+	m_rev_no NUMBER(20) NOT NULL, /* 영화리뷰번호 */
+	title VARCHAR2(150) NOT NULL, /* 신고제목 */
+	content CLOB NOT NULL, /* 신고내용 */
+	writing_date DATE NOT NULL, /* 작성일 */
+	m_rep_cate VARCHAR2(30) NOT NULL /* 영화신고유형 */
+);
+
+CREATE UNIQUE INDEX PK_m_rev_rep
+	ON m_rev_rep (
+		username ASC,
+		m_rev_no ASC
+	);
+
+ALTER TABLE m_rev_rep
+	ADD
+		CONSTRAINT PK_m_rev_rep
+		PRIMARY KEY (
+			username,
+			m_rev_no
+		);
+
+/* 영화리뷰댓글신고 */
+CREATE TABLE m_comn_rep (
+	m_rev_cmnt_no NUMBER(20) NOT NULL, /* 영화리뷰댓글번호 */
+	username VARCHAR2(20) NOT NULL, /* 신고자아이디 */
+	title VARCHAR2(150) NOT NULL, /* 신고제목 */
+	content CLOB NOT NULL, /* 신고내용 */
+	writing_date DATE NOT NULL, /* 작성일 */
+	m_rep_cate VARCHAR2(30) NOT NULL /* 영화신고유형 */
+);
+
+CREATE UNIQUE INDEX PK_m_comn_rep
+	ON m_comn_rep (
+		m_rev_cmnt_no ASC,
+		username ASC
+	);
+
+ALTER TABLE m_comn_rep
+	ADD
+		CONSTRAINT PK_m_comn_rep
+		PRIMARY KEY (
+			m_rev_cmnt_no,
+			username
+		);
+
+/* 영화신고유형 */
+CREATE TABLE m_rep_cate (
+	m_rep_cate VARCHAR2(30) NOT NULL /* 영화신고유형 */
+);
+
+CREATE UNIQUE INDEX PK_m_rep_cate
+	ON m_rep_cate (
+		m_rep_cate ASC
+	);
+
+ALTER TABLE m_rep_cate
+	ADD
+		CONSTRAINT PK_m_rep_cate
+		PRIMARY KEY (
+			m_rep_cate
+		);
+
+/* 판매자신고 */
+CREATE TABLE seller_rep (
+	username VARCHAR2(20) NOT NULL, /* 아이디 */
+	license_no VARCHAR2(10) NOT NULL, /* 사업자등록번호 */
+	title VARCHAR2(150) NOT NULL, /* 신고제목 */
+	content CLOB NOT NULL, /* 신고내용 */
+	writing_date DATE NOT NULL /* 작성일 */
+);
+
+CREATE UNIQUE INDEX PK_seller_rep
+	ON seller_rep (
+		username ASC,
+		license_no ASC
+	);
+
+ALTER TABLE seller_rep
+	ADD
+		CONSTRAINT PK_seller_rep
+		PRIMARY KEY (
+			username,
+			license_no
+		);
+
+/* 결제 */
+CREATE TABLE pay (
+	pay_no NUMBER(20) NOT NULL, /* 결제번호 */
+	order_no NUMBER(20) NOT NULL /* 주문번호 */
+);
+
+CREATE UNIQUE INDEX PK_pay
+	ON pay (
+		pay_no ASC
+	);
+
+ALTER TABLE pay
+	ADD
+		CONSTRAINT PK_pay
+		PRIMARY KEY (
+			pay_no
+		);
+
+/* 주문상태카테고리 */
+CREATE TABLE ordercate (
+	order_state VARCHAR2(30) NOT NULL /* 주문상태 */
+);
+
+CREATE UNIQUE INDEX PK_ordercate
+	ON ordercate (
+		order_state ASC
+	);
+
+ALTER TABLE ordercate
+	ADD
+		CONSTRAINT PK_ordercate
+		PRIMARY KEY (
+			order_state
+		);
+
+/* 답변상태종류 */
+CREATE TABLE answ_state_cate (
+	answer_state VARCHAR2(30) NOT NULL /* 답변상태 */
+);
+
+CREATE UNIQUE INDEX PK_answ_state_cate
+	ON answ_state_cate (
+		answer_state ASC
+	);
+
+ALTER TABLE answ_state_cate
+	ADD
+		CONSTRAINT PK_answ_state_cate
+		PRIMARY KEY (
+			answer_state
+		);
+
+ALTER TABLE product
+	ADD
+		CONSTRAINT FK_p_cate_TO_product
+		FOREIGN KEY (
+			cate_name
+		)
+		REFERENCES p_cate (
+			cate_name
+		);
+
+ALTER TABLE product
+	ADD
+		CONSTRAINT FK_seller_TO_product
+		FOREIGN KEY (
+			license_no
+		)
+		REFERENCES seller (
+			username
+		);
+
+ALTER TABLE p_rev
+	ADD
+		CONSTRAINT FK_product_TO_p_rev
+		FOREIGN KEY (
+			p_no,
+			license_no
+		)
+		REFERENCES product (
+			p_no,
+			license_no
+		);
+
+ALTER TABLE p_rev
+	ADD
+		CONSTRAINT FK_orderdetail_TO_p_rev
+		FOREIGN KEY (
+			order_no,
+			p_no,
+			license_no
+		)
+		REFERENCES orderdetail (
+			order_no,
+			p_no,
+			license_no
+		);
+
+ALTER TABLE p_rev
+	ADD
+		CONSTRAINT FK_member_TO_p_rev
+		FOREIGN KEY (
+			username
+		)
+		REFERENCES member (
+			username
+		);
+
+ALTER TABLE p_ask
+	ADD
+		CONSTRAINT FK_p_ask_cate_TO_p_ask
+		FOREIGN KEY (
+			p_ask_cate
+		)
+		REFERENCES p_ask_cate (
+			p_ask_cate
+		);
+
+ALTER TABLE p_ask
+	ADD
+		CONSTRAINT FK_product_TO_p_ask
+		FOREIGN KEY (
+			p_no,
+			license_no
+		)
+		REFERENCES product (
+			p_no,
+			license_no
+		);
+
+ALTER TABLE p_ask
+	ADD
+		CONSTRAINT FK_answ_state_cate_TO_p_ask
+		FOREIGN KEY (
+			answer_state
+		)
+		REFERENCES answ_state_cate (
+			answer_state
+		);
+
+ALTER TABLE p_ask
+	ADD
+		CONSTRAINT FK_member_TO_p_ask
+		FOREIGN KEY (
+			username
+		)
+		REFERENCES member (
+			username
+		);
+
+ALTER TABLE orders
+	ADD
+		CONSTRAINT FK_pay_TO_orders
+		FOREIGN KEY (
+			pay_no
+		)
+		REFERENCES pay (
+			pay_no
+		);
+
+ALTER TABLE orders
+	ADD
+		CONSTRAINT FK_member_TO_orders
+		FOREIGN KEY (
+			username
+		)
+		REFERENCES member (
+			username
+		);
+
+ALTER TABLE orderdetail
+	ADD
+		CONSTRAINT FK_product_TO_orderdetail
+		FOREIGN KEY (
+			p_no,
+			license_no
+		)
+		REFERENCES product (
+			p_no,
+			license_no
+		);
+
+ALTER TABLE orderdetail
+	ADD
+		CONSTRAINT FK_orders_TO_orderdetail
+		FOREIGN KEY (
+			order_no
+		)
+		REFERENCES orders (
+			order_no
+		);
+
+ALTER TABLE orderdetail
+	ADD
+		CONSTRAINT FK_ordercate_TO_orderdetail
+		FOREIGN KEY (
+			order_state
+		)
+		REFERENCES ordercate (
+			order_state
+		);
+
+ALTER TABLE cart
+	ADD
+		CONSTRAINT FK_member_TO_cart
+		FOREIGN KEY (
+			username
+		)
+		REFERENCES member (
+			username
+		);
+
+ALTER TABLE cart
+	ADD
+		CONSTRAINT FK_product_TO_cart
+		FOREIGN KEY (
+			p_no,
+			license_no
+		)
+		REFERENCES product (
+			p_no,
+			license_no
+		);
+
+ALTER TABLE addrbook
+	ADD
+		CONSTRAINT FK_member_TO_addrbook
+		FOREIGN KEY (
+			username
+		)
+		REFERENCES member (
+			username
+		);
+
+ALTER TABLE adminask
+	ADD
+		CONSTRAINT FK_adminaskstate_TO_adminask
+		FOREIGN KEY (
+			ask_state_content
+		)
+		REFERENCES adminaskstate (
+			ask_state_content
+		);
+
+ALTER TABLE m_rev
+	ADD
+		CONSTRAINT FK_member_TO_m_rev
+		FOREIGN KEY (
+			username
+		)
+		REFERENCES member (
+			username
+		);
+
+ALTER TABLE p_rev_rep
+	ADD
+		CONSTRAINT FK_p_rev_TO_p_rev_rep
+		FOREIGN KEY (
+			p_rev_no,
+			license_no,
+			p_no,
+			order_no
+		)
+		REFERENCES p_rev (
+			p_rev_no,
+			license_no,
+			p_no,
+			order_no
+		);
+
+ALTER TABLE p_rev_rep
+	ADD
+		CONSTRAINT FK_member_TO_p_rev_rep
+		FOREIGN KEY (
+			username
+		)
+		REFERENCES member (
+			username
+		);
+
+ALTER TABLE p_rev_rep
+	ADD
+		CONSTRAINT FK_p_rep_cate_TO_p_rev_rep
+		FOREIGN KEY (
+			p_rep_cate
+		)
+		REFERENCES p_rep_cate (
+			p_rep_cate
+		);
+
+ALTER TABLE m_comn
+	ADD
+		CONSTRAINT FK_m_rev_TO_m_comn
+		FOREIGN KEY (
+			m_rev_no
+		)
+		REFERENCES m_rev (
+			m_rev_no
+		);
+
+ALTER TABLE m_comn
+	ADD
+		CONSTRAINT FK_member_TO_m_comn
+		FOREIGN KEY (
+			username
+		)
+		REFERENCES member (
+			username
+		);
+
+ALTER TABLE m_rev_like
+	ADD
+		CONSTRAINT FK_member_TO_m_rev_like
+		FOREIGN KEY (
+			username
+		)
+		REFERENCES member (
+			username
+		);
+
+ALTER TABLE m_rev_like
+	ADD
+		CONSTRAINT FK_m_rev_TO_m_rev_like
+		FOREIGN KEY (
+			m_rev_no
+		)
+		REFERENCES m_rev (
+			m_rev_no
+		);
+
+ALTER TABLE m_comn_like
+	ADD
+		CONSTRAINT FK_member_TO_m_comn_like
+		FOREIGN KEY (
+			username
+		)
+		REFERENCES member (
+			username
+		);
+
+ALTER TABLE m_comn_like
+	ADD
+		CONSTRAINT FK_m_comn_TO_m_comn_like
+		FOREIGN KEY (
+			m_rev_cmnt_no
+		)
+		REFERENCES m_comn (
+			m_rev_cmnt_no
+		);
+
+ALTER TABLE coll
+	ADD
+		CONSTRAINT FK_member_TO_coll
+		FOREIGN KEY (
+			username
+		)
+		REFERENCES member (
+			username
+		);
+
+ALTER TABLE coll_detaill
+	ADD
+		CONSTRAINT FK_coll_TO_coll_detaill
+		FOREIGN KEY (
+			coll_no
+		)
+		REFERENCES coll (
+			coll_no
+		);
+
+ALTER TABLE coll_like
+	ADD
+		CONSTRAINT FK_coll_TO_coll_like
+		FOREIGN KEY (
+			coll_no
+		)
+		REFERENCES coll (
+			coll_no
+		);
+
+ALTER TABLE coll_like
+	ADD
+		CONSTRAINT FK_member_TO_coll_like
+		FOREIGN KEY (
+			username
+		)
+		REFERENCES member (
+			username
+		);
+
+ALTER TABLE fav_m
+	ADD
+		CONSTRAINT FK_member_TO_fav_m
+		FOREIGN KEY (
+			username
+		)
+		REFERENCES member (
+			username
+		);
+
+ALTER TABLE fav_m_detail
+	ADD
+		CONSTRAINT FK_fav_m_TO_fav_m_detail
+		FOREIGN KEY (
+			m_like_no
+		)
+		REFERENCES fav_m (
+			m_like_no
+		);
+
+ALTER TABLE m_rev_rep
+	ADD
+		CONSTRAINT FK_m_rev_TO_m_rev_rep
+		FOREIGN KEY (
+			m_rev_no
+		)
+		REFERENCES m_rev (
+			m_rev_no
+		);
+
+ALTER TABLE m_rev_rep
+	ADD
+		CONSTRAINT FK_member_TO_m_rev_rep
+		FOREIGN KEY (
+			username
+		)
+		REFERENCES member (
+			username
+		);
+
+ALTER TABLE m_rev_rep
+	ADD
+		CONSTRAINT FK_m_rep_cate_TO_m_rev_rep
+		FOREIGN KEY (
+			m_rep_cate
+		)
+		REFERENCES m_rep_cate (
+			m_rep_cate
+		);
+
+ALTER TABLE m_comn_rep
+	ADD
+		CONSTRAINT FK_m_rep_cate_TO_m_comn_rep
+		FOREIGN KEY (
+			m_rep_cate
+		)
+		REFERENCES m_rep_cate (
+			m_rep_cate
+		);
+
+ALTER TABLE m_comn_rep
+	ADD
+		CONSTRAINT FK_m_comn_TO_m_comn_rep
+		FOREIGN KEY (
+			m_rev_cmnt_no
+		)
+		REFERENCES m_comn (
+			m_rev_cmnt_no
+		);
+
+ALTER TABLE m_comn_rep
+	ADD
+		CONSTRAINT FK_member_TO_m_comn_rep
+		FOREIGN KEY (
+			username
+		)
+		REFERENCES member (
+			username
+		);
+
+ALTER TABLE seller_rep
+	ADD
+		CONSTRAINT FK_member_TO_seller_rep
+		FOREIGN KEY (
+			username
+		)
+		REFERENCES member (
+			username
+		);
+
+ALTER TABLE seller_rep
+	ADD
+		CONSTRAINT FK_seller_TO_seller_rep
+		FOREIGN KEY (
+			license_no
+		)
+		REFERENCES seller (
+			username
+		);
+
+ALTER TABLE pay
+	ADD
+		CONSTRAINT FK_orders_TO_pay
+		FOREIGN KEY (
+			order_no
+		)
+		REFERENCES orders (
+			order_no
+		);
