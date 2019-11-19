@@ -30,8 +30,8 @@
 	<sec:authentication-manager>
 		<sec:authentication-provider>
 			<sec:jdbc-user-service data-source-ref="dataSource"
-				users-by-username-query ="select username,password,enabled from users where username=?"
-				authorities-by-username-query="select username, authority_name from authorities where username=?" />
+				users-by-username-query ="select username,password,enabled from member where username=?"
+				authorities-by-username-query="select username, authority from authorities where username=?" />
 			<sec:password-encoder ref="pwdEncoder" />
 		</sec:authentication-provider>
 	</sec:authentication-manager>

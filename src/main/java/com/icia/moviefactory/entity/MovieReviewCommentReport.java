@@ -17,5 +17,5 @@ public class MovieReviewCommentReport {
 	private String content;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date writingDate;
-	private List<String> mRepCate;
+	private String mRepCate;
 }

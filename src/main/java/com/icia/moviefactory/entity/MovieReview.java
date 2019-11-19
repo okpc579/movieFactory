@@ -4,6 +4,11 @@ import java.util.*;
 
 import org.springframework.format.annotation.*;
 
+import lombok.*;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class MovieReview {
 	private long mRevNo;
 	private String username;

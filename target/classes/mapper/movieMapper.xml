@@ -1,5 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="movieMapper">
-	
+
+	<insert id="insertrev"> insert into m_rev(m_rev_no, username, m_no, rating,
+		m_rev_content, is_spo, writing_date, genre, is_blind)
+		values(m_rev_seq.nextval,#{username},#{mNo},#{rating},#{mRevContent},#{isSpo},
+		sysdate, #{genre}, 0) </insert>
+
+	<update id="updaterev"> update m_rev set m_rev_content=#{mRevContent} where
+		m_rev_no=#{mRevNo} </update>
+
+	<delete id="deleterev"> delete from m_rev where m_rev_no=#{mRevNo} </delete>
+
+	<insert id="insertrevlike"> insert into m_rev_like(m_rev_like_no, m_rev_no,
+		username, like_reg_date)
+		values(#{mRevLikeNo},#{mRevNo},#{username},sysdate) </insert>
+
+	<select id="revlikecnt" resultType="long"> select count(m_rev_no) from
+		m_rev_like where m_rev_like_no=#{mRevLikeNo} </select>
+
+	<insert id="insertrevrep"> insert into m_rev_rep(username, m_rev_no, title,
+		content, writing_date, m_rep_cate)
+		values(#{username},#{mRevNo},#{title},#{content},sysdate,#{mRepCate})
+	</insert>
+
+	<insert id="insertcmnt"> insert into m_cmnt(m_rev_cmnt_no, m_rev_no,
+		username, content, is_blind, writing_date) values(m_rev_seq.val,
+		#{mRevNo},#{username},#{content},#{isBlind},sysdate) </insert>
+
+	<update id="updaterevcmnt"> update m_cmnt set content=#{content} where
+		m_rev_cmnt_no=#{mRevCmntNo} </update>
+
+	<delete id="deleterevcmnt"> delete from m_cmnt where
+		m_rev_cmnt_no=#{mRevCmntNo} </delete>
+
+	<insert id="insertcmntlike"> insert into m_cmnt_like(cmnt_like_no,
+		m_rev_cmnt_no, username, like_reg_date)
+		values(#{cmntLikeNo},#{mRevCmntNo},#{username},sysdate) </insert>
+
+	<select id="cmntlikecnt" resultType="long"> select count(m_rev_cmnt_no)
+		from m_cmnt_like where cmnt_like_no=#{cmntLikeNo} </select>
+
+	<insert id="insertcmntrep"> insert into m_cmnt_rep(m_rev_cmnt_no, username,
+		title, content, writing_date, m_rep_cate)
+		values(#{mRevCmntNo},#{username},#{title},#{content},sysdate,#{mRepCate})
+	</insert>
+
 </mapper>
