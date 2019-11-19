@@ -23,7 +23,7 @@
 	</beans:bean>
 
 	<context:component-scan
-		base-package="com.icia.moviefactory.controller" />
+		base-package="com.icia.moviefactory" />
 
 	<!-- 트랜잭션 관리자 설정 -->
 	<!-- 20 라인에서 생성한 dataSource(연결)을 이용해 트랜잭션 관리자를 생성 -->

@@ -8,4 +8,73 @@
 		insert into coll(coll_no, coll_name, username, writing_date, coll_intro) 
 		values(#{collNo},#{collName},#{username}, sysdate, #{collIntro})
 	</insert>
+	<resultMap type="com.icia.moviefactory.entity.CollectionDetail" id="mapForCollectionDetail">
+		<id property="mNo" column="m_no" />
+		<result property="regDate" column="reg_date" />
+	</resultMap>
+	
+	<resultMap type="hashmap" id="mapForCollection" >
+		<id property="collNo" column="coll_no"/>
+		<result property="collName" column="collName" />
+		<result property="username" column="username" />
+		<result property="writingDate" column="writing_date" />
+		<result property="collIntro" column="coll_intro" jdbcType="CLOB" javaType="java.lang.String" />
+		<collection property="detail" javaType="java.util.ArrayList" resultMap="mapForCollectionDetail"/>
+	</resultMap>
+	
+	<select id="findByIdWithDetail" resultMap="mapForCollection">
+		<![CDATA[
+			select c.coll_no, c.coll_name, c.username, c.writing_date, c.coll_intro, cd.m_no, cd.reg_date from coll c, coll_detail cd where c.coll_no = #{collNo} and  c.coll_no = cd.coll_no(+)
+		]]>
+	</select>
+	
+	<insert id="insertDetail" parameterType="hashmap">
+		insert into coll_detail(m_no, coll_no, reg_date) 
+		values(#{mNo},#{collNo}, sysdate)
+	</insert>
+	
+	<update id="update">
+		update coll set coll_name = #{collName}, coll_intro = #{collIntro} where coll_no = #{collNo}
+	</update>
+	
+	<delete id="deleteDetail">
+		delete from coll_detail where m_no=#{mNo} and coll_no=#{collNo}
+	</delete>
+	<delete id="delete">
+		delete from coll where coll_no=#{collNo}
+	</delete>
+	
+	<insert id="insertLike" useGeneratedKeys="true" keyProperty="collLikeNo">
+		<selectKey keyProperty="collLikeNo" resultType="int" order="BEFORE">
+			select coll_like_seq.nextval from dual
+		</selectKey>
+		insert into coll_like(coll_like_no, coll_no, username, like_reg_date) 
+		values(#{collLikeNo},#{collNo},#{username}, sysdate)
+	</insert>
+	<delete id="deleteLike">
+		delete from coll_like where coll_no=#{collNo} and username=#{username}
+	</delete>
+
+	<select id="findCollectionUsernameById" resultType="string">
+			select username from coll where coll_no=#{collNo}
+	</select>
+	<select id="findCollectionLikeUsernameById" resultType="string">
+			select username from coll_like where coll_no=#{collNo} and username=#{username}
+	</select>
+	
+	<select id="findCollectionListBymNo" resultType="collection">
+			select c.coll_no, c.coll_name, c.username, c.writing_date, c.coll_intro from coll c, coll_detail cd where cd.m_no=1 and cd.coll_no(+) = c.coll_no;
+	</select>
+	
+	<select id="findCollectionListByUsername" resultType="collection">
+			select coll_no, coll_name, username, writing_date, coll_intro from coll where username=#{username};
+	</select>
+	<update id="increaselikecnt">
+		update coll set coll_like_cnt = coll_like_cnt+1 where coll_no = #{collNo}
+	</update>
+	
+	<update id="decreaselikecnt">
+		update coll set coll_like_cnt = coll_like_cnt-1 where coll_no = #{collNo}
+	</update>
+	
 </mapper>

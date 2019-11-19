@@ -18,7 +18,7 @@ public class User {
 	private long gender;
 	private long blindCnt;
 	private long isBlock;
-	private long regDate;
+	private Date regDate;
 	private String intro;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date lastLoginDate;
