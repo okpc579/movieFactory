@@ -4,6 +4,15 @@ import java.util.*;
 
 import org.springframework.format.annotation.*;
 
+<<<<<<< HEAD:src/main/java/com/icia/moviefactory/entity/Member.java
+=======
+import lombok.*;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+>>>>>>> soonsim:src/main/java/com/icia/moviefactory/entity/Member.java
 public class Member {
 	private String username;
 	private String password;
@@ -17,9 +26,14 @@ public class Member {
 	private long birth;
 	private long gender;
 	private long blindCnt;
+<<<<<<< HEAD:src/main/java/com/icia/moviefactory/entity/Member.java
 	private long isBlock;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date regDate;
+=======
+	private long enabled;
+	private long regDate;
+>>>>>>> soonsim:src/main/java/com/icia/moviefactory/entity/Member.java
 	private String intro;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date lastLoginDate;
