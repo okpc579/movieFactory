@@ -7,14 +7,11 @@
 	</settings>
 	
 	<typeAliases>
-<<<<<<< HEAD
 		<typeAlias alias="adminAsk" type="com.icia.moviefactory.entity.AdminAsk" />
-		<typeAlias alias="user" type="com.icia.moviefactory.entity.Collection" />
 		<typeAlias alias="member" type="com.icia.moviefactory.entity.Member"/>
-=======
 		<typeAlias alias="collections" type="com.icia.moviefactory.entity.Collection" />
 		<typeAlias alias="collectionlike" type="com.icia.moviefactory.entity.CollectionLike" />
->>>>>>> namdong
+
 	</typeAliases>
 	
 	

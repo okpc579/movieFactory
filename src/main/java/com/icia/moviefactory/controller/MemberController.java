@@ -8,12 +8,10 @@ import com.icia.moviefactory.service.*;
 
 @Controller
 public class MemberController {
-<<<<<<< HEAD
-=======
+
 	@Autowired
 	private MemberService service;
 
->>>>>>> gwanger
 	
 }
  

@@ -1,14 +1,9 @@
 package com.icia.moviefactory.service;
 
-<<<<<<< HEAD
-import java.util.*;
-
-import org.apache.commons.lang3.*;
-=======
 import java.io.*;
 import java.util.*;
 
->>>>>>> gwanger
+import org.apache.commons.lang3.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.crypto.password.*;
 import org.springframework.stereotype.*;
@@ -16,10 +11,8 @@ import org.springframework.transaction.annotation.*;
 import org.springframework.web.multipart.*;
 
 import com.icia.moviefactory.dao.*;
-import com.icia.moviefactory.entity.*;
-
-import com.icia.moviefactory.dao.*;
 import com.icia.moviefactory.dto.*;
+import com.icia.moviefactory.entity.*;
 import com.icia.moviefactory.exception.*;
 import com.icia.moviefactory.util.*;
 
@@ -29,11 +22,16 @@ public class MemberService {
 	@Autowired
 	private MemberDao dao;
 	@Autowired
-<<<<<<< HEAD
+	
 	private MailUtil mailUtil;
 	@Autowired
 	private PasswordEncoder pwdEncoder;
-	
+	@Value("#{config['upload.profile.folder']}")
+	private String PROFILE_FOLDER;
+	@Value("#{config['download.profile.uri']}")
+	private String PROFILE_URI;
+	@Autowired
+	private AuthorityMapper authorityMapper;
 	// 아이디 찾기
 	public Object findId(String email, String name) {
 		String result = dao.findIdByEmailAndName(email,name);
@@ -69,14 +67,6 @@ public class MemberService {
 		return StringConstant.SEND_PASSWORD_EMAIL;
 	}
 	
-=======
-	private PasswordEncoder pwdEncoder;
-	@Value("#{config['upload.profile.folder']}")
-	private String PROFILE_FOLDER;
-	@Value("#{config['download.profile.uri']}")
-	private String PROFILE_URI;
-	@Autowired
-	private AuthorityMapper authorityMapper;
 
 	
 	public String idAvailable(String username) {
@@ -135,7 +125,4 @@ public class MemberService {
 			throw new IllegalArgumentException("비밀번호를 확인하지 못했습니다");
 		return "OK";
 	}
-
->>>>>>> gwanger
-	
 }

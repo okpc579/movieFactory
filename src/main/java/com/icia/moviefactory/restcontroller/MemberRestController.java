@@ -1,10 +1,6 @@
 package com.icia.moviefactory.restcontroller;
 
-<<<<<<< HEAD
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.http.*;
-import org.springframework.security.access.prepost.*;
-=======
+
 import java.io.*;
 import java.net.*;
 import java.security.*;
@@ -19,7 +15,6 @@ import org.springframework.lang.*;
 import org.springframework.security.access.prepost.*;
 import org.springframework.validation.*;
 import org.springframework.validation.BindException;
->>>>>>> gwanger
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.*;
 import org.springframework.web.util.*;
@@ -27,15 +22,17 @@ import org.springframework.web.util.*;
 import com.icia.moviefactory.entity.*;
 import com.icia.moviefactory.service.*;
 
-<<<<<<< HEAD
-import com.icia.moviefactory.service.*;
+import io.swagger.annotations.*;
+import lombok.NonNull;
 
-import lombok.*;
-
-@RestController("/")
+@RequestMapping("/api")
+@RestController
 public class MemberRestController {
 	@Autowired
 	private MemberService service;
+	@Value("#{config['spring.baseUri']}")
+	private String baseUri;
+	
 	
 	// 아이디 찾기 -> MemberNotFoundException
 	@PreAuthorize("isAnonymous()")
@@ -50,17 +47,11 @@ public class MemberRestController {
 	public ResponseEntity<?> resetPassword(@PathVariable String username, @RequestParam String email, @RequestParam String name) {
 		return ResponseEntity.ok(service.findPassword(username, email,name));
 	}
-=======
-import io.swagger.annotations.*;
-import lombok.NonNull;
-
-@RequestMapping("/api")
-@RestController
-public class MemberRestController {
-	@Autowired
-	private MemberService service;
-	@Value("#{config['spring.baseUri']}")
-	private String baseUri;
+	
+	
+	
+	
+	
 	
 	@PreAuthorize("isAnonymous()")
 	@ApiOperation(value = "1. 아이디 사용가능 확인", notes = "아이디를 전달받아 사용가능할 경우 200 OK, 불가능할 경우 409")
@@ -126,5 +117,4 @@ public class MemberRestController {
 		return ResponseEntity.ok(result);
 	}
 	
->>>>>>> gwanger
 }

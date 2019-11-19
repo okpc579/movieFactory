@@ -1,10 +1,7 @@
 package com.icia.moviefactory.dao;
 
-<<<<<<< HEAD
 import java.util.*;
 
-=======
->>>>>>> gwanger
 import org.mybatis.spring.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
@@ -40,9 +37,6 @@ public class MemberDao {
 		map.put("newEncodedPassword", newEncodedPassword);
 		return tpl.update("memberMapper.updatePassword",map);
 	}
-
-	@Autowired
-	private SqlSessionTemplate tpl;
 
 	// UDAO-1. 아이디 중복 확인
 	public String findUsernameById(String username) {
