@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.*;
 
 public interface AuthorityMapper {
 	// ADAO-01. 권한 정보 저장
-	@Insert("insert into authorities(username, authority_name) values(#{username}, #{authority})")
+	@Insert("insert into authorities(username, authority) values(#{username}, #{authority})")
 	public int insert(@Param("username") String username, @Param("authority") String authority);
 	
 	// ADAO-02. 사용자의 모든 권한 삭제
