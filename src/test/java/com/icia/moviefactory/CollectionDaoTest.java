@@ -30,4 +30,5 @@ public class CollectionDaoTest {
 		int result = dao.add(collection);	
 		assertThat(result, is(1));
 	}
+	
 }
