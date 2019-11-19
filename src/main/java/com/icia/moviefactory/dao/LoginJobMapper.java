@@ -13,8 +13,9 @@ public interface LoginJobMapper {
 	public Integer findLoginFailureCount(String username);
 	
 	// LDAO-03. 로그인 5회 실패로 아이디 비활성화
-	@Update("update users set enabled=0, blockday=sysdate where username=#{username}")
-	public void block(String username);
+	// 우리는 블록 아니다..
+	// @Update("update users set enabled=0, blockday=sysdate where username=#{username}")
+	// public void block(String username);
 	
 	// LDAO-04. 로그인 성고하면 로그인 실패 횟수 리셋
 	@Update("update users set login_failure_cnt = 0 where username=#{username}")
