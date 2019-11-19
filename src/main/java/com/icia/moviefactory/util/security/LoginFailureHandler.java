@@ -49,7 +49,6 @@ public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 			else if(loginFailureCount==4) {
 				// 로그인에 4회 실패한 경우. 실패횟수 증가시키고 계정 블록
 				mapper.increaseLoginFailureCount(username);
-				mapper.block(username);
 				session.setAttribute("msg", "5회이상 실패해 계정이 차단되었습니다");
 			} 			
 		} else if(e instanceof DisabledException) {

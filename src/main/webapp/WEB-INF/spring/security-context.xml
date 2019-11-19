@@ -18,20 +18,20 @@
 		<sec:form-login 
 			username-parameter="username"			
 			password-parameter="password" 
-			login-page="/user/login"
-			login-processing-url="/user/login"
+			login-page="/member/login"
+			login-processing-url="/member/login"
 			authentication-failure-handler-ref="loginFailureHandler"
 			authentication-success-handler-ref="loginSuccessHandler"
 		/>
 		<sec:access-denied-handler error-page="/system/e403" />
-		<sec:logout logout-url="/user/logout" />
+		<sec:logout logout-url="/member/logout" />
 	</sec:http>
 
 	<sec:authentication-manager>
 		<sec:authentication-provider>
 			<sec:jdbc-user-service data-source-ref="dataSource"
-				users-by-username-query ="select username,password,enabled from users where username=?"
-				authorities-by-username-query="select username, authority_name from authorities where username=?" />
+				users-by-username-query ="select username,password,enabled from member where username=?"
+				authorities-by-username-query="select username, authority from authorities where username=?" />
 			<sec:password-encoder ref="pwdEncoder" />
 		</sec:authentication-provider>
 	</sec:authentication-manager>

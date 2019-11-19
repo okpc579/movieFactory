@@ -1,5 +1,7 @@
 package com.icia.moviefactory.entity;
 
+import java.util.*;
+
 import lombok.*;
 
 @Data
@@ -8,5 +10,5 @@ import lombok.*;
 @Builder
 public class Authorities {
 	private String username;
-	private String authority;
+	private List<String> authority;
 }
