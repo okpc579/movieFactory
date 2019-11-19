@@ -1,5 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="askMapper">
-	
+	<!-- 전체글의 개수읽어오기 -->
+	<select id="findAllCount" resultType="int" parameterType="string">
+		select /*+ index_ffs(adminask adminask_pk_admin_ask_no) */ count(admin_ask_no) from adminask
+	</select>
+	<!-- 전체 글을 가져오기 -->	
+	<select id="findAll" resultType="adminask">
+		<![CDATA[
+			select * from
+				(select rownum rnum, b.* from
+					(select /*+ index_desc(adminask adminask_pk_admin_ask_no) */ admin_ask_no adminAskNo,title,content,username,writing_date writingDate,ask_answer askAnswer,ask_state_content askStateContent from adminask) b
+				where rownum<=#{endRowNum})
+			where rnum>=#{startRowNum}
+		]]>
+	</select>
+	<!-- 글 쓰기 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="adminAskNo">
+		<selectKey keyProperty="adminAskNo" resultType="int" order="BEFORE">
+			select adminask_seq.nextval from dual
+		</selectKey>
+		insert into adminask(admin_ask_no, username, title, content, writing_date, ask_answer, ask_state_content) 
+		values(#{adminAskNo},#{username},#{title},#{content},sysdate, #{askAnswer}, #{askStateContent})
+	</insert>
+	<!-- 관리자:검색한 유저의 목록 가져오기 -->
+	<select id="findAllByUsername" resultType="adminask">
+		<![CDATA[
+			select * from
+		       	(select rownum rnum, b.* from 
+		       		(select /*+ index_desc(adminask adminask_pk_admin_ask_no) */ admin_ask_no adminAskNo, title, content, username, writing_date writingDate, ask_answer askAnswer, ask_state_content askStateContent from adminask where username=#{username}) b
+		       	where rownum<=#{endRowNum}) 
+		    where rnum>=#{startRowNum}
+		]]>
+	</select>
+	<!-- 관리자:아이디로 검색한 글의 개수읽어오기 -->
+	<select id="findCountByUsername" resultType="int">
+		select /*+ index_ffs(adminask adminask_pk_admin_ask_no) */ count(admin_ask_no) from adminask where username=#{username}
+	</select>
+	<!-- 글 변경하기 -->
+	<update id="update">
+		update adminask set content=#{content} where admin_ask_no=#{adminAskNo}
+	</update>
+	<!-- 글 삭제하기 -->
+	<delete id="delete">
+		delete from adminask where admin_ask_no=#{adminAskNo}
+	</delete>
+	<!-- 글 작성자 읽어오기 -->
+	<select id="findUsernameById" resultType="string">
+		select username from adminask where admin_ask_no=#{adminAskNo} and rownum = 1
+	</select>
+	<!-- 답변 포함 글 읽어오기 -->
+	<select id="findByAdminAskAnswer">
+		select username,title,content,writing_date,ask_answer,ask_state_content from adminask where admin_ask_no=#{adminAskNo}
+	</select>
+	<!-- 관리자가 답변 변경을하면 빈 답변칸에 글을 넣는것? -->
+	<update id="askAnswer">
+		update adminask set ask_answer=#{askAnswer},ask_state_content='답변완료' where admin_ask_no=#{adminAskNo}
+	</update>
 </mapper>
