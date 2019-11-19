@@ -23,11 +23,56 @@ public class CollectionDaoTest {
 	private CollectionDao dao;
 	
 	// 테스트에 @Transactional을 사용하면 무조건 rollback
-	@Transactional
-	@Test
+	//@Transactional
+	//@Test
 	public void collectionAddTest() {
 		Collection collection = new Collection(1, "컬렉션1","spring",null,"짱짱컬렉션입니다",null);
-		int result = dao.add(collection);	
+		collection.getDetail().size();
+		int result = dao.add(collection);
+		assertThat(result, is(1));
+	}
+	//@Test
+	public void collectionReadTest() {
+		System.out.println(dao.read(2)); 
+		//assertThat(result, is(1));
+	}
+	//@Transactional
+	//@Test
+	public void collectionDetailAddTest() {
+		int result = dao.addmovie(3, 2);
+		assertThat(result, is(1));
+	}
+	
+	//@Transactional
+	//@Test
+	public void collectionUpdateTest() {
+		Collection collection = new Collection(1, "컬렉션1","spring",null,"짱짱컬렉션입니다",null);
+		int result = dao.update(collection);
+		assertThat(result, is(1));
+	}
+	//@Transactional
+	//@Test
+	public void collectionDeleteMovieTest() {
+		int result = dao.deletemovie(1, 1);
+		assertThat(result, is(1));
+	}
+	
+	//@Transactional
+	//@Test
+	public void collectionDeleteTest() {
+		int result = dao.delete(1);
+		assertThat(result, is(1));
+	}
+	//@Transactional
+	//@Test
+	public void collectionLikeTest() {
+		int result = dao.like(new CollectionLike(1,  2, "spring", null));
+		assertThat(result, is(1));
+	}
+	@Transactional
+	@Test
+	public void collectionCancleLikeTest() {
+		int result = dao.cancleLike(new CollectionLike(1,  1, "spring", null));
 		assertThat(result, is(1));
 	}
 	
