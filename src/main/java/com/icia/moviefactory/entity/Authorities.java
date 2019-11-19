@@ -11,4 +11,8 @@ import lombok.*;
 public class Authorities {
 	private String username;
 	private List<String> authority;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> gwanger
