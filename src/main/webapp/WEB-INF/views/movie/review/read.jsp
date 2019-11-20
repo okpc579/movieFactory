@@ -10,21 +10,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <title>Insert title here</title>
-<script>
-	var isLogin = false;
-	var loginId = undefined;
-</script>
-<!-- sec:authorize는 권한 체크 -->
-<sec:authorize access="isAuthenticated()">
-
-	<!-- sec:authentication은 사용자 정보 읽어올 수 있다 -->
-	<sec:authentication property="principal.username" var="user" />
-	<script>
-		isLogin = true;
-		loginId = '${member}';
-	</script>
-</sec:authorize>
-
 
 </head>
 <body>

@@ -1,5 +1,7 @@
 package com.icia.moviefactory.restcontroller;
 
+import java.security.*;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.security.access.prepost.*;
@@ -8,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import com.icia.moviefactory.entity.*;
 import com.icia.moviefactory.service.*;
 @RequestMapping("/api")
-@CrossOrigin("*")
 @RestController
 public class MovieRestController {
 	@Autowired
@@ -17,15 +18,16 @@ public class MovieRestController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/movie/review/write")
-	public ResponseEntity<?> insertrev(@ModelAttribute MovieReview moviereview) {
-		return ResponseEntity.ok(service.insertrev(moviereview));
+	public ResponseEntity<?> insertrev(@ModelAttribute MovieReview moviereview, Principal principal) {
+		String username = principal!=null? principal.getName() : null;
+		if(username==null) {
+			service.insertrev(moviereview);
+		}else {
+			service.updaterev(moviereview);
+		}
+		return null;
 	}
 	
-	@PreAuthorize("isAuthenticated()")
-	@PatchMapping("/movie/review/update")
-	public ResponseEntity<?> updaterev(@ModelAttribute MovieReview moviereview) {
-		return ResponseEntity.ok(service.updaterev(moviereview));
-	}
 	
 	@PreAuthorize("isAuthenticated()")
 	@DeleteMapping("/movie/review/delete")

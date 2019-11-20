@@ -24,16 +24,16 @@ public class MovieDaoTest {
 	//@Transactional
 	//@Test
 	public void insertrevTest() {
-		MovieReview moviereview = new MovieReview(1,"res",2,3,"hi",1,null,"액션",0);
+		MovieReview moviereview = new MovieReview(12,"res",2,3,"hi",1,null,"액션",0);
 		dao.insertrev(moviereview);	
 	}
 	
 	//@Transactional
 	//@Test
 	public void updaterevTest() {
-		MovieReview m = MovieReview.builder().mRevNo(1).username("soon").mNo(2).rating(4).mRevContent("바이").isSpo(0).writingDate(null).genre("액션").isBlind(0).build();
-		dao.updaterev(m);
-		assertThat(m.getMRevContent(), is("바이"));
+		MovieReview m = new MovieReview(25,"res",2,3,"bye",1,null,"멜로",0);
+		int result = dao.updaterev(m);
+		assertThat(result, is(1));
 	}
 	
 	//@Transactional
