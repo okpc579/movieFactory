@@ -4,6 +4,8 @@ import java.util.*;
 
 import org.springframework.format.annotation.*;
 
+import com.fasterxml.jackson.annotation.*;
+
 import lombok.*;
 
 @Data
@@ -24,7 +26,7 @@ public class Member {
 	private long gender;
 	private long blindCnt;
 	private long enabled;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date regDate;
 	private String intro;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

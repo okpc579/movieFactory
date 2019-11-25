@@ -51,4 +51,8 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
       rs.sendRedirect(request, response, "/");
       
    }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> jihye1

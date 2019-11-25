@@ -9,27 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class SystemMVCController {
 
-	// MVC-1. 서비스 동의 페이지
-	@GetMapping("/member/yesorno")
-	public String yesorno(Model model) {
-		model.addAttribute("viewName", "member/YesOrNo.jsp");
-		return "main";
-	}
-
-	// MVC-2. 회원 가입
-	@GetMapping("/member/join")
-	public String join(Model model) {
-		model.addAttribute("viewName", "member/join.jsp");
-		return "main";
-	}
-
-	// MVC-3. 비밀번호 확인
-	@Secured("ROLE_USER")
-	@GetMapping("/member/checkpassword")
-	public String pwdCheck(Model model) {
-		model.addAttribute("viewName", "member/checkPassword.jsp");
-		return "main";
-	}
+	// 여기에 있던 회원가입 관련 것들 멤버 mvc로 옮김
 
 	@GetMapping("/system/e403")
 	public String notAuthorized(Model model) {
