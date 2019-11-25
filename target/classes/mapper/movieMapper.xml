@@ -1,32 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="movieMapper">
-
-	<insert id="insertrev"> insert into m_rev(m_rev_no, username, m_no, rating,
-		m_rev_content, is_spo, writing_date, genre, is_blind)
-		values(m_rev_seq.nextval,#{username},#{mNo},#{rating},#{mRevContent},#{isSpo},
-		sysdate, #{genre}, 0) </insert>
-
+<mapper namespace="movieMapper" >
+	<insert id="insertrev" useGeneratedKeys="true" keyProperty="mrevno"> 
+		<selectKey keyProperty="mRevNo" resultType="int" order="BEFORE">
+			select m_rev_seq.nextval from dual
+		</selectKey>
+		insert into m_rev(m_rev_no, username, m_no, rating, m_rev_content, is_spo, writing_date, genre, is_blind,like_cnt,rep_cnt)
+		values(#{mRevNo},#{username},#{mNo},#{rating},#{mRevContent},#{isSpo},
+		sysdate, #{genre}, 0, #{likeCnt},#{repCnt}) 
+	</insert>
+	
+	<select id="findCount" resultType="int" parameterType="string">
+		select /*+ index_ffs(m_rev m_rev_pk_m_rev_no) */ count(m_rev_no) from m_rev
+	</select>
+	
+	<select id="findAll" resultType="moviereview">
+		<![CDATA[
+			select * from
+		       	(select rownum rnum, b.* from 
+		       		(select /*+ index_desc(m_rev m_rev_pk_m_rev_no) */ m_rev_no mRevNo, username, m_no mNo, rating,m_rev_content mRevContent , is_spo isSpo, writing_date writingDate, genre, is_blind isBlind, like_cnt likeCnt, rep_cnt repCnt from m_rev) b
+		       	where rownum<=#{endRowNum}) 
+		    where rnum>=#{startRowNum}
+		]]>
+	</select>
+	
+	<select id="findCountByUsername" resultType="int">
+		select /*+ index_ffs(m_rev m_rev_pk_m_rev_no) */ count(m_rev_no) from m_rev where username = #{username}
+	</select>
+	
+	<select id="findAllByUsername" resultType="moviereview">
+		<![CDATA[
+			select * from
+		       	(select rownum rnum, b.* from 
+		       		(select /*+ index_desc(m_rev m_rev_pk_m_rev_no) */ m_rev_no mRevNo, username, m_no mNo, rating,m_rev_content mRevContent , is_spo isSpo, writing_date writingDate, genre, is_blind isBlind, like_cnt likeCnt, rep_cnt repCnt from m_rev where username=#{username}) b
+		       	where rownum<=#{endRowNum}) 
+		    where rnum>=#{startRowNum}
+		]]>
+	</select>
+	
+	<resultMap type="com.icia.moviefactory.entity.MovieReviewComment" id="mapForComments">
+		<id property="mRevCmntNo" column="m_rev_cmnt_no" />
+		<result property="mRevNo" column="m_rev_no" />
+		<result property="username" column="username" />
+		<result property="content" column="content" />
+		<result property="writingDate" column="writing_date" />
+		<result property="cmntLikeCnt" column="cmnt_like_cnt" />
+		<result property="cmntRepCnt" column="cmnt_rep_cnt" />
+	</resultMap>
+	
+	<resultMap type="hashmap" id="mapForRead" >
+		<id property="mRevNo" column="m_rev_no"/>
+		<result property="username" column="username" />
+		<result property="mNo" column="m_no" />
+		<result property="rating" column="rating" />
+		<result property="mRevContent" column="m_rev_content" jdbcType="CLOB" javaType="java.lang.String"/>
+		<result property="writingDate" column="writing_date" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+		<result property="genre" column="genre" />
+		<result property="likeCnt" column="like_cnt" />
+		<result property="repCnt" column="rep_cnt" />
+		<collection property="comments" javaType="java.util.ArrayList" resultMap="mapForComments"/>
+	</resultMap>
+	
+	<select id="findByIdWithComments" resultMap="mapForRead">
+		<![CDATA[
+			select m.m_rev_no mRevNo, m.username, m.m_no mNo, m.rating, m.m_rev_content mRevContent,is_spo isSpo , m.writing_date writingDate , m.genre, 
+			c.m_rev_cmnt_no mRevCmntNo, c.m_rev_no CmRevNo, c.username commentUsername, c.content commentContent, c.writing_date commentWritingDate from m_rev m, m_cmnt c where m.m_rev_no=#{mRevNo} and m.m_rev_no=c.m_rev_no(+)
+		]]>
+	</select>
+	
+	<select id="findUsernameById" resultType="string">
+		select username from m_rev where m_rev_no=#{mRevNo} and rownum = 1
+	</select>
+	
 	<update id="updaterev"> update m_rev set m_rev_content=#{mRevContent} where
 		m_rev_no=#{mRevNo} </update>
 
 	<delete id="deleterev"> delete from m_rev where m_rev_no=#{mRevNo} </delete>
 
-	<insert id="insertrevlike"> insert into m_rev_like(m_rev_like_no, m_rev_no,
-		username, like_reg_date)
-		values(#{mRevLikeNo},#{mRevNo},#{username},sysdate) </insert>
+	<update id="updatelikecnt">
+		update m_rev set like_cnt = like_cnt+1 where m_rev_no = #{mRevNo}
+	</update>
 
-	<select id="revlikecnt" resultType="long"> select count(m_rev_no) from
-		m_rev_like where m_rev_like_no=#{mRevLikeNo} </select>
+	<select id="findLikeCnt" resultType="int">
+		select like_cnt from m_rev where m_rev_no={mRevNo}
+	</select>
 
-	<insert id="insertrevrep"> insert into m_rev_rep(username, m_rev_no, title,
-		content, writing_date, m_rep_cate)
-		values(#{username},#{mRevNo},#{title},#{content},sysdate,#{mRepCate})
+	<update id="updaterepcnt">
+		update m_rev set rep_cnt = rep_cnt+1 where m_rev_no=#{mRevNo}
+	</update>
+	
+	<select id="findReportCnt" resultType="int">
+		select rep_cnt from m_rev where m_rev_no=#{mRevNo}
+	</select>
+	<insert id="insertcmnt"> 
+		insert into m_cmnt(m_rev_cmnt_no, m_rev_no,username, content, is_blind, writing_date, cmnt_like_cnt,cmnt_rep_cnt) 
+		values(m_rev_comn_seq.nextval,#{mRevNo},#{username},#{content},#{isBlind},sysdate,#{cmntLikeCnt},#{cmntRepCnt})
 	</insert>
-
-	<insert id="insertcmnt"> insert into m_cmnt(m_rev_cmnt_no, m_rev_no,
-		username, content, is_blind, writing_date) values(m_rev_seq.val,
-		#{mRevNo},#{username},#{content},#{isBlind},sysdate) </insert>
+		
+	<select id="findByCmntByMRevNo" resultType="moviereviewcomment">
+		select m_rev_cmnt_no,m_rev_no,username,content,writing_date from m_cmnt where m_rev_no=#{mRevNo} order by m_rev_cmnt_no desc
+	</select>	
+	
+	<select id="deleteByMRevNo">
+		delete from m_cmnt where m_rev_no=#{mRevNo}
+	</select>
 
 	<update id="updaterevcmnt"> update m_cmnt set content=#{content} where
 		m_rev_cmnt_no=#{mRevCmntNo} </update>

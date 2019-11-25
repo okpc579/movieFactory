@@ -1,13 +1,10 @@
 package com.icia.moviefactory.dto;
 
-import java.util.List;
+import java.util.*;
 
-import com.icia.moviefactory.entity.AdminAsk;
+import com.icia.moviefactory.entity.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
@@ -18,4 +15,11 @@ public class Page {
 	private int pagesize;
 	private int totalcount;
 	private List<AdminAsk> adminAsks;
+<<<<<<< HEAD
+	private List<MovieReview> reviews;
+=======
+	private List<Member> members;
+	private List<MovieReview> movieReviews;
+	private List<MovieReviewComment> movieReviewComments;
+>>>>>>> park
 }

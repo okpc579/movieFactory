@@ -1,11 +1,46 @@
 package com.icia.moviefactory.controller.mvc;
 
+<<<<<<< HEAD
+=======
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.access.annotation.*;
+>>>>>>> a33b2e02cef4d45e92f80206ec75714d11f7bd93
 import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
 
+import com.icia.moviefactory.service.*;
+
 @Controller
 public class MemberMVCController {
+<<<<<<< HEAD
+=======
+	@Autowired
+	private MemberService service;
+
+	// MVC-1. 서비스 동의 페이지
+	@GetMapping("/member/yesorno")
+	public String yesorno(Model model) {
+		model.addAttribute("viewName", "member/YesOrNo.jsp");
+		return "main";
+	}
+
+	// MVC-2. 회원 가입
+	@GetMapping("/member/join")
+	public String join(Model model) {
+		model.addAttribute("viewName", "member/join.jsp");
+		return "main";
+	}
+
+	// MVC-3. 비밀번호 확인
+	@Secured("ROLE_USER")
+	@GetMapping("/member/checkpassword")
+	public String pwdCheck(Model model) {
+		model.addAttribute("viewName", "member/checkPassword.jsp");
+		return "main";
+	}
+
+>>>>>>> a33b2e02cef4d45e92f80206ec75714d11f7bd93
 	// MVC-1. 로그인
 	@GetMapping("/member/login")
 	public String login(Model model) {
@@ -40,4 +75,6 @@ public class MemberMVCController {
 		model.addAttribute("viewName", "member/pwd.jsp");
 		return "main";
 	}
+	
+	
 }
