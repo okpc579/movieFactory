@@ -8,6 +8,8 @@
 		insert into coll(coll_no, coll_name, username, writing_date, coll_intro) 
 		values(#{collNo},#{collName},#{username}, sysdate, #{collIntro})
 	</insert>
+	
+	<!--2번 콜렉션디테일 보기 -->
 	<resultMap type="com.icia.moviefactory.entity.CollectionDetail" id="mapForCollectionDetail">
 		<id property="mNo" column="m_no" />
 		<result property="regDate" column="reg_date" />
@@ -27,23 +29,24 @@
 			select c.coll_no, c.coll_name, c.username, c.writing_date, c.coll_intro, cd.m_no, cd.reg_date from coll c, coll_detail cd where c.coll_no = #{collNo} and  c.coll_no = cd.coll_no(+)
 		]]>
 	</select>
-	
+	<!--3번 콜렉션상세 추가-->
 	<insert id="insertDetail" parameterType="hashmap">
 		insert into coll_detail(m_no, coll_no, reg_date) 
 		values(#{mNo},#{collNo}, sysdate)
 	</insert>
-	
+	<!--4번 콜렉션영화 수정 -->
 	<update id="update">
 		update coll set coll_name = #{collName}, coll_intro = #{collIntro} where coll_no = #{collNo}
 	</update>
-	
+	<!--5번 콜렉션영화 삭제 -->
 	<delete id="deleteDetail">
 		delete from coll_detail where m_no=#{mNo} and coll_no=#{collNo}
 	</delete>
+	<!--6번 콜렉션 삭제 -->
 	<delete id="delete">
 		delete from coll where coll_no=#{collNo}
 	</delete>
-	
+	<!--7번 좋아요 등록 -->
 	<insert id="insertLike" useGeneratedKeys="true" keyProperty="collLikeNo">
 		<selectKey keyProperty="collLikeNo" resultType="int" order="BEFORE">
 			select coll_like_seq.nextval from dual
@@ -51,28 +54,31 @@
 		insert into coll_like(coll_like_no, coll_no, username, like_reg_date) 
 		values(#{collLikeNo},#{collNo},#{username}, sysdate)
 	</insert>
+	<!--8번 좋아요 삭제 -->
 	<delete id="deleteLike">
 		delete from coll_like where coll_no=#{collNo} and username=#{username}
 	</delete>
-
+	<!--9번 콜렉션을아이디로찾기 -->
 	<select id="findCollectionUsernameById" resultType="string">
 			select username from coll where coll_no=#{collNo}
 	</select>
+	<!--10번 콜렉션좋아요를아이디로찾기 -->
 	<select id="findCollectionLikeUsernameById" resultType="string">
 			select username from coll_like where coll_no=#{collNo} and username=#{username}
 	</select>
-	
+	<!--11번 콜렉션영화목록보기 -->
 	<select id="findCollectionListBymNo" resultType="collection">
 			select c.coll_no collNo, c.coll_name collName, c.username, c.writing_date writingDate, c.coll_intro collIntro from coll c, coll_detail cd where cd.m_no=1 and cd.coll_no(+) = c.coll_no
 	</select>
-	
+	<!--12번 아이디로콜렉션목록보기 -->
 	<select id="findCollectionListByUsername" resultType="collection">
 			select coll_no collNo, coll_name collName, username, writing_date writingDate, coll_intro collIntro from coll where username=#{username}
 	</select>
+	<!--13번좋아요횟수증가 -->
 	<update id="increaselikecnt">
 		update coll set coll_like_cnt = coll_like_cnt+1 where coll_no = #{collNo}
 	</update>
-	
+	<!--14번 좋아요횟수감소 -->
 	<update id="decreaselikecnt">
 		update coll set coll_like_cnt = coll_like_cnt-1 where coll_no = #{collNo}
 	</update>

@@ -1,10 +1,19 @@
 package com.icia.moviefactory.entity;
 
-import java.util.*;
+import java.util.Date;
 
-import org.springframework.format.annotation.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+<<<<<<< HEAD
+import com.fasterxml.jackson.annotation.*;
 
 import lombok.*;
+=======
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+>>>>>>> dongmin_1
 
 @Data
 @AllArgsConstructor
@@ -24,13 +33,13 @@ public class Member {
 	private long gender;
 	private long blindCnt;
 	private long enabled;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date regDate;
 	private String intro;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date lastLoginDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date recentloginDate;
+	private Date recentLoginDate;
 	private long loginFailureCnt;
 	private long isResign;
 	

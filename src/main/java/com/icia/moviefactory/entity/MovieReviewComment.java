@@ -18,4 +18,6 @@ public class MovieReviewComment {
 	private long isBlind;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date writingDate;
+	private long cmntLikeCnt;
+	private long cmntRepCnt;
 }

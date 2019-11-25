@@ -20,4 +20,7 @@ public class MovieReview {
 	private Date writingDate;
 	private String genre;
 	private long isBlind;
+	private long likeCnt;
+	private long repCnt;
 }
+

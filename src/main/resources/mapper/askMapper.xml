@@ -21,7 +21,7 @@
 			select adminask_seq.nextval from dual
 		</selectKey>
 		insert into adminask(admin_ask_no, username, title, content, writing_date, ask_answer, ask_state_content) 
-		values(#{adminAskNo},#{username},#{title},#{content},sysdate, #{askAnswer}, #{askStateContent})
+		values(#{adminAskNo},#{username},#{title},#{content},sysdate, #{askAnswer},  '답변전')
 	</insert>
 	<!-- 관리자:검색한 유저의 목록 가져오기 -->
 	<select id="findAllByUsername" resultType="adminask">
@@ -47,11 +47,11 @@
 	</delete>
 	<!-- 글 작성자 읽어오기 -->
 	<select id="findUsernameById" resultType="string">
-		select username from adminask where admin_ask_no=#{adminAskNo} and rownum = 1
+		select username from adminask where admin_ask_no=#{adminAskNo} and rownum =1
 	</select>
 	<!-- 답변 포함 글 읽어오기 -->
-	<select id="findByAdminAskAnswer">
-		select username,title,content,writing_date,ask_answer,ask_state_content from adminask where admin_ask_no=#{adminAskNo}
+	<select id="findByAdminAsk" resultType="AdminAsk">
+		select username,title,content,writing_date,ask_answer,ask_state_content from adminask where admin_ask_no=#{adminAskNo} and rownum =1
 	</select>
 	<!-- 관리자가 답변 변경을하면 빈 답변칸에 글을 넣는것? -->
 	<update id="askAnswer">
