@@ -18,6 +18,10 @@ import lombok.*;
 public class MovieRestController {
 	@Autowired
 	private MovieService service;
+	@Autowired
+	private KMovieService kservice;
+	@Autowired
+	private NMovieService nservice;
 	
 	
 	@PreAuthorize("isAuthenticated()")
@@ -96,6 +100,24 @@ public class MovieRestController {
 	@PostMapping("/movie/comment/like")
 	public ResponseEntity<?> insertcmntlike(@ModelAttribute MovieReviewCommentLike moviereviewcommentlike) {
 		return ResponseEntity.ok(service.insertcmntlike(moviereviewcommentlike));
+	}
+	
+	@GetMapping("/list")	// read -> list
+	public ResponseEntity<?> list(String query, int page) {
+		System.out.println(query);
+		System.out.println(page);
+		System.out.println(kservice.searchKMovie(query, page));
+		return ResponseEntity.ok(kservice.searchKMovie(query, page));
+	}
+	@GetMapping("/image")
+	public ResponseEntity<?> readImage(@RequestParam String subtitle, @RequestParam String pubData) {
+		System.out.println(subtitle + "," + pubData);
+		return ResponseEntity.ok(nservice.searchNMovie(subtitle, 1, 1, pubData));
+	}
+	@GetMapping("/read")	//디테일 리드
+	public ResponseEntity<?> read(@RequestParam String mno) {
+		//System.out.println(kservice.searchKMovie("터미네이터", 10, 1));
+		return ResponseEntity.ok(kservice.searchKMovieRead(mno));	//디테일 리드
 	}
 	
 	
