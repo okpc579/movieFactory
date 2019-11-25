@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="memberMapper">
 
-<<<<<<< HEAD
 	<select id="findIdByEmailAndName" resultType="String">
 		select username
 		from member where email = #{email} and name = #{name}
@@ -21,32 +20,8 @@
 	</update>
 	<!-- 회원가입 : 회원가입시 일반회원 추가 -->
 	<insert id="insert">
-<<<<<<< HEAD
-		insert into member(username, password, name, nick, email, base_addr, zip_code, tel, birth, gender, 
-		blind_cnt, enabled, reg_date, intro, last_login_date, recent_login_date, login_failure_cnt, is_resign, photo )
-		values(#{username}, #{password}, #{name}, #{nick}, #{email}, #{baseAddr}, #{zipCode}, #{tel},  #{birth}, #{gender}, 
-<<<<<<< HEAD
-<<<<<<< HEAD
-		0, 1, #{regDate}, #{intro}, #{lastLoginDate}, #{recentloginDate}, #{loginFailureCnt}, #{isResign}, #{photo} )
-=======
-		0, 1, #{regDate}, #{intro}, #{lastLoginDate}, #{recentLoginDate}, #{loginFailureCnt}, #{isResign}, #{photo} )
->>>>>>> park
-=======
-		insert into member(username, password, name, nick,
-		email, base_addr, zip_code, tel, birth, gender,
-		blind_cnt, enabled,
-		reg_date, intro, last_login_date, recent_login_date,
-		login_failure_cnt, is_resign, photo )
-		values(#{username}, #{password},
-		#{name}, #{nick}, #{email}, #{baseAddr}, #{zipCode}, #{tel}, #{birth},
-		#{gender},
-		0, 1, #{regDate}, #{intro}, #{lastLoginDate},
-		#{recentLoginDate},
-		#{loginFailureCnt}, #{isResign}, #{photo} )
->>>>>>> jihye1
-=======
-		0, 1, #{regDate}, #{intro}, #{lastLoginDate}, #{recentloginDate}, #{loginFailureCnt}, #{isResign}, #{photo} )
->>>>>>> soonsim2
+		insert into member(username, password, name, nick, email, base_addr, zip_code, tel, birth, gender, blind_cnt, enabled, reg_date, intro, last_login_date, recent_login_date,	login_failure_cnt, is_resign, photo )
+		values(#{username}, #{password}, #{name}, #{nick}, #{email}, #{baseAddr}, #{zipCode}, #{tel}, #{birth},	#{gender}, 0, 1, #{regDate}, #{intro}, #{lastLoginDate}, #{recentLoginDate}, #{loginFailureCnt}, #{isResign}, #{photo} )
 	</insert>
 
 	<!-- 회원가입 : 아이디 중복 체크 -->
@@ -72,11 +47,7 @@
 		select password from
 		member where username=#{username} and rownum=1
 	</select>
-<<<<<<< HEAD
 	
-=======
-
->>>>>>> a33b2e02cef4d45e92f80206ec75714d11f7bd93
 	<!-- 내정보 보기 : 아이디로 정보 가져오기 -->
 	<select id="findById" resultType="member">
 		select username, name, nick,
@@ -110,57 +81,5 @@
 	<delete id="delete">
 		delete from member where username=#{username}
 	</delete>
-=======
-<select id="findIdByEmailAndName" resultType="String">
-   select username from member where email = #{email} and name = #{name}
-</select>
 
-<select id="findPasswordByIdAndEmailAndName" resultType="String">
-   select password from member where email = #{email} and name = #{name} and username = #{username}
-</select>
-
-<update id="updatePassword">
-   update member set password = #{newEncodedPassword} where username = #{username}
-</update>
-   <!-- 회원가입 : 회원가입시 일반회원 추가 -->
-   <insert id="insert">
-      insert into member(username, password, name, nick, email, base_addr, zip_code, tel, birth, gender, 
-      blind_cnt, enabled, reg_date, intro, last_login_date, recent_login_date, login_failure_cnt, is_resign, photo )
-      values(#{username}, #{password}, #{name}, #{nick}, #{email}, #{baseAddr}, #{zipCode}, #{tel},  #{birth}, #{gender}, 
-      0, 1, #{regDate}, #{intro}, #{lastLoginDate}, #{recentLoginDate}, #{loginFailureCnt}, #{isResign}, #{photo} )
-   </insert>
-      
-   <!-- 회원가입 : 아이디 중복 체크 -->
-   <select id="findUsernameById" resultType="string">
-      select username from member where username=#{username} and rownum=1
-   </select>
-   
-   <!-- 회원가입 : 이메일 중복 체크 -->
-   <select id="findUsernameByEmail" resultType="string">
-      select username from member where email=#{email} and rownum=1
-   </select>
-   
-   <!-- 회원가입 : 닉네임 중복 체크 -->
-   <select id="findUsernameByNick" resultType="string">
-      select username from member where nick=#{nick} and rownum=1
-   </select>
-   
-   <!-- 비밀번호 확인 : 아이디로 비밀번호 가져오기 -->
-   <select id="findPasswordById" resultType="string">
-      select password from member where username=#{username} and rownum=1
-   </select>
-   
-   <!-- 내정보 보기 : 아이디로 정보 가져오기 -->
-   <select id="findById" resultType="member">
-      select username, name, nick, email, base_addr baseAddr, zip_code zipCode, tel, photo, birth, 
-      reg_date regDate from member where username=#{username} and rownum=1
-   </select>
-   
-   <!-- 내정보 수정 : 하... -->
-   
-   <!-- 회원 탈퇴 :  아이디로 정보 삭제-->
-   <delete id="delete">
-      delete from member where username=#{username}
-   </delete>
->>>>>>> dongmin_1
 </mapper>

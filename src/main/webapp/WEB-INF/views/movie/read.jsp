@@ -46,7 +46,7 @@
 	function getPoster(movie, $tr) {
 		console.log(movie);
 		$.ajax({
-			url:"/zzzzk/api/image?subtitle=" + movie.movieNm + "&pubData=" + movie.prdtYear,
+			url:"/moviefactory/api/image?subtitle=" + movie.movieNm + "&pubData=" + movie.prdtYear,
 			method: "get",
 			success:function(result) {
 				console.log(result.image);
@@ -68,7 +68,7 @@
 
 	$(function() { 
 		$.ajax({
-			url:"/zzzzk/api/read?mno=" + mno,	//디테일 리드
+			url:"/moviefactory/api/read?mno=" + mno,	//디테일 리드
 			method: "get",
 			success:function(result) {
 				

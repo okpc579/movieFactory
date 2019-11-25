@@ -7,7 +7,6 @@ import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.*;
 
 import com.icia.moviefactory.dao.*;
-import com.icia.moviefactory.entity.*;
 
 import lombok.extern.slf4j.*;
 
@@ -95,7 +94,7 @@ public class UserMovieDaoTest {
 // 오류	     assertThat(dao.FavoriteMovie(), is(1));
    }
    public void insertrevTest() {
-	      MovieReview moviereview = new MovieReview(1,"이태호",2,3,"hello",1,null,"액션",0);
+	     // MovieReview moviereview = new MovieReview(1,"이태호",2,3,"hello",1,null,"액션",0);
 // 오류	      dao.insertrev(moviereview);   
 	   }
    

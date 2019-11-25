@@ -103,7 +103,7 @@ public class MovieRestController {
 	}
 	
 	@GetMapping("/list")	// read -> list
-	public ResponseEntity<?> list(String query, int page) {
+	public ResponseEntity<?> list(String query, @RequestParam(defaultValue = "1") int page) {
 		System.out.println(query);
 		System.out.println(page);
 		System.out.println(kservice.searchKMovie(query, page));

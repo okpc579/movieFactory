@@ -54,14 +54,12 @@
           	<sec:authorize access="isAnonymous()">
 				<li><a href="/moviefactory/api/member/findId">아이디 찾기</a></li>
 				<li><a href="/moviefactory/api/member/findPassword">비번 찾기</a></li>
-				<li><a href="/moviefactory/api/member/join">회원가입</a></li>
+				<li><a href="/moviefactory/member/yesorno">회원가입</a></li>
 			</sec:authorize>
 			
 			<!-- ROLE_USER 권한으로 로그인했을 때 보여줄 메뉴 -->
 			<sec:authorize access="hasRole('ROLE_USER')">
-	        	<li><a href='/moviefactory/member/user'>내 정보</a></li>
-				<li><a href='/moviefactory/memo/receive'>받은 메모</a></li>
-				<li><a href='/moviefactory/memo/send'>보낸 메모</a></li> /
+	        	<li><a href='/moviefactory/member/userinfo'>내 정보</a></li>
 				<sec:authorize access="!hasRole('ROLE_ADMIN')">
           			<li><a id='resign' href='#'>탈퇴</a></li>
           		</sec:authorize>

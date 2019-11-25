@@ -72,7 +72,8 @@ function printPaging(result) {
 		endPage = cntOfPage;
 	
 	var $pagination = $("#pagination");	
-	var serverUrl = "http://localhost:8081/moviefactory/movie/list?query="+ query+"&pageno="
+	var serverUrl = "http://localhost:8081/moviefactory/movie/list?query="+ query+"&pageno=";
+	console.log("페이징함수 들어옴");
 	if(blockNo>0) {
 		var $li = $("<li>").attr("class","previous").appendTo($pagination);
 		$("<a>").attr("href", serverUrl + (startPage-1)).text("<").appendTo($li);
@@ -106,8 +107,13 @@ $(function() {
 	console.log(query);
 	console.log(page);
 	
+	var locationURL= "/moviefactory/api/list?query="+query;
+	if(typeof page == "undefined"){
+		page=1;
+	}
+	locationURL = locationURL +"&page="+page;
 	$.ajax({
-		url:"/moviefactory/api/list?query="+query+"&page="+page,
+		url:locationURL,
 		method: "get",
 		success:function(result) {
 			totCnt = result[0].totCnt;
