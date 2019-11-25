@@ -1,18 +1,22 @@
 package com.icia.moviefactory.util.security;
 
-import java.io.*;
+import java.io.IOException;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.security.core.*;
-import org.springframework.security.web.*;
-import org.springframework.security.web.authentication.*;
-import org.springframework.security.web.savedrequest.*;
-import org.springframework.stereotype.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.RedirectStrategy;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.RequestCache;
+import org.springframework.stereotype.Component;
 
-import com.icia.moviefactory.dao.*;
+import com.icia.moviefactory.dao.LoginJobMapper;
 
 
 @Component("loginSuccessHandler")
@@ -34,6 +38,8 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 		HttpSession session = request.getSession();
 		
 		// 로그인 성공하면 실패횟수 초기화, 로그인 횟수 증가
+		
+		/*
 		mapper.resetLoginFailureCount(authentication.getName());
 		mapper.increaseLoginCount(authentication.getName());
 		
@@ -43,9 +49,12 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 		SavedRequest savedRequest = cache.getRequest(request, response);
 		
 		// 로그인 성공 후 이동할 페이지가 있을 경우 세션에 저장
+		 * 
+		 */
+		/*
 		if(savedRequest!=null)
 			session.setAttribute("dest", savedRequest.getRedirectUrl());
-		
+		*/
 		// 무조건 루트로 이동. 이동할 페이지가 있을 경우도 루트를 거쳐 이동
 		rs.sendRedirect(request, response, "/");
 		

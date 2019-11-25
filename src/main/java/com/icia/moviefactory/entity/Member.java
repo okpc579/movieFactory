@@ -1,10 +1,13 @@
 package com.icia.moviefactory.entity;
 
-import java.util.*;
+import java.util.Date;
 
-import org.springframework.format.annotation.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
@@ -30,7 +33,7 @@ public class Member {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date lastLoginDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date recentloginDate;
+	private Date recentLoginDate;
 	private long loginFailureCnt;
 	private long isResign;
 	

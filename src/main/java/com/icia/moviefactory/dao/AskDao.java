@@ -49,6 +49,7 @@ public class AskDao {
 		}
 		// 아이디로 검색해 게시판 글 페이징
 		public List<AdminAsk> findAllByUsername(int startRowNum, int endRowNum, String username) {
+			System.out.println("DAO에 왔니?");
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("startRowNum", startRowNum);
 			map.put("endRowNum", endRowNum);
@@ -65,8 +66,8 @@ public class AskDao {
 		public String findUsernameById(long adminAskNo) {
 			return tpl.selectOne("askMapper.findUsernameById", adminAskNo);
 		}
-		// 답변글 포함해 게시판 글 읽어오기
-		public Map findByAdminAskAnswer(long adminAskNo) {
+		// 게시판 글 상세 읽어오기
+		public AdminAsk findByAdminAsk(long adminAskNo) {
 			return tpl.selectOne("askMapper.findByAdminAsk", adminAskNo);
 		}
 }
