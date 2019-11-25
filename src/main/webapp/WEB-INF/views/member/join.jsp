@@ -17,11 +17,10 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<!-- 
-<sec:authorize access="hasRole('ROLE_USER')">
-	<script src="/moviefactory/script/wsocket.js"></script>
+
+<sec:authorize access="isAnonymous()">
 </sec:authorize>
- -->
+
 <script>
 //프사 출력하기 : 1MB가 넘으면 업로드 거부
 function loadImage() {
@@ -152,7 +151,7 @@ function checkNick() {
 		return false;
 	} 
 	if(patt.test(nick)==false) {
-		$("#helper_nick").text("닉네임은 2~10글자 입니다").css("color","red").css("font-size", "0.75em");
+		$("#helper_nick").text("닉네임은 한글 2~10글자 입니다").css("color","red").css("font-size", "0.75em");
 		return false;
 	}
 	return true;
@@ -179,36 +178,31 @@ function checkBirth() {
 function join() {
 	// 사진을 포함할 수 있으므로 FormData 형식
 	var formData = new FormData(document.getElementById("joinForm"));
-	console.log(formData);
-	// 생년, 생월, 생일을 연결해서 생년월일을 만든다
-	// ES스크립트 6의 of 반복문을 이용하면 FormData의 값을 출력할 수 있다
-	for (var key of formData.keys()) {
-		console.log(key);
+	var result = confirm("회원가입 하시겠습니까?");
+	if (result==true) {
+		$.ajax({
+					url:"/moviefactory/api/member/join",
+					method: "post",
+					// formData를 보내기 위한 ajax 설정 2가지
+					// querystring 변환 금지
+					processData:false,
+					// multipart 지정
+					contentType:false,
+					data:formData,
+					success:function(result, textStatus, response) {
+						location.href = response.getResponseHeader('location');
+					}, error:function(xhr) {
+						console.log("에러 코드 :" + xhr.status);
+						console.log("에러 메시지 :" + xhr.responseText);
+						
+					}
+				})
+		} else {
+		return false;
 	}
-	for(var value of formData.values()) {
-		console.log(value);
-	}
-	
-	$.ajax({
-		url:"/moviefactory/api/member/join",
-		method: "post",
-		// formData를 보내기 위한 ajax 설정 2가지
-		// querystring 변환 금지
-		processData:false,
-		// multipart 지정
-		contentType:false,
-		data:formData,
-		success:function(result, textStatus, response) {
-			location.href = response.getResponseHeader('location');
-		}, error:function(xhr) {
-			console.log("에러 코드 :" + xhr.status);
-			console.log("에러 메시지 :" + xhr.responseText);
-		}
-	})
 }
 
 $(function() { 
-	$("#alert").hide();
 	
 	// 비동기 병렬 수행(thread) -> 프로그래머가 순서 제어
 	// 둘 이상의 ajax를 내가 원하는 순서대로 실행하려면 내가 순서를 통제해야 한다 
@@ -242,13 +236,16 @@ $(function() {
 		}
 	});
 	$("#nick").on("blur", function() {
+		console.log($("#nick").val());
 		if(checkNick()==true) {
 			$.ajax({
-				url: "/moviefactory/api/member/" + $("#nick").val(),
+				url: "/moviefactory/api/member/nick?nick=" + $("#nick").val(),
 				method: "get",
 				success:function(result) {
+					console.log(result)
 					$("#helper_nick").text("사용가능합니다").css("color","green").css("font-size","0.75em");
 				}, error: function(xhr) {
+					console.log(xhr)
 					$("#helper_nick").text("사용중인 닉네임입니다").css("color","red").css("font-size","0.75em").attr("data-pass","true");
 				}
 			});
@@ -313,126 +310,128 @@ p {
 
 </head>
 <body>
-<div id="wrap">
-	<form id="joinForm" method="post">
-		<div class="form-group">
-			<p class="text-center"> ♥무비 팩토리 회원가입♥ </p>
-			<div>
-				<label for="username">아이디</label> <span class="helper-text"
-					id="helper_username"></span>
-			</div>
+	<div id="wrap">
+		<form id="joinForm" method="post">
 			<div class="form-group">
-				<input type="text" class="form-control" id="username" maxlength="12"
-					name="username">
-			</div>
+				<p class="text-center">♥무비 팩토리 회원가입♥</p>
+				<div>
+					<label for="username">아이디</label> <span class="helper-text"
+						id="helper_username"></span>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" id="username"
+						maxlength="12" name="username">
+				</div>
 
-			<div>
-				<label for="password">비밀번호</label> <span class="helper-text"
-					id="helper_password"></span>
-			</div>
-			<div class="form-group">
-				<input type="password" name="password" id="password" maxlength="10"
-					class="form-control">
-			</div>
+				<div>
+					<label for="password">비밀번호</label> <span class="helper-text"
+						id="helper_password"></span>
+				</div>
+				<div class="form-group">
+					<input type="password" name="password" id="password" maxlength="10"
+						class="form-control">
+				</div>
 
-			<div>
-				<label for="password2">비밀번호 확인</label> <span class="helper-text"
-					id="helper_password2"></span>
-			</div>
-			<div class="form-group">
-				<input type="password" id="password2" maxlength="10"
-					class="form-control">
-			</div>
+				<div>
+					<label for="password2">비밀번호 확인</label> <span class="helper-text"
+						id="helper_password2"></span>
+				</div>
+				<div class="form-group">
+					<input type="password" id="password2" maxlength="10"
+						class="form-control">
+				</div>
 
-			<div>
-				<label for="name">이름</label> <span class="helper-text"
-					id="helper_name"></span>
-			</div>
-			<div class="form-group">
-				<input type="text" id="name" name="name" class="form-control"
-					maxlength="10">
-			</div>
+				<div>
+					<label for="name">이름</label> <span class="helper-text"
+						id="helper_name"></span>
+				</div>
+				<div class="form-group">
+					<input type="text" id="name" name="name" class="form-control"
+						maxlength="10">
+				</div>
 
-			<div>
-				<label for="nick">닉네임</label> <span class="helper-text"
-					id="helper_nick"></span>
-			</div>
-			<div class="form-group">
-				<input type="text" id="nick" name="nick" class="form-control"
-					maxlength="10">
-			</div>
+				<div>
+					<label for="nick">닉네임</label> <span class="helper-text"
+						id="helper_nick"></span>
+				</div>
+				<div class="form-group">
+					<input type="text" id="nick" name="nick" class="form-control"
+						maxlength="10">
+				</div>
 
-			<div>
-				<label for="email">이메일</label> <span class="helper-text"
-					id="helper_email"></span>
-			</div>
-			<div class="form-group">
-				<input type="text" id="email" name="email" class="form-control"
-					size="20" maxlength="30">
-			</div>
+				<div>
+					<label for="email">이메일</label> <span class="helper-text"
+						id="helper_email"></span>
+				</div>
+				<div class="form-group">
+					<input type="text" id="email" name="email" class="form-control"
+						size="20" maxlength="30">
+				</div>
 
-			<div>
-				<label for="zipCode">우편번호</label><span class="helper-text"
-					id="helper_zipCode"></span>
-			</div>
-			<div class="form-group">
-				<input type="text" id="zipCode" name="zipCode" class="form-control"
-					size="20" maxlength="30">
-			</div>
+				<div>
+					<label for="zipCode">우편번호</label><span class="helper-text"
+						id="helper_zipCode"></span>
+				</div>
+				<div class="form-group">
+					<input type="text" id="zipCode" name="zipCode" class="form-control"
+						size="5" maxlength="5">
+				</div>
 
-			<div>
-				<label for="baseAddr">기본주소</label> <span class="helper-text"
-					id="helper_baseAddr"></span>
-			</div>
-			<div class="form-group">
-				<input type="text" id="baseAddr" name="baseAddr"
-					class="form-control" size="20" maxlength="30">
-			</div>
-			
-			<div>
-				<label for="tel">전화번호</label> <span class="helper-text"
-					id="helper_tel"></span>
-			</div>
-			<div class="form-group">
-				<input type="text" id="tel" name="tel" class="form-control"
-					size="30" maxlength="11">
-			</div>
+				<div>
+					<label for="baseAddr">기본주소</label><span class="helper-text"
+						id="helper_baseAddr"></span>
+				</div>
+				<div class="form-group">
+					<input type="text" id="baseAddr" name="baseAddr"
+						class="form-control" size="30" maxlength="300">
+				</div>
 
-			<div>
-				<label for="birth">생년월일</label> <span class="helper-text"
-					id="helper_birth"></span>
-			</div>
-			<div class="form-group">
-				<input type="text" id="birth" name="birth" size="6" maxlength="6"> - <input
-					type="text" id="gender" name="gender" size="1" maxlength="1">******
-			</div>
+				<div>
+					<label for="tel">전화번호</label> <span class="helper-text"
+						id="helper_tel"></span>
+				</div>
+				<div class="form-group">
+					<input type="text" id="tel" name="tel" class="form-control"
+						size="30" maxlength="11">
+				</div>
 
-			<div>
-				<label for="profile">프로필 사진</label> <br> <img id="show_profile"
-					height="240px">
-			</div>
-			<div class="form-group">
-				<input id="profile" type="file" name="sajin" class="form-control"
-					accept=".jpg,.jpeg,.png,.gif,.bmp" class="form-control">
-			</div>
+				<div>
+					<label for="birth">생년월일</label> <span class="helper-text"
+						id="helper_birth"></span>
+				</div>
+				<div class="form-group">
+					<input type="text" id="birth" name="birth" size="6" maxlength="6">
+					- <input type="text" id="gender" name="gender" size="1"
+						maxlength="1">******
+				</div>
 
-			<div>
-				<label class="center">한줄소개</label>
-			</div>
-			<div class="form-group">
-				<textarea rows="5" cols="100" placeholder="한 줄 소개를 입력해주세요^^"></textarea>
-			</div>
+				<div>
+					<label for="profile">프로필 사진</label> <br> <img
+						id="show_profile" height="240px">
+				</div>
+				<div class="form-group">
+					<input id="profile" type="file" name="sajin" class="form-control"
+						accept=".jpg,.jpeg,.png,.gif,.bmp" class="form-control">
+				</div>
 
-			<div>
-				<div class="row text-center" style="width: 100%">
-					<div style="width: 30%; float: none; margin: 0 auto">
-						<button type="reset" id="reset" class="center">초기화</button>
-						<button id="join" class="center" type="button">회원가입</button>
+				<div>
+					<label class="center">한줄소개</label>
+				</div>
+				<div class="form-group">
+					<textarea rows="5" name="intro" id="intro" cols="100"
+						placeholder="한 줄 소개를 입력해주세요^^"></textarea>
+				</div>
+
+				<div>
+					<div class="row text-center" style="width: 100%">
+						<div style="width: 30%; float: none; margin: 0 auto">
+							<button type="reset" id="reset" class="center">초기화</button>
+							<button id="join" class="center" type="button">회원가입</button>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</form>
-</div>
+		</form>
+	</div>
 </body>
 </html>

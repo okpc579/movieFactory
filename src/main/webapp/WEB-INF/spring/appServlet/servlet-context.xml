@@ -36,4 +36,5 @@
 	
 	<!-- 스프링 시큐리티의 @Secured 어노테이션 활성화 -->
 	<security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled"/>
+	
 </beans:beans>

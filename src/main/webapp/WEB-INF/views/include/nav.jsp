@@ -12,10 +12,10 @@
 		$("#logout").on("click", function(e) {
 			e.preventDefault();
 			$.ajax({
-				url:"/aboard2s/user/logout",
+				url:"/moviefactory/member/logout",
 				method:"post",
 				success:function() {
-					location.href = "/aboard2s"
+					location.href = "/moviefactory"
 				}
 			})
 		});
