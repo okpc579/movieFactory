@@ -1,6 +1,8 @@
 package com.icia.moviefactory.dao;
 
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface LoginJobMapper {
@@ -23,6 +25,7 @@ public interface LoginJobMapper {
    
    // LDAO-05. 로그인 성공 횟수 증가
    
+<<<<<<< HEAD
    /*
     * @Update("update member set login_cnt = login_cnt+1 where username=#{username}"
     * ) public int increaseLoginCount(String username);
@@ -33,4 +36,16 @@ public interface LoginJobMapper {
     * @Select("select mno from memo where receiver=#{username} and is_read=0 and rownum=1"
     * ) public Integer isNotReadMemoExist(String username);
     */
+=======
+   
+    @Update("update member set username=username where username=#{username}"
+    ) public int increaseLoginCount(String username);
+    
+   
+   // LDAO-06. 로그인 성공하면 받은 메모가 존재하는 지 확인
+   
+    @Select("select username from member where username=#{username}"
+    ) public Integer isNotReadMemoExist(String username);
+    
+>>>>>>> dongmin_1
 }

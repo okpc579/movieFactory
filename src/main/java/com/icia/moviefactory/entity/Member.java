@@ -1,12 +1,19 @@
 package com.icia.moviefactory.entity;
 
-import java.util.*;
+import java.util.Date;
 
-import org.springframework.format.annotation.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
+<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.*;
 
 import lombok.*;
+=======
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+>>>>>>> dongmin_1
 
 @Data
 @AllArgsConstructor

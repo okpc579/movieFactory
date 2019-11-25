@@ -11,7 +11,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.icia.moviefactory.dao.AskDao;
 import com.icia.moviefactory.entity.AdminAsk;
@@ -36,11 +35,11 @@ public class AskDaoTest {
 	}
 	
 	//@Transactional
-	@Test
+	//@Test
 	public void insertTest() {
 		List<String> list = new ArrayList();
 		list.add("바보");
-		assertThat(askDao.insert(new AdminAsk(3, "박동민", "미친천재", "똑띡이", null, null, "답변중")),is(1));
+		assertThat(askDao.insert(new AdminAsk(99, "손지혜", "미친천재", "똑띡이", null, null, "답변중")),is(1));
 	}
 
 	//@Transactional
@@ -65,10 +64,22 @@ public class AskDaoTest {
 	public void findAll() {
 		assertThat(askDao.findAll(1, 5).size(),is(1));
 	}
-	
+	// 글답변
 	//@Transactional
-	@Test
+	//@Test
 	public void askAnswer() {	
 		assertThat(askDao.askAnswer(new AdminAsk(13,"박동민","개멍청이","빡고수",null,"알랄라울랄라하세요","답변완료")),is(1));
+	}
+	// 작성자 읽어오기
+	//@Transactional
+	//@Test
+	public void findUsernameById() {
+		assertThat(askDao.findUsernameById(16),is("박동민"));
+	}
+	// 글 상세
+	//@Transactional
+	@Test
+	public void findByAdminAsk() {
+		assertThat(askDao.findByAdminAsk(16),is(1));
 	}
 }

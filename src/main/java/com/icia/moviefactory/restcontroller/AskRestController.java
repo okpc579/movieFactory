@@ -2,7 +2,6 @@ package com.icia.moviefactory.restcontroller;
 
 import java.net.URI;
 import java.security.Principal;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -31,23 +30,34 @@ public class AskRestController {
 	@Autowired
 	private AskService service;
 	
+//	// 관리자가 전체문의글 가져오기
+//	//@Secured("ROLE_ADMIN")
+//	@GetMapping("/adminAsk/list")
+//	public ResponseEntity<?> findAllAdminAsk(@RequestParam(defaultValue = "1") int pageno, @RequestParam(required = false) Principal username){
+//		return ResponseEntity.ok(service.findAll(pageno, username.getName()));
+//	}
+//	
 	// 유저의 목록 가져오기
-	@GetMapping("/adminAsks")
-	public ResponseEntity<?> findAllAdminAskByUsername(@RequestParam(defaultValue="1") int pageno, @RequestParam(required = false) String username) {
-		return ResponseEntity.ok(service.findAllAdminAskByUsername(pageno, username));
+	@GetMapping("/adminAsk/list")
+	public ResponseEntity<?> findAllAdminAskByUsername(@RequestParam(defaultValue="1") int pageno, Principal username) {	// principal을 주어 로그인확인함
+		System.out.println(username + "찍힙니까? 레스트컨트롤러");
+		System.out.println(username.getName());
+		System.out.println(service.findAllAdminAskByUsername(pageno, username.getName()));
+		return ResponseEntity.ok(service.findAllAdminAskByUsername(pageno, username.getName()));
 	}
-
+	
 	// 글 쓰기
 	@Secured("ROLE_USER")
-	@PostMapping("/adminAsks")
+	@PostMapping("/adminAsk/write")
 	public ResponseEntity<?> writeAdminAsk(@Valid AdminAsk adminAsk, BindingResult results, Principal principal, HttpServletRequest req) throws BindException {
+		adminAsk.setUsername(principal.getName());
 		if(results.hasErrors())
 			// 오류처리
 			throw new BindException(results);
 		// 글작성
 		AdminAsk result = service.writeAdminAsk(adminAsk);
 		// 이동 url 생성
-		URI location = UriComponentsBuilder.newInstance().path("moviefactory/api/adminAsks").path(result.getAdminAskNo()+"").build().toUri();
+		URI location = UriComponentsBuilder.newInstance().path("moviefactory/adminAsk/list").path(result.getAdminAskNo()+"").build().toUri();
 		// 생성된 url로 이동
 		return ResponseEntity.created(location).body(result.getAdminAskNo()); 
 	}
