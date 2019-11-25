@@ -1,4 +1,4 @@
-package com.icia.moviefactory.controller;
+package com.icia.moviefactory.controller.rest;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;

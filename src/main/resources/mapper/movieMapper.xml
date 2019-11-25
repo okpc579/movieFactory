@@ -34,8 +34,8 @@
 	<delete id="deleterevcmnt"> delete from m_cmnt where
 		m_rev_cmnt_no=#{mRevCmntNo} </delete>
 
-	<insert id="insertcmntlike"> insert into m_cmnt_like(cmnt_like_no,
-		m_rev_cmnt_no, username, like_reg_date)
+	<insert id="insertcmntlike"> 
+		insert into m_cmnt_like(cmnt_like_no, m_rev_cmnt_no, username, like_reg_date)
 		values(#{cmntLikeNo},#{mRevCmntNo},#{username},sysdate) </insert>
 
 	<select id="cmntlikecnt" resultType="long"> select count(m_rev_cmnt_no)

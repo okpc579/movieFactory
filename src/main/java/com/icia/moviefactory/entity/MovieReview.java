@@ -21,3 +21,4 @@ public class MovieReview {
 	private String genre;
 	private long isBlind;
 }
+

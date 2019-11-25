@@ -41,7 +41,6 @@
 		select password from member where username=#{username} and rownum=1
 	</select>
 	
-	
 	<!-- 내정보 보기 : 아이디로 정보 가져오기 -->
 	<select id="findById" resultType="member">
 		select username, name, nick, email,base_addr baseAddr, zip_code zipCode, tel, photo, birth, 

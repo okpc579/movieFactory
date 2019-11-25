@@ -11,7 +11,10 @@
 		<typeAlias alias="member" type="com.icia.moviefactory.entity.Member"/>
 		<typeAlias alias="collections" type="com.icia.moviefactory.entity.Collection" />
 		<typeAlias alias="collectionlike" type="com.icia.moviefactory.entity.CollectionLike" />
-
+		<typeAlias alias="movieReview" type="com.icia.moviefactory.entity.MovieReview" />
+		<typeAlias alias="favoriteMovie" type="com.icia.moviefactory.entity.FavoriteMovie" />
+		<typeAlias alias="follow" type="com.icia.moviefactory.entity.Follow" />
+		<typeAlias alias="favoriteMovie" type="com.icia.moviefactory.entity.FavoriteMovie" />
 	</typeAliases>
 	
 	

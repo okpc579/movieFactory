@@ -2,4 +2,79 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="userMovieMapper">
 	
+
+	<!-- 1.유저 페이지 보기 -->	
+	<select id="findByUsernameUserPage" resultType="member">
+		select username, nick, photo,  from user where username=#{username} and rownum=1
+	</select>
+
+	<!-- 2.컬렉션 목록보기 -->	
+	<select id="findByUsernameCollectionList" resultType="collection">
+		select username, coll_no collNo, coll_name collName, coll_intro from collection where username=#{username} and rownum=1
+	</select>
+	
+	<!-- 3.유저리뷰 목록보기 -->	
+	<select id="findUserReviewList" resultType="movieReview">
+		select username, m_rev_no mRevNo, m_rev_content mRevContent from moviereview where username=#{username} and rownum=1
+	</select>
+	
+	<!-- 4.팔로잉 목록보기 -->	
+	<select id="findFollowingList" resultType="follow">
+		select following_username followingUsername from follow where username=#{username} and rownum=1
+	</select>
+	
+	<!-- 5.팔로워 목록보기 -->	
+	<select id="findFollowerList" resultType="follow">
+		select follower_username followingUsername from follow where username=#{username} and rownum=1
+	</select>
+	
+	<!-- 6.유저 고평점 상위보기 -->	
+	<select id="findUserTopRating" resultType="movieReview">
+		select username, rating, m_no mNo from moviereview where username=#{username} and rownum=1
+	</select>
+	
+	<!-- 8.내 선호영화 예상 목록보기 -->	
+	<select id="findPreferenceMovieList" resultType="favoriteMovie">
+		select username m_like_no mLikeNo from favoritemovie where username=#{username} and rownum=1
+	</select>
+	
+	<!-- 9.평점상위보기 -->	
+	<select id="findAverageRating" resultType="movieReview">
+		select username m_no mNO rating from MovieReview where username=#{username} and rownum=1
+	</select>
+	
+	<!-- 10.장르별 평점 상위보기 -->	
+	<select id="findGenretopratingList" resultType="movieReview">
+		select username genre m_no from MovieReview where username=#{username} and rownum=1
+	</select>
+	
+	<!-- 11.좋아하는 영화 추가 -->		
+	<insert id="addFavoriteMovie" useGeneratedKeys="true" keyProperty="mLikeNo">
+		<selectKey keyProperty="mlikeNo" resultType="int" order="BEFORE">
+			select m_like_no_seq.nextval from dual
+		</selectKey>
+		insert into faovritemovie(m_like_no, username) 
+		values(#{mLikeNo}, #{username})
+	</insert>
+	
+	<!-- 12.좋아하는 영화 삭제 -->	
+	<delete id="deleteFavoriteMovie">
+		delete from m_like_no where m_like_no=#{mLikeNo}		
+	</delete>
+	
+	<!-- 7.좋아하는 영화 목록보기 -->	
+	<select id="favoriteMovieList" resultType="favoriteMovie">
+		select username m_like_no mLikeNo from favoritemovie where username=#{username} and rownum=1
+	</select>
+	
+<!-- 	<resultMap type="com.icia.moviefactory.entity.FavoriteMovieDetail" id="mapForFavoriteMovieDetail">
+		<id property="mNo" column="m_no" />
+		<result property="writingDate" column="writing_date" />
+	</resultMap>
+	
+	<resultMap type="hashmap" id="mapForFavorite" >
+		<id property="mLikeNo" column="m_like_no"/>
+		<result property="username" column="username" />
+		<favoritemovie property="detail" javaType="java.util.ArrayList" resultMap="mapForFavoriteDetail"/>
+	</resultMap> -->
 </mapper>

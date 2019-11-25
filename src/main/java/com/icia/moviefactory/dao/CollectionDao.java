@@ -13,69 +13,69 @@ import com.icia.moviefactory.entity.Collection;
 public class CollectionDao {
 	@Autowired
 	private SqlSessionTemplate tpl;
-	
+	//1
 	public int add(Collection collection) {
 		return tpl.insert("collectionMapper.insert", collection);
 	}
-
+	//2
 	public Map read(long collNo) {
 		return tpl.selectOne("collectionMapper.findByIdWithDetail", collNo);
 	}
-
+	//3
 	public int addmovie(long mNo, long collNo) {
 		Map<String, Long> map = new HashMap<String, Long>();
 		map.put("mNo", mNo);
 		map.put("collNo", collNo);
 		return tpl.insert("collectionMapper.insertDetail", map);
 	}
-
+	//4
 	public int update(Collection collection) {
 		return tpl.update("collectionMapper.update", collection);
 	}
-
+	//5
 	public int deletemovie(long mNo, long collNo) {
 		Map<String, Long> map = new HashMap<String, Long>();
 		map.put("mNo", mNo);
 		map.put("collNo", collNo);
 		return tpl.delete("collectionMapper.deleteDetail", map);
 	}
-
+	//6
 	public int delete(long collNo) {
 		return tpl.delete("collectionMapper.delete", collNo);
 	}
-
+	//7
 	public int like(CollectionLike collectionLike) {
 		return tpl.insert("collectionMapper.insertLike", collectionLike);
 	}
-
+	//8
 	public int cancleLike(CollectionLike collectionLike) {
 		return tpl.delete("collectionMapper.deleteLike", collectionLike);
 	}
-	
+	//9
 	public String collectionFindUsername(long collNo) {
 		return tpl.selectOne("collectionMapper.findCollectionUsernameById", collNo);
 	}
-
+	//10
 	public String collectionLikeFindUsername(long collNo, String username) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("collNo", collNo);
 		map.put("username", username);
 		return tpl.selectOne("collectionMapper.findCollectionLikeUsernameById", map);
 	}
-
+	//11
 	public List<Collection> movieCollectionList(long mNo) {
 		return tpl.selectList("collectionMapper.findCollectionListBymNo", mNo);
 	}
-
+	//12
 	public List<Collection> usernameCollectionList(String username) {
 		return tpl.selectList("collectionMapper.findCollectionListByUsername", username);
 	}
-
+	//13
 	public int increaselikecnt(long collNo) {
 		return tpl.update("collectionMapper.increaselikecnt", collNo);
 		
 	}
-
+	//14
 	public int decreaselikecnt(long collNo) {
 		return tpl.update("collectionMapper.decreaselikecnt", collNo);
 		

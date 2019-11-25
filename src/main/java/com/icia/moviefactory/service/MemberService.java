@@ -22,7 +22,6 @@ public class MemberService {
 	@Autowired
 	private MemberDao dao;
 	@Autowired
-	
 	private MailUtil mailUtil;
 	@Autowired
 	private PasswordEncoder pwdEncoder;
