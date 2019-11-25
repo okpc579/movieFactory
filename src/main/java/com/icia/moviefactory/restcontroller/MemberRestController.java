@@ -71,17 +71,29 @@ public class MemberRestController {
 
 	// 아이디 찾기 -> MemberNotFoundException
 	@PreAuthorize("isAnonymous()")
+<<<<<<< HEAD
 	@GetMapping(path = "/members/username", produces = "text/plain;charset=utf-8")
 	public ResponseEntity<?> findId(@NonNull String email, @RequestParam String name) {
 		return ResponseEntity.ok(service.findId(email, name));
+=======
+	@GetMapping(path="/member/findId",produces = "text/plain;charset=utf-8")
+	public ResponseEntity<?> findId(@NonNull String email, @NonNull String name) {
+		return ResponseEntity.ok(service.findId(email,name));
+>>>>>>> soonsim2
 	}
 
 	// 비밀번호 찾기 -> MemberNotFoundException
 	@PreAuthorize("isAnonymous()")
+<<<<<<< HEAD
 	@PatchMapping(path = "/members/user/{username}", produces = "text/plain;charset=utf-8")
 	public ResponseEntity<?> resetPassword(@PathVariable String username, @RequestParam String email,
 			@RequestParam String name) {
 		return ResponseEntity.ok(service.findPassword(username, email, name));
+=======
+	@PostMapping(path="/member/findPassword",produces = "application/json;charset=utf-8")
+	public ResponseEntity<?> findPassword(@NonNull String username, @NonNull String email, @NonNull String name) throws NullPointerException {
+		return ResponseEntity.ok(service.findPassword(username, email,name));
+>>>>>>> soonsim2
 	}
 
 	// 아이디 중복 체크

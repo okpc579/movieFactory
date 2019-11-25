@@ -26,6 +26,7 @@
 		blind_cnt, enabled, reg_date, intro, last_login_date, recent_login_date, login_failure_cnt, is_resign, photo )
 		values(#{username}, #{password}, #{name}, #{nick}, #{email}, #{baseAddr}, #{zipCode}, #{tel},  #{birth}, #{gender}, 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		0, 1, #{regDate}, #{intro}, #{lastLoginDate}, #{recentloginDate}, #{loginFailureCnt}, #{isResign}, #{photo} )
 =======
 		0, 1, #{regDate}, #{intro}, #{lastLoginDate}, #{recentLoginDate}, #{loginFailureCnt}, #{isResign}, #{photo} )
@@ -43,6 +44,9 @@
 		#{recentLoginDate},
 		#{loginFailureCnt}, #{isResign}, #{photo} )
 >>>>>>> jihye1
+=======
+		0, 1, #{regDate}, #{intro}, #{lastLoginDate}, #{recentloginDate}, #{loginFailureCnt}, #{isResign}, #{photo} )
+>>>>>>> soonsim2
 	</insert>
 
 	<!-- 회원가입 : 아이디 중복 체크 -->

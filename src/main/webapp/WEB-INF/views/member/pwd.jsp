@@ -12,6 +12,6 @@
 </head>
 <body>
 	임시비밀번호를 이메일로 전송했습니다.
-	<a href="http://localhost:8081/moviefactory/member/login">로그인 하러가기</a>
+	<a href="login">로그인 하러가기</a>
 </body>
 </html>

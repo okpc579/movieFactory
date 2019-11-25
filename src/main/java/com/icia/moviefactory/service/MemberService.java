@@ -26,9 +26,12 @@ public class MemberService {
 	@Autowired
 	private MemberDao dao;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	
 >>>>>>> a33b2e02cef4d45e92f80206ec75714d11f7bd93
+=======
+>>>>>>> soonsim2
 	@Autowired
 	private MailUtil mailUtil;
 	
@@ -45,9 +48,15 @@ public class MemberService {
 	private AuthorityMapper authorityMapper;
 
 	// 아이디 찾기
+<<<<<<< HEAD
 	public Object findId(String email, String name) {
 		String result = dao.findIdByEmailAndName(email, name);
 		if (result == null)
+=======
+	public String findId(String email, String name) {
+		String result = dao.findIdByEmailAndName(email,name);
+		if(result==null)
+>>>>>>> soonsim2
 			throw new MemberNotFoundException();
 		// 하드코딩(바로 값 적는것)을 하게되면 값을 고치기가 어려움
 
@@ -63,18 +72,28 @@ public class MemberService {
 	}
 
 	// 비밀번호 찾는건데 비밀번호 업데이트되고, 임시비번 발급해서 이메일로 쏴주는것.
+<<<<<<< HEAD
 	public Object findPassword(String username, String email, String name) {
 		String result = dao.findPasswordByIdAndEmailAndName(username, email, name);
 		if (result == null)
+=======
+	public String findPassword(String username, String email, String name) {
+		String result = dao.findPasswordByIdAndEmailAndName(username, email,name);
+		if(result==null)
+>>>>>>> soonsim2
 			throw new MemberNotFoundException();
 		String newPassword = RandomStringUtils.randomAlphanumeric(10);
 		String newEncodedPassword = pwdEncoder.encode(newPassword);
 		dao.updatePassword(username, newEncodedPassword);
-		String link = "<a href='http://localhost:8081/moviefactory/member/login>로그인</a>";
 		String text = "<p>임시번호를 발급했습니다. 로그인해주세요</p>";
+<<<<<<< HEAD
 		text = text + "<p>임시비밀번호 :" + newPassword + "</p>";
 		text = text + link;
 		Mail mail = new Mail("webmaster@icia.com", "dmdu11@naver.com", "이메일 확인", text);
+=======
+		text = text + "<p>임시비밀번호 :" + newPassword +"</p>";
+		Mail mail = Mail.builder().sender("webmaster@icia.com").receiver(email).title("비밀번호 재발급 메일입니다").content(text).build();
+>>>>>>> soonsim2
 		mailUtil.sendMail(mail);
 		return StringConstant.SEND_PASSWORD_EMAIL;
 	}

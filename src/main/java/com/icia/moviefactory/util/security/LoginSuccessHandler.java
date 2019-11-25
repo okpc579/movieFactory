@@ -78,11 +78,12 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 		
 		/*
 		mapper.resetLoginFailureCount(authentication.getName());
-		mapper.increaseLoginCount(authentication.getName());
-		
-		if(mapper.isNotReadMemoExist(authentication.getName())!=null) {
-			session.setAttribute("msg", "읽지 않은 메모가 있습니다");
-		}
+		/*
+		 * mapper.increaseLoginCount(authentication.getName());
+		 * 
+		 * if(mapper.isNotReadMemoExist(authentication.getName())!=null) {
+		 * session.setAttribute("msg", "읽지 않은 메모가 있습니다"); }
+		 */
 		SavedRequest savedRequest = cache.getRequest(request, response);
 		
 		// 로그인 성공 후 이동할 페이지가 있을 경우 세션에 저장

@@ -2,10 +2,13 @@ package com.icia.moviefactory.controller.mvc;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.access.annotation.*;
 >>>>>>> a33b2e02cef4d45e92f80206ec75714d11f7bd93
+=======
+>>>>>>> soonsim2
 import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
@@ -60,16 +63,16 @@ public class MemberMVCController {
 	}
 
 	// MVC-2. 아이디 찾기
-	@GetMapping("/member/findId")
+	@GetMapping("/api/member/findId")
 	public String findId(Model model) {
 		model.addAttribute("viewName", "member/findId.jsp");
 		return "main";
 	}
 
 	// MVC-3. 비밀번호 찾기
-	@GetMapping("/member/findPwd")
+	@GetMapping("/api/member/findPassword")
 	public String findPwd(Model model) {
-		model.addAttribute("viewName", "member/findPwd.jsp");
+		model.addAttribute("viewName", "member/findPassword.jsp");
 		return "main";
 	}
 
@@ -87,6 +90,7 @@ public class MemberMVCController {
 		return "main";
 	}
 	
+<<<<<<< HEAD
 	
 }
 =======
@@ -151,5 +155,18 @@ public class MemberMVCController {
    }
    
    
+=======
+	@GetMapping("/ap/캡차API로직")
+	public String api(Model model) {
+		model.addAttribute("viewName", "ap/캡차API로직.jsp");
+		return "main";
+	}
+	
+	@GetMapping("/ap/캡차API사용자화면")
+	public String api2(Model model) {
+		model.addAttribute("viewName", "ap/캡차API사용자화면.html");
+		return "main";
+	}
+>>>>>>> soonsim2
 }
 >>>>>>> dongmin_1

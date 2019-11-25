@@ -1,26 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<title>Insert title here</title>
-</head>
-<body>
+
 <!-- 캡차API 로직을 처리하는 JSP-->
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ page import="java.io.*"%>
 <%@ page import="java.net.*"%>
 <%@ page import="java.util.*"%>
 <%!
-    String clientId = ""; //애플리케이션 클라이언트 아이디값";
-	String clientSecret = ""; //애플리케이션 클라이언트 시크릿값";
+    String clientId = "5K8mkLpbsNQQI3fjhSss"; //애플리케이션 클라이언트 아이디값";
+	String clientSecret = "hJ1f8jG1Gw"; //애플리케이션 클라이언트 시크릿값";
 
+	// 캡차 키 발급
 	public String captchaNkey() {
 		String result = null;
 		try {
@@ -51,10 +41,11 @@
 		return result;
 	}
 
-	public String captchaImage(String key, String dirPath) {
+	// 캡차 이미지 수신
+	/* public String captchaImage(String key, String dirPath) {
 		String result = null;
 		try {
-			//String key = "CAPTCHA_KEY"; // https://openapi.naver.com/v1/captcha/nkey 호출로 받은 키값
+			//String key = "Hsks6KsgNd8dQAgd"; // https://openapi.naver.com/v1/captcha/nkey 호출로 받은 키값
 			String apiURL = "https://openapi.naver.com/v1/captcha/ncaptcha.bin?key=" + key;
 			URL url = new URL(apiURL);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -68,7 +59,7 @@
 				int read = 0;
 				byte[] bytes = new byte[1024];
 				// 랜덤한 이름으로 파일 생성
-				//dirPath="C:\\Users\\Clark\\workspace\\ajax\\WebContent\\captchaImage\\";
+				dirPath="C:\\Users\\Clark\\workspace\\ajax\\WebContent\\captchaImage\\";
 				String tempname = Long.valueOf(new Date().getTime()).toString();
 				File f = new File(dirPath + tempname + ".jpg");
 				f.createNewFile();
@@ -95,11 +86,12 @@
 		return result;
 	}
 
+	// 얘가 검증하는 것..
 	public String captchaNkeyResult(String key, String value) {
 		String result=null;
 		try {
-			String code = "1"; // 키 발급시 0,  캡차 이미지 비교시 1로 세팅
-			//String key = "CAPTCHA_KEY"; // 캡차 키 발급시 받은 키값
+			String code = "0"; // 키 발급시 0,  캡차 이미지 비교시 1로 세팅
+			//String key = "Hsks6KsgNd8dQAgd"; // 캡차 키 발급시 받은 키값
 			//String value = "USER_VALUE"; // 사용자가 입력한 캡차 이미지 글자값
 			System.out.println("key >>> " + key + " value >>> " + value);
 			String apiURL = "https://openapi.naver.com/v1/captcha/nkey?code=" + code + "&key=" + key + "&value="
@@ -128,10 +120,12 @@
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		return result;
-	}%>
+		return result; 
+	}
+		*/
+	%>
 <%
-	String dirPath = request.getServletContext().getRealPath("captchaImage") + "\\";
+	/* String dirPath = request.getServletContext().getRealPath("captchaImage") + "\\";
 	System.out.println(dirPath);
 	
 	String captchaImageName = null;
@@ -149,10 +143,6 @@
 		//result = "<img src=\"captchaImage/" + captchaImageName + "\">"+key;
 		result = "{\"key\":\""+key+"\", \"captchaImageName\":\""+captchaImageName+"\"}";
 		System.out.println("result>>>"+result);
-	}
+	} */
 	 
 %>
-<%=result%>
-
-</body>
-</html>
