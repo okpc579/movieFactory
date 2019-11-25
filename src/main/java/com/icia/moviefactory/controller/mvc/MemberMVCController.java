@@ -1,7 +1,5 @@
 package com.icia.moviefactory.controller.mvc;
 
-import javax.annotation.*;
-
 import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
@@ -17,16 +15,16 @@ public class MemberMVCController {
 	}
 	
 	// MVC-2. 아이디 찾기
-	@GetMapping("/member/findId")
+	@GetMapping("/api/member/findId")
 	public String findId(Model model) {
 		model.addAttribute("viewName", "member/findId.jsp");
 		return "main";
 	}
 	
 	// MVC-3. 비밀번호 찾기
-	@GetMapping("/member/findPwd")
+	@GetMapping("/api/member/findPassword")
 	public String findPwd(Model model) {
-		model.addAttribute("viewName", "member/findPwd.jsp");
+		model.addAttribute("viewName", "member/findPassword.jsp");
 		return "main";
 	}
 	
@@ -41,6 +39,18 @@ public class MemberMVCController {
 	@GetMapping("/member/pwd")
 	public String checkPwd(Model model) {
 		model.addAttribute("viewName", "member/pwd.jsp");
+		return "main";
+	}
+	
+	@GetMapping("/ap/캡차API로직")
+	public String api(Model model) {
+		model.addAttribute("viewName", "ap/캡차API로직.jsp");
+		return "main";
+	}
+	
+	@GetMapping("/ap/캡차API사용자화면")
+	public String api2(Model model) {
+		model.addAttribute("viewName", "ap/캡차API사용자화면.html");
 		return "main";
 	}
 }

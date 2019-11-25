@@ -4,6 +4,7 @@ import lombok.*;
 
 @Data
 @AllArgsConstructor
+@Builder
 public class Mail {
 	private String sender;
 	private String receiver;

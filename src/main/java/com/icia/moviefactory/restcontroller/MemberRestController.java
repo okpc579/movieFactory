@@ -36,15 +36,15 @@ public class MemberRestController {
 	
 	// 아이디 찾기 -> MemberNotFoundException
 	@PreAuthorize("isAnonymous()")
-	@GetMapping(path="/members/username",produces = "text/plain;charset=utf-8")
-	public ResponseEntity<?> findId(@NonNull String email, @RequestParam String name) {
+	@GetMapping(path="/member/findId",produces = "text/plain;charset=utf-8")
+	public ResponseEntity<?> findId(@NonNull String email, @NonNull String name) {
 		return ResponseEntity.ok(service.findId(email,name));
 	}
 	
 	// 비밀번호 찾기 -> MemberNotFoundException
 	@PreAuthorize("isAnonymous()")
-	@PatchMapping(path="/members/user/{username}",produces = "text/plain;charset=utf-8")
-	public ResponseEntity<?> resetPassword(@PathVariable String username, @RequestParam String email, @RequestParam String name) {
+	@PostMapping(path="/member/findPassword",produces = "application/json;charset=utf-8")
+	public ResponseEntity<?> findPassword(@NonNull String username, @NonNull String email, @NonNull String name) throws NullPointerException {
 		return ResponseEntity.ok(service.findPassword(username, email,name));
 	}
 	

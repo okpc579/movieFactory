@@ -17,6 +17,6 @@
 </head>
 <body>
 	아이디는 ${username }입니다.
-	<a href="http://localhost:8081/moviefactory/member/login">로그인 하러가기</a>
+	<a href="login">로그인 하러가기</a>
 </body>
 </html>

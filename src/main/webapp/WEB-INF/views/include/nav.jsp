@@ -12,10 +12,10 @@
 		$("#logout").on("click", function(e) {
 			e.preventDefault();
 			$.ajax({
-				url:"/aboard2s/user/logout",
+				url:"/moviefactory/member/logout",
 				method:"post",
 				success:function() {
-					location.href = "/aboard2s"
+					location.href = "/moviefactory"
 				}
 			})
 		});
@@ -32,11 +32,11 @@
 				_method : "delete"
 			}
 			$.ajax({
-				url: '/aboard2s/api/users',
+				url: '/moviefactory/api/member',
 				method:'post',
 				data: params,
 				success: function(result) {
-					location.href = "/aboard2s"
+					location.href = "/moviefactory"
 				}
 			})
 		})
@@ -47,21 +47,21 @@
 <div id="nav" class="navbar navbar-inverse">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="/aboard2s">ICIA</a>
+			<a class="navbar-brand" href="/moviefactory">ICIA</a>
 		</div>
 		<ul class="nav navbar-nav" id="menu_parent">
 	       	<!-- 로그인하지 않았을 때 보여줄 메뉴 -->
           	<sec:authorize access="isAnonymous()">
-				<li><a href="/aboard2s/user/find?job=findId">아이디 찾기</a></li>
-				<li><a href="/aboard2s/user/find?job=findPwd">비번 찾기</a></li>
-				<li><a href="/aboard2s/user/join">회원가입</a></li>
+				<li><a href="/moviefactory/api/member/findId">아이디 찾기</a></li>
+				<li><a href="/moviefactory/api/member/findPassword">비번 찾기</a></li>
+				<li><a href="/moviefactory/api/member/join">회원가입</a></li>
 			</sec:authorize>
 			
 			<!-- ROLE_USER 권한으로 로그인했을 때 보여줄 메뉴 -->
 			<sec:authorize access="hasRole('ROLE_USER')">
-	        	<li><a href='/aboard2s/user/read'>내 정보</a></li>
-				<li><a href='/aboard2s/memo/receive'>받은 메모</a></li>
-				<li><a href='/aboard2s/memo/send'>보낸 메모</a></li>
+	        	<li><a href='/moviefactory/member/user'>내 정보</a></li>
+				<li><a href='/moviefactory/memo/receive'>받은 메모</a></li>
+				<li><a href='/moviefactory/memo/send'>보낸 메모</a></li> /
 				<sec:authorize access="!hasRole('ROLE_ADMIN')">
           			<li><a id='resign' href='#'>탈퇴</a></li>
           		</sec:authorize>
@@ -69,15 +69,15 @@
           	
 			<!-- ROLE_ADMIN 권한으로 로그인했을 때 보여줄 메뉴 -->
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<li><a href="/aboard2s/admin/stat">통계</a></li>
-	        	<li><a href="/aboard2s/admin/user/report">회원 관리</a></li>
-				<li><a href="/aboard2s/admin/user/block">게시물 관리</a></li>
+				<li><a href="/moviefactory/admin/stat">통계</a></li>
+	        	<li><a href="/moviefactory/admin/user/report">회원 관리</a></li>
+				<li><a href="/moviefactory/admin/user/block">게시물 관리</a></li>
           	</sec:authorize>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
-			<li><a href="/aboard2s/board/list">게시판</a></li>
+			<li><a href="/moviefactory/board/list">게시판</a></li>
 			<sec:authorize access="isAnonymous()">
-				<li><a href="/aboard2s/user/login">로그인</a></li>
+				<li><a href="/moviefactory/member/login">로그인</a></li>
 			</sec:authorize>
 			<sec:authorize access="isAuthenticated()">
 				<li><a href="#" id="logout">로그아웃</a></li>

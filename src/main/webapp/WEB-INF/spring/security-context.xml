@@ -7,11 +7,11 @@
 
 	<!-- 자동 설정 사용, 스프링 시큐리티 EL 사용
 			로그인 페이지 아이디와 비밀번호 요소 이름을 username, password로 지정
-			로그인 페이지의 주소와 로그인 처리 주소를 /users/login로 지정
+			로그인 페이지의 주소와 로그인 처리 주소를 /member/login로 지정
 			로그인되면 루트 페이지로 이동
-			로그인에 실패하면 /users/login?job=fail로 이동
+			로그인에 실패하면 /member/login?job=fail로 이동
 			권한 오류시 /system/e403으로 이동
-			로그아웃 주소를 /users/logout로 지정
+			로그아웃 주소를 /member/logout로 지정
 	 -->
 	<sec:http auto-config="true" use-expressions="true">
 		<sec:csrf disabled="true"/>

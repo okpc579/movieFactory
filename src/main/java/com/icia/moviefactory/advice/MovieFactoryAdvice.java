@@ -1,7 +1,6 @@
 package com.icia.moviefactory.advice;
 
 import org.springframework.http.*;
-import org.springframework.util.*;
 import org.springframework.web.bind.annotation.*;
 
 import com.icia.moviefactory.exception.*;
@@ -18,5 +17,4 @@ public class MovieFactoryAdvice {
 	public ResponseEntity<?> MemberNotFoundExceptionHandler() {
 		return new ResponseEntity<String>("사용자를 찾을 수 없습니다", getHeaders(), HttpStatus.CONFLICT);
 	}
-
 }

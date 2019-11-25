@@ -22,7 +22,6 @@ public class MemberService {
 	@Autowired
 	private MemberDao dao;
 	@Autowired
-	
 	private MailUtil mailUtil;
 	@Autowired
 	private PasswordEncoder pwdEncoder;
@@ -33,7 +32,7 @@ public class MemberService {
 	@Autowired
 	private AuthorityMapper authorityMapper;
 	// 아이디 찾기
-	public Object findId(String email, String name) {
+	public String findId(String email, String name) {
 		String result = dao.findIdByEmailAndName(email,name);
 		if(result==null)
 			throw new MemberNotFoundException();
@@ -51,18 +50,16 @@ public class MemberService {
 	}
 
 	// 비밀번호 찾는건데 비밀번호 업데이트되고, 임시비번 발급해서 이메일로 쏴주는것.
-	public Object findPassword(String username, String email, String name) {
+	public String findPassword(String username, String email, String name) {
 		String result = dao.findPasswordByIdAndEmailAndName(username, email,name);
 		if(result==null)
 			throw new MemberNotFoundException();
 		String newPassword = RandomStringUtils.randomAlphanumeric(10);
 		String newEncodedPassword = pwdEncoder.encode(newPassword);
 		dao.updatePassword(username, newEncodedPassword);
-		String link = "<a href='http://localhost:8081/moviefactory/member/login>로그인</a>";
 		String text = "<p>임시번호를 발급했습니다. 로그인해주세요</p>";
 		text = text + "<p>임시비밀번호 :" + newPassword +"</p>";
-		text = text + link;
-		Mail mail = new Mail("webmaster@icia.com", "dmdu11@naver.com", "이메일 확인", text);	// 아이디 자기꺼로 바꾸셈
+		Mail mail = Mail.builder().sender("webmaster@icia.com").receiver(email).title("비밀번호 재발급 메일입니다").content(text).build();
 		mailUtil.sendMail(mail);
 		return StringConstant.SEND_PASSWORD_EMAIL;
 	}
