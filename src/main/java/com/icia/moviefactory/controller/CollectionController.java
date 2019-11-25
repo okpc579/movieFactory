@@ -12,18 +12,20 @@ import org.springframework.web.bind.annotation.*;
 import com.icia.moviefactory.entity.*;
 import com.icia.moviefactory.service.*;
 
-@RequestMapping("/collection")
+
+@RequestMapping("/api/collection")
 @RestController
 public class CollectionController {
 	@Autowired
 	private CollectionService service;
 	@PostMapping("/add")
 	public ResponseEntity<?> add(@Valid Collection collection, BindingResult results, Principal principal) {
-		collection.setUsername(principal.getName());
-		return ResponseEntity.ok(service.add(collection));
+		//collection.setUsername(principal.getName());
+		collection.setUsername("spring");
+		return ResponseEntity.ok(service.add(collection).getCollNo());
 	}
-	@GetMapping("/read")
-	public ResponseEntity<?> read(long collNo) {
+	@GetMapping("/read/{collNo}")
+	public ResponseEntity<?> read(@PathVariable long collNo) {
 		return ResponseEntity.ok(service.read(collNo));		
 	}
 	@PostMapping("/addmovie")
@@ -32,8 +34,9 @@ public class CollectionController {
 	}
 	@PostMapping("/update")
 	public ResponseEntity<?> update(@Valid Collection collection, BindingResult results, Principal principal) {
-		collection.setUsername(principal.getName());
-		return ResponseEntity.ok(service.update(collection));
+		//collection.setUsername(principal.getName());
+		collection.setUsername("spring");
+		return ResponseEntity.ok(service.update(collection).getCollNo());
 	}
 	@PostMapping("/deletemovie")
 	public ResponseEntity<?> deletemovie(long mNo, long collNo, Principal principal) {
@@ -41,7 +44,8 @@ public class CollectionController {
 	}
 	@PostMapping("/delete")
 	public ResponseEntity<?> delete(long collNo, Principal principal) {
-		return ResponseEntity.ok(service.delete(collNo, principal.getName()));
+		//return ResponseEntity.ok(service.delete(collNo, principal.getName()));
+		return ResponseEntity.ok(service.delete(collNo, "spring"));
 	}
 	@PostMapping("/like")
 	public ResponseEntity<?> like(long collNo, Principal principal) {

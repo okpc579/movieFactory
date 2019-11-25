@@ -15,7 +15,7 @@
 	
 	<resultMap type="hashmap" id="mapForCollection" >
 		<id property="collNo" column="coll_no"/>
-		<result property="collName" column="collName" />
+		<result property="collName" column="coll_name" />
 		<result property="username" column="username" />
 		<result property="writingDate" column="writing_date" />
 		<result property="collIntro" column="coll_intro" jdbcType="CLOB" javaType="java.lang.String" />
@@ -63,11 +63,11 @@
 	</select>
 	
 	<select id="findCollectionListBymNo" resultType="collection">
-			select c.coll_no, c.coll_name, c.username, c.writing_date, c.coll_intro from coll c, coll_detail cd where cd.m_no=1 and cd.coll_no(+) = c.coll_no;
+			select c.coll_no collNo, c.coll_name collName, c.username, c.writing_date writingDate, c.coll_intro collIntro from coll c, coll_detail cd where cd.m_no=1 and cd.coll_no(+) = c.coll_no
 	</select>
 	
 	<select id="findCollectionListByUsername" resultType="collection">
-			select coll_no, coll_name, username, writing_date, coll_intro from coll where username=#{username};
+			select coll_no collNo, coll_name collName, username, writing_date writingDate, coll_intro collIntro from coll where username=#{username}
 	</select>
 	<update id="increaselikecnt">
 		update coll set coll_like_cnt = coll_like_cnt+1 where coll_no = #{collNo}

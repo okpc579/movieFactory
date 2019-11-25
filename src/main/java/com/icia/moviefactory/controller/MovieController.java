@@ -38,8 +38,5 @@ public class MovieController {
 	public String read(Model model) {
 		model.addAttribute("viewName", "movie/review/read.jsp");
 		return "main";
-	}
-	
-	
-	
+	}	
 }
