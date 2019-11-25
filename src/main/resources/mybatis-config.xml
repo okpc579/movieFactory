@@ -7,17 +7,22 @@
 	</settings>
 	
 	<typeAliases>
-		<typeAlias alias="adminAsk" type="com.icia.moviefactory.entity.AdminAsk" />
-		<typeAlias alias="member" type="com.icia.moviefactory.entity.Member"/>
-		<typeAlias alias="collections" type="com.icia.moviefactory.entity.Collection" />
-		<typeAlias alias="collectionlike" type="com.icia.moviefactory.entity.CollectionLike" />
-
-	</typeAliases>
+		<typeAlias alias="user" type="com.icia.moviefactory.entity.Collection" />
+		<typeAlias alias="moviereview" type="com.icia.moviefactory.entity.MovieReview" />
+		<typeAlias alias="moviereviewcomment" type="com.icia.moviefactory.entity.MovieReviewComment" />
+		<typeAlias alias="moviereviewcommentreport" type="com.icia.moviefactory.entity.MovieReviewCommentReport" />
+		<typeAlias alias="moviereviewreport" type="com.icia.moviefactory.entity.MovieReviewReport" />
+		<typeAlias alias="member" type="com.icia.moviefactory.entity.Member" />
+		<typeAlias alias="adminask" type="com.icia.moviefactory.entity.AdminAsk" />
 	
+	</typeAliases>
 	
 	<!-- 
 		Level enum으로 입력이 들어오면 마이바티스가 숫자로 변환하도록 TypeHandler 설정
 			엔티티->mybatis, mybatis->엔티티 변환에 사용하는 사용자 클래스가 TypeHandler
 			마이바티스가 제공하지 않을 경우 사용자가 작성
 	 -->
+	<typeHandlers>
+		<!-- <typeHandler javaType="com.icia.aboard2s.data.entity.Level" handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" /> -->
+	</typeHandlers>
 </configuration>

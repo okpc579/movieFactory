@@ -18,7 +18,7 @@
 		insert into member(username, password, name, nick, email, base_addr, zip_code, tel, birth, gender, 
 		blind_cnt, enabled, reg_date, intro, last_login_date, recent_login_date, login_failure_cnt, is_resign, photo )
 		values(#{username}, #{password}, #{name}, #{nick}, #{email}, #{baseAddr}, #{zipCode}, #{tel},  #{birth}, #{gender}, 
-		0, 0, #{regDate}, #{intro}, #{lastLoginDate}, #{recentloginDate}, #{loginFailureCnt}, #{isResign}, #{photo} )
+		0, 1, #{regDate}, #{intro}, #{lastLoginDate}, #{recentLoginDate}, #{loginFailureCnt}, #{isResign}, #{photo} )
 	</insert>
 		
 	<!-- 회원가입 : 아이디 중복 체크 -->
