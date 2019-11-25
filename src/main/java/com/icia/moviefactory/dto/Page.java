@@ -15,5 +15,11 @@ public class Page {
 	private int pagesize;
 	private int totalcount;
 	private List<AdminAsk> adminAsks;
+<<<<<<< HEAD
 	private List<MovieReview> reviews;
+=======
+	private List<Member> members;
+	private List<MovieReview> movieReviews;
+	private List<MovieReviewComment> movieReviewComments;
+>>>>>>> park
 }

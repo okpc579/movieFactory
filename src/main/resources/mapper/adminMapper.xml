@@ -1,5 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="adminMapper">
+<mapper namespace="adminMapper" >
+	<!-- 블라인드 당한 리뷰 수 -->
+	<select id="findRevBlindCount" resultType="int" parameterType="string">
+		select count(m_rev_no) from m_rev where is_blind=1
+	</select>
+
+	<!-- 블라인드당한 리뷰를 이용한 페이징 -->
+	<select id="findRevBlind" resultType="moviereview">
+		<![CDATA[
+			select * from
+		       	(select rownum rnum, b.* from 
+		       		(select m_rev_no, username, m_rev_content from m_rev where is_blind=1) b
+		       	where rownum<=#{endRowNum}) 
+		    where rnum>=#{startRowNum}
+		]]>
+	</select>
 	
+	<!-- 블라인드 당한 댓글 수 -->
+	<select id="findRevCmntBlindCount" resultType="int" parameterType="string">
+		select count(m_rev_cmnt_no) from m_cmnt where is_blind=1
+	</select>
+	
+	<!-- 블라인드당한 댓글을 이용한 페이징 -->
+	<select id="findRevCmntBlind" resultType="moviereviewcomment">
+		<![CDATA[
+			select * from
+		       	(select rownum rnum, b.* from 
+		       		(select m_rev_cmnt_no, username, content from m_cmnt where is_blind=1) b
+		       	where rownum<=#{endRowNum}) 
+		    where rnum>=#{startRowNum}
+		]]>
+	</select>
+	
+	<!-- 블락 당한 유저 수 -->
+	<select id="findEnabledCount" resultType="int" parameterType="string">
+		select count(username) from member where enabled=0
+	</select>
+	<!-- 블락당한 전체유저를 이용한 페이징 -->
+	<select id="findAllEnabledList" resultType="member">
+		<![CDATA[
+			select * from
+		       	(select rownum rnum, b.* from 
+		       		(select username, nick from member where enabled=0) b
+		       	where rownum<=#{endRowNum}) 
+		    where rnum>=#{startRowNum}
+		]]>
+	</select>
+	
+	<!-- 블라인드 된 리뷰 블라인드 여부 수정 -->
+	<update id="updateRevBlind">
+		update m_rev set is_blind=0 where m_rev_no=#{mRevNo}
+	</update>
+	<!-- 블라인드 된 댓글 블라인드 여부 수정 -->
+	<update id="updateRevCmntBlind">
+		update m_cmnt set is_blind=0 where m_rev_cmnt_no=#{mRevCmntNo}
+	</update>
+	<!-- 블라인드 된 댓글 상세(신고내역) -->
+	<select id="readCmntBlind" resultType="moviereviewcommentreport">
+		select m_rep_cate, title, content, writing_date from m_cmnt_rep where m_rev_cmnt_no=#{mRevCmntNo}
+	</select>
+	<!-- 블라인드 된 리뷰 상세(신고내역) -->
+	<select id="readRevBlind" resultType="moviereviewreport">
+		select m_rep_cate mRepCate, title, content,  writing_date writingDate from m_rev_rep where m_rev_no=#{mRevNo}
+	</select>
+
+	<!-- 블락리스트 상세(블라인드 된 리뷰) -->
+	<select id="findRevBlindByUser" resultType="moviereview">
+		select m_rev_no, username, m_rev_content from m_rev where is_blind=1 and username=#{username}
+	</select>
+	<!-- 블락리스트 상세(블라인드 된 댓글) -->
+	<select id="findRevCmntBlindByUser" resultType="moviereviewcomment">
+		select m_rev_cmnt_no mRevCmntNo, username, content from m_cmnt where is_blind=1 and username=#{username}
+	</select>
+	<!-- 블락 된 계정 블락여부 수정 -->
+	<update id="updateEnabled">
+		update member set enabled=1 where username=#{username}
+	</update>
 </mapper>
