@@ -57,7 +57,7 @@ public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 		}
 		
 		// redirect를 담당하는 객체. 스프링 컨트롤러가 아니므로 return "redirect:/" 사용 불가
-		new DefaultRedirectStrategy().sendRedirect(request, response, "/user/login?job=fail");
+		new DefaultRedirectStrategy().sendRedirect(request, response, "/member/login?job=fail");
 		
 	}
 }

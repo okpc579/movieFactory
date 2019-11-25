@@ -24,16 +24,16 @@ public class MovieDaoTest {
 	//@Transactional
 	//@Test
 	public void insertrevTest() {
-		MovieReview moviereview = new MovieReview(12,"res",2,3,"hi",1,null,"액션",0);
-		dao.insertrev(moviereview);	
+		//MovieReview moviereview = new MovieReview(12,"res",2,3,"hi",1,null,"액션",0);
+		//dao.insertrev(moviereview);	
 	}
 	
 	//@Transactional
 	//@Test
 	public void updaterevTest() {
-		MovieReview m = new MovieReview(25,"res",2,3,"bye",1,null,"멜로",0);
-		int result = dao.updaterev(m);
-		assertThat(result, is(1));
+		//MovieReview m = new MovieReview(25,"res",2,3,"bye",1,null,"멜로",0);
+		//int result = dao.updaterev(m);
+		//assertThat(result, is(1));
 	}
 	
 	//@Transactional
@@ -46,7 +46,7 @@ public class MovieDaoTest {
 	//@Test
 	public void insertrevlike() {
 		MovieReviewLike moviereviewlike = new MovieReviewLike(3, 1, "soon", null);
-		dao.insertrevlike(moviereviewlike);
+		//dao.insertrevlike(moviereviewlike);
 		//dao.revlikecnt(1);
 		assertThat(moviereviewlike.getMRevLikeNo(), is(3L));
 	}
@@ -54,22 +54,22 @@ public class MovieDaoTest {
 	//@Test
 	public void insertrevrep() {
 		MovieReviewReport moviereviewreport = new MovieReviewReport("soon", 1, "신고", "신고내용", null, null);
-		dao.insertrevrep(moviereviewreport);
+		//dao.insertrevrep(moviereviewreport);
 	}
 	
 	//@Transactional
 	//@Test
 	public void insertcmnt() {
-		MovieReviewComment moviereviewcomment = new MovieReviewComment(2, 1, "soon", "안녕", 0, null);
-		dao.insertcmnt(moviereviewcomment);
+		//MovieReviewComment moviereviewcomment = new MovieReviewComment(2, 1, "soon", "안녕", 0, null);
+		//dao.insertcmnt(moviereviewcomment);
 	}
 	
 	//@Transactional
 	//@Test
 	public void updaterevcmnt() {
-		MovieReviewComment m = new MovieReviewComment(2, 1, "soon", "안녕하", 0, null);
-		dao.updaterevcmnt(m);
-		assertThat(m.getContent(),is("안녕"));
+		//MovieReviewComment m = new MovieReviewComment(2, 1, "soon", "안녕하", 0, null);
+		//dao.updaterevcmnt(m);
+		//assertThat(m.getContent(),is("안녕"));
 	}
 	
 	//@Transactional

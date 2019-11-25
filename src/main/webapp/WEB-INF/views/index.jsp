@@ -54,10 +54,9 @@ $(function() {
 		$("#msg").text(msg);
 		$("#alert").show();
 		setTimeout(function() {
-			location.href = "/moviefactory/board/list";
-		}, 3000);
+					}, 3000);
 	} else if(dest=="" && msg=="") {
-		location.href = "/moviefactory/board/list";
+		
 	}
 	
 })

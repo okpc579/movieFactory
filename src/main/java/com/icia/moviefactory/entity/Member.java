@@ -30,7 +30,7 @@ public class Member {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date lastLoginDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date recentloginDate;
+	private Date recentLoginDate;
 	private long loginFailureCnt;
 	private long isResign;
 	
