@@ -2,6 +2,7 @@ package com.icia.moviefactory.service;
 
 import java.util.*;
 
+import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
@@ -15,6 +16,8 @@ public class AdminService {
 	private AdminDao adminDao; 
 	@Value("10")
 	private int pagesize;
+	@Autowired
+	private ModelMapper modelMapper;
 	// 모든 블락된 계정 리스트 불러오기
 	/* public List<Member> findAllEnabledList() {
 		List<Member> memberlist = dao.findAllEnabledList();
@@ -31,7 +34,7 @@ public class AdminService {
 		List<Member> members = adminDao.findAllEnabledList(startRowNum, endRowNum);
 		return new Page().builder().pageno(pageno).pagesize(pagesize).totalcount(count).members(members).build();
 		}
-
+	// 블라인드 된 리뷰 전체 불러오기(블라인드 게시판)
 	public Page findRevBlind(int pageno) {
 		int count = adminDao.findRevBlindCount();
 		int startRowNum = ((pageno-1) * pagesize + 1);
@@ -39,69 +42,109 @@ public class AdminService {
 		if(endRowNum >= count)
 			endRowNum = count;
 		List<MovieReview> movieReviews = adminDao.findRevBlind(startRowNum, endRowNum);
-//		return new Page().builder().pageno(pageno).pagesize(pagesize).totalcount(count).members(members)(movieReviews).build();
-		return null;
+		return new Page().builder().pageno(pageno).pagesize(pagesize).totalcount(count).movieReviews(movieReviews).build();
 		}
-	
-	public Page findRevCmntBlind(int pageno) {
-//		int count = adminDao.findRevCmntBlind();
-		int startRowNum = ((pageno-1) * pagesize + 1);
-		int endRowNum = startRowNum + pagesize -1;
-//		if(endRowNum >= count)
-//			endRowNum = count;
-		List<Member> members = adminDao.findAllEnabledList(startRowNum, endRowNum);
-//		return new Page().builder().pageno(pageno).pagesize(pagesize).totalcount(count).members(members).build();
-		return null;
-		}
-	
-	
-	// 블락계정 상세(블락된 유저의 블라인드된 댓글과 리뷰 불러오기)
-	public Object findBlindListByUser() {
-		
-		return null;
-	}
-	// 블라인드 된 리뷰 전체 불러오기(블라인드 게시판)
-	public List<MovieReview> findRevBlind() {
-		//List<MovieReview> moviereviewlist = dao.findRevBlind();
-		//return moviereviewlist;
-		return null;
-	}
 	// 블라인드 된 댓글 전체 불러오기(블라인드 게시판)
-	public List<MovieReviewComment> findRevCmntBlind() {
-		//List<MovieReviewComment> commentlist = dao.findRevCmntBlind(1);
-		//return commentlist;
-		return null;
+	public Page findRevCmntBlind(int pageno) {
+		int count = adminDao.findRevCmntBlindCount();
+		System.out.println("pageno : " +  pageno);
+		int startRowNum = ((pageno-1) * pagesize + 1);
+		System.out.println("start : " +  startRowNum);
+		int endRowNum = startRowNum + pagesize -1;
+		System.out.println("end : " +  endRowNum);
+		if(endRowNum >= count)
+			endRowNum = count;
+		List<MovieReviewComment> movieReviewComments = adminDao.findRevCmntBlind(startRowNum, endRowNum);
+		return new Page().builder().pageno(pageno).pagesize(pagesize).totalcount(count).movieReviewComments(movieReviewComments).build();
+		}
+	
+	// 블락계정 상세(블락된 유저의 블라인드된 리뷰 불러오기)
+	public List<MovieReview> findRevBlindByUser(String username) {
+		List<MovieReview> moviereivew = adminDao.findRevBlindByUser(username);
+		return moviereivew;
 	}
+	
+	// 블락계정 상세(블락된 유저의 블라인드된 댓글 불러오기)
+	public List<MovieReviewComment> findRevCmntBlindByUser(String username) {
+		List<MovieReviewComment> moviereivewcomment = adminDao.findRevCmntBlindByUser(username);
+		return moviereivewcomment;
+	}
+
 	// 블라인드 된 리뷰 상세(그 리뷰에 대한 신고목록 불러오기)
-	public List<MovieReviewReport> readRevBlind() {
-		//List<MovieReviewReport> reviewreportlist = dao.readRevBlind(0);
-		//return reviewreportlist;
-		return null;
+	/*
+	public List<MovieReviewReport> readRevBlind(long mRevNo) {
+		List<MovieReviewReport> reviewreportlist = adminDao.readRevBlind(mRevNo);
+		return reviewreportlist;
+		
+	}
+	*/
+	public MovieReview readRevBlind(long mRevNo) {
+		System.out.println(adminDao.readRevBlind(mRevNo));
+		MovieReview mr = modelMapper.map(adminDao.readRevBlind(mRevNo), MovieReview.class);
+		System.out.println(mr);
+		return mr;
 	}
 	// 블라인드 된 댓글 상세(그 댓글에 대한 신고목록 불러오기)
-	public List<MovieReviewCommentReport> readRevCmntBlind() {
-		//List<MovieReviewCommentReport> commentreportlist = dao.readCmntBlind(0);
-		//return commentreportlist;
-		return null;
+	/*
+	public List<MovieReviewCommentReport> readCmntBlind(long mRevCmntNo) {
+		List<MovieReviewCommentReport> commentreportlist = adminDao.readCmntBlind(mRevCmntNo);
+		return commentreportlist;	
+	}
+	*/
+	public MovieReviewComment readRevCmntBlind(long mRevCmntNo) {
+		System.out.println(adminDao.readCmntBlind(mRevCmntNo));
+		MovieReviewComment mrc = modelMapper.map(adminDao.readCmntBlind(mRevCmntNo), MovieReviewComment.class);
+		System.out.println(mrc);
+		return mrc;	
 	}
 	
 	// 블락 된 계정 블락여부 수정
-	public Object updateEnabled() {
+	public long updateEnabled(String username) {
+		return adminDao.updateEnabled(username);
+	}
+	
+	// 블라인드 된 리뷰 블라인드 여부 수정
+	public long updateRevBlind(long mRevNo) {
+		return adminDao.updateRevBlind(mRevNo);
 		
-		//return ResponseEntity.ok(dao.updateEnabled());
+	}
+	// 블라인드 된 댓글 블라인드 여부 수정
+	public long updateCmntBlind(long mRevCmntNo) {
+		return adminDao.updateCmntBlind(mRevCmntNo);
+	}
+	
+	// 리뷰 블라인드
+	// 신고횟수를 블러온다 - 횟수가 10회이상이면 리뷰 블라인드처리
+	// 멤버 테이블에서 블라인드카운트를 1증가
+	public Void reviewBlind(long mRevNo, String username) {
+		long revRepCnt = adminDao.findRevRepCnt(mRevNo);
+		if(revRepCnt>=10) {
+			adminDao.isBlindRevUpdate(username);
+			adminDao.increaseBlindCnt(username);
+		}
 		return null;
 	}
 	
+	// 댓글 블라인드
+	// 신고횟수를 블러온다 - 횟수가 10회이상이면 댓글 블라인드처리
+	// 멤버 테이블에서 블라인드카운트를 1증가
+	public Void commentBlind(long mRevCmntNo, String username) {
+		long cmntRepCnt = adminDao.findCmntRepCnt(mRevCmntNo);
+		if(cmntRepCnt>=10) {
+			adminDao.isBlindCmntUpdate(username);
+			adminDao.increaseBlindCnt(username);
+		}
+		return null;
+	}	
 	
-	// 블라인드 된 리뷰나 댓글 블라인드 여부 수정
-	public long updateRevBlind(long mRevNo) {
-	//	return dao.updateRevBlind(mRevNo);
-		return 0;
+	// 회원 블락
+	// 블라인드 횟수를 불러온다 - 횟수가 5회이상이면 회원 블락처리
+	// 멤버 테이블에서 enabled = 0 으로 업데이트
+	public Void userBlock(String username) {
+		long blindCnt = adminDao.findBlindCnt(username);
+		if(blindCnt>=5) {
+			adminDao.enabledUpdate(username);
+		}
+		return null;
 	}
-	public long updateCmntBlind(long mRevCmntNo) {
-//		return	dao.updateCmntBlind(mRevCmntNo);
-		return 0;
-		 
-	}
-		
 }

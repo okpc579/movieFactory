@@ -1,5 +1,7 @@
 package com.icia.moviefactory.restcontroller;
 
+import javax.validation.*;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -12,40 +14,68 @@ public class AdminRestController {
 	@Autowired
 	private AdminService service;
 	
-	@GetMapping("/admin/blocklist")
-	public ResponseEntity<?> findAllBlockList() {
-		//return ResponseEntity.ok(service.findAllBlockList());
-		return null;
+	@GetMapping("/enabledlist")
+	public ResponseEntity<?> findAllEnabledList(int pageno) {
+		return ResponseEntity.ok(service.findAllEnabledList(pageno));
 	}
 	
-	@GetMapping("/admin/readblock")
-	public ResponseEntity<?> readBlock() {
-		//return ResponseEntity.ok(service.readBlock());
-		return null;
+	@GetMapping("/findrevblind")
+	public ResponseEntity<?> findRevBlind(int pageno) {
+		return ResponseEntity.ok(service.findRevBlind(pageno));
 	}
 	
-	@PostMapping("/admin/updateblock")
-	public ResponseEntity<?> updateBlock() {
-		//return ResponseEntity.ok(service.updateBlock());
-		return null;
+	@GetMapping("/findcmntblind")
+	public ResponseEntity<?> findRevCmntBlind(int pageno) {
+		return ResponseEntity.ok(service.findRevCmntBlind(pageno));
 	}
 	
-	@GetMapping("/admin/blindlist")
-	public ResponseEntity<?> findAllBlindList() {
-		//return ResponseEntity.ok(service.findAllBlindList());
-		return null;
+	@GetMapping("/read/blind/review")
+	public ResponseEntity<?> readRevBlind(long mRevNo) {
+		return ResponseEntity.ok(service.readRevBlind(mRevNo));
 	}
 	
-	@GetMapping("/admin/readblind")
-	public ResponseEntity<?> readBlind() {
-		//return ResponseEntity.ok(service.readBlind());
-		return null;
+	@GetMapping("/read/blind/comment")
+	public ResponseEntity<?> readRevCmntBlind(long mRevCmntNo) {
+		return ResponseEntity.ok(service.readRevCmntBlind(mRevCmntNo));
 	}
 	
-	@PostMapping("/admin/blind")
-	public ResponseEntity<?> updateblind() {
-		//return ResponseEntity.ok(service.updateblind());
-		return null;
+	@PostMapping("/update/block")
+	public ResponseEntity<?> updateblock(String username) {
+		return ResponseEntity.ok(service.updateEnabled(username));
 	}
 	
+	@PostMapping("/update/blind/review")
+	public ResponseEntity<?> updateRevBlind(long mRevNo) {
+		return ResponseEntity.ok(service.updateRevBlind(mRevNo));
+	}
+	
+	@PostMapping("/update/blind/comment")
+	public ResponseEntity<?> updateCmntBlind(@Valid long mRevCmntNo) {
+		return ResponseEntity.ok(service.updateCmntBlind(mRevCmntNo));
+	}
+	
+	@GetMapping("/findrevblindbyuser")
+	public ResponseEntity<?> findRevBlindByUser(String username) {
+		return ResponseEntity.ok(service.findRevBlindByUser(username));
+	}
+	
+	@GetMapping("/findcmntblindbyuser")
+	public ResponseEntity<?> findRevCmntBlindByUser(String username) {
+		return ResponseEntity.ok(service.findRevCmntBlindByUser(username));
+	}
+	
+	@PostMapping("/reviewblind")
+	public ResponseEntity<?> reviewBlind(long mRevNo, String username) {
+		return ResponseEntity.ok(service.reviewBlind(mRevNo, username));
+	}
+	
+	@PostMapping("/commentBlind")
+	public ResponseEntity<?> commentBlind(long mRevCmntNo, String username) {
+		return ResponseEntity.ok(service.commentBlind(mRevCmntNo, username));
+	}
+	
+	@PostMapping("/userBlock")
+	public ResponseEntity<?> userBlock(String username) {
+		return ResponseEntity.ok(service.userBlock(username));
+	}
 }

@@ -13,8 +13,6 @@ public class AdminDao {
 	@Autowired
 	private SqlSessionTemplate tpl;
 
-	
-
 	// 블라인드 된 리뷰 블라인드 여부 수정
 	public long updateRevBlind(long mRevNo) {
 		return tpl.update("adminMapper.updateRevBlind", mRevNo);
@@ -26,28 +24,31 @@ public class AdminDao {
 	}
 
 	// 블라인드 된 댓글 상세(신고내역)
+	/*
 	public List<MovieReviewCommentReport> readCmntBlind(long mRevCmntNo) {
 		return tpl.selectList("adminMapper.readCmntBlind", mRevCmntNo);
 	}
-
+	*/
+	public Map readCmntBlind(long mRevCmntNo) {
+		return tpl.selectOne("adminMapper.readCmntBlind", mRevCmntNo);
+	}
+	
 	// 블라인드 된 리뷰 상세(신고내역)
-	public List<MovieReviewReport> readRevBlind(long mRevNo) {
+	/*public List<MovieReviewReport> readRevBlind(long mRevNo) {
 		return tpl.selectList("adminMapper.readRevBlind", mRevNo);
 	}
-
+	*/
+	public Map readRevBlind(long mRevNo) {
+		return tpl.selectOne("adminMapper.readRevBlind", mRevNo);
+	}
+	
 	// 블락리스트 상세
-	public List<MovieReview> findRevBlindByUser(long isBlind, String username) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("isBlind", isBlind);
-		map.put("username", username);
-		return tpl.selectList("adminMapper.findRevBlindByUser", map);
+	public List<MovieReview> findRevBlindByUser(String username) {
+		return tpl.selectList("adminMapper.findRevBlindByUser", username);
 	}
 
-	public List<MovieReviewComment> findRevCmntBlindByUser(long isBlind, String username) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("isBlind", isBlind);
-		map.put("username", username);
-		return tpl.selectList("adminMapper.findRevCmntBlindByUser", map);
+	public List<MovieReviewComment> findRevCmntBlindByUser(String username) {
+		return tpl.selectList("adminMapper.findRevCmntBlindByUser", username);
 	}
 
 	// 블락 된 계정 블락여부 수정
@@ -93,5 +94,38 @@ public class AdminDao {
 		return tpl.selectList("adminMapper.findAllEnabledList", map);
 	}
 	
+	// 리뷰 신고 횟수 불러오기
+	public long findRevRepCnt(long mRevNo) {
+		return tpl.selectOne("adminMapper.findRevRepCnt",mRevNo);
+	}
+	// 댓글 신고 횟수 불러오기
+	public long findCmntRepCnt(long mRevCmntNo) {
+		return tpl.selectOne("adminMapper.findCmntRepCnt",mRevCmntNo);
+	}
+	// 블라인드 횟수 불러오기
+	public long findBlindCnt(String username) {
+		return tpl.selectOne("adminMapper.findBlindCnt",username);
+	}
+	
+	// 리뷰 블라인드 여부 업데이트
+	public long isBlindRevUpdate(String username) {
+		return tpl.update("adminMapper.isBlindRevUpdate",username);
+	}
+	
+	// 댓글 블라인드 여부 업데이트
+	public long isBlindCmntUpdate(String username) {
+		return tpl.update("adminMapper.isBlindCmntUpdate",username);
+	}
+	
+	// 블라인드 횟수증가
+	public long increaseBlindCnt(String username) {
+		return tpl.update("adminMapper.increaseBlindCnt",username);
+	}
+	
+	// 회원정지설정
+	public long enabledUpdate(String username) {
+		return tpl.update("adminMapper.enabledUpdate",username);
+	
+	}
 	
 }

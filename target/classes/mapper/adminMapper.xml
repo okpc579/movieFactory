@@ -11,7 +11,7 @@
 		<![CDATA[
 			select * from
 		       	(select rownum rnum, b.* from 
-		       		(select m_rev_no, username, m_rev_content from m_rev where is_blind=1) b
+		       		(select m_rev_no mRevNo, username, m_rev_content mRevContent from m_rev where is_blind=1) b
 		       	where rownum<=#{endRowNum}) 
 		    where rnum>=#{startRowNum}
 		]]>
@@ -27,7 +27,7 @@
 		<![CDATA[
 			select * from
 		       	(select rownum rnum, b.* from 
-		       		(select m_rev_cmnt_no, username, content from m_cmnt where is_blind=1) b
+		       		(select m_rev_cmnt_no mRevCmntNo, username, content from m_cmnt where is_blind=1) b
 		       	where rownum<=#{endRowNum}) 
 		    where rnum>=#{startRowNum}
 		]]>
@@ -42,32 +42,101 @@
 		<![CDATA[
 			select * from
 		       	(select rownum rnum, b.* from 
-		       		(select username, nick from member where enabled=0) b
+		       		(select username, nick,block_date blockDate from member where enabled=0) b
 		       	where rownum<=#{endRowNum}) 
 		    where rnum>=#{startRowNum}
 		]]>
 	</select>
 	
-	<!-- 블라인드 된 리뷰 블라인드 여부 수정 -->
+	<!-- 블라인드 된 리뷰 블라인드 여부 수정(블라인드해제) -->
 	<update id="updateRevBlind">
 		update m_rev set is_blind=0 where m_rev_no=#{mRevNo}
 	</update>
-	<!-- 블라인드 된 댓글 블라인드 여부 수정 -->
+	<!-- 블라인드 된 댓글 블라인드 여부 수정(블라인드해제) -->
 	<update id="updateRevCmntBlind">
 		update m_cmnt set is_blind=0 where m_rev_cmnt_no=#{mRevCmntNo}
 	</update>
 	<!-- 블라인드 된 댓글 상세(신고내역) -->
+	<!-- 
 	<select id="readCmntBlind" resultType="moviereviewcommentreport">
-		select m_rep_cate, title, content, writing_date from m_cmnt_rep where m_rev_cmnt_no=#{mRevCmntNo}
+		select m_rep_cate mRepCate, title, content, writing_date writingDate from m_cmnt_rep where m_rev_cmnt_no=#{mRevCmntNo}
 	</select>
+	 -->
+	 <resultMap type="com.icia.moviefactory.entity.MovieReviewCommentReport" id="mapForMovieReviewCommentReport">
+		<id property="mRevCmntNo" column="m_rev_cmnt_no" />
+		<id property="username" column="reportUsername" />
+		<result property="title" column="reportTitle" />
+		<result property="content" column="reportContent" jdbcType="CLOB" javaType="java.lang.String" />
+		<result property="writingDate" column="reportWritingDate" />
+		<result property="mRepCate" column="m_rep_cate" />
+	</resultMap>
+	<resultMap type="hashmap" id="mapForComment" >
+		<id property="mRevCmntNo" column="m_rev_cmnt_no" />
+		<result property="mRevNo" column="m_rev_no" />
+		<result property="username" column="cmntusername" />
+		<result property="isBlind" column="is_blind" />
+		<result property="content" column="content" jdbcType="CLOB" javaType="java.lang.String" />
+		<result property="writingDate" column="writing_date" />
+		<result property="cmntLikeCnt" column="cmnt_like_cnt" />
+		<result property="cmntRepCnt" column="cmnt_rep_cnt" />
+		<collection property="commentReports" javaType="java.util.ArrayList" resultMap="mapForMovieReviewCommentReport"/>
+	</resultMap>
+	
+	<select id="readCmntBlind" resultMap="mapForComment">
+		<![CDATA[
+		select cm.m_rev_cmnt_no, cm.m_rev_no, cm.username cmntusername, cm.is_blind, cm.content, cm.writing_date, cm.cmnt_like_cnt, cm.cmnt_rep_cnt,
+			cmrep.username reportUsername, cmrep.title reportTitle, cmrep.content reportContent, cmrep.writing_date reportWritingDate, cmrep.m_rep_cate
+		from m_cmnt_rep cmrep, m_cmnt cm
+		where cm.m_rev_cmnt_no = #{mRevCmntNo} and cmrep.m_rev_cmnt_no = cm.m_rev_cmnt_no(+)
+		]]>
+	</select>
+	 
 	<!-- 블라인드 된 리뷰 상세(신고내역) -->
+	<!-- 
 	<select id="readRevBlind" resultType="moviereviewreport">
 		select m_rep_cate mRepCate, title, content,  writing_date writingDate from m_rev_rep where m_rev_no=#{mRevNo}
 	</select>
-
+	-->
+	
+	<resultMap type="com.icia.moviefactory.entity.MovieReviewReport" id="mapForMovieReviewReport">
+		<id property="mRevNo" column="m_rev_no" />
+		<id property="username" column="reportUsername" />
+		<result property="title" column="reportTitle" />
+		<result property="content" column="reportContent" jdbcType="CLOB" javaType="java.lang.String" />
+		<result property="writingDate" column="reportWritingDate" />
+		<result property="mRepCate" column="m_rep_cate" />
+	</resultMap>
+	
+	
+	<resultMap type="hashmap" id="mapForReview" >
+		<id property="mRevNo" column="m_rev_no" />
+		<result property="mNo" column="m_no" />
+		<result property="username" column="revusername" />
+		<result property="isBlind" column="is_blind" />
+		<result property="rating" column="rating" />
+		<result property="mRevcontent" column="m_rev_content" jdbcType="CLOB" javaType="java.lang.String" />
+		<result property="writingDate" column="writing_date" />
+		<result property="isSpo" column="is_spo" />
+		<result property="genre" column="genre" />
+		<result property="LikeCnt" column="like_cnt" />
+		<result property="RepCnt" column="rep_cnt" />
+		<collection property="reviewReports" javaType="java.util.ArrayList" resultMap="mapForMovieReviewReport"/>
+	</resultMap>
+	
+	<select id="readRevBlind" resultMap="mapForReview">
+		<![CDATA[
+		select rev.m_rev_no, rev.m_no, rev.username revusername, rev.is_blind, rev.rating, rev.m_rev_content, rev.is_spo, rev.genre,
+		 	rev.writing_date, rev.like_cnt, rev.rep_cnt,
+			revrep.username reportUsername, revrep.title reportTitle, 
+			revrep.content reportContent, revrep.writing_date reportWritingDate, revrep.m_rep_cate
+		from m_rev_rep revrep, m_rev rev 
+		where rev.m_rev_no = #{mRevNo} and revrep.m_rev_no = rev.m_rev_no(+)
+		]]>
+	</select>
+	
 	<!-- 블락리스트 상세(블라인드 된 리뷰) -->
 	<select id="findRevBlindByUser" resultType="moviereview">
-		select m_rev_no, username, m_rev_content from m_rev where is_blind=1 and username=#{username}
+		select m_rev_no mRevNo, username, m_rev_content mRevContent from m_rev where is_blind=1 and username=#{username}
 	</select>
 	<!-- 블락리스트 상세(블라인드 된 댓글) -->
 	<select id="findRevCmntBlindByUser" resultType="moviereviewcomment">
@@ -77,4 +146,37 @@
 	<update id="updateEnabled">
 		update member set enabled=1 where username=#{username}
 	</update>
+	<!-- 리뷰 신고 횟수 불러오기 -->
+	<select id="findRevRepCnt" resultType="long">
+		select rep_cnt from m_rev where m_rev_no=#{mRevNo}	
+	</select>
+	
+	<!-- 댓글 신고 횟수 불러오기 -->
+	<select id="findCmntRepCnt" resultType="long">
+		select rep_cnt from m_cmnt where m_rev_cmnt_no=#{mRevCmntNo}	
+	</select>
+	
+	<!-- 블라인드 횟수 불러오기 -->
+	<select id="findBlindCnt" resultType="long">
+		select blind_cnt from member where username=#{username}	
+	</select>
+	
+	<!-- 리뷰 블라인드 여부 업데이트 -->
+	<update id="isBlindRevUpdate">
+		update m_rev set is_blind=1 where username = #{username}
+	</update>
+	<!-- 댓글 블라인드 여부 업데이트 -->
+	<update id="isBlindCmntUpdate">
+		update m_cmnt set is_blind=1 where username = #{username}
+	</update>
+
+	<!-- 블라인드 횟수증가 -->
+	<update id="increaseBlindCnt">
+		update member set blind_cnt=blind_cnt+1 where username=#{username}
+	</update>   
+	
+	<!-- 회원정지설정 -->
+	<update id="enabledUpdate">   
+		update member set enabled=0, BLOCK_DATE=sysdate where username = #{username}
+	</update>   
 </mapper>
