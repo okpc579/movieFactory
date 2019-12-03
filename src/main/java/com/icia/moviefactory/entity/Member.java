@@ -36,5 +36,4 @@ public class Member {
 	private Date recentLoginDate;
 	private long loginFailureCnt;
 	private long isResign;
-	
 }

@@ -11,7 +11,7 @@
 		<typeAlias alias="adminAsk" type="com.icia.moviefactory.entity.AdminAsk" />
 		<typeAlias alias="collections" type="com.icia.moviefactory.entity.Collection" />
 		<typeAlias alias="collectionlike" type="com.icia.moviefactory.entity.CollectionLike" />
-		<typeAlias alias="favoriteMovie" type="com.icia.moviefactory.entity.FavoriteMovie" />
+		<typeAlias alias="favoritemovie" type="com.icia.moviefactory.entity.FavoriteMovie" />
 		<typeAlias alias="follow" type="com.icia.moviefactory.entity.Follow" />
 		<typeAlias alias="moviereview" type="com.icia.moviefactory.entity.MovieReview" />
 		<typeAlias alias="moviereviewcomment" type="com.icia.moviefactory.entity.MovieReviewComment" />

@@ -10,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FavoriteMovieDetail {
+public class FavoriteMovieDetail { // 이 엔티티 안씀
 	private long mNo;
 	private long mLikeNo;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

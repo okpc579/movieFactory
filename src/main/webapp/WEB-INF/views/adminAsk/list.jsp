@@ -183,8 +183,8 @@
 						<option value="title">제목</option>
 						<option value="username">작성자</option>
 						<option value="content">내용</option>
-					</select> <input type="text" name="searchText" value="" /> <input
-						type="submit" value="검색" />
+					</select> <input type="text" name="searchText" value="" /> 
+					<input type="submit" value="검색" />
 					</p>
 				</form>
 				<table class="table">

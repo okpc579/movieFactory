@@ -44,7 +44,6 @@ $(function() {
 		}
 	});	
 	
-	
 	$("#update").on("click", function() {
 		location.href="http://localhost:8081/moviefactory/collection/update?collno=" + coll_no;
 	});

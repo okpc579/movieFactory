@@ -3,71 +3,92 @@
 <mapper namespace="userMovieMapper">
 	
 
-	<!-- 1.유저 페이지 보기 -->	
+	<!-- 1.영화 마이 페이지 보기 -->	
+	<select id="findByUsernameMoviePage" resultType="member">
+		select username, nick, photo,  from user where username=#{username}
+	</select>
+	
+	<!-- 2.유저 페이지 보기 -->	
 	<select id="findByUsernameUserPage" resultType="member">
-		select username, nick, photo,  from user where username=#{username} and rownum=1
-	</select>
-
-	<!-- 2.컬렉션 목록보기 -->	
-	<select id="findByUsernameCollectionList" resultType="collection">
-		select username, coll_no collNo, coll_name collName, coll_intro from collection where username=#{username} and rownum=1
+		select username, nick, photo,  from user where username=#{username}
 	</select>
 	
-	<!-- 3.유저리뷰 목록보기 -->	
-	<select id="findUserReviewList" resultType="movieReview">
-		select username, m_rev_no mRevNo, m_rev_content mRevContent from moviereview where username=#{username} and rownum=1
+	<!-- 3.컬렉션 목록보기 -->	
+	<select id="findByUsernameCollectionList" resultType="collections">
+	<!-- mybatis type alias="collections" 과 resultType="collections" 과 타입이 같아야 한다.-->
+		select username, coll_no collNo, coll_name collName, coll_intro collIntro from coll where username=#{username}
 	</select>
 	
-	<!-- 4.팔로잉 목록보기 -->	
-	<select id="findFollowingList" resultType="follow">
-		select following_username followingUsername from follow where username=#{username} and rownum=1
+	<!-- 4.유저리뷰 목록보기 -->
+	<select id="findUserReviewList" resultType="moviereview">
+	select username, m_rev_no mRevNo, rating, m_rev_content mRevContent from m_rev where username=#{username}
 	</select>
 	
-	<!-- 5.팔로워 목록보기 -->	
+	<!-- 5.팔로잉(내가 그사람에게 친구를 검, 내가 팔로우 하는 사람) 목록보기 (ㅇㅇ,ㅌㅎ) -->	
+	<select id="findFollowingList" resultType="follow"><!-- 안되면 follows로 바꿔라 -->
+		select following_username followingUsername, follower_username followerUsername from follow where follower_username=#{followerUsername}
+	</select>
+	
+	<!-- 6.팔로워(그 사람이 친구를 건 사람들, 나를 팔로우 하는 사람) 목록보기 (ㅇㅇ,ㅌㅎ) -->	
 	<select id="findFollowerList" resultType="follow">
-		select follower_username followingUsername from follow where username=#{username} and rownum=1
+		select following_username followingUsername, follower_username followerUsername from follow where following_username=#{followingUsername}
 	</select>
 	
-	<!-- 6.유저 고평점 상위보기 -->	
-	<select id="findUserTopRating" resultType="movieReview">
-		select username, rating, m_no mNo from moviereview where username=#{username} and rownum=1
+	<!-- 7.평점(영화?) 상위보기 -->	
+	<select id="findAverageRating" resultType="moviereview">
+		<![CDATA[
+			select m.* from (
+    		select m_no 영화번호, avg(rating)영화평점 from m_rev
+    		group by m_no order by avg(rating) desc
+			)
+			m where rownum<=5
+		]]>
 	</select>
 	
-	<!-- 8.내 선호영화 예상 목록보기 -->	
-	<select id="findPreferenceMovieList" resultType="favoriteMovie">
-		select username m_like_no mLikeNo from favoritemovie where username=#{username} and rownum=1
+	<!-- 8.유저 고평점(영화?) top5 상위보기 -->	
+	<select id="findUserTopRating" resultType="moviereview">
+		<![CDATA[
+		select m.* from (
+    		select m_no 영화번호, avg(rating)영화평점 from m_rev where m_rev.username = #{username}
+    		group by m_no order by avg(rating) desc
+			)
+			m where rownum<=5
+		]]>
+	</select>	
+	
+	<!-- 9.장르별 평점 상위보기 -->	
+	<select id="findGenretoprating" resultType="moviereview">
+		<![CDATA[
+		select m.* from (
+			select m_no 영화번호, avg(rating)영화평점 from m_rev where m_rev.genre = #{genre}
+    		group by m_no                            
+    		order by avg(rating) desc
+    		)
+    		m where rownum<=5
+		]]>
 	</select>
 	
-	<!-- 9.평점상위보기 -->	
-	<select id="findAverageRating" resultType="movieReview">
-		select username m_no mNO rating from MovieReview where username=#{username} and rownum=1
-	</select>
-	
-	<!-- 10.장르별 평점 상위보기 -->	
-	<select id="findGenretopratingList" resultType="movieReview">
-		select username genre m_no from MovieReview where username=#{username} and rownum=1
-	</select>
-	
-	<!-- 11.좋아하는 영화 추가 -->		
-	<insert id="addFavoriteMovie" useGeneratedKeys="true" keyProperty="mLikeNo">
-		<selectKey keyProperty="mlikeNo" resultType="int" order="BEFORE">
-			select m_like_no_seq.nextval from dual
-		</selectKey>
-		insert into faovritemovie(m_like_no, username) 
-		values(#{mLikeNo}, #{username})
+	<!-- 10.좋아하는 영화 추가 (지요)-->
+	<insert id="insertFavoriteMovie">		
+		insert into fav_m(m_no,username,writing_date) 
+		values(#{mNo},#{username},sysdate)
 	</insert>
 	
-	<!-- 12.좋아하는 영화 삭제 -->	
+	<!-- 11.좋아하는 영화 삭제 (지요)-->	
 	<delete id="deleteFavoriteMovie">
-		delete from m_like_no where m_like_no=#{mLikeNo}		
+		delete from fav_m where m_no=#{mNo}
 	</delete>
 	
-	<!-- 7.좋아하는 영화 목록보기 -->	
-	<select id="favoriteMovieList" resultType="favoriteMovie">
-		select username m_like_no mLikeNo from favoritemovie where username=#{username} and rownum=1
+	<!-- 12.좋아하는 영화 목록보기 (ㅌㅎ)-->	
+	<select id="favoriteMovieList" resultType="favoritemovie">
+		select m_no mNo, username,writing_date writingDate from fav_m where username=#{username}
 	</select>
 	
-<!-- 	<resultMap type="com.icia.moviefactory.entity.FavoriteMovieDetail" id="mapForFavoriteMovieDetail">
+	<!-- 13.내 선호영화 예상 목록보기 -->	
+	<select id="findPreferenceMovieList" resultType="favoritemovie">
+		select username m_like_no mLikeNo from fav_m where username=#{username} and rownum=1
+	</select>
+	<!-- <resultMap type="com.icia.moviefactory.entity.FavoriteMovieDetail" id="mapForFavoriteMovieDetail">
 		<id property="mNo" column="m_no" />
 		<result property="writingDate" column="writing_date" />
 	</resultMap>
