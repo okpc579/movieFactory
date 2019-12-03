@@ -63,12 +63,21 @@ public class CollectionDao {
 		return tpl.selectOne("collectionMapper.findCollectionLikeUsernameById", map);
 	}
 	//11
-	public List<Collection> movieCollectionList(long mNo) {
-		return tpl.selectList("collectionMapper.findCollectionListBymNo", mNo);
+	public List<Collection> movieCollectionList(long mNo, int startRowNum, int endRowNum) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("mNo", mNo);
+		map.put("startRowNum", startRowNum);
+		map.put("endRowNum", endRowNum);
+		
+		return tpl.selectList("collectionMapper.findCollectionListBymNo", map);
 	}
 	//12
-	public List<Collection> usernameCollectionList(String username) {
-		return tpl.selectList("collectionMapper.findCollectionListByUsername", username);
+	public List<Collection> usernameCollectionList(String username, int startRowNum, int endRowNum) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("username", username);
+		map.put("startRowNum", startRowNum);
+		map.put("endRowNum", endRowNum);
+		return tpl.selectList("collectionMapper.findCollectionListByUsername", map);
 	}
 	//13
 	public int increaselikecnt(long collNo) {
@@ -79,5 +88,11 @@ public class CollectionDao {
 	public int decreaselikecnt(long collNo) {
 		return tpl.update("collectionMapper.decreaselikecnt", collNo);
 		
+	}
+	public int findMovieCollectionCount(long mNo) {
+		return tpl.selectOne("collectionMapper.findMovieCollectionCount", mNo);
+	}
+	public int findUsernameCollectionCount(String username) {
+		return tpl.selectOne("collectionMapper.findUsernameCollectionCount", username);
 	}
 }

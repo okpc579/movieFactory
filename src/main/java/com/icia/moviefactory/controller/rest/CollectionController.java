@@ -20,8 +20,7 @@ public class CollectionController {
 	private CollectionService service;
 	@PostMapping("/add")
 	public ResponseEntity<?> add(@Valid Collection collection, BindingResult results, Principal principal) {
-		//collection.setUsername(principal.getName());
-		collection.setUsername("spring");
+		collection.setUsername(principal.getName());
 		return ResponseEntity.ok(service.add(collection).getCollNo());
 	}
 	@GetMapping("/read/{collNo}")
@@ -29,13 +28,14 @@ public class CollectionController {
 		return ResponseEntity.ok(service.read(collNo));		
 	}
 	@PostMapping("/addmovie")
-	public ResponseEntity<?> addmovie(long mNo, long collNo, Principal principal) {
-		return ResponseEntity.ok(service.addmovie(mNo, collNo, principal.getName()));
+	public ResponseEntity<?> addmovie(long mNo, String collNo, Principal principal) {
+		
+		return ResponseEntity.ok(service.addmovie(mNo, Long.parseLong(collNo), principal.getName()));
+		
 	}
 	@PostMapping("/update")
 	public ResponseEntity<?> update(@Valid Collection collection, BindingResult results, Principal principal) {
-		//collection.setUsername(principal.getName());
-		collection.setUsername("spring");
+		collection.setUsername(principal.getName());
 		return ResponseEntity.ok(service.update(collection).getCollNo());
 	}
 	@PostMapping("/deletemovie")
@@ -44,9 +44,13 @@ public class CollectionController {
 	}
 	@PostMapping("/delete")
 	public ResponseEntity<?> delete(long collNo, Principal principal) {
-		//return ResponseEntity.ok(service.delete(collNo, principal.getName()));
-		return ResponseEntity.ok(service.delete(collNo, "spring"));
+		return ResponseEntity.ok(service.delete(collNo, principal.getName()));
 	}
+	@GetMapping("/checklike")
+	public ResponseEntity<?> checklike(long collNo, Principal principal) {
+		return ResponseEntity.ok(service.checklike(collNo, principal.getName()));
+	}
+	
 	@PostMapping("/like")
 	public ResponseEntity<?> like(long collNo, Principal principal) {
 		return ResponseEntity.ok(service.like(new CollectionLike(0, collNo, principal.getName(), null)));
@@ -56,11 +60,15 @@ public class CollectionController {
 		return ResponseEntity.ok(service.cancelLike(new CollectionLike(0, collNo, principal.getName(), null)));
 	}
 	@GetMapping("/list")
-	public ResponseEntity<?> movieCollectionList(long mNo) {
-		return ResponseEntity.ok(service.movieCollectionList(mNo));		
+	public ResponseEntity<?> movieCollectionList(long mNo, int pageno) {
+		return ResponseEntity.ok(service.movieCollectionList(mNo, pageno));
 	}
-	@GetMapping("/mylist")
-	public ResponseEntity<?> usernameCollectionList(Principal principal) {
-		return ResponseEntity.ok(service.usernameCollectionList(principal.getName()));		
+	@GetMapping("/userlist")
+	public ResponseEntity<?> usernameCollectionList(String username, int pageno) {
+		return ResponseEntity.ok(service.usernameCollectionList(username, pageno));		
 	}
+	
+	
+	
+	
 }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="alarmMapper">
+	
+	<select id="you" resultType="moviereview">
+			select m_rev_no mRevNo, username, m_no mNo, rating, m_rev_content, is_spo, writing_date, genre, is_blind, like_cnt, rep_cnt
+			from m_rev 
+			where username in (select following_username from follow where following_username=#{username})
+				and writing_date between (select last_login_date from member u where u.username=#{username}) and sysdate;
+	</select>
+	
+	<!-- 내소식 영화리뷰댓글 -->
+	<select id="myalarmreviewcomment" resultType="moviereviewcomment">
+	<![CDATA[
+			select c.m_rev_cmnt_no mRevCmntNo, c.m_rev_no mRevNo, c.username, c.content, c.is_blind isBlind, c.writing_date writingDate
+			from m_cmnt c, m_rev r
+			where r.username = #{username} and r.m_rev_no = c.m_rev_no(+)
+				and c.writing_date between (select last_login_date from member u where u.username=#{username}) and sysdate;
+	]]>
+	</select>
+	
+	<!-- 내소식 리뷰좋아요 -->
+	<select id="myalarmreviewlike" resultType="moviereviewlike">
+	<![CDATA[
+			select l.m_rev_like_no mRevLikeNo, l.m_rev_no mRevNo, l.username, l.like_reg_date likeRegDate
+			from m_rev_like l, m_rev r
+			where r.username = #{username} and r.m_rev_no = l.m_rev_no(+)
+			and l.like_reg_date between (select last_login_date from member u where u.username=#{username}) and sysdate;
+	]]>
+	</select>
+	<!-- 내소식 댓글리뷰좋아요 -->
+	
+	<select id="myalarmreviewcommentlike" resultType="moviereviewcommentlike">
+	<![CDATA[
+			select l.cmnt_like_no cmntLikeNo, l.m_rev_cmnt_no mRevCmntNo, l.username, l.like_reg_date likeRegDate
+			from m_cmnt_like l, m_cmnt c
+			where c.username = #{username} and c.m_rev_cmnt_no = l.m_rev_cmnt_no(+)
+				and l.like_reg_date between (select last_login_date from member u where u.username=#{username}) and sysdate;
+	]]>
+	</select>
+	
+</mapper>

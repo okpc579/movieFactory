@@ -66,14 +66,6 @@
 	<select id="findCollectionLikeUsernameById" resultType="string">
 			select username from coll_like where coll_no=#{collNo} and username=#{username}
 	</select>
-	<!--11번 콜렉션영화목록보기 -->
-	<select id="findCollectionListBymNo" resultType="collection">
-			select c.coll_no collNo, c.coll_name collName, c.username, c.writing_date writingDate, c.coll_intro collIntro from coll c, coll_detail cd where cd.m_no=1 and cd.coll_no(+) = c.coll_no
-	</select>
-	<!--12번 아이디로콜렉션목록보기 -->
-	<select id="findCollectionListByUsername" resultType="collection">
-			select coll_no collNo, coll_name collName, username, writing_date writingDate, coll_intro collIntro from coll where username=#{username}
-	</select>
 	<!--13번좋아요횟수증가 -->
 	<update id="increaselikecnt">
 		update coll set coll_like_cnt = coll_like_cnt+1 where coll_no = #{collNo}
@@ -82,5 +74,48 @@
 	<update id="decreaselikecnt">
 		update coll set coll_like_cnt = coll_like_cnt-1 where coll_no = #{collNo}
 	</update>
+	
+	
+	
+	
+	
+	
+	
+	<select id="findMovieCollectionCount" resultType="int">
+		<![CDATA[
+			select count(*) from coll c, coll_detail cd where cd.m_no=#{mNo} and cd.coll_no(+) = c.coll_no
+		]]>
+	</select>
+	<select id="findUsernameCollectionCount" resultType="int">
+		select count(*) from coll where username=#{username}
+	</select>
+
+	<!-- 블라인드당한 리뷰를 이용한 페이징 -->
+	<select id="findCollectionListBymNo" resultType="collections">
+		<![CDATA[
+			select * from
+		       	(select rownum rnum, c.* from 
+		       		(select c.coll_no collNo, c.coll_name collName, c.username, c.writing_date writingDate, c.coll_intro collIntro from coll c, coll_detail cd where cd.m_no=#{mNo} and cd.coll_no(+) = c.coll_no) c
+		       	where rownum<=#{endRowNum}) 
+		    where rnum>=#{startRowNum}
+		]]>
+	</select>
+	
+	<select id="findCollectionListByUsername" resultType="collections">
+		<![CDATA[
+			select * from
+		       	(select rownum rnum, c.* from 
+		       		(select coll_no collNo, coll_name collName, username, writing_date writingDate, coll_intro collIntro from coll where username=#{username}) c
+		       	where rownum<=#{endRowNum}) 
+		    where rnum>=#{startRowNum}
+		]]>
+	</select>
+	
+	
+	
+	
+	
+	
+	
 	
 </mapper>

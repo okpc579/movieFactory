@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
 import com.icia.moviefactory.dao.*;
+import com.icia.moviefactory.dto.*;
 import com.icia.moviefactory.entity.*;
 import com.icia.moviefactory.entity.Collection;
 
@@ -114,12 +115,31 @@ public class CollectionService {
 		return null;
 	}
 
-	public List<Collection> movieCollectionList(long mNo) {
-		return collectionDao.movieCollectionList(mNo);
+	public Page movieCollectionList(long mNo, int pageno) {
+		int pagesize=10;
+		int count = collectionDao.findMovieCollectionCount(mNo);
+		int startRowNum = ((pageno-1) * pagesize + 1);
+		int endRowNum = startRowNum + pagesize -1;
+		if(endRowNum >= count)
+			endRowNum = count;
+		List<Collection> collections = collectionDao.movieCollectionList(mNo, startRowNum, endRowNum);
+		return new Page().builder().pageno(pageno).pagesize(pagesize).totalcount(count).collections(collections).build();
 	}
 
-	public List<Collection> usernameCollectionList(String username) {
-		return collectionDao.usernameCollectionList(username);
+	public Page usernameCollectionList(String username, int pageno) {
+		int pagesize=10;
+		int count = collectionDao.findUsernameCollectionCount(username);
+		int startRowNum = ((pageno-1) * pagesize + 1);
+		int endRowNum = startRowNum + pagesize -1;
+		if(endRowNum >= count)
+			endRowNum = count;
+		List<Collection> collections = collectionDao.usernameCollectionList(username, startRowNum, endRowNum);
+		return new Page().builder().pageno(pageno).pagesize(pagesize).totalcount(count).collections(collections).build();
+	}
+
+	public String checklike(long collNo, String name) {
+		String collectionLikeUsername = collectionDao.collectionLikeFindUsername(collNo, name);
+		return collectionLikeUsername==null?"false":"true";
 	}
 
 }

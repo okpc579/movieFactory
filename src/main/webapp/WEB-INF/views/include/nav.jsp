@@ -39,7 +39,10 @@
 					location.href = "/moviefactory"
 				}
 			})
-		})
+		});
+		$("#sosick").on("click", function() {
+			window.open('/moviefactory/alarm', 'window','width=400, height=400, status=no,toolbar=no,scrollbars=no, location=no');	
+		});
 	});
 </script>
 </head>
@@ -63,6 +66,8 @@
 				<sec:authorize access="!hasRole('ROLE_ADMIN')">
           			<li><a id='resign' href='#'>탈퇴</a></li>
           		</sec:authorize>
+          		
+          		<li><a href='#' id="sosick">SO SICK</a></li>
           	</sec:authorize>
           	
 			<!-- ROLE_ADMIN 권한으로 로그인했을 때 보여줄 메뉴 -->

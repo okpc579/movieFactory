@@ -3,6 +3,7 @@ package com.icia.moviefactory.dto;
 import java.util.*;
 
 import com.icia.moviefactory.entity.*;
+import com.icia.moviefactory.entity.Collection;
 
 import lombok.*;
 
@@ -19,4 +20,5 @@ public class Page {
 	private List<Member> members;
 	private List<MovieReview> movieReviews;
 	private List<MovieReviewComment> movieReviewComments;
+	private List<Collection> collections;
 }
