@@ -52,8 +52,8 @@
 		<ul class="nav navbar-nav" id="menu_parent">
 	       	<!-- 로그인하지 않았을 때 보여줄 메뉴 -->
           	<sec:authorize access="isAnonymous()">
-				<li><a href="/moviefactory/api/member/findId">아이디 찾기</a></li>
-				<li><a href="/moviefactory/api/member/findPassword">비번 찾기</a></li>
+				<li><a href="/moviefactory/member/findId">아이디 찾기</a></li>
+				<li><a href="/moviefactory/member/findPassword">비번 찾기</a></li>
 				<li><a href="/moviefactory/member/yesorno">회원가입</a></li>
 			</sec:authorize>
 			
