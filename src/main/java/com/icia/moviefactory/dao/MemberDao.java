@@ -75,16 +75,17 @@ public class MemberDao {
 	}
 
 	// UDAO-6. 비밀번호 변경
-	public int updateNewPassword(String username, String password) {
+	public int updateNewPassword(String username, String newEncodedPassword) {
+		System.out.println("비번변경 dao에 왔니?");
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("username", username);
-		map.put("password", password);
+		map.put("newEncodedPassword", newEncodedPassword);
 		return tpl.update("memberMapper.updateNewPassword", map);
 	}
 
 	// 회원 탈퇴
 	public int delete(String username) {
-		return tpl.delete("memberMapper.delete", username);
+		return tpl.update("memberMapper.delete", username);
 	}
 }
 

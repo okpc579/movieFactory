@@ -18,11 +18,6 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
-
-<sec:authorize access="hasRole('ROLE_USER')">
-	<!-- <script src="/moviefactory/script/wsocket.js"></script> -->
-</sec:authorize>
-
 <script>
 $(function() {
 	
@@ -55,9 +50,24 @@ function pwdcheck() {
 	
 }
 </script>
+<style>
+#check {
+
+	height: 50px;
+	line-height: 50px;
+	width: 100px;
+}
+
+#p1 {
+	font-size: 25pt;
+	
+}
+</style>
 </head>
 <body>
-	<p class="flow-text">비밀번호 확인</p>
+<div class="form-group">
+	<p class="text-center" id="p1">♥ 비밀번호 확인 ♥</p>
+	</div>
 	<form>
 		<div class="form-group">
 			<input hidden="hidden" />

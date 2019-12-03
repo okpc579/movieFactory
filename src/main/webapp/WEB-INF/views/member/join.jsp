@@ -18,10 +18,16 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-<sec:authorize access="isAnonymous()">
+<sec:authorize access="hasRole('ROLE_USER')">
+   <script>
+      location.href="http://localhost:8081/moviefactory/system/e403";
+   </script>
 </sec:authorize>
 
 <script>
+var isUsernameAvailable=false;
+var isNickNameAvailable=false;
+var isEmailAvailable=false;
 //프사 출력하기 : 1MB가 넘으면 업로드 거부
 function loadImage() {
    var file = document.getElementById("profile").files[0];
@@ -52,12 +58,15 @@ function checkUsername() {
    var username = $("#username").val();
    if(username.length==0) { 
       $("#helper_username").text("필수입력입니다").css("color","red").css("font-size","0.75em");
+      isUsernameAvailable = false;
       return false;
    }
    if(!patt.test(username)) {
       $("#helper_username").text("아이디는 영숫자 8~12자입니다").css("color","red").css("font-size","0.75em");
+      isUsernameAvailable = false;
       return false;
    }
+   isUsernameAvailable = true;
    return true;
 }
 
@@ -70,7 +79,7 @@ function checkName() {
       return false;
    } 
    if(patt.test(name)==false) {
-      $("#helper_name").text("이름은 한글 2~10자입니다").css("color","red").css("font-size","0.75em");
+      $("#helper_name").text("이름은 한글 2~10자입니다").css("color","red").css("font-size","0.75em")
       return false;
    }
    $("#helper_name").text("");
@@ -133,12 +142,15 @@ function checkEmail() {
    var email = $("#email").val();
    if(email.length==0) {
       $("#helper_email").text("필수입력입니다").css("color","red").css("font-size", "0.75em");
+      isEmailAvailable=false;
       return false;
    } 
    if(patt.test(email)==false) {
       $("#helper_email").text("이메일형식에 어긋납니다").css("color","red").css("font-size", "0.75em");
+      isEmailAvailable=false;
       return false;
    }
+   isEmailAvailable=true;
    return true;
 }
 
@@ -148,28 +160,67 @@ function checkNick() {
 	var nick = $("#nick").val();
 	if(nick.length==0) {
 		$("#helper_nick").text("필수입력입니다").css("color","red").css("font-size", "0.75em");
+		isNickNameAvailable=false;
 		return false;
 	} 
 	if(patt.test(nick)==false) {
 		$("#helper_nick").text("닉네임은 한글 2~10글자 입니다").css("color","red").css("font-size", "0.75em");
+		isNickNameAvailable=false;
 		return false;
 	}
+	isNickNameAvailable=true;
 	return true;
 }
 
-// 8. 생년월일은 필수입력
+//8. 우편번호 입력
+function checkZipCode() {
+   var zipCodePattern = /^[0-9]{5,5}$/;
+   var zipCode = $("#zipCode").val();
+   if(zipCode.length==0) {
+      $("#helper_zipCode").text("").css("color","red").css("font-size","0.75em");
+      return false;
+   }
+   if(!zipCodePattern.test(zipCode)) {
+	      $("#helper_zipCode").text("형식이 맞지 않습니다.").css("color","red").css("font-size","0.75em");
+	      return false;
+	   }
+   
+   $("#helper_zipCode").text("");
+   return true;
+}
+
+// 8. 생년월일 필수입력
 function checkBirth() {
    var birthPattern = /^[0-9]{6,6}$/;
    var birth = $("#birth").val();
    if(birth.length==0) {
-      $("#helper_birth").text("필수입력입니다").css("color","red").css("font-size","0.75em");
+      $("#helper_birth").text("필수 입력입니다     ").css("color","red").css("font-size","0.75em");
       return false;
    }
    if(!birthPattern.test(birth)) {
-      $("#helper_birth").text("정확한 생년월일을 입력해 주세요").css("color","red").css("font-size","0.75em");
+      $("#helper_birth").text("정확한 생년월일을 입력해 주세요    ").css("color","red").css("font-size","0.75em");
       return false;
    }
+   
    $("#helper_birth").text("");
+   return true;
+}
+
+
+//8. 성별 필수입력
+function checkGender() {
+   var genderPattern = /^[1-4]{1,1}$/;
+   var gender = $("#gender").val();
+   if(gender.length==0) {
+      $("#helper_gender").text("주민번호 첫째자리까지 입력해주세요").css("color","red").css("font-size","0.75em");
+      return false;
+   }
+   if(!genderPattern.test(gender)) {
+	      $("#helper_gender").text("정확히 입력해주세요").css("color","red").css("font-size","0.75em");
+	      return false;
+	   }
+   
+   $("#helper_gender").text("");
    return true;
 }
 
@@ -203,7 +254,16 @@ function join() {
 }
 
 $(function() { 
-	
+	// 회원가입 페이지에 들어왔을때, 서비스 동의에 yes한 정보를 지운다
+	$.ajax({
+		url: "/moviefactory/api/member/clearyes",
+		method: "post",
+		success:function(result) {
+			console.log(result)
+		}, error: function(xhr) {
+			console.log(xhr)
+		}
+	});
 	// 비동기 병렬 수행(thread) -> 프로그래머가 순서 제어
 	// 둘 이상의 ajax를 내가 원하는 순서대로 실행하려면 내가 순서를 통제해야 한다 
 
@@ -217,26 +277,12 @@ $(function() {
 				success:function(result) {
 					$("#helper_username").text("사용가능합니다").css("color","green").css("font-size","0.75em");
 				}, error: function(xhr) {
-					$("#helper_username").text("사용중인 아이디입니다").css("color","red").css("font-size","0.75em").attr("data-pass","true");
-				}
-			});
-		}
-	});
-	$("#email").on("blur", function() {
-		if(checkEmail()==true) {
-			$.ajax({
-				url: "/moviefactory/api/member/email?email=" + $("#email").val(),
-				method: "get",
-				success:function(result) {
-					$("#helper_email").text("사용가능합니다").css("color","green").css("font-size","0.75em");
-				}, error: function(xhr) {
-					$("#helper_email").text("사용중인 이메일입니다").css("color","red").css("font-size","0.75em").attr("data-pass","true");
+					$("#helper_username").text("사용중인 아이디입니다").css("color","red").css("font-size","0.75em");
 				}
 			});
 		}
 	});
 	$("#nick").on("blur", function() {
-		console.log($("#nick").val());
 		if(checkNick()==true) {
 			$.ajax({
 				url: "/moviefactory/api/member/nick?nick=" + $("#nick").val(),
@@ -246,35 +292,57 @@ $(function() {
 					$("#helper_nick").text("사용가능합니다").css("color","green").css("font-size","0.75em");
 				}, error: function(xhr) {
 					console.log(xhr)
-					$("#helper_nick").text("사용중인 닉네임입니다").css("color","red").css("font-size","0.75em").attr("data-pass","true");
+					$("#helper_nick").text("사용중인 닉네임입니다").css("color","red").css("font-size","0.75em");
 				}
 			});
 		}
 	})
+	$("#email").on("blur", function() {
+		if(checkEmail()==true) {
+			$.ajax({
+				url: "/moviefactory/api/member/email?email=" + $("#email").val(),
+				method: "get",
+				success:function(result) {
+					$("#helper_email").text("사용가능합니다").css("color","green").css("font-size","0.75em");
+				}, error: function(xhr) {
+					$("#helper_email").text("사용중인 이메일입니다").css("color","red").css("font-size","0.75em");
+				}
+			});
+		}
+	});
 	$("#name").on("blur", checkName);
 	$("#password").on("blur", checkpassword);
 	$("#password2").on("blur", checkpassword2);
 	$("#tel").on("blur", checkTel);
 	$("#birth").on("blur", checkBirth);
+	$("#gender").on("blur", checkGender);
+	$("#zipCode").on("blur", checkZipCode);
 	
 	// 2. ajax 조건 체크. 작성한 순서와 무관하게 동시에 실행되므로 순서를 제어해야 한다
 	$("#join").on("click", function() {
 		// 다시 한번 동기 조건 체크
-		console.log("--------------");
-		if(!checkUsername() || !checkpassword() || !checkpassword2()|| !checkName() ||!checkNick()  ||  !checkEmail() || !checkTel() || !checkBirth()){
+		if(!checkUsername() || !checkpassword() || !checkpassword2()|| !checkName() ||!checkNick()  ||  !checkEmail() || !checkZipCode()
+				|| !checkTel() || !checkBirth() || !checkGender() || !isUsernameAvailable || !isNickNameAvailable || !isEmailAvailable ){
 			console.log(!checkUsername());
 			console.log(!checkpassword());
 			console.log(!checkpassword2());
 			console.log(!checkName());
 			console.log(!checkNick());
 			console.log(!checkEmail());
+			console.log(!checkZipCode());
 			console.log(!checkTel());
 			console.log(!checkBirth());
-			return;
+			console.log(!checkGender());
+			console.log(isUsernameAvailable);
+			console.log(isNickNameAvailable);
+			console.log(isEmailAvailable);
+			console.log("가입안되는곳");
+			return ;
 		}
-		console.log("==============");
+		console.log("==============가입되는곳");
 		join();
-	})
+	});
+	
 });
 </script>
 <style>
@@ -285,25 +353,20 @@ table {
    margin: 0 auto;
    border-collapse: collapse;
 }
+#join, #reset {
 
-button {
-   cursor: pointer;
-   background-color: #00D8FF;
-   border-radius: 10px;
-   border: none;
-   color: white;
-   height: 50px;
-   line-height: 50px;
-   width: 100px;
-}
-
-button:hover {
-   background-color: #00C6ED;
+	height: 50px;
+	line-height: 50px;
+	width: 100px;
 }
 
 p {
    font-size: 1.25em;
    font-weight: bold;
+}
+#p1 {
+	font-size: 25pt;
+	
 }
 </style>
 
@@ -312,7 +375,7 @@ p {
 	<div id="wrap">
 		<form id="joinForm" method="post">
 			<div class="form-group">
-				<p class="text-center">♥무비 팩토리 회원가입♥</p>
+				<p class="text-center" id="p1"><strong>♥ 무비 팩토리 회원가입 ♥</strong></p>
 				<div>
 					<label for="username">아이디</label> <span class="helper-text"
 						id="helper_username"></span>
@@ -382,7 +445,7 @@ p {
 				</div>
 				<div class="form-group">
 					<input type="text" id="baseAddr" name="baseAddr"
-						class="form-control" size="30" maxlength="300">
+						class="form-control" size="30" maxlength="300" placeholder="상세한 주소를 입력해주세요^^">
 				</div>
 
 				<div>
@@ -396,7 +459,8 @@ p {
 
 				<div>
 					<label for="birth">생년월일</label> <span class="helper-text"
-						id="helper_birth"></span>
+						id="helper_birth"></span><span class="helper-text"
+						id="helper_gender"></span>
 				</div>
 				<div class="form-group">
 					<input type="text" id="birth" name="birth" size="6" maxlength="6">
@@ -424,8 +488,8 @@ p {
 				<div>
 					<div class="row text-center" style="width: 100%">
 						<div style="width: 30%; float: none; margin: 0 auto">
-							<button type="reset" id="reset" class="center">초기화</button>
-							<button id="join" class="center" type="button">회원가입</button>
+							<button type="reset" id="reset" class="btn btn-default" >초기화</button>
+							<button id="join" class="btn btn-info"  type="button">회원가입</button>
 						</div>
 					</div>
 				</div>

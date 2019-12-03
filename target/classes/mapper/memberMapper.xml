@@ -50,12 +50,12 @@
 	
 	<!-- 내정보 보기 : 아이디로 정보 가져오기 -->
 	<select id="findById" resultType="member">
-		select username, name, nick,
+		select username, password, name, nick,
 		email, base_addr baseAddr, zip_code zipCode, tel, photo, birth, intro,
 		reg_date regDate from member where username=#{username} and rownum=1
 	</select>
 
-	<!-- 내정보 수정 : 하... -->
+	<!-- 내정보 수정 : 부분수정 가능 -->
 	<update id="update" parameterType="member">
 		update member
 		<set>
@@ -71,15 +71,16 @@
 	</update>
 
 
-	<!-- 비밀번호 변경 -->
+	<!-- 비밀번호 변경 : 새 비밀번호로 바꿈-->
 	<update id="updateNewPassword">
-		update member set password=#{password} where
-		username=#{username}
+		update member set password = #{newEncodedPassword}
+		where username =#{username}
 	</update>
 
-	<!-- 회원 탈퇴 : 아이디로 정보 삭제 -->
-	<delete id="delete">
-		delete from member where username=#{username}
-	</delete>
+	<!-- 회원 탈퇴 : 탈퇴 블락 변환, 이메일 닉네임 1로 변환   -->
+	<update id="delete">
+		update member set is_resign=1, enabled=0, email=1, nick=1  where username=#{username}
+	</update>
+	
 
 </mapper>

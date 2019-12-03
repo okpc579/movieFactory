@@ -17,9 +17,6 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<sec:authorize access="hasRole('ROLE_USER')">
-	<!-- <script src="/moviefactory/script/wsocket.js"></script> -->
-</sec:authorize>
 <script>
 	//서버에서 보내온 데이터를 화면에 출력
 	function printMember(member) {
@@ -48,7 +45,7 @@
 
 		$("#resign2").on("click", function() {
 			console.log("resign button");
-			var result = confirm("정말 탈퇴 하시겠습니까?");
+			var result = confirm("정말 탈퇴 하시겠습니까? 작성한 글은 삭제되지 않습니다.");
 			if (result == true) {
 				$.ajax({
 					url : '/moviefactory/api/member/resign',
@@ -78,13 +75,25 @@
 		
 	});
 </script>
+<style>
+#resign2, #updateUser {
+
+	height: 50px;
+	line-height: 50px;
+	width: 100px;
+}
+#p1 {
+	font-size: 25pt;
+	
+}
+</style>
 <title>일반회원 내 정보</title>
 </head>
 <body>
 	<div id="wrap">
 		<form id="infoForm" action="" method="post">
 			<div class="form-group">
-				<p class="text-center">♥무비 팩토리 회원정보♥</p>
+				<p class="text-center" id="p1"><strong>♥ 무비 팩토리 회원정보 ♥</strong></p>
 				<div>
 					<label for="username">아이디</label>
 				</div>
@@ -164,8 +173,8 @@
 		</form>
 		<div class="row text-center" style="width: 100%">
 			<div style="width: 30%; float: none; margin: 0 auto">
-				<button id="resign2" type="button" class="center">회원탈퇴</button>
-				<button id="updateUser" class="center" type="button">정보수정</button>
+				<button id="resign2" type="button" class="btn btn-default">회원탈퇴</button>
+				<button id="updateUser" class="btn btn-info" type="button">정보수정</button>
 			</div>
 		</div>
 	</div>

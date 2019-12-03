@@ -1,49 +1,68 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <title>서비스 동의 페이지</title>
-<sec:authorize access="isAnonymous()">
-	<script src="/moviefactory/script/wsocket.js"></script>
+<sec:authorize access="hasRole('ROLE_USER')">
+	<script>
+		location.href = "http://localhost:8081/moviefactory/system/e403";
+	</script>
 </sec:authorize>
 <script>
-$(document).ready(function() {
-	$("#no").on('click', function() {
-		alert('거부를 선택하시면 가입하실 수 없습니다. 동의해주시기 바랍니다.');
+	$(function() {
+		$("#no").on('click', function() {
+			alert('거부를 선택하시면 가입하실 수 없습니다. 동의해주시기 바랍니다.');
+		});
+		$("#yes").on('click', function() {
+			$.ajax({
+				url : "/moviefactory/api/member/yesorno",
+				method : "get",
+				success : function(result) {
+					location.href = "/moviefactory/member/join";
+				},
+				error : function(xhr) {
+				}
+			});
+		});
 	});
-	$("#yes").on('click', function() {
-		location.href = '/moviefactory/member/join';
-	});
-});
 </script>
 
 <style>
-button {
-	cursor: pointer;
-	background-color: #00D8FF;
-	border-radius: 10px;
-	border: none;
-	color: white;
+#yes, #no {
 	height: 50px;
 	line-height: 50px;
 	width: 100px;
 }
-
-button:hover {
-	background-color: #00C6ED;
+#p1 {
+	font-size: 25pt;
+	
+}
+#kkkk {
+	height: 30px;
 }
 </style>
 </head>
 <body>
-
-<textarea  class="form-control" rows="10" cols="100">							무비팩토리 서비스 정책서
+	<div id="kkkk">
+	
+	</div>
+	<div class="form-group">
+		<p class="text-center" id="p1">
+			<strong>♥ 서비스 동의서 ♥</strong>
+		</p>
+	</div>
+	<textarea class="form-control" rows="30" cols="100">							
 
 
 	1. 약관개요
@@ -220,11 +239,13 @@ button:hover {
  - 서비스의 명칭 또는 무팩의 임직원이나 운영진을 사칭하여 다른 이용자를 속이거나 이득을 취하는 등 피해와 혼란을 주는 행위
 
 </textarea>
-<div class="row text-center" style="width: 100%">
-					<div style="width: 30%; float: none; margin: 0 auto">
-						<button id="no" class="center">거부</button>
-						<button id="yes" class="center" type="button">동의</button>
-					</div>
-				</div>
+	<br>
+	<br>
+	<div class="row text-center" style="width: 100%">
+		<div style="width: 30%; float: none; margin: 0 auto">
+			<button id="no" class="btn btn-default">거부</button>
+			<button id="yes" class="btn btn-info" type="button">동의</button>
+		</div>
+	</div>
 </body>
 </html>
