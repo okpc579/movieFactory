@@ -33,20 +33,13 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
       
       HttpSession session = request.getSession();
       
-      // 로그인 성공하면 실패횟수 초기화, 로그인 횟수 증가
+      // 로그인 성공하면 실패횟수 초기화
       mapper.resetLoginFailureCount(authentication.getName());
-      /*
-       * mapper.increaseLoginCount(authentication.getName());
-       * 
-       * if(mapper.isNotReadMemoExist(authentication.getName())!=null) {
-       * session.setAttribute("msg", "읽지 않은 메모가 있습니다"); }
-       */
       SavedRequest savedRequest = cache.getRequest(request, response);
       
       // 로그인 성공 후 이동할 페이지가 있을 경우 세션에 저장
       if(savedRequest!=null)
          session.setAttribute("dest", savedRequest.getRedirectUrl());
-      
       // 무조건 루트로 이동. 이동할 페이지가 있을 경우도 루트를 거쳐 이동
       rs.sendRedirect(request, response, "/");
       

@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	권한이 없읍니다 ㅎㅅㅎ
+	권한이 없습니다.
 </body>
 </html>

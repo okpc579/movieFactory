@@ -71,14 +71,14 @@ public class MemberMVCController {
 	}
 
 	// MVC-2. 아이디 찾기
-	@GetMapping("/api/member/findId")
+	@GetMapping("/member/findId")
 	public String findId(Model model) {
 		model.addAttribute("viewName", "member/findId.jsp");
 		return "main";
 	}
 
 	// MVC-3. 비밀번호 찾기
-	@GetMapping("/api/member/findPassword")
+	@GetMapping("/member/findPassword")
 	public String findPwd(Model model) {
 		model.addAttribute("viewName", "member/findPassword.jsp");
 		return "main";
@@ -98,15 +98,15 @@ public class MemberMVCController {
 		return "main";
 	}
   
-	@GetMapping("/ap/캡차API로직")
+	@GetMapping("/ap/api1")
 	public String api(Model model) {
-		model.addAttribute("viewName", "ap/캡차API로직.jsp");
+		model.addAttribute("viewName", "ap/api1.jsp");
 		return "main";
 	}
 	
-	@GetMapping("/ap/캡차API사용자화면")
+	@GetMapping("/ap/app")
 	public String api2(Model model) {
-		model.addAttribute("viewName", "ap/캡차API사용자화면.html");
+		model.addAttribute("viewName", "ap/app.jsp");
 		return "main";
 	}
 }

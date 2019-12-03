@@ -236,6 +236,7 @@ clear:left;
 >>>>>>> 20191126_ksk
 </head>
 <body>
+<<<<<<< HEAD
 	<nav class="navbar navbar-default navbar-fixed-top"
 		style="background-color: #4ABFD3">
 		<div class="container" id="conooo">
@@ -283,6 +284,19 @@ clear:left;
 						</ul>
 					</ul>
 				</div>
+=======
+<div id="nav" class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="/moviefactory">ICIA</a>
+		</div>
+		<ul class="nav navbar-nav" id="menu_parent">
+	       	<!-- 로그인하지 않았을 때 보여줄 메뉴 -->
+          	<sec:authorize access="isAnonymous()">
+				<li><a href="/moviefactory/member/findId">아이디 찾기</a></li>
+				<li><a href="/moviefactory/member/findPassword">비번 찾기</a></li>
+				<li><a href="/moviefactory/member/yesorno">회원가입</a></li>
+>>>>>>> soonsim3
 			</sec:authorize>
 			<!--  양식
      <div class="collapse navbar-collapse" id="myNavbar">

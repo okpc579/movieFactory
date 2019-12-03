@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,28 +18,39 @@ $(function(){
 			method:'get',
 			data: $("#findIdFrm").serialize(),
 			success:function(result) {
-				location.href="/moviefactory/member/id";
+				alert("아이디는 "+result+"입니다.");
+				location.href="/moviefactory/member/login";
 			},error:function(xhr){
-				alert(xhr.responseText)
+				console.log(xhr.responseText);
+				alert(xhr.responseText);
 			}
 		})	
 	});
 });
 </script>
+<sec:authorize access="hasRole('ROLE_USER')">
+	<script>
+		location.href="http://localhost:8081/moviefactory/system/e403";
+	</script>
+</sec:authorize>
 </head>
 <body>
-	<div>
-		<form id="findIdFrm">
-			<fieldset>
-                <legend>아이디 찾기</legend>
-                <label>이름</label>
-                <input type="text" name="name" placeholder="이름 입력"><br>
-                <label>이메일</label>
-                <input type="text" name="email" placeholder="이메일 입력"> <br>
-                <button id="find" type="button">확인</button>
-                <a href="http://localhost:8081/moviefactory/member/login">돌아가기</a>
-			</fieldset>
-        </form>
+	<div id="id">
+		<form id="findIdFrm" action="/moviefactory/member/findId" method="post">
+			<legend>아이디 찾기</legend>
+			<div class="form-group">
+				<label for="findId_name">이름</label>
+				<input id="name" type="text" name="name" class="form-control" placeholder="이름 입력">
+				<span class="helper-text" id="find_name_helpler"></span>
+			</div>
+			<div class="form-group">
+				<label for="findId_email">이메일</label>
+				<input id="email" type="text" name="email" class="form-control" placeholder="이메일 입력">
+				<span class="helper-text" id="findId_email_helper"></span>
+			</div>
+			<button class="btn btn-success" id="find" type="button">확인</button><br>
+			<a href="login">돌아가기</a>
+		</form>
 	</div>
 </body>
 </html>
