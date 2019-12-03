@@ -3,23 +3,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<title>header</title>
 <style>
-#header  {
-	border : 1px solid #d89a1d;
-	letter-spacing: 0.75em
-}
-#header p {
-	font-size: 1.75em;
-	font-weight: bold;
-	text-align: center;
-}
+
 </style>
 </head>
 <body>
-	<div id="header" class="col s12">
-		<p>ICIA Sensor Web Board</p>
-	</div>
+<div id="headerjirong">
+
+</div>
 </body>
 </html>

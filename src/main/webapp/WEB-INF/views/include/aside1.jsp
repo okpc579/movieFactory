@@ -4,20 +4,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>footer</title>
+<title>aside</title>
 <style>
 
-   hr {
-   margin-top : 0;
-      margin-bottom : 0;
-   }
-   h5 {
-      text-align: center;
-   }
+
+
+   
 </style>
 </head>
 <body>
-   <hr>
-   <h5>♥8ㅅ8이 만든 무비팩토리♥</h5>   
+   
+   <div id="asideright"></div>
 </body>
 </html>
