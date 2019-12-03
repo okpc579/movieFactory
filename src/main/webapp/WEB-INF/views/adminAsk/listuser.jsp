@@ -1,16 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <!-- 시큐리티 EL을 이용해 로그인한 경우에만 js를 읽어들여 연결을 생성하도록 함  -->
 
@@ -18,11 +24,11 @@
 </head>
 <style>
 #main {
-	width: 1000px;
+	width: 1000px; display: inline-block;
 }
 
 #admin_board {
-	width: 990px;
+	width: 758px; text-align: center;
 }
 
 .board_top {
@@ -36,6 +42,29 @@
 .normal_user {
 	font-size: 40px;
 }
+#paging {
+ width: 300px;
+ }
+
+
+.pagination a {
+	color: black;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+	transition: background-color .3s;
+	border: 1px solid #ddd;
+}
+
+.pagination a.active {
+	background-color: #4CAF50;
+	color: white;
+	border: 1px solid #4CAF50;
+}
+
+.pagination a:hover:not (.active ) {
+	background-color: #ddd;
+}
 </style>
 <script>
 	function adminaskList(page){
@@ -44,8 +73,9 @@
 			var $tr = $("<tr>").appendTo($body);
 			$("<td>").text(adminAsk.adminAskNo).appendTo($tr)
 			var $td = $("<td>").appendTo($tr)
-			$("<a>").attr("href","/moviefactory/adminAsk/read?adminAskNo" + adminAsk.adminAskNo)
-			.text(adminAsk.title).appendTo($td);
+			$("<td>").text(adminAsk.askStateContent).appendTo($td);
+			$("<a>").attr("href","/moviefactory/adminAsk/read?adminAskNo=" + adminAsk.adminAskNo)
+			.text(adminAsk.title).appendTo($tr);
 			$("<td>").text(adminAsk.username).attr("data-username", adminAsk.username)
 			.attr("data-toggle", "model").attr("data-target","#usernameModal")
 			.attr("class","username").appendTo($tr);
@@ -77,25 +107,25 @@
 			usernameParam = '&username=' + username;
 		// 블록 번호가 1보다 큰 경우 앞으로 버튼 출력
 		if(blockNo>1) {
-			var $li = $("<li>").attr("class", "prev").appendTo($ul);
-			$("<a>").attr("href","/moviefactory/adminAsk/list?pageno=" + (startPage-1) + usernameParam).text("앞으로").appendTo($li);
+			var $li = $("<li>").attr("class", "previous").appendTo($ul);
+			$("<a>").attr("href","/moviefactory/adminAsk/listuser?pageno=" + (startPage-1) + usernameParam).text("앞으로").appendTo($li);
 		}
 		// 현재 페이지인 경우 li에 active 클래스를 지정하면서 페이지 번호 출력
 		for(var i=startPage; i<=endPage; i++) {
 			if(i==page.pageno) {
 				var $li = $("<li>").attr("class","active").appendTo($ul);
-				$("<a>").attr("href","/moviefactory/adminAsk/list?pageno=" + i + usernameParam).text(i).appendTo($li);
+				$("<a>").attr("href","/moviefactory/adminAsk/listuser?pageno=" + i + usernameParam).text(i).appendTo($li);
 			}
 			else {
 				var $li = $("<li>").appendTo($ul);
-				$("<a>").attr("href","/moviefactory/adminAsk/list?pageno=" + i + usernameParam).text(i).appendTo($li);
+				$("<a>").attr("href","/moviefactory/adminAsk/listuser?pageno=" + i + usernameParam).text(i).appendTo($li);
 			}
 		}
 		
 		// 블록의 마지막 페이지가 페이지 개수보다 작은 경우 다음으로 버튼 출력
 		if(endPage<cntOfPage) {
 			var $li = $("<li>").attr("class", "next").appendTo($ul);
-			$("<a>").attr("href", "/moviefactory/adminAsk/list?pageno=" + (endPage+1) +  usernameParam).text("다음으로").appendTo($li);
+			$("<a>").attr("href", "/moviefactory/adminAsk/listuser?pageno=" + (endPage+1) +  usernameParam).text("다음으로").appendTo($li);
 		}	
 	}
 	
@@ -124,7 +154,7 @@
 		// 전체 글 페이징 : undefined, 사용자가 작성한 글 페이징: writer=spring11
 		console.log(params[1]);
 		$.ajax({
-			url: "/moviefactory/api/adminAsk/list",	//여기 주소 니가 이상하게 적어놨어
+			url: "/moviefactory/api/adminAsk/listuser",	//여기 주소 니가 이상하게 적어놨어
 			method: "get",
 			data : location.search.substr(1),
 			success: function(result) {
@@ -139,7 +169,7 @@
 </script>
 <body>
 	<div id="adminask">
-		<h2>고객 센터 - 관리자</h2>
+		<h2>고객 센터 - 관리자에게 문의하기</h2>
 		<hr>
 		<div id="menu_list">
 			<div id="admin_board">
@@ -158,11 +188,11 @@
 				</form>
 				<table class="table">
 					<colgroup>
-						<col width="8%">
-						<col width="8%">
-						<col width="40%">
-						<col width="15%">
-						<col width="29%">
+						<col width="10%">
+						<col width="10%">
+						<col width="54%">
+						<col width="14%">
+						<col width="12%">
 					</colgroup>
 					<thead class="board_top">
 						<tr>
@@ -174,17 +204,21 @@
 						</tr>
 					</thead>
 					<tbody id="list">
+						
 					</tbody>
 				</table>
-				<div id="paging" style="text-align: center;"></div>
+				<div class="row text-center" style="width: 100%">
+            <div style="width: 30%; float: none; margin: 0 auto">
+				<div id="paging" class="pagination" style="text-align: center;">
+				</div>
 				<div>
-					<input type=button value="목록"
-						Onclick="window.location='list'" />
-					<input type=button value="글쓰기"
-						OnClick="window.location='write'" />
+					<input type=button value="목록" Onclick="window.location='list'" />
+					<input type=button value="글쓰기" OnClick="window.location='write'" />
 				</div>
 			</div>
+			</div>
+			</div>
 		</div>
-		</div>
+	</div>
 </body>
 </html>
