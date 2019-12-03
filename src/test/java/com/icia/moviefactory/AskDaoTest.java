@@ -45,7 +45,7 @@ public class AskDaoTest {
 	//@Transactional
 	//@Test
 	public void update() {
-		assertThat(askDao.update(new AdminAsk(10,"박동민","천재","빡고수",null,null,"답변완료")),is(1));
+//		assertThat(askDao.update(new AdminAsk(10,"박동민","천재","빡고수",null,null,"답변완료")),is(1));
 	}
 	//@Transactional
 	//@Test

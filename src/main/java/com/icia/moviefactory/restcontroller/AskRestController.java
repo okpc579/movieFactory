@@ -13,9 +13,7 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,19 +28,17 @@ public class AskRestController {
 	@Autowired
 	private AskService service;
 	
-//	// 관리자가 전체문의글 가져오기
-//	//@Secured("ROLE_ADMIN")
-//	@GetMapping("/adminAsk/list")
-//	public ResponseEntity<?> findAllAdminAsk(@RequestParam(defaultValue = "1") int pageno, @RequestParam(required = false) Principal username){
-//		return ResponseEntity.ok(service.findAll(pageno, username.getName()));
-//	}
-//	
-	// 유저의 목록 가져오기
+	// 관리자가 전체문의글 가져오기
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/adminAsk/list")
+	public ResponseEntity<?> findAllAdminAsk(@RequestParam(defaultValue = "1") int pageno, Principal username){
+		return ResponseEntity.ok(service.findAll(pageno, username.getName()));
+	}
+	
+	// 유저자신의 문의 목록 가져오기
+	@Secured("ROLE_USER")
+	@GetMapping("/adminAsk/listuser")
 	public ResponseEntity<?> findAllAdminAskByUsername(@RequestParam(defaultValue="1") int pageno, Principal username) {	// principal을 주어 로그인확인함
-		System.out.println(username + "찍힙니까? 레스트컨트롤러");
-		System.out.println(username.getName());
-		System.out.println(service.findAllAdminAskByUsername(pageno, username.getName()));
 		return ResponseEntity.ok(service.findAllAdminAskByUsername(pageno, username.getName()));
 	}
 	
@@ -65,15 +61,32 @@ public class AskRestController {
 
 	// 글 변경 : 글을 변경하려는 사람이 글쓴 사람인지 여부를 확인하기 위해 principal 필요
 	@Secured("ROLE_USER")
-	@PutMapping("/ask/update")
-	public ResponseEntity<?> updateAdminAsk(@Valid AdminAsk adminask, BindingResult results, Principal principal) {
-		return ResponseEntity.ok(service.updateAdminAsk(adminask, principal.getName()));
+	@PostMapping("/adminAsk/update")
+	public ResponseEntity<?> updateAdminAsk(long adminAskNo,String content, Principal principal) {
+		System.out.println(adminAskNo);
+		System.out.println(content);
+		return ResponseEntity.ok(service.updateAdminAsk(adminAskNo,content, principal.getName()));
 	}
+
 	
 	// 글 삭제: 글을 삭제하려는 사람이 글쓴 사람인지 여부를 확인하기 위해 principal 필요
 	@Secured("ROLE_USER")
-	@DeleteMapping("/ask/{admin_ask_no}")
-	public ResponseEntity<?> deleteAdminAsk(@PathVariable long adminAskNo, Principal principal) {
+	@DeleteMapping("/adminAsk/{admin_ask_no}")
+	public ResponseEntity<?> deleteAdminAsk(long adminAskNo, Principal principal) {
 		return ResponseEntity.ok(service.deleteAdminAsk(adminAskNo, principal.getName()));
+	}
+	
+	// 관리자가 글 하나 읽기: 게시판에서 글제목을 눌러 글을 읽을때
+	@GetMapping("/adminAsk/read")
+	public ResponseEntity<?> readAdminAsk(long adminAskNo, Principal principal){
+		return ResponseEntity.ok(service.readAdminAsk(adminAskNo, principal.getName()));
+	}
+	
+	// 관리자가 답변글 작성하기(변경)
+	@Secured("ROLE_ADMIN")
+	@PostMapping("/adminAsk/askAnswer")
+	public ResponseEntity<?> askAnswer(AdminAsk adminAsk){
+		System.out.println(adminAsk+"왓냐!?");
+		return ResponseEntity.ok(service.askAnswer(adminAsk));
 	}
 }

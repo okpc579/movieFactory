@@ -1,5 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="noticeMapper">
-	
+	<!-- 전체글의 개수읽어오기 -->
+	<select id="findAllCount" resultType="int" parameterType="string">
+		select /*+ index_ffs(notice notice_pk_notice_no) */ count(notice_no) from notice
+	</select>
+	<!-- 전체 글을 가져오기 -->	
+	<select id="findAll" resultType="Notice">
+		<![CDATA[
+			select * from
+				(select rownum rnum, b.* from
+					(select /*+ index_desc(notice notice_pk_notice_no) */ notice_no noticeNo,title,content,writing_date writingDate from notice order by writing_date desc) b
+				where rownum<=#{endRowNum})
+			where rnum>=#{startRowNum}
+		]]>
+	</select>
+	<!-- 글쓰기 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="noticeNo">
+		<selectKey keyProperty="noticeNo" resultType="int" order="BEFORE">
+			select notice_seq.nextval from dual
+		</selectKey>
+		insert into notice(notice_no, title, content, writing_date) 
+		values(#{noticeNo},#{title},#{content},sysdate)
+	</insert>
+	<!-- 글 변경하기 -->
+	<update id="update">
+		update notice set content=#{content} where notice_no=#{noticeNo}
+	</update>
+	<!-- 글 삭제하기 -->
+	<delete id="delete">
+		delete from notice where notice_no=#{noticeNo}
+	</delete>
+	<!-- 답변 포함 글 읽어오기 -->
+	<select id="findByNotice" resultType="Notice">
+		select notice_no noticeNo,title,content,writing_date writingDate from notice where notice_no=#{noticeNo} and rownum =1
+	</select>
 </mapper>

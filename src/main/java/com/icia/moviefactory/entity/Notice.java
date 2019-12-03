@@ -1,10 +1,13 @@
 package com.icia.moviefactory.entity;
 
-import java.util.*;
+import java.util.Date;
 
-import org.springframework.format.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,6 +16,6 @@ public class Notice {
 	private long noticeNo;
 	private String title;
 	private String content;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date writingDate;
 }

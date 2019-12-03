@@ -11,11 +11,11 @@
 			// form을 서버로 전송할 수 있는 urlencoded 형식으로 변환하는 함수가 serialize
 			var param = $("#writeForm").serialize();
 			$.ajax({
-				url:"/moviefactory/api/adminAsk/write",
+				url:"/moviefactory/api/notice/write",
 				data: param,
 				method:"post",
 				success:function(result, textStatus, request) {
-					location.href = "/moviefactory/adminAsk/listuser"
+					location.href = "/moviefactory/notice/list"
 				}, error:function(xhr) {
 					
 				}

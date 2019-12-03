@@ -39,8 +39,11 @@ public class AskDao {
 			return tpl.insert("askMapper.insert", adminAsk);
 		}
 		// 글 변경
-		public int update(AdminAsk adminAsk) {
-			return tpl.update("askMapper.update", adminAsk); 
+		public Integer update(Long adminAskNo, String content) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("adminAskNo", adminAskNo);
+			map.put("content", content);
+			return tpl.update("askMapper.update", map); 
 		}
 		
 		// 글 삭제
@@ -49,7 +52,6 @@ public class AskDao {
 		}
 		// 아이디로 검색해 게시판 글 페이징
 		public List<AdminAsk> findAllByUsername(int startRowNum, int endRowNum, String username) {
-			System.out.println("DAO에 왔니?");
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("startRowNum", startRowNum);
 			map.put("endRowNum", endRowNum);
@@ -58,8 +60,8 @@ public class AskDao {
 		}
 		
 		// 문의 답변
-		public int askAnswer(AdminAsk askAnswer) {
-			return tpl.update("askMapper.askAnswer", askAnswer);
+		public int askAnswer(AdminAsk adminAsk) {
+			return tpl.update("askMapper.askAnswer", adminAsk);
 		}
 		
 		// 글 작성자 읽어오기
