@@ -3,8 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
@@ -73,7 +72,7 @@ function printPaging(result) {
 	
 	var $pagination = $("#pagination");	
 	var serverUrl = "http://localhost:8081/moviefactory/movie/list?query="+ query+"&pageno=";
-	console.log("페이징함수 들어옴");
+	// console.log("페이징함수 들어옴");
 	if(blockNo>0) {
 		var $li = $("<li>").attr("class","previous").appendTo($pagination);
 		$("<a>").attr("href", serverUrl + (startPage-1)).text("<").appendTo($li);
@@ -134,10 +133,16 @@ $(function() {
 	table {
 		 text-align: center;
 	}
+	#kkkk {
+		height: 30px;
+	}
 </style>
 </head>
 <body>
-	<div id="main">
+<div id="kkkk">
+	
+</div>
+	<div id="section">
 		<!-- <table class="table table-hover"> -->
 		<table class="MovieTable">
 			<colgroup>

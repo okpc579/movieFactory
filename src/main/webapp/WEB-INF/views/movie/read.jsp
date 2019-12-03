@@ -25,6 +25,7 @@
 	var genre="";
 	var actor="";
 	var cast="";
+
 	function printList() {
 		var $body = $("#read");
 		
@@ -41,19 +42,28 @@
 		})
 		$("<td>").text(genre).appendTo($tr);
 		$("<td>").text(movie.directors).appendTo($tr);
+		/*
 		$.each(movie.actors, function(i, a) {
 			actor = actor +", " + a;
 		})
+		*/
+		for(var i=0;i<=9;i++){
+			actor = actor +"," + movie.actors[i];
+		}
 		$("<td>").text(actor).appendTo($tr);
 		$("<td>").text(movie.watchGradeNm).appendTo($tr);
+		/*
 		$.each(movie.cast, function(i, c) {
 			cast = cast +", " + c;
 		})
+		*/
+		for(var i=0;i<=9;i++){
+			cast = cast +"," + movie.cast[i];
+		}
 		$("<td>").text(cast).appendTo($tr);
 		
 		var $td = $("<td>").appendTo($tr)
 		getPoster(movie, $tr);
-			// 디테일 리드
 	}
 	function getPoster(movie, $tr) {
 		console.log(movie);
@@ -174,7 +184,7 @@
 					<th>배우</th>
 					<th>관람가</th>
 					<th>배역</th>
-					<th>포스s터</th>
+					<th>포스터</th>
 				</tr>
 			</thead>
 			<tbody id="read">
