@@ -69,7 +69,7 @@ public class MemberService {
 		mailUtil.sendMail(mail);
 		return StringConstant.SEND_PASSWORD_EMAIL;
 	}
-
+	
 	// 아이디 중복체크
 	public String idAvailable(String username) {
 		String result = dao.findUsernameById(username);
@@ -113,11 +113,11 @@ public class MemberService {
 				photo.transferTo(file);
 				String fileUrl = PROFILE_URI + imageName;
 				member.setPhoto(fileUrl);
-			} 
-			
-		}else {
+			} else {
 			member.setPhoto("http://localhost:8081/sajin/18default.png");
+			}
 		}
+		System.out.println("여기는 사진까지 처리한 후=========");
 		member.setPassword(pwdEncoder.encode(member.getPassword()));
 		member.setRegDate(new Date());
 		dao.insert(member);
@@ -125,6 +125,7 @@ public class MemberService {
 		return dao.findById(member.getUsername());
 
 	}
+
 
 	// 비밀번호 확인
 	public String checkpassword(String username, String password) {
@@ -142,7 +143,6 @@ public class MemberService {
 	
 	// 내 정보 수정 
 	public Member update(Member member, MultipartFile sajin) throws IllegalStateException, IOException {
-		System.out.println("내정보 수정 서비스에 도착");
 		Member prevMember = dao.findById(member.getUsername());
 		if(member.getNick().equals(""))
 			member.setNick(prevMember.getNick());
@@ -157,8 +157,6 @@ public class MemberService {
 		if(member.getIntro().equals(""))
 			member.setIntro(prevMember.getIntro());
 		
-		
-		System.out.println(member);
 		
 		if (sajin != null) {
 			if (sajin.getContentType().toLowerCase().startsWith("image/")) {
@@ -175,24 +173,25 @@ public class MemberService {
 		}
 		if (dao.update(member) == 0)
 			throw new IllegalArgumentException("사용자 정보를 변경하지 못했습니다");
-		System.out.println("dao에서 업데이트 해 ");
-		System.out.println("dao로 갈거니?");
 		return dao.findById(member.getUsername());
 	}
 
 	// 비밀번호 변경
-	public String updateNewPassword(String username, String password) {
+	public String updateNewPassword(String username, String password, String newPassword) {
+		//String username =  principal.getName();
 		String encodedPassword = dao.findById(username).getPassword();
 		if (pwdEncoder.matches(password, encodedPassword) == false)
 			throw new IllegalArgumentException("비밀번호를 확인하지 못했습니다");
-		dao.updateNewPassword(username, pwdEncoder.encode(password));
+		String newEncodedPassword = pwdEncoder.encode(newPassword);
+		dao.updateNewPassword(username, newEncodedPassword);
 		return "OK";
 	}
-
+	
 	// 회원탈퇴
 	public Void delete(String username) {
 		dao.delete(username);
 		authorityMapper.delete(username);
 		return null;
 	}
+
 }

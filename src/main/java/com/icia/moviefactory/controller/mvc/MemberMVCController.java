@@ -1,5 +1,7 @@
 package com.icia.moviefactory.controller.mvc;
 
+import javax.servlet.http.*;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.access.annotation.*;
 import org.springframework.stereotype.*;
@@ -23,7 +25,10 @@ public class MemberMVCController {
 
 	// MVC-2. 회원 가입
 	@GetMapping("/member/join")
-	public String join(Model model) {
+	public String join(Model model, HttpSession session) {
+		if (session.getAttribute("yes") == null) { 
+			return "redirect:/member/yesorno"; 
+		}
 		model.addAttribute("viewName", "member/join.jsp");
 		return "main";
 	}
@@ -33,6 +38,28 @@ public class MemberMVCController {
 	@GetMapping("/member/checkpassword")
 	public String pwdCheck(Model model) {
 		model.addAttribute("viewName", "member/checkPassword.jsp");
+		return "main";
+	}
+	
+	// MVC-4. 내 정보 보기
+	@Secured("ROLE_USER")
+	@GetMapping("/member/userinfo")
+	public String userinfo(Model model, HttpSession session) {
+		if (session.getAttribute("pwdCheck") == null) { 
+			return "redirect:/member/checkpassword"; 
+		}
+		model.addAttribute("viewName", "member/userInfo.jsp");
+		return "main";
+	}
+	
+	// MVC-4. 내 정보 수정
+	@Secured("ROLE_USER")
+	@GetMapping("/member/userupdate")
+	public String userupdate(Model model, HttpSession session) {
+		if (session.getAttribute("pwdCheck") == null) { 
+			return "redirect:/member/checkpassword"; 
+		}
+		model.addAttribute("viewName", "member/userUpdate.jsp");
 		return "main";
 	}
 
