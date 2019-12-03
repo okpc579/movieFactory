@@ -2,6 +2,8 @@ package com.icia.moviefactory.entity;
 
 import java.util.*;
 
+import org.springframework.format.annotation.*;
+
 import lombok.*;
 
 @Data
@@ -9,7 +11,9 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class FavoriteMovie {
-	private long mLikeNo;
+	private long mNo;
 	private String username;
-	private List<FavoriteMovieDetail> detail;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date writingDate;
+//	private List<FavoriteMovieDetail> detail;
 }

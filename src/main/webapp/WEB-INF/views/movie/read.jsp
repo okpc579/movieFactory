@@ -17,8 +17,6 @@
 		var $tr = $("<tr>").appendTo($body);
 		$("<td>").text(movie.movieCd).appendTo($tr);
 		$("<td>").text(movie.movieNm).appendTo($tr);
-		$("<td>").text(movie.movieNmEn).appendTo($tr);
-		$("<td>").text(movie.showTm).appendTo($tr);
 		$("<td>").text(movie.prdtYear).appendTo($tr);
 		$("<td>").text(movie.openDt).appendTo($tr);
 		$("<td>").text(movie.nationNm).appendTo($tr);

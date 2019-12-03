@@ -59,7 +59,6 @@ public class MovieDao {
 	}
 	
 	// 리뷰번호로 댓글 불러오기
-	
 	public MovieReviewComment findByCmntByMRevNo(long mRevNo) {
 		return tpl.selectOne("movieMapper.findByCmntByMRevNo", mRevNo);
 		

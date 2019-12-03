@@ -1,8 +1,7 @@
 package com.icia.moviefactory.service;
 
-import java.security.*;
+import java.util.*;
 
-import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
@@ -11,53 +10,55 @@ import com.icia.moviefactory.entity.*;
 @Service
 public class UserMovieService {
 	@Autowired
-	private UserMovieDao usermovieDao;
-	
-	@Autowired
-	private ModelMapper modelMapper;
-	
-//	public UserMovie read(long collNo) {
-//		UserMovie usermovie = modelMapper.map(usermovieDao.read(mNo), favoritemovie.class);
-//		return usermovie;
-//	}
+	private UserMovieDao dao;
 
-	// 좋아하는 영화 추가(usermovieDao 11번)
-	public FavoriteMovie addFavoriteMovie(FavoriteMovie favoritemovie) {
-		usermovieDao.addFavoriteMovie(favoritemovie);
-		return favoritemovie;
+	// 3. 컬렉션 목록보기
+	public List<Collections> findByUsernameCollection(String username) {
+		return dao.findByUsernameCollection(username);
 	}
 	
-	// 좋아하는 영화 삭제(usermovieDao 12번)
-	public UserMovieDao deletefavoritemovie(long mNo, String username) {
-		long mLikeNo = usermovieDao.usermovieFindUsername(username); 
-		usermovieDao.deleteFavoriteMovie(mLikeNo, mNo);
-		return null;
+	// 4. 유저리뷰 목록보기
+	public List<MovieReview> findUserReview(String username) { 
+		return dao.findUserReview(username);
 	}
 	
-	// 좋아하는 영화 목록(usermovieDao 7번)
-	public FavoriteMovie favoriteMovieList(Principal principal) {
-// 오류	long mLikeNo = usermovieDao.usermovieFindUsername(username); 
-		String username = principal.getName();
-// 오류	usermovieDao.favoriteMovieList();
-		return null;
+	// 5. 팔로잉 목록보기
+	public List<Follow> findFollowing(String followerUsername) {
+		return dao.findFollowing(followerUsername);
 	}
-
-	public Object read(long collNo) {
-		// TODO Auto-generated method stub
-		return null;
+		
+	// 6. 팔로우 목록보기
+	public List<Follow> findFollower(String followingUsername) {
+		return dao.findFollower(followingUsername);
 	}
-
-	public Object findFollowingList(String username, String followingUsername) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	// 7. 평점상위보기
+	public List<MovieReview> findAverageRating() {
+		return dao.findAverageRating(); 		
 	}
-
-	public Object findFollowerList(String username, String followerUsername) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	// 8. (타)유저 고평점 상위보기
+	public List<MovieReview> findUserTopRating(String username) {
+		return dao.findUserTopRating(username);	
 	}
-
-//	public UserMovieDao insertfavoritemovie(long mNo, String username) {
-//		long mLikeNo = usermovieDao.usermovieFindUsername(username);
-//	}
+	
+	// 9. 장르별 평점 상위 보기
+	public List<MovieReview> findGenretoprating(String genre) {
+		return dao.findGenretoprating(genre); 		
+	}
+	
+	// 10. 좋아하는 영화 추가
+	public int insertFavoriteMovie(FavoriteMovie favoritemovie, String string) {
+		return dao.insertFavoriteMovie(favoritemovie);
+	}			
+		
+	// 11. 좋아하는 영화 삭제
+	public long deleteFavoriteMovie(long mNo) {
+		return dao.deleteFavoriteMovie(mNo); 
+	}
+	
+	// 12. 좋아하는 영화 목록
+	public List<FavoriteMovie> favoriteMovie(String username) {
+		return dao.favoriteMovie(username);		
+	}	
 }

@@ -1,6 +1,7 @@
 package com.icia.moviefactory.dto;
 
 import java.util.*;
+import java.util.Collection;
 
 import com.icia.moviefactory.entity.*;
 
@@ -19,4 +20,6 @@ public class Page {
 	private List<Member> members;
 	private List<MovieReview> movieReviews;
 	private List<MovieReviewComment> movieReviewComments;
+	private List<Collection> collectionList;
+	private List<Follow> follows;
 }

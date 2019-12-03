@@ -24,7 +24,7 @@ public class MovieService {
 	private ObjectMapper objectMapper;
 	@Value("10")
 	private int pagesize;
-	
+
 	public Page findAllReviewByUsername(int pageno, String username) {
 		if(username==null) {
 			int count = dao.findCount();
