@@ -2,8 +2,7 @@ package com.icia.moviefactory.dto;
 
 import java.util.*;
 
-import org.springframework.format.annotation.*;
-
+import com.fasterxml.jackson.annotation.*;
 import com.icia.moviefactory.entity.*;
 
 import lombok.*;
@@ -18,7 +17,8 @@ public class MovieReviewDto {
 	private long mNo;
 	private long rating;
 	private String mRevContent;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private long isSpo;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date writingDate;
 	private String genre;
 	// 글쓴 사람 본인인지 여부

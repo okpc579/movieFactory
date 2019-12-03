@@ -11,7 +11,6 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class MovieReviewCommentLike {
-	private long cmntLikeNo;
 	private long mRevCmntNo;
 	private String username;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

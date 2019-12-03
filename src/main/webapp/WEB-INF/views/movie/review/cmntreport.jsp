@@ -29,13 +29,13 @@
 $(function(){
 		
 		$("#report").on("click",function(){
-			$("#mRevNo").val(location.search.split('=')[1])
+			$("#mRevCmntNo").val(location.search.split('=')[1])
 			var param = $("#writeForm").serialize();
 			console.log($("#title").val());
 			console.log(param);
 			console.log($("#mRevNo").val());
 			$.ajax({
-				url: "/moviefactory/api/movie/report",
+				url: "/moviefactory/api/movie/cmntreport",
 				method: "post",
 				data: param,
 				success : function(result) {
@@ -73,7 +73,7 @@ $(function(){
 			<table>
 				<tr>
 					<td>문의 종류</td>
-					<input type="hidden" name="mRevNo" id="mRevNo" value="">
+					<input type="hidden" name="mRevCmntNo" id="mRevCmntNo" value="">
 					<td><input type="radio" name="mRepCate" value="욕설">욕설</td>
 					<td><input type="radio" name="mRepCate" value="광고">광고</td>
 					<td><input type="radio" name="mRepCate" value="불건">불건</td>

@@ -1,8 +1,5 @@
 package com.icia.moviefactory;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-
 import org.junit.runner.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.test.context.*;
@@ -11,9 +8,7 @@ import org.springframework.test.context.junit4.*;
 import com.icia.moviefactory.dao.*;
 import com.icia.moviefactory.entity.*;
 
-import lombok.extern.slf4j.*;
 
-@Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/spring/**/*-context.xml")
 public class MovieDaoTest {
@@ -45,10 +40,10 @@ public class MovieDaoTest {
 	//@Transactional
 	//@Test
 	public void insertrevlike() {
-		MovieReviewLike moviereviewlike = new MovieReviewLike(3, 1, "soon", null);
+	//	MovieReviewLike moviereviewlike = new MovieReviewLike(3, 1, "soon", null);
 		//dao.insertrevlike(moviereviewlike);
 		//dao.revlikecnt(1);
-		assertThat(moviereviewlike.getMRevLikeNo(), is(3L));
+	//	assertThat(moviereviewlike.getMRevLikeNo(), is(3L));
 	}
 	
 	//@Test
@@ -80,15 +75,15 @@ public class MovieDaoTest {
 	
 	//@Test
 	public void insertcmntlike() {
-		MovieReviewCommentLike moviereviewcommentlike = new MovieReviewCommentLike(1, 2, "soon", null);
-		dao.insertcmntlike(moviereviewcommentlike);
-		assertThat(moviereviewcommentlike.getCmntLikeNo(), is(2L));
+		//MovieReviewCommentLike moviereviewcommentlike = new MovieReviewCommentLike(1, 2, "soon", null);
+		//dao.insertcmntlike(moviereviewcommentlike);
+		//assertThat(moviereviewcommentlike.getCmntLikeNo(), is(2L));
 	}
 	
 	//@Test
 	public void insertcmntrep() {
 		MovieReviewCommentReport moviereviewcommentreport = new MovieReviewCommentReport(2, "soon", "신고", "신고내용", null, "스포");
-		dao.insertcmntrep(moviereviewcommentreport);
+		//dao.insertcmntrep(moviereviewcommentreport);
 	}
 	
 	

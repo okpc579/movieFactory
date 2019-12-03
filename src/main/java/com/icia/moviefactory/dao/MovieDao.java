@@ -43,9 +43,29 @@ public class MovieDao {
 		return tpl.update("movieMapper.updaterepcnt",mRevNo);
 	}
 	
+	public int insertrep(long mRevNo) {
+		return tpl.update("movieMapper.insertrep",mRevNo);
+	}
+	
 	// 신고 수 읽어오기
 	public int findReportCnt(long mRevNo) {
 		return tpl.selectOne("movieMapper.findReportCnt",mRevNo);
+	}
+	
+	// 댓글 신고 수 읽어오기
+	
+	public int findCmntReportCnt(long mRevCmntNo) {
+		return tpl.selectOne("movieMapper.findCmntReportCnt",mRevCmntNo );
+	}
+	
+	// 댓글 신고 수 증가
+	
+	public int updatecmntrepcnt(long mRevCmntNo) {
+		return tpl.update("movieMapper.updatecmntrepcnt",mRevCmntNo);
+	}
+	
+	public String findUsernameByCmntNo(long mRevCmntNo) {
+		return tpl.selectOne("movieMapper.findUsernameByCmntNo", mRevCmntNo);
 	}
 	
 	// 댓글 등록
@@ -81,9 +101,14 @@ public class MovieDao {
 		return tpl.insert("movieMapper.insertcmntlike",moviereviewcommentlike);
 	}
 	
+	// 댓글 좋아요 수 찾기
+	public int findCmntlikecnt(long mRevCmntNo) {
+		return tpl.selectOne("movieMapper.findCmntlikecnt",mRevCmntNo);
+	}
+	
 	// 댓글 좋아요 카운트
-	public int cmntlikecnt(long cmntLikeNo) {
-		return tpl.selectOne("movieMapper.cmntlikecnt",cmntLikeNo);
+	public int updatecmntlike(long mRevCmntNo) {
+		return tpl.update("movieMapper.updatecmntlike", mRevCmntNo);
 	}
 	
 	// 댓글 신고 등록
@@ -92,8 +117,8 @@ public class MovieDao {
 	}
 
 	// 전체 리뷰 개수
-	public int findCount() {
-		return tpl.selectOne("movieMapper.findCount");
+	public int findCount(long mno) {
+		return tpl.selectOne("movieMapper.findCount",mno);
 	}
 	
 	// 전체 리뷰의 개수를 이용한 페이징
@@ -101,7 +126,7 @@ public class MovieDao {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("startRowNum", startRowNum);
 		map.put("endRowNum", endRowNum);
-		return tpl.selectList("movieBapper.findAll",map);
+		return tpl.selectList("movieMapper.findAll",map);
 		
 	}
 	
@@ -127,6 +152,27 @@ public class MovieDao {
 	// 리뷰 작성자 읽어오기
 	public String findUsernameById(long mRevNo) {
 		return tpl.selectOne("movieMapper.findUsernameById", mRevNo);
+	}
+	
+	public List<MovieReview> reviewList(long mNo,String username){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("mNo", mNo);
+		map.put("username", username);
+		return tpl.selectList("movieMapper.reviewList",map);
+	}
+	
+	public String findUsernameByIds(long mNo,String username) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("mNo", mNo);
+		map.put("username", username);
+		return tpl.selectOne("movieMapper.findUsernameByIds", map);
+	}
+
+	public MovieReview myReview(Long mno, String username) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("mNo", mno);
+		map.put("username", username);
+		return tpl.selectOne("movieMapper.myReview", map);
 	}
 	
 	

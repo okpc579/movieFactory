@@ -18,19 +18,22 @@ public class MovieController {
 		return "main";
 	}
 	
-	@GetMapping("/movie/review/report")
+	@GetMapping("/movie/review/report{mRevNo}")
 	public String insertrevrep(Model model) {
 		model.addAttribute("viewName", "movie/review/report.jsp");
 		return "main";
 	}
+	
+	
+	@GetMapping("/movie/review/cmntreport")
+	public String insertcmntrep1(Model model) {
+		model.addAttribute("viewName", "movie/review/cmntreport.jsp");
+		return "main";
+	}
+	
 	@GetMapping("/movie/comment/update")
 	public String updaterevcmnt(Model model) {
 		model.addAttribute("viewName", "update.jsp");
-		return "main";
-	}
-	@GetMapping("/movie/comment/report")
-	public String insertcmntrep(Model model) {
-		model.addAttribute("viewName", "report.jsp");
 		return "main";
 	}
 	
@@ -39,4 +42,10 @@ public class MovieController {
 		model.addAttribute("viewName", "movie/review/read.jsp");
 		return "main";
 	}	
+	
+	@GetMapping("/movie/review/list")
+	public String list(Model model) {
+		model.addAttribute("viewName", "movie/review/list.jsp");
+		return "main";
+	}
 }

@@ -2,7 +2,7 @@ package com.icia.moviefactory.entity;
 
 import java.util.*;
 
-import org.springframework.format.annotation.*;
+import com.fasterxml.jackson.annotation.*;
 
 import lombok.*;
 @Data
@@ -16,11 +16,12 @@ public class MovieReview {
 	private long rating;
 	private String mRevContent;
 	private long isSpo;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date writingDate;
 	private String genre;
 	private long isBlind;
 	private long likeCnt;
 	private long repCnt;
+	private List<MovieReviewComment> comments;
 }
 

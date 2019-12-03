@@ -10,8 +10,8 @@
 		sysdate, #{genre}, 0, #{likeCnt},#{repCnt}) 
 	</insert>
 	
-	<select id="findCount" resultType="int" parameterType="string">
-		select /*+ index_ffs(m_rev m_rev_pk_m_rev_no) */ count(m_rev_no) from m_rev
+	<select id="findCount" resultType="int" parameterType="long">
+		select /*+ index_ffs(m_rev m_rev_pk_m_rev_no) */ count(m_rev_no) from m_rev where m_no=#{mno}
 	</select>
 	
 	<select id="findAll" resultType="moviereview">
@@ -20,12 +20,12 @@
 		       	(select rownum rnum, b.* from 
 		       		(select /*+ index_desc(m_rev m_rev_pk_m_rev_no) */ m_rev_no mRevNo, username, m_no mNo, rating,m_rev_content mRevContent , is_spo isSpo, writing_date writingDate, genre, is_blind isBlind, like_cnt likeCnt, rep_cnt repCnt from m_rev) b
 		       	where rownum<=#{endRowNum}) 
-		    where rnum>=#{startRowNum}
+		    where rnum>=#{startRowNum} 
 		]]>
 	</select>
 	
 	<select id="findCountByUsername" resultType="int">
-		select /*+ index_ffs(m_rev m_rev_pk_m_rev_no) */ count(m_rev_no) from m_rev where username = #{username}
+		select /*+ index_ffs(m_rev m_rev_pk_m_rev_no) */ count(m_rev_no) from m_rev where m_no = #{mNo}
 	</select>
 	
 	<select id="findAllByUsername" resultType="moviereview">
@@ -39,37 +39,45 @@
 	</select>
 	
 	<resultMap type="com.icia.moviefactory.entity.MovieReviewComment" id="mapForComments">
-		<id property="mRevCmntNo" column="m_rev_cmnt_no" />
-		<result property="mRevNo" column="m_rev_no" />
-		<result property="username" column="username" />
-		<result property="content" column="content" />
-		<result property="writingDate" column="writing_date" />
-		<result property="cmntLikeCnt" column="cmnt_like_cnt" />
-		<result property="cmntRepCnt" column="cmnt_rep_cnt" />
+		<id property="mRevCmntNo" column="mRevCmntNo" />
+		<result property="mRevNo" column="mRevNo" />
+		<result property="username" column="commentUsername" />
+		<result property="content" column="commentContent" />
+		<result property="writingDate" column="commentWritingDate" />
+		<result property="cmntLikeCnt" column="cmntLikeCnt" />
+		<result property="cmntRepCnt" column="cmntRepCnt" />
 	</resultMap>
 	
 	<resultMap type="hashmap" id="mapForRead" >
-		<id property="mRevNo" column="m_rev_no"/>
+		<id property="mRevNo" column="mRevNo1"/>
 		<result property="username" column="username" />
-		<result property="mNo" column="m_no" />
+		<result property="mNo" column="mNo" />
 		<result property="rating" column="rating" />
-		<result property="mRevContent" column="m_rev_content" jdbcType="CLOB" javaType="java.lang.String"/>
-		<result property="writingDate" column="writing_date" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+		<result property="mRevContent" column="mRevContent" jdbcType="CLOB" javaType="java.lang.String"/>
+		<result property="isSpo" column="isSpo" />
+		<result property="writingDate" column="writingDate" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
 		<result property="genre" column="genre" />
-		<result property="likeCnt" column="like_cnt" />
-		<result property="repCnt" column="rep_cnt" />
+		<result property="likeCnt" column="likeCnt" />
+		<result property="repCnt" column="repCnt" />
 		<collection property="comments" javaType="java.util.ArrayList" resultMap="mapForComments"/>
 	</resultMap>
 	
 	<select id="findByIdWithComments" resultMap="mapForRead">
 		<![CDATA[
-			select m.m_rev_no mRevNo, m.username, m.m_no mNo, m.rating, m.m_rev_content mRevContent,is_spo isSpo , m.writing_date writingDate , m.genre, 
-			c.m_rev_cmnt_no mRevCmntNo, c.m_rev_no CmRevNo, c.username commentUsername, c.content commentContent, c.writing_date commentWritingDate from m_rev m, m_cmnt c where m.m_rev_no=#{mRevNo} and m.m_rev_no=c.m_rev_no(+)
+			select m.m_rev_no mRevNo1, m.username, m.m_no mNo, m.rating, m.m_rev_content mRevContent,m.is_spo isSpo , m.writing_date writingDate , m.genre, m.is_blind isBlind, m.like_cnt likeCnt, m.rep_cnt repCnt,c.m_rev_cmnt_no mRevCmntNo, c.m_rev_no CmRevNo, c.username commentUsername, c.content commentContent, c.writing_date commentWritingDate,c.cmnt_like_cnt cmntLikeCnt,c.cmnt_rep_cnt cmntRepCnt from m_rev m, m_cmnt c where m.m_rev_no=#{mRevNo} and m.m_rev_no=c.m_rev_no(+)
 		]]>
 	</select>
 	
 	<select id="findUsernameById" resultType="string">
 		select username from m_rev where m_rev_no=#{mRevNo} and rownum = 1
+	</select>
+	
+	<select id="findUsernameByIds" resultType="string">
+		select username from m_rev where m_no=#{mNo} and username=#{username}
+	</select>
+	
+	<select id="findUsernameByCmntNo" resultType="string">
+		select username from m_cmnt where m_rev_cmnt_no=#{mRevCmntNo} and rownum = 1
 	</select>
 	
 	<update id="updaterev"> update m_rev set m_rev_content=#{mRevContent} where
@@ -82,9 +90,13 @@
 	</update>
 
 	<select id="findLikeCnt" resultType="int">
-		select like_cnt from m_rev where m_rev_no={mRevNo}
+		select like_cnt from m_rev where m_rev_no=#{mRevNo}
 	</select>
-
+	
+	<insert id="insertrep">
+		insert into m_rev_rep values(#{mRevNo},#{title},#{content},sysdate,#{mRepCate})
+	</insert>
+	
 	<update id="updaterepcnt">
 		update m_rev set rep_cnt = rep_cnt+1 where m_rev_no=#{mRevNo}
 	</update>
@@ -92,6 +104,15 @@
 	<select id="findReportCnt" resultType="int">
 		select rep_cnt from m_rev where m_rev_no=#{mRevNo}
 	</select>
+	
+	<update id="updatecmntrepcnt">
+		update m_cmnt set cmnt_rep_cnt = cmnt_rep_cnt+1 where m_rev_cmnt_no=#{mRevCmntNo}
+	</update>
+	
+	<select id="findCmntReportCnt" resultType="int">
+		select cmnt_rep_cnt from m_cmnt where m_rev_cmnt_no=#{mRevCmntNo}
+	</select>
+	
 	<insert id="insertcmnt"> 
 		insert into m_cmnt(m_rev_cmnt_no, m_rev_no,username, content, is_blind, writing_date, cmnt_like_cnt,cmnt_rep_cnt) 
 		values(m_rev_comn_seq.nextval,#{mRevNo},#{username},#{content},#{isBlind},sysdate,#{cmntLikeCnt},#{cmntRepCnt})
@@ -101,9 +122,9 @@
 		select m_rev_cmnt_no,m_rev_no,username,content,writing_date from m_cmnt where m_rev_no=#{mRevNo} order by m_rev_cmnt_no desc
 	</select>	
 	
-	<select id="deleteByMRevNo">
+	<delete id="deleteByMRevNo">
 		delete from m_cmnt where m_rev_no=#{mRevNo}
-	</select>
+	</delete>
 
 	<update id="updaterevcmnt"> update m_cmnt set content=#{content} where
 		m_rev_cmnt_no=#{mRevCmntNo} </update>
@@ -115,12 +136,27 @@
 		insert into m_cmnt_like(cmnt_like_no, m_rev_cmnt_no, username, like_reg_date)
 		values(#{cmntLikeNo},#{mRevCmntNo},#{username},sysdate) </insert>
 
-	<select id="cmntlikecnt" resultType="long"> select count(m_rev_cmnt_no)
-		from m_cmnt_like where cmnt_like_no=#{cmntLikeNo} </select>
+	<update id="updatecmntlike">
+		update m_cmnt set cmnt_like_cnt = cmnt_like_cnt+1 where m_rev_cmnt_no = #{mRevCmntNo}
+	</update>
+	
+	<select id="findCmntlikecnt" resultType="int">
+		select cmnt_like_cnt from m_cmnt where m_rev_cmnt_no=#{mRevCmntNo} 
+	</select>
 
 	<insert id="insertcmntrep"> insert into m_cmnt_rep(m_rev_cmnt_no, username,
 		title, content, writing_date, m_rep_cate)
 		values(#{mRevCmntNo},#{username},#{title},#{content},sysdate,#{mRepCate})
 	</insert>
+	
+	<select id="reviewList" resultType="moviereview">
+		select m_rev_no mRevNo,username,m_rev_content mRevContent from m_rev where m_no=#{mNo} order by m_rev_no desc
+	</select>
+
+
+	<select id="myReview" resultType="moviereview">
+		select m_rev_no mRevNo,username,m_rev_content mRevContent from m_rev where m_no=#{mNo} and username = #{username} and rownum=1
+	</select>
+
 
 </mapper>

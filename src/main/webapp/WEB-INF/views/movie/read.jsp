@@ -1,10 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
+<%@ page session = "true" %>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+	var isLogin = false;
+	var loginId = undefined;
+</script>
+<sec:authorize access="isAuthenticated()">
+
+	<sec:authentication property="principal.username" var="member" />
+	<script>
+		isLogin = true;
+		loginId = '${member}';
+	</script>
+</sec:authorize>
 <script>
 	var movie;
 	var mno = ${mno}
@@ -79,6 +93,47 @@
 				
 			}
 		});
+		//로그인되있을때 해야됨
+		$.ajax({
+			url:"/moviefactory/api/movie/review/myreview?mno=" + mno,	//디테일 리드
+			method: "get",
+			success:function(result) {
+				console.log(result);
+				if(result==""){
+					$("<button>").attr("id","revWrite").text("리뷰 작성").appendTo($("#review"));
+				}else{
+					$("<a>").attr("id","updateWrite").attr("href","/moviefactory/movie/review/read?mrevNo=" + result.mrevNo).text("리뷰수정").appendTo("#review");
+					console.log(result.mrevNo);
+				}
+				$("#revWrite").on("click", function() {
+					if(isLogin==true){
+						console.log(mno);
+					location.href="/moviefactory/movie/review/write?mno="+mno;
+					}
+					else{
+						location.href="/moviefactory/member/login"
+					}
+				});
+			}, error:function(xhr) {
+				
+			}
+		});
+		
+		
+		$("#revWrite").on("click", function() {
+			if(isLogin==true){
+				console.log(movie);
+			location.href="/moviefactory/movie/review/write?mno="+movie.movieCd;
+			}
+			else{
+				location.href="/moviefactory/member/login"
+			}
+		});
+		
+		$("#bttn").on("click", function() {
+			location.href="/moviefactory/movie/review/list?mno="+movie.movieCd;
+		});
+		
 	});
 </script>
 <style>
@@ -88,6 +143,7 @@
 </style>
 </head>
 <body>
+<form action="/moviefactory/movie/review/write" method="get">
 <div id="main">
 		<!-- <table class="table table-hover"> -->
 		<table class="MovieTable">
@@ -126,6 +182,12 @@
 			<tbody id="read">
 			</tbody>
 		</table>
+		<div id="review">
+		<button id="bttn" type="button">리뷰 목록</button>
+		</div>
+		<div id="readRev">
+		</div>
 	</div>
+</form>
 </body>
 </html>
