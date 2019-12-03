@@ -67,9 +67,9 @@
           	
 			<!-- ROLE_ADMIN 권한으로 로그인했을 때 보여줄 메뉴 -->
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<li><a href="/moviefactory/admin/stat">통계</a></li>
-	        	<li><a href="/moviefactory/admin/user/report">회원 관리</a></li>
-				<li><a href="/moviefactory/admin/user/block">게시물 관리</a></li>
+				<li><a href="/moviefactory/admin/blindcmntlist">블라인드 댓글관리</a></li>
+				<li><a href="/moviefactory/admin/blindrevlist">블라인드 리뷰관리</a></li>
+				<li><a href="/moviefactory/admin/blocklist">영구정지 관리</a></li>
           	</sec:authorize>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
@@ -101,5 +101,5 @@
 		</div>
 	</div>
 </div>
-</body>
+</body> 
 </html>
