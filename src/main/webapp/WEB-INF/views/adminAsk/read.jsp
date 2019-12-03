@@ -8,6 +8,9 @@
 <meta charset="UTF-8">
 <title>글 읽기</title>
 <link rel="icon" type="image/png" href="http://example.com/myicon.png">
+<style>
+
+</style>
 </head>
 <link rel="stylesheet"
 	href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -164,6 +167,7 @@
 	});
 </script>
 <body>
+<div id="section">
 	<div id="reading">
 		<div>
 			<div id="title_div">
@@ -221,6 +225,7 @@
 			</div>
 		</div>
 		</sec:authorize>
+	</div>
 	</div>
 </body>
 </html>

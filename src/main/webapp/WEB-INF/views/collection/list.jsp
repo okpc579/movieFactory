@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+  </style>
 <script>
 var strArray;
 var collections;
@@ -128,8 +130,9 @@ $(function() {
 <title>Insert title here</title>
 </head>
 <body>
-여기는 리1스트
+<div id="section">
 <div id="list"></div>
 <div id="pagination"></div>
+</div>
 </body>
 </html>

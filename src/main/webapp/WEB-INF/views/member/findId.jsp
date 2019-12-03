@@ -35,6 +35,7 @@ $(function(){
 </sec:authorize>
 </head>
 <body>
+<div id="section">
 	<div id="id">
 		<form id="findIdFrm" action="/moviefactory/member/findId" method="post">
 			<legend>아이디 찾기</legend>
@@ -51,6 +52,7 @@ $(function(){
 			<button class="btn btn-success" id="find" type="button">확인</button><br>
 			<a href="login">돌아가기</a>
 		</form>
+	</div>
 	</div>
 </body>
 </html>

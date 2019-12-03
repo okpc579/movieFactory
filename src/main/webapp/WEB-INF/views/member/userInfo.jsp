@@ -90,7 +90,7 @@
 <title>일반회원 내 정보</title>
 </head>
 <body>
-	<div id="wrap">
+	<div id="section">
 		<form id="infoForm" action="" method="post">
 			<div class="form-group">
 				<p class="text-center" id="p1"><strong>♥ 무비 팩토리 회원정보 ♥</strong></p>

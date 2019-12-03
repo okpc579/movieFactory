@@ -133,15 +133,9 @@ $(function() {
 	table {
 		 text-align: center;
 	}
-	#kkkk {
-		height: 30px;
-	}
 </style>
 </head>
 <body>
-<div id="kkkk">
-	
-</div>
 	<div id="section">
 		<!-- <table class="table table-hover"> -->
 		<table class="MovieTable">

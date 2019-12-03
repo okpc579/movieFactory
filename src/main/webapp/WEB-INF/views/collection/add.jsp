@@ -10,7 +10,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
-  
+  <style>
+  </style>
   <script>
   $(function() {
 	  $("#write").on("click", function() {
@@ -32,6 +33,7 @@
   </script>
 </head>
 <body>
+<div id="section">
 <form id="writeForm">
 	<div class="form-group">
 		<label for="title">제목:</label>
@@ -42,5 +44,6 @@
 	</div>
 	<button type="button" class="btn btn-success" id="write">작성</button>
 </form>
+</div>
 </body>
 </html>

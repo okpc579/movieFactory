@@ -26,6 +26,7 @@
             <jsp:include page="include/aside.jsp" />
          </aside>
          <section>
+         	<div id="kkkk"></div>
             <jsp:include page="${viewName}" />
          </section>
          <aside>

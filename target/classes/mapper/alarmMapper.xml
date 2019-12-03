@@ -17,7 +17,7 @@
 			where r.username = #{username} and r.m_rev_no = c.m_rev_no(+)
 				and c.writing_date between (select last_login_date from member u where u.username=#{username}) and sysdate;
 	]]>
-	</select>
+	</select>  
 	
 	<!-- 내소식 리뷰좋아요 -->
 	<select id="myalarmreviewlike" resultType="moviereviewlike">

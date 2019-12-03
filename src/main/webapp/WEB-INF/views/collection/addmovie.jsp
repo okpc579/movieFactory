@@ -452,8 +452,7 @@ $(function() {
 </script>
 </head>
 <body>
-<<<<<<< HEAD
-=======
+
 	addmsovie
 	<form id="addmovieForm">
 		<input type="text" id="search" name="search">
@@ -512,8 +511,6 @@ $(function() {
 	<input id="cdval8" type="hidden">
 	<input id="cdval9" type="hidden">
 	
-	
->>>>>>> 20191126_남동윤
 	
 </body>
 </html>

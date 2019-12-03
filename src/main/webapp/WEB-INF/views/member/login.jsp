@@ -113,6 +113,7 @@ var value;
 <title>Insert title here</title>
 </head>
 <body>
+<div id="section">
 	<div class="alert alert-success alert-dismissible" id="msg" style="display:none;">
     	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     	<strong>서버 메시지 </strong><span id="alert"></span>
@@ -145,6 +146,7 @@ var value;
 			<a class="findId" href="http://localhost:8081/moviefactory/member/findId">아이디</a>/
             <a class="findPwd" href="http://localhost:8081/moviefactory/member/findPassword">비밀번호 찾기</a>
 		</form>
+	</div>
 	</div>
 </body>
 </html>

@@ -20,6 +20,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <title>Insert title here</title>
 </head>
+<!-- 
 <style>
 #main {
 	width: 1000px; display: inline-block;
@@ -64,6 +65,7 @@
 	background-color: #ddd;
 }
 </style>
+ -->
 <script>
 	function printList(page) {
 		var $body = $("#list");
@@ -231,6 +233,7 @@
 	
 </script>
 <body>
+<div id="section">
 <sec:authorize access="isAnonymous()">
 	<script>
 		location.href="http://localhost:8081/moviefactory/system/e403";
@@ -272,6 +275,7 @@
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 </body>
 </html>

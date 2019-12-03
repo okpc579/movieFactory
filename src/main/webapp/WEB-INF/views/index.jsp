@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-<<<<<<< HEAD
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="sec"
@@ -85,19 +84,6 @@ function printPaging(result) {
 } */
 </script>
 
-=======
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
-<!DOCTYPE html>
-<html>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
->>>>>>> soonsim3
 <title>Insert title here</title>
 <style>
 .material-icons.md-18 {font-size:18px;}
@@ -124,13 +110,14 @@ function printPaging(result) {
 }
 
 .navbar li a, .navbar .navbar-brand {
-	color: #fff !important;
+	color: black;
 }
 
 .navbar-nav li a:hover, .navbar-nav li.active a {
 	color: #000000 !important;
 	background-color: #fff !important;
 }
+
 
 .navbar-default .navbar-toggle {
 	border-color: transparent;
@@ -177,7 +164,6 @@ section {
 </style>
 </head>
 <body>
-<<<<<<< HEAD
 <div id="page123">
 	<nav class="navbar navbar-default navbar-fixed-top"
 		style="height: 50px;">
@@ -188,17 +174,17 @@ section {
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/moviefactory" style="padding-top: 17px;">무비팩토리</a>
+				<a class="navbar-brand" href="/moviefactory" style="padding-top: 17px; color: white;">무비팩토리</a>
 			</div>
 			<!-- 무비팩토리 : 홈화면 -->
 			
 			<!-- 비로그인 : 회원가입 /  로그인 / 고객센터(공지사항,관리자문의게시판,회원의문의게시판,관리자문의게시판) -->
 			<sec:authorize access="isAnonymous()">
 				<div class="collapse navbar-collapse" id="myNavbar">
-					<ul class="nav navbar-nav navbar-right" style="padding-top: 1px;">
-						<li><a href="member/yesorno">회원가입</a></li>
-						<li><a href="member/login">로그인</a></li>
-						<li>고객센터</li>	<!-- 2단레이아웃 -->
+					<ul class="nav navbar-nav navbar-right" >
+						<li><a href="member/yesorno" style="color: white;">회원가입</a></li>
+						<li><a href="member/login" style="color: white;">로그인</a></li>
+						<li><a href="notice/list" style="color: white;">공지사항</a></li>
 					</ul>
 				</div>
 			</sec:authorize>
@@ -206,11 +192,15 @@ section {
 			<!-- 일반회원 : 들어갈 내용 (내소식, 마이페이지(영화), 로그아웃, 고객센터(2단레이아웃 : 공지사항,관리자문의게시판,회원의문의게시판,관리자문의게시판) -->
 			<sec:authorize access="hasRole('ROLE_USER')">
 				<div class="collapse navbar-collapse" id="myNavbar">
-					<ul class="nav navbar-nav navbar-right" style="padding-top: 1px;">
+					<ul class="nav navbar-nav navbar-right" >
 						<li><a href="#"><img src="/sajin/bell (5).png"></a></li>	<!-- 내소식 : 아직 링크 없음 -->
-						<li><a href="#">마이페이지</a></li> <!-- 영화마이페이지 : 태호오빠꺼임 -->
-						<li><a href="member/logout">로그아웃</a></li>
-						<li>고객센터</li>
+						<li><a href="#" style="color: white;">내정보</a></li> <!-- 영화마이페이지 : 태호오빠꺼임 -->
+						<li><a href="member/logout" style="color: white;">로그아웃</a></li>
+						<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: white;">고객센터 <span class="caret"></span></a>
+                    	<ul class="dropdown-menu">
+                      		<li><a href="adminAsk/listuser">문의 게시판</a></li>
+                      		<li><a href="notice/list">공지사항</a></li>
+                    	</ul>
 					</ul>
 				</div>
 			</sec:authorize>
@@ -218,10 +208,21 @@ section {
 			<!--  관리자 : 관리자센터(2단 레이아웃 : 블라인드댓글관리, 블라인드 리뷰관리, 영구정지 관리) 고객센터(2단 레이아웃 : 공지사항,관리자문의게시판,회원의문의게시판,관리자문의게시판), 로그아웃  -->
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<div class="collapse navbar-collapse" id="myNavbar">
-					<ul class="nav navbar-nav navbar-right" style="padding-top: 1px;">
-						<li>관리자센터</li>
-						<li>고객센터</li>
-						<li><a href="member/logout">로그아웃</a></li>
+					<ul class="nav navbar-nav navbar-right" >
+						<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: white;">관리자<span class="caret"></span></a>
+	    	                <ul class="dropdown-menu">
+    	    	              <li><a href="admin/blindcmntlist">블라인드댓글</a></li>
+                	      	  <li><a href="admin/blindrevlist">블라인드리뷰</a></li>
+                    		  <li><a href="admin/blocklist">영구정지</a></li>
+                    		</ul>
+	                    </li> 
+						<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: white;">고객센터 <span class="caret"></span></a>
+                    		<ul class="dropdown-menu">
+	                	      <li><a href="adminAsk/list">문의 게시판</a></li>
+		                      <li><a href="notice/list">공지사항</a></li>
+        		            </ul>
+            		    </li> 
+						<li><a href="member/logout" style="color: white;">로그아웃</a></li>
 					</ul>
 				</div>
 			</sec:authorize>
@@ -393,32 +394,5 @@ section {
 		<h5>♥8ㅅ8이 만든 무비팩토리♥</h5>
 	</footer>
 	</div>
-=======
-
-	<form action="movie/list">
-		<label>영화정보 검색</label>
-		<input type="text" id="query" name="query">
-		<button id="button">검색</button>
-			<sec:authorize access="isAnonymous()">
-				<li><a href="/moviefactory/member/findId">아이디 찾기</a></li>
-				<li><a href="/moviefactory/member/findPassword">비번 찾기</a></li>
-				<li><a href="/moviefactory/member/yesorno">회원가입</a></li>
-				<a href="http://localhost:8081/moviefactory/member/login">로그인 하러가기</a>
-			</sec:authorize>
-			
-			<!-- ROLE_USER 권한으로 로그인했을 때 보여줄 메뉴 -->
-			<sec:authorize access="hasRole('ROLE_USER')">
-	        	<li><a href='/moviefactory/member/userinfo'>내 정보</a></li>
-				<sec:authorize access="!hasRole('ROLE_ADMIN')">
-          			<li><a id='resign' href='#'>탈퇴</a></li>
-          		</sec:authorize>
-          	</sec:authorize>
-	</form>
-	<br>
-	<div class="alert alert-success alert-dismissible" id="alert" style="display:none;">
-    	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    	<strong>서버 메시지</strong>&nbsp;&nbsp;&nbsp;<span id="msg"></span>
-  	</div>
->>>>>>> soonsim3
 </body>
 </html>

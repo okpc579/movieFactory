@@ -86,6 +86,7 @@
 
 </head>
 <body>
+<div id="section">
 <form id="writeForm">
 	<div class="form-group">
 		<input type="hidden" id="collNo" name="collNo">
@@ -98,5 +99,6 @@
 	<button type="button" class="btn btn-success" id="update">수정</button>
 	<button type="button" class="btn btn-success" id="delete">삭제</button>
 </form>
+</div>
 </body>
 </html>

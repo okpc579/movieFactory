@@ -21,7 +21,7 @@
 			select adminask_seq.nextval from dual
 		</selectKey>
 		insert into adminask(admin_ask_no, username, title, content, writing_date, ask_answer, ask_state_content) 
-		values(#{adminAskNo},#{username},#{title},#{content},sysdate, #{askAnswer},  '답변전')
+		values(#{adminAskNo},#{username},#{title},#{content},sysdate, #{askAnswer},  '읽기전')
 	</insert>
 	<!-- 관리자:검색한 유저의 목록 가져오기 -->
 	<select id="findAllByUsername" resultType="adminask">

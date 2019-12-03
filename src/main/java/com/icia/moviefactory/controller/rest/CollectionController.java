@@ -25,9 +25,9 @@ public class CollectionController {
 		return ResponseEntity.ok(service.add(collection).getCollNo());
 	}
 	
-	@GetMapping("/read/{collNo}")
-	public ResponseEntity<?> read(@PathVariable long collNo) {
-		return ResponseEntity.ok(service.read(collNo));		
+	@GetMapping("/read")
+	public ResponseEntity<?> read(long collNo, int pageno) {
+		return ResponseEntity.ok(service.read(collNo, pageno));		
 	}
 	
 	@PostMapping("/addmovie")
@@ -52,13 +52,11 @@ public class CollectionController {
 	public ResponseEntity<?> delete(long collNo, Principal principal) {
 		return ResponseEntity.ok(service.delete(collNo, principal.getName()));
 	}
-<<<<<<< HEAD
-=======
+
 	@GetMapping("/checklike")
 	public ResponseEntity<?> checklike(long collNo, Principal principal) {
 		return ResponseEntity.ok(service.checklike(collNo, principal.getName()));
 	}
->>>>>>> 20191126_남동윤
 	
 	@PostMapping("/like")
 	public ResponseEntity<?> like(long collNo, Principal principal) {
@@ -74,19 +72,9 @@ public class CollectionController {
 	public ResponseEntity<?> movieCollectionList(long mNo, int pageno) {
 		return ResponseEntity.ok(service.movieCollectionList(mNo, pageno));
 	}
-<<<<<<< HEAD
-	
-	@GetMapping("/mylist")
-	public ResponseEntity<?> usernameCollectionList(Principal principal) {
-		return ResponseEntity.ok(service.usernameCollectionList(principal.getName()));		
-=======
+
 	@GetMapping("/userlist")
 	public ResponseEntity<?> usernameCollectionList(String username, int pageno) {
 		return ResponseEntity.ok(service.usernameCollectionList(username, pageno));		
->>>>>>> 20191126_남동윤
 	}
-	
-	
-	
-	
 }

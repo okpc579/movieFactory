@@ -372,7 +372,7 @@ p {
 
 </head>
 <body>
-	<div id="wrap">
+	<div id="section">
 		<form id="joinForm" method="post">
 			<div class="form-group">
 				<p class="text-center" id="p1"><strong>♥ 무비 팩토리 회원가입 ♥</strong></p>

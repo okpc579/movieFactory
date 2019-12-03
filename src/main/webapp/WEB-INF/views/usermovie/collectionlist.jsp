@@ -101,6 +101,7 @@ var movie;
 </script>
 </head>
 <body>
+<div id="section">
 	<div id="collection_list">
 		<h2>000님의 컬렉션 영화목록</h2>
 		<hr>
@@ -134,5 +135,6 @@ var movie;
 			 -->
 		</ul>
 	</div>
+</div>	
 </body>
 </html>

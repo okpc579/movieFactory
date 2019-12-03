@@ -95,6 +95,7 @@
 	});
 </script>
 <body>
+<div id="section">
 	<div id="reading">
 		<div>
 			<div id="title_div">
@@ -128,5 +129,6 @@
 		</div>
 		</sec:authorize>
 	</div>
+</div>	
 </body>
 </html>

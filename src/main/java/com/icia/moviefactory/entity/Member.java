@@ -36,9 +36,7 @@ public class Member {
 	private Date recentLoginDate;
 	private long loginFailureCnt;
 	private long isResign;
-<<<<<<< HEAD
-=======
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date blockDate;
->>>>>>> dongdong
+
 }

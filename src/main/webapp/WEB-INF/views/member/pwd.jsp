@@ -11,7 +11,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div id="section">
 	임시비밀번호를 이메일로 전송했습니다.
 	<a href="login">로그인 하러가기</a>
+	</div>
 </body>
 </html>

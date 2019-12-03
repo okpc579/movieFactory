@@ -14,6 +14,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div id="section">
 	팔로잉 페이지입니다.
+	</div>
 </body>
 </html>

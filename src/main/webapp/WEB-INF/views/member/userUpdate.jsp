@@ -350,7 +350,7 @@ var mmmmmmm;
 <title>일반회원 내 정보수정</title>
 </head>
 <body>
-	<div id="wrap">
+	<div id="section">
 		<form id="updateForm" action="" method="post">
 			<div class="form-group">
 				<p class="text-center" id="p1"><strong>♥ 무비 팩토리 정보수정 ♥</strong></p>

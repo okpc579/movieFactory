@@ -21,6 +21,7 @@
 
 <title>공지사항</title>
 </head>
+<!-- 
 <style>
 #main {
 	width: 1000px; display: inline-block;
@@ -65,6 +66,7 @@
 	background-color: #ddd;
 }
 </style>
+ -->
 <script>
 	function noticeList(page){
 		var $body = ("#list");
@@ -159,6 +161,7 @@
 	});
 </script>
 <body>
+<div id="section">
 	<div id="notice">
 		<h2>공지사항</h2>
 		<hr>
@@ -207,6 +210,7 @@
 			</div>
 			</div>
 		</div>
+	</div>
 	</div>
 </body>
 </html>

@@ -385,7 +385,7 @@ $(function() {
 </style>
 </head>
 <body>
-	<div id="main">
+	<div id="section">
 		<table class="MovieReview">
 			<colgroup>
 				<col width="10%">

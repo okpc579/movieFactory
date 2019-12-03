@@ -21,7 +21,7 @@
 </sec:authorize>
 <script>
 	var movie;
-	var mno = ${mno}
+	var mno;
 	var genre="";
 	var actor="";
 	var cast="";
@@ -89,6 +89,7 @@
 	}
 
 	$(function() { 
+		mno = location.search.split("=")[1];
 		$.ajax({
 			url:"/moviefactory/api/read?mno=" + mno,	//디테일 리드
 			method: "get",
@@ -101,31 +102,33 @@
 				
 			}
 		});
+		console.log(mno);
 		//로그인되있을때 해야됨
-		$.ajax({
-			url:"/moviefactory/api/movie/review/myreview?mno=" + mno,	//디테일 리드
-			method: "get",
-			success:function(result) {
-				console.log(result);
-				if(result==""){
-					$("<button>").attr("id","revWrite").text("리뷰 작성").appendTo($("#review"));
-				}else{
-					$("<a>").attr("id","updateWrite").attr("href","/moviefactory/movie/review/read?mrevNo=" + result.mrevNo).text("리뷰수정").appendTo("#review");
-					console.log(result.mrevNo);
-				}
-				$("#revWrite").on("click", function() {
-					if(isLogin==true){
-						console.log(mno);
-					location.href="/moviefactory/movie/review/write?mno="+mno;
+		if(isLogin ==true){
+			$.ajax({
+				url:"/moviefactory/api/movie/review/myreview?mno=" + mno,	//디테일 리드
+				method: "get",
+				success:function(result) {
+					console.log(result);
+					if(result==""){
+						$("<button>").attr("id","revWrite").text("리뷰 작성").appendTo($("#review"));
+					}else{
+						$("<a>").attr("id","updateWrite").attr("href","/moviefactory/movie/review/read?mrevNo=" + result.mrevNo).text("리뷰수정").appendTo("#review");
+						console.log(result.mrevNo);
 					}
-					else{
-						location.href="/moviefactory/member/login"
-					}
-				});
-			}, error:function(xhr) {
-				
+					$("#revWrite").on("click", function() {
+						if(isLogin==true){
+							console.log(mno);
+						location.href="/moviefactory/movie/review/write?mno="+mno;
+						}
+						else{
+							location.href="/moviefactory/member/login"
+						}
+					});
+				}, error:function(xhr) {
 			}
 		});
+		}
 		
 		
 		$("#revWrite").on("click", function() {
@@ -151,8 +154,8 @@
 </style>
 </head>
 <body>
+<div id="section">
 <form action="/moviefactory/movie/review/write" method="get">
-<div id="main">
 		<!-- <table class="table table-hover"> -->
 		<table class="MovieTable">
 			<colgroup>
@@ -195,7 +198,8 @@
 		</div>
 		<div id="readRev">
 		</div>
-	</div>
+	
 </form>
+</div>
 </body>
 </html>

@@ -31,6 +31,8 @@
   </script>
 </head>
 <body>
+<div id="section">
 	팔로워 페이지입니다.
+</div>	
 </body>
 </html>

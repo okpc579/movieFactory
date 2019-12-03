@@ -92,6 +92,7 @@ $(function() {
 });
 
 </script>	
+
 <style>
 *{
 	margin:0;
@@ -133,6 +134,7 @@ table{
 </style>
 </head>
 <body>
+<div id="section">
 <form id="writeForm" action="">
 		<div>
 			<table>
@@ -212,10 +214,14 @@ table{
 					<td><textarea id="content" name="mRevContent"placeholder="내용을 입력하세요" style="width: 543px; height: 231px; "></textarea><br><input id="isSpo1"type="checkbox" value="" name="isSp">스포일러</td>
 				</tr>
 				<tr>
-					<td><button id="reg">작성하기</button></td>
+					<td><button id="reg">작별하기</button></td>
 				</tr>
 			</table>
 		</div>
 </form>
+</div>
 </body>
 </html>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>

@@ -23,10 +23,7 @@ public class MovieReview {
 	private long isBlind;
 	private long likeCnt;
 	private long repCnt;
-<<<<<<< HEAD
 	private List<MovieReviewComment> comments;
-=======
 	private List<MovieReviewReport> reviewReports;
->>>>>>> dongdong
 }
 

@@ -12,11 +12,15 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
+<style>
+</style>
 </head>
 <body>
+<div id="section">
 <button type="button">내소식</button>
 <button type="button">니소식</button>
 <div id="alarm">
+</div>
 </div>
 </body>
 </html>

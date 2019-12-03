@@ -14,6 +14,8 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
+<style>
+</style>
 </head>
 <script>
 
@@ -49,6 +51,7 @@ $(function() {
 </script>
 
 <body>
+<div id="section">
 <sec:authorize access="isAnonymous()">
 	<script>
 		location.href="http://localhost:8081/moviefactory/system/e403";
@@ -74,6 +77,7 @@ $(function() {
 	</div>
 	<hr>
 	<div id="reports">
+	</div>
 	</div>
 </body>
 </html>

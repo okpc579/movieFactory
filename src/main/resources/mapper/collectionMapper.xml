@@ -26,7 +26,11 @@
 	
 	<select id="findByIdWithDetail" resultMap="mapForCollection">
 		<![CDATA[
-			select c.coll_no, c.coll_name, c.username, c.writing_date, c.coll_intro, cd.m_no, cd.reg_date from coll c, coll_detail cd where c.coll_no = #{collNo} and  c.coll_no = cd.coll_no(+)
+			select * from
+		       	(select rownum rnum, c.* from 
+		       		(select c.coll_no, c.coll_name, c.username, c.writing_date, c.coll_intro, cd.m_no, cd.reg_date from coll c, coll_detail cd where c.coll_no = #{collNo} and  c.coll_no = cd.coll_no(+)) c
+		       	where rownum<=#{endRowNum}) 
+		    where rnum>=#{startRowNum}
 		]]>
 	</select>
 	<!--3번 콜렉션상세 추가-->
@@ -78,9 +82,11 @@
 	
 	
 	
-	
-	
-	
+	<select id="findcollNoCollectionDetailCount" resultType="int">
+		<![CDATA[
+			select count(*) from coll c, coll_detail cd where c.coll_no = #{collNo} and  c.coll_no = cd.coll_no(+)
+		]]>
+	</select>
 	<select id="findMovieCollectionCount" resultType="int">
 		<![CDATA[
 			select count(*) from coll c, coll_detail cd where cd.m_no=#{mNo} and cd.coll_no(+) = c.coll_no

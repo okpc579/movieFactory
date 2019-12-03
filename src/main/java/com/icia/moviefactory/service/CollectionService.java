@@ -24,10 +24,19 @@ public class CollectionService {
 		return collection;
 	}
 
-	public Map read(long collNo) {
-		Collection collection = modelMapper.map(collectionDao.read(collNo), Collection.class);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("collection", collection);
+	public Map read(long collNo, int pageno) {
+		int pagesize=10;
+		int count = collectionDao.findcollNoCollectionDetailCount(collNo);
+		int startRowNum = ((pageno-1) * pagesize + 1);
+		int endRowNum = startRowNum + pagesize -1;
+		if(endRowNum >= count)
+			endRowNum = count;
+		Map map = new HashMap(); 
+		map = collectionDao.read(collNo, startRowNum, endRowNum);
+		map.put("pageno", pageno);
+		map.put("pagesize", pagesize);
+		map.put("totalcount", count);
+		
 		return map;
 	}
 

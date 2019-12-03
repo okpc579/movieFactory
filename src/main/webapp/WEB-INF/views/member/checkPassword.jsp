@@ -65,6 +65,7 @@ function pwdcheck() {
 </style>
 </head>
 <body>
+<div id="section">
 <div class="form-group">
 	<p class="text-center" id="p1">♥ 비밀번호 확인 ♥</p>
 	</div>
@@ -75,5 +76,7 @@ function pwdcheck() {
 		</div>
 		<button type="button" class="btn btn-success" id="check">확인</button>
 	</form>
+</div>
 </body>
+
 </html>

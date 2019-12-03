@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+</style>
 <script>
 	$(function() {
 		$("#write").on("click", function() {
@@ -23,9 +25,9 @@
 		});
 	});
 </script>
-</script>
 </head>
 <body>
+<div id="section">
 	<form id="writeForm">
 		제목 : <input type="text" name="title"><br> 내용 :
 		<textarea rows="10" cols="20" id="content" name="content"></textarea>
@@ -33,5 +35,6 @@
 		<input type=button id="write" value="작성완료"> 
 		<input type=button value="작성취소" OnClick="javascript:history.back(-1)">
 	</form>
+	</div>
 </body>
 </html>

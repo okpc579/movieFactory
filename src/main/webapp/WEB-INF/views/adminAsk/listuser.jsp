@@ -23,9 +23,9 @@
 <title>고객센터</title>
 </head>
 <style>
-#main {
+/* #main {
 	width: 1000px; display: inline-block;
-}
+} */
 
 #admin_board {
 	width: 758px; text-align: center;
@@ -168,6 +168,7 @@
 	});
 </script>
 <body>
+<div id="section">
 	<div id="adminask">
 		<h2>고객 센터 - 관리자에게 문의하기</h2>
 		<hr>
@@ -219,6 +220,7 @@
 			</div>
 			</div>
 		</div>
+	</div>
 	</div>
 </body>
 </html>

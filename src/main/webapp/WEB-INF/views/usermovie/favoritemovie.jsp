@@ -102,6 +102,7 @@ var movie;
 </script>
 </head>
 <body>
+<div id="section">
 	<div id="collection_menu">
 		<h2>000님의 좋아하는 영화목록</h2>
 		<hr>
@@ -138,6 +139,7 @@ var movie;
 			<li class="next"><a href="#">></a></li>
 			 -->
 		</ul>
+	</div>
 	</div>
 </body>
 </html>

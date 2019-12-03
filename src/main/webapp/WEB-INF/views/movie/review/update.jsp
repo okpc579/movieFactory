@@ -117,6 +117,7 @@ table{
 </style>
 </head>
 <body>
+<div id="section">
 <form id="writeForm" action="">
 		<div>
 			<table>
@@ -199,6 +200,8 @@ table{
 				</tr>
 			</table>
 		</div>
+		
 </form>
+</div>
 </body>
 </html>

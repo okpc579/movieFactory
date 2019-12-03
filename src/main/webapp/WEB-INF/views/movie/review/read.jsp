@@ -312,7 +312,7 @@ $(function() {
 </script>
 </head>
 <body>
-<div id="wrap">
+<div id="section">
 	<div>
 		<div id="title_div">
 			<input type="hidden" name="mRevNo" id="mRevNo" val="">

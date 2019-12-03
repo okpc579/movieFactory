@@ -86,6 +86,7 @@ function printList() {
 </script>
 </head>
 <body>
+<div id="section">
 	<div id="review_list">
 		<h2>OOO님이 리뷰한 영화목록</h2>
 		<hr>
@@ -107,5 +108,6 @@ function printList() {
 			</tbody>
 		</table>
 	</div>
+</div>	
 </body>
 </html>

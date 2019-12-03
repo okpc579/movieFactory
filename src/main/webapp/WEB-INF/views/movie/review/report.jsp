@@ -68,6 +68,7 @@ $(function(){
 </style>
 </head>
 <body>
+<div id="section">
 	<form id="writeForm" action="">
 		<div>
 			<table>
@@ -95,5 +96,6 @@ $(function(){
 			</table>
 		</div>
 	</form>
+	</div>
 </body>
 </html>

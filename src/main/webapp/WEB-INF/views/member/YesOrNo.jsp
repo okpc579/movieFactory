@@ -54,9 +54,7 @@
 </style>
 </head>
 <body>
-	<div id="kkkk">
-	
-	</div>
+<div id="section">
 	<div class="form-group">
 		<p class="text-center" id="p1">
 			<strong>♥ 서비스 동의서 ♥</strong>
@@ -246,6 +244,7 @@
 			<button id="no" class="btn btn-default">거부</button>
 			<button id="yes" class="btn btn-info" type="button">동의</button>
 		</div>
+	</div>
 	</div>
 </body>
 </html>

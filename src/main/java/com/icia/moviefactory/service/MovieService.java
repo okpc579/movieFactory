@@ -24,13 +24,10 @@ public class MovieService {
 	private ObjectMapper objectMapper;
 	@Value("10")
 	private int pagesize;
-<<<<<<< HEAD
+
 	
 	public Page findAllReviewByUsername(int pageno, String username,long mno) {
-=======
 
-	public Page findAllReviewByUsername(int pageno, String username) {
->>>>>>> 20191126_lth
 		if(username==null) {
 			int count = dao.findCount(mno);
 			int startRowNum = ((pageno-1) * pagesize + 1);

@@ -19,6 +19,8 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <title>Insert title here</title>
+<style>
+</style>
 </head>
 <script>
 function printReviews(result) {
@@ -86,6 +88,7 @@ $(function() {
 </script>
 
 <body>
+<div id="section">
 <sec:authorize access="isAnonymous()">
 	<script>
 		location.href="http://localhost:8081/moviefactory/system/e403";
@@ -124,6 +127,7 @@ $(function() {
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 </body>
 </html>

@@ -18,8 +18,13 @@ public class CollectionDao {
 		return tpl.insert("collectionMapper.insert", collection);
 	}
 	//2
-	public Map read(long collNo) {
-		return tpl.selectOne("collectionMapper.findByIdWithDetail", collNo);
+	public Map read(long collNo, int startRowNum, int endRowNum) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("collNo", collNo);
+		map.put("startRowNum", startRowNum);
+		map.put("endRowNum", endRowNum);
+		
+		return tpl.selectOne("collectionMapper.findByIdWithDetail", map);
 	}
 	//3
 	public int addmovie(long mNo, long collNo) {
@@ -94,5 +99,8 @@ public class CollectionDao {
 	}
 	public int findUsernameCollectionCount(String username) {
 		return tpl.selectOne("collectionMapper.findUsernameCollectionCount", username);
+	}
+	public int findcollNoCollectionDetailCount(long collNo) {
+		return tpl.selectOne("collectionMapper.findcollNoCollectionDetailCount", collNo);
 	}
 }

@@ -42,6 +42,7 @@ $(function() {
 </style>
 </head>
 <body>
+<div id="section">
 	<div id="password">
 		<form id="findPwdFrm" action="/moviefactory/member/findPassword" method="post">
 			<legend>비밀번호 찾기</legend>
@@ -64,5 +65,6 @@ $(function() {
 			<a href="login">돌아가기</a>
 		</form>
 	</div>	
+	</div>
 </body>
 </html>
