@@ -91,8 +91,6 @@ function printPaging(result) {
 		var $li = $("<li>").attr("class","next").appendTo($pagination);
 		$("<a>").attr("href", serverUrl + (endPage+1)).text(">").appendTo($li);
 	}
-	
-	
 }
 
 

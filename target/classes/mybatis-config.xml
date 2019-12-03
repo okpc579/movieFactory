@@ -18,6 +18,8 @@
 		<typeAlias alias="moviereviewcomment" type="com.icia.moviefactory.entity.MovieReviewComment" />
 		<typeAlias alias="moviereviewcommentreport" type="com.icia.moviefactory.entity.MovieReviewCommentReport" />
 		<typeAlias alias="moviereviewreport" type="com.icia.moviefactory.entity.MovieReviewReport" />
+		<typeAlias alias="moviereviewlike" type="com.icia.moviefactory.entity.MovieReviewLike" />
+		<typeAlias alias="moviereviewcommentlike" type="com.icia.moviefactory.entity.MovieReviewCommentLike" />
 	</typeAliases>
 	
 	<!-- 

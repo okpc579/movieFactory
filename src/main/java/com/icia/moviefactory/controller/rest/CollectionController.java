@@ -21,8 +21,7 @@ public class CollectionController {
 	
 	@PostMapping("/add")
 	public ResponseEntity<?> add(@Valid Collection collection, BindingResult results, Principal principal) {
-		//collection.setUsername(principal.getName());
-		collection.setUsername("spring");
+		collection.setUsername(principal.getName());
 		return ResponseEntity.ok(service.add(collection).getCollNo());
 	}
 	
@@ -32,14 +31,15 @@ public class CollectionController {
 	}
 	
 	@PostMapping("/addmovie")
-	public ResponseEntity<?> addmovie(long mNo, long collNo, Principal principal) {
-		return ResponseEntity.ok(service.addmovie(mNo, collNo, principal.getName()));
+	public ResponseEntity<?> addmovie(long mNo, String collNo, Principal principal) {
+		
+		return ResponseEntity.ok(service.addmovie(mNo, Long.parseLong(collNo), principal.getName()));
+		
 	}
 	
 	@PostMapping("/update")
 	public ResponseEntity<?> update(@Valid Collection collection, BindingResult results, Principal principal) {
-		//collection.setUsername(principal.getName());
-		collection.setUsername("spring");
+		collection.setUsername(principal.getName());
 		return ResponseEntity.ok(service.update(collection).getCollNo());
 	}
 	
@@ -50,9 +50,15 @@ public class CollectionController {
 	
 	@PostMapping("/delete")
 	public ResponseEntity<?> delete(long collNo, Principal principal) {
-		//return ResponseEntity.ok(service.delete(collNo, principal.getName()));
-		return ResponseEntity.ok(service.delete(collNo, "spring"));
+		return ResponseEntity.ok(service.delete(collNo, principal.getName()));
 	}
+<<<<<<< HEAD
+=======
+	@GetMapping("/checklike")
+	public ResponseEntity<?> checklike(long collNo, Principal principal) {
+		return ResponseEntity.ok(service.checklike(collNo, principal.getName()));
+	}
+>>>>>>> 20191126_남동윤
 	
 	@PostMapping("/like")
 	public ResponseEntity<?> like(long collNo, Principal principal) {
@@ -65,12 +71,22 @@ public class CollectionController {
 	}
 	
 	@GetMapping("/list")
-	public ResponseEntity<?> movieCollectionList(long mNo) {
-		return ResponseEntity.ok(service.movieCollectionList(mNo));		
+	public ResponseEntity<?> movieCollectionList(long mNo, int pageno) {
+		return ResponseEntity.ok(service.movieCollectionList(mNo, pageno));
 	}
+<<<<<<< HEAD
 	
 	@GetMapping("/mylist")
 	public ResponseEntity<?> usernameCollectionList(Principal principal) {
 		return ResponseEntity.ok(service.usernameCollectionList(principal.getName()));		
+=======
+	@GetMapping("/userlist")
+	public ResponseEntity<?> usernameCollectionList(String username, int pageno) {
+		return ResponseEntity.ok(service.usernameCollectionList(username, pageno));		
+>>>>>>> 20191126_남동윤
 	}
+	
+	
+	
+	
 }

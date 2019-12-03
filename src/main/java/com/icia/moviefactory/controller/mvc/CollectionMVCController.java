@@ -13,8 +13,7 @@ public class CollectionMVCController {
 	}
 	@GetMapping("/collection/addmovie") 
 	public String addmovie(Model model) {
-		model.addAttribute("viewName", "collection/addmovie.jsp");
-		return "main";
+		return "collection/addmovie";
 	}
 	@GetMapping("/collection/read") 
 	public String read(Model model) {
