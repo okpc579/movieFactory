@@ -64,7 +64,7 @@
 	
 	<select id="findByIdWithComments" resultMap="mapForRead">
 		<![CDATA[
-			select m.m_rev_no mRevNo1, m.username, m.m_no mNo, m.rating, m.m_rev_content mRevContent,m.is_spo isSpo , m.writing_date writingDate , m.genre, m.is_blind isBlind, m.like_cnt likeCnt, m.rep_cnt repCnt,c.m_rev_cmnt_no mRevCmntNo, c.m_rev_no CmRevNo, c.username commentUsername, c.content commentContent, c.writing_date commentWritingDate,c.cmnt_like_cnt cmntLikeCnt,c.cmnt_rep_cnt cmntRepCnt from m_rev m, m_cmnt c where m.m_rev_no=#{mRevNo} and m.m_rev_no=c.m_rev_no(+) order by m_rev_cmnt_no desc
+			select m.m_rev_no mRevNo1, m.username, m.m_no mNo, m.rating, m.m_rev_content mRevContent,m.is_spo isSpo , m.writing_date writingDate , m.genre, m.is_blind isBlind, m.like_cnt likeCnt, m.rep_cnt repCnt,c.m_rev_cmnt_no mRevCmntNo, c.m_rev_no CmRevNo, c.username commentUsername, c.content commentContent, c.writing_date commentWritingDate,c.cmnt_like_cnt cmntLikeCnt,c.cmnt_rep_cnt cmntRepCnt from m_rev m, m_cmnt c where m.m_rev_no=#{mRevNo} and m.m_rev_no=c.m_rev_no(+)
 		]]>
 	</select>
 	
@@ -119,7 +119,7 @@
 	</insert>
 		
 	<select id="findByCmntByMRevNo" resultType="moviereviewcomment">
-		select m_rev_cmnt_no,m_rev_no,username,content,writing_date from m_cmnt where m_rev_no=#{mRevNo} and rownum=1 order by m_rev_cmnt_no desc
+		select m_rev_cmnt_no,m_rev_no,username,content,writing_date from m_cmnt where m_rev_no=#{mRevNo} order by m_rev_cmnt_no desc
 	</select>	
 	
 	<delete id="deleteByMRevNo">
@@ -130,7 +130,7 @@
 		m_rev_cmnt_no=#{mRevCmntNo} </update>
 
 	<delete id="deleterevcmnt"> delete from m_cmnt where
-		m_rev_cmnt_no=#{mRevCmntNo} and rownum=1 </delete>
+		m_rev_cmnt_no=#{mRevCmntNo} </delete>
 
 	<insert id="insertcmntlike"> 
 		insert into m_cmnt_like(cmnt_like_no, m_rev_cmnt_no, username, like_reg_date)
@@ -150,7 +150,7 @@
 	</insert>
 	
 	<select id="reviewList" resultType="moviereview">
-		select m_rev_no mRevNo,username,m_rev_content mRevContent,is_spo isSpo from m_rev where m_no=#{mNo} order by m_rev_no desc
+		select m_rev_no mRevNo,username,m_rev_content mRevContent from m_rev where m_no=#{mNo} order by m_rev_no desc
 	</select>
 
 

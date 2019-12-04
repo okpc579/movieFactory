@@ -27,6 +27,7 @@ public class MovieService {
 
 	
 	public Page findAllReviewByUsername(int pageno, String username,long mno) {
+
 		if(username==null) {
 			int count = dao.findCount(mno);
 			int startRowNum = ((pageno-1) * pagesize + 1);
@@ -181,13 +182,8 @@ public class MovieService {
 		return dto;
 	}
 	
-	public Map reviewList(int pageno, long mNo,String username) {
+	public List<MovieReviewDto> reviewList(long mNo,String username) {
 		//System.out.println(dao.reviewList(mNo, username));
-		int count = dao.findCount(mNo);
-		int startRowNum = ((pageno-1) * pagesize + 1);
-		int endRowNum = startRowNum + pagesize -1;
-		if(endRowNum >= count)
-			endRowNum = count;
 		List<MovieReview> list = dao.reviewList(mNo, username);
 		
 		List<MovieReviewDto> dtolist = new ArrayList<MovieReviewDto>();
@@ -201,15 +197,9 @@ public class MovieService {
 			}
 			dtolist.add(dto);
 		}
-		System.out.println(dtolist);
-		Map map = new HashMap();
-		map.put("moviereviews", dtolist);
-		map.put("count", count);
-		map.put("startRowNum", startRowNum);
-		map.put("endRowNum", endRowNum);
-		System.out.println(map);
+		
 		// 글쓴이 여부를 추가
-		return map;
+		return dtolist;
 	}
 	
 	public MovieReviewCommentDto findComment(Long mRevNo, String username) {

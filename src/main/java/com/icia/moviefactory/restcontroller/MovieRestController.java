@@ -29,15 +29,14 @@ public class MovieRestController {
 	
 	@GetMapping("/movie/review/list")
 	public ResponseEntity<?> findAllBoardByWriter(@RequestParam(defaultValue="1") int pageno, @RequestParam(required = false) String username, long mno) {
-		System.out.println(222222222);
 		return ResponseEntity.ok(service.findAllReviewByUsername(pageno, username,mno));
 	}
 	
 	@GetMapping("/movie/review/list/{mNo}")
-	public ResponseEntity<?> reviewlist(@PathVariable long mNo, @RequestParam(defaultValue="1") int pageno, Principal principal) {
+	public ResponseEntity<?> reviewlist(@PathVariable long mNo, Principal principal) {
 		String username = principal!=null? principal.getName() : null;
-		System.out.println(11111);
-		return ResponseEntity.ok(service.reviewList(pageno, mNo,username));
+		
+		return ResponseEntity.ok(service.reviewList(mNo,username));
 	}
 	
 	@PreAuthorize("isAuthenticated()")
