@@ -18,7 +18,8 @@ var coll_no;
 
 
 function printData() {
-	$("#writer").text(collection.username);
+	//$("#writer").text(collection.username);
+	$("<a>").attr("href","/moviefactory/usermovie/userpage?username=" + collection.username).text(collection.username).appendTo($("#writer"));
 	$("#title").text(collection.collName);
 	
 	var $movies = $("#movies");

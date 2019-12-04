@@ -21,10 +21,24 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
 <script>
-/* var movies;
+	var isLogin = false;
+	var loginId = undefined;
+</script>
+<sec:authorize access="isAuthenticated()">
+
+	<sec:authentication property="principal.username" var="member" />
+	<script>
+		isLogin = true;
+		loginId = '${member}';
+	</script>
+</sec:authorize>
+<script>
+var movies;
 var posterString;
 var repGenreNm;
-
+var genreTopMovies;
+var starTopMovies;
+var preferenceMovies;
 function printList() {
 	var $body = $("#index");
 	$.each(movies, function(i, movie) {
@@ -81,7 +95,82 @@ function printPaging(result) {
 	var serverUrl = "http://localhost:8081/moviefactory/movie/list?repGenreNm="+ repGenreNm.value;
 	// console.log("페이징함수 들어옴");	
 	
-} */
+}
+
+$(function() {
+	/*
+	var param = {
+			mNo: mno
+		};
+	*/
+	$.ajax({
+		url: "/moviefactory/api/usermovie/averagerating",
+//		data:mno,
+		method: "get",
+		success: function(result, status, xhr) {
+			starTopMovies = result;
+			console.log(starTopMovies);
+			//printLists();
+			
+		}, error: function(xhr) {
+			 console.log(xhr.status);
+		}
+	});
+	
+	var genre = $("#repGenreNm option:selected").val();
+	console.log(genre);
+	$.ajax({
+		url: "/moviefactory/api/usermovie/genretoprating?genre="+genre,
+//		data:mno,
+		method: "get",
+		success: function(result, status, xhr) {
+			genreTopMovies = result;
+			console.log(genreTopMovies);
+			//printLists();
+			
+		}, error: function(xhr) {
+			 console.log(xhr.status);
+		}
+	});
+	
+	$("#repGenreNm").on("change", function(){
+		genre = $("#repGenreNm option:selected").val();
+		console.log(genre);
+		$.ajax({
+			url: "/moviefactory/api/usermovie/genretoprating?genre="+genre,
+//			data:mno,
+			method: "get",
+			success: function(result, status, xhr) {
+				genreTopMovies = result;
+				console.log(genreTopMovies);
+				//printLists();
+				
+			}, error: function(xhr) {
+				 console.log(xhr.status);
+			}
+		});
+	});
+	
+			$.ajax({
+				url: "/moviefactory/api/usermovie/preferencemovie?username="+loginId,
+				method:"get",
+				success:function(result) {
+					preferenceMovies=result;
+					console.log(preferenceMovies);
+				}, error : function(xhr) {
+					
+				}
+			});
+			 $.ajax({
+		         url: "/moviefactory/api/usermovie/findnickname?username=" + loginId,
+		         method: "get",
+		         success: function(result) {
+		            console.log(result);
+		            $("#usermovie").text(result+"님이 리뷰한 영화목록");
+		         }
+		      });
+	
+});
 </script>
 
 <title>Insert title here</title>
@@ -347,7 +436,7 @@ section {
 			<!--  로그인 회원  -->
 			<sec:authorize access="hasRole('ROLE_USER')">
 				<hr>
-				<p>OO님이 좋아하실 영화</p>
+				<p id="usermovie"></p>
 				<table class="UserLikeTable">
 					<colgroup>
 						<col width="20%">

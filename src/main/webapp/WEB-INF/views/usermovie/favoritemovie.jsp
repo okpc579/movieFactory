@@ -20,19 +20,17 @@
 <script>
 
 // 1. jsp에 어떤 목록을 보여줄지 선택과 생성 
-var movie;
+var favorites;
+var username;
 	function printList() {
 	// 1. 테이블의 <tbody> 선택		
 	var $body = $("#list");
-	$.each(movie, function(i, movie) {
-		
+	$.each(favorites, function(i, favorite) {
+		console.log("반복문진입");
 		var $tr = $("<tr>").appendTo($body);
-		$("<td>").text(movie.movieCd).appendTo($tr);	// 영화코드
-		$("<td>").text(movie.movieNm).appendTo($tr);	// 영화이름
-		$("<td>").text(movie.openDt).appendTo($tr);		// 개봉날짜
-		$("<td>").text(movie.genres).appendTo($tr);		// 영화장르
+		$("<td>").text(favorite.mno).appendTo($tr);	// 영화코드
 		var $td = $("<td>").appendTo($tr)
-		getPoster(movie, $tr);							// 포스터
+		//getPoster(movie, $tr);							// 포스터
 	});
 }
 	
@@ -60,51 +58,39 @@ var movie;
 					}
 		});
 	};
-	$(function() { 
-		$.ajax({
-			url:"/moviefactory/api/favorite?mno=" +mno,	//디테일 리드
-			method: "get",
-			success:function(result) {
-				
-				console.log(result);
-				movie = result;
-				printList();
-			}, error:function(xhr) {
-				
-			}
-		});
-	});
 	
 // 3. 유저이름으로 영화 불러오기
 	var strArray;
 	$(function() {
-	   console.log(location.search.split('?'));
-	   strArray = location.search.split('?');
-	   console.log(strArray[1].split('=')[0]);
-	   if(strArray[1].split('=')[0]=='mno'){
+	   console.log(location.search.split('&'));
+	   strArray = location.search.split('&');
+	   console.log(strArray[0].split('=')[1]);
+	   username=strArray[0].split('=')[1];
 	      $.ajax({
-	         url: "/moviefactory/api/favoritemovie/list?mNo=" + strArray[1].split('=')[1],
+	         url: "/moviefactory/api/usermovie/favoritemovie?username=" + username,
 	         method: "get",
 	         success: function(result) {
 	            console.log(result);
+	            favorites = result;
+	            printList();
 	         }
-	      });   
-	   }else if(strArray[1].split('=')[0]=='username'){
+	      });  
 	      $.ajax({
-	         url: "/moviefactory/api/favoritemovie/userlist?username=" + strArray[1].split('=')[1],
-	         method: "get",
-	         success: function(result) {
-	            console.log(result);
-	         }
-	      });   
-	   }
+		         url: "/moviefactory/api/usermovie/findnickname?username=" + username,
+		         method: "get",
+		         success: function(result) {
+		            console.log(result);
+		            $("#usermovie").text(result+"님이 리뷰한 영화목록");
+		         }
+		      });
+	   
 	});
 </script>
 </head>
 <body>
 <div id="section">
 	<div id="collection_menu">
-		<h2>000님의 좋아하는 영화목록</h2>
+		<h2 id="usermovie"></h2>
 		<hr>
 		<table class="favorite_table">
 			<colgroup>
@@ -116,7 +102,7 @@ var movie;
 			</colgroup>
 			<thead>
 				<tr>
-					<th>영화코드</th>
+					<th>영화aaaaaaaaaaaaaaaaa코드</th>
 					<th>영화 제목</th>
 					<th>포스터</th>
 					<th>장르</th>

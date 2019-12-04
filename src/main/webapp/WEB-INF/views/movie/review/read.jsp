@@ -29,7 +29,8 @@
 var moviereview;
 
 function printData(moviereview) {
-	$("#writer").text(moviereview.username);
+	$("<a>").attr("href","/moviefactory/usermovie/userpage?username=" + moviereview.username).text(moviereview.username).appendTo($("#writer"));
+	//$("#writer").text(moviereview.username);
 	console.log(moviereview);
 	$("#bno").text(moviereview.mrevNo);
 	$("#writeDate").text(moviereview.writingDate);
@@ -93,7 +94,8 @@ function printComment(moviereviewcomment) {
 		var $lower_div = $("<div>").appendTo($comment);
 		console.log("===============================gggg")
 		console.log(comment);
-		$("<span></span>").text(comment.username).appendTo($upper_div);
+		$("<a>").attr("href","/moviefactory/usermovie/userpage?username=" + comment.username).text(comment.username).appendTo($upper_div);
+		//$("<span></span>").text(comment.username).appendTo($upper_div);
 		$("<img>").attr("src","/profile/" + comment.username + ".jpg").css("width","40px").appendTo($center_div);
 		$("<textarea id=update_com>").text(comment.content).appendTo($center_div);
 		//$("<span>").text(comment.cmntLikeCnt).appendTo(".like_commentt");

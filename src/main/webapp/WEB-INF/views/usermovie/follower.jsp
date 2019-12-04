@@ -12,21 +12,20 @@
  
   <script>
   $(function() {
-	  $("#write").on("click", function() {
-		  var param = $("#writeForm").serialize();
+	  
+		  //var param = $("#writeForm").serialize();
+		  
 			$.ajax({
-				url: "/moviefactory/api/collection/add",
-				method:"post",
-				data: param,
+				url: "/moviefactory/api/usermovie/follower?username="+location.search.split("=")[1],
+				method:"get",
 				success:function(result) {
 					console.log("성공");
 					console.log(result);
-					location.href="http://localhost:8081/moviefactory/collection/read?collNo="+result;
 				}, error : function(xhr) {
 					
 				}
 			});
-		});
+		
 	});
   </script>
 </head>

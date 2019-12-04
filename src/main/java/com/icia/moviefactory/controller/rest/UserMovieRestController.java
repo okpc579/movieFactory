@@ -19,33 +19,50 @@ public class UserMovieRestController {
 	private UserMovieService service;
 
 	// 3. 컬렉션 목록보기
-	@GetMapping("/collection")
+	@GetMapping("/collectionlist")
 	public ResponseEntity<?> collectionlist(Principal principal) {
 		return ResponseEntity.ok(service.findByUsernameCollection(principal.getName()));		
 	}
 	
 	// 4. 유저리뷰 목록보기
 	@GetMapping("/review")
-	public ResponseEntity<?> reviewlist(Principal principal) {
-		return ResponseEntity.ok(service.findUserReview(principal.getName()));		
+	public ResponseEntity<?> reviewlist(String username) {
+		return ResponseEntity.ok(service.findUserReview(username));		
+	}
+	@GetMapping("/checkfollowing")
+	public ResponseEntity<?> checkfollowing(Principal principal, String username) {
+		return ResponseEntity.ok(service.checkfollowing(username, principal.getName()));		
 	}
 	
 	// 5. 팔로잉 목록보기
 	@GetMapping("/following")
-	public ResponseEntity<?> followinglist(Principal principal, String followerUsername) {
-		return ResponseEntity.ok(service.findFollowing(principal.getName()));		
+	public ResponseEntity<?> followinglist(Principal principal, String username) {
+		return ResponseEntity.ok(service.findFollowing(username, principal.getName()));		
 	}
 	
 	// 6. 팔로워 목록보기
 	@GetMapping("/follower")
-	public ResponseEntity<?> followerlist(Principal principal, String followingUsername) {
-		return ResponseEntity.ok(service.findFollower(principal.getName()));		
+	public ResponseEntity<?> followerlist(Principal principal, String username) {
+		return ResponseEntity.ok(service.findFollower(username, principal.getName()));
 	}
+	
+	@PostMapping("/addfollowing")
+	public ResponseEntity<?> addfollowing(String username ,Principal principal) {
+		System.out.println(username);
+		System.out.println(principal.getName());
+		return ResponseEntity.ok(service.addfollowing(username,principal.getName()));
+	}
+	@PostMapping("/deletefollowing")
+	public ResponseEntity<?> deletefollowing(String username ,Principal principal) {
+		return ResponseEntity.ok(service.deletefollowing(username,principal.getName()));
+	}
+	
+	
 	
 	// 7. 평점상위 보기
 	@GetMapping("/averagerating")
 	public ResponseEntity<?> averagerating(Principal principal) {
-		return ResponseEntity.ok(service.findFollower(principal.getName()));		
+		return ResponseEntity.ok(service.findAverageRating());		
 	}
 	
 	// 8. 유저 고평점 상위보기
@@ -57,7 +74,7 @@ public class UserMovieRestController {
 	// 9. 장르별 평점 상위 보기
 	@GetMapping("/genretoprating")
 	public ResponseEntity<?> genretoprating(Principal principal, String genre) {
-		return ResponseEntity.ok(service.findGenretoprating(principal.getName()));		
+		return ResponseEntity.ok(service.findGenretoprating(genre));		
 	}
 	
 	// 10. 좋아하는 영화 추가
@@ -73,8 +90,23 @@ public class UserMovieRestController {
 	}
 	
 	// 12. 좋아하는 영화 목록 보기
-	@PostMapping("/favoritemovie")
-	public ResponseEntity<?> readfavoritemovie(@Valid FavoriteMovie favoritemovie, BindingResult results ,Principal principal) {
-		return ResponseEntity.ok(service.insertFavoriteMovie(favoritemovie, principal.getName()));
+	@GetMapping("/favoritemovie")
+	public ResponseEntity<?> readfavoritemovie(String username) {
+		return ResponseEntity.ok(service.favoriteMovie(username));
 	}
+	
+	@GetMapping(path = "/findnickname", produces ="application/text; charset=utf8")
+	public ResponseEntity<?> findNickname(String username) {
+		return ResponseEntity.ok(service.findNickname(username));		
+	}
+	
+	
+	
+	@GetMapping("/preferencemovie")
+	public ResponseEntity<?> findPreferenceMovie(String username) {
+		return ResponseEntity.ok(service.findPreferenceMovie(username));		
+	}
+	
+	
+	
 }

@@ -111,7 +111,7 @@
 				success:function(result) {
 					console.log(result);
 					if(result==""){
-						$("<button>").attr("id","revWrite").text("리뷰 작성").appendTo($("#review"));
+						$("<button type='button'>").attr("id","revWrite").text("리뷰 작성").appendTo($("#review"));
 					}else{
 						$("<a>").attr("id","updateWrite").attr("href","/moviefactory/movie/review/read?mrevNo=" + result.mrevNo).text("리뷰수정").appendTo("#review");
 						console.log(result.mrevNo);
@@ -134,7 +134,8 @@
 		$("#revWrite").on("click", function() {
 			if(isLogin==true){
 				console.log(movie);
-			location.href="/moviefactory/movie/review/write?mno="+movie.movieCd;
+			console.log(mno);
+			//location.href="/moviefactory/movie/review/write?mno="+mno;
 			}
 			else{
 				location.href="/moviefactory/member/login"
@@ -142,7 +143,7 @@
 		});
 		
 		$("#bttn").on("click", function() {
-			location.href="/moviefactory/movie/review/list?mno="+movie.movieCd;
+			location.href="/moviefactory/movie/review/list?mno="+mno;
 		});
 		
 	});

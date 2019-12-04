@@ -33,7 +33,7 @@ public class CollectionDaoTest {
 	}
 	//@Test
 	public void collectionReadTest() {
-		System.out.println(dao.read(2)); 
+		//System.out.println(dao.read(2)); 
 		//assertThat(result, is(1));
 	}
 	//@Transactional

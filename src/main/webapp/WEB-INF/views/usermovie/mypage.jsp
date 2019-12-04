@@ -12,10 +12,13 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
+
 </head>
 <body>
 <div id="section">
 	영화 마이 페이지입니다.
+
+	
 </div>	
 </body>
 </html>
