@@ -1,21 +1,26 @@
 package com.icia.moviefactory.restcontroller;
 
-import java.net.*;
-import java.security.*;
+import java.net.URI;
+import java.security.Principal;
 
-import javax.servlet.http.*;
-import javax.validation.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.http.*;
-import org.springframework.security.access.annotation.*;
-import org.springframework.validation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindException;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import com.icia.moviefactory.entity.*;
-import com.icia.moviefactory.service.*;
+import com.icia.moviefactory.entity.AdminAsk;
+import com.icia.moviefactory.service.AskService;
 
 @RequestMapping("/api")
 @RestController
