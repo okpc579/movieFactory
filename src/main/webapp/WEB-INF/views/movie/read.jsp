@@ -111,7 +111,7 @@
 				success:function(result) {
 					console.log(result);
 					if(result==""){
-						$("<button>").attr("id","revWrite").text("리뷰 작성").appendTo($("#review"));
+						$("<a>").attr("id","revWrite").text("리뷰 작성").appendTo($("#review"));
 					}else{
 						$("<a>").attr("id","updateWrite").attr("href","/moviefactory/movie/review/read?mrevNo=" + result.mrevNo).text("리뷰수정").appendTo("#review");
 						console.log(result.mrevNo);
