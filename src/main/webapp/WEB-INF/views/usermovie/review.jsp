@@ -20,18 +20,21 @@
 <script>	
 
 // 1. jsp에 어떤 목록을 보여줄지 선택과 생성 
-var movie;
+var reviews;
+var username;
 function printList() {
 	// 테이블의 <tbody>를 선택한다
 	var $body = $("#list");
-	$.each(movies, function(i, movie) {
+	$.each(reviews, function(i, review) {
 		
 		var $tr = $("<tr>").appendTo($body);
-		$("<td>").text(movie.movieNm).appendTo($tr);
+		$("<td>").text(review.mrevContent).appendTo($tr);
+		$("<td>").text(review.rating).appendTo($tr);
+		//$("<td>").text(review.movieNm).appendTo($tr);
 		// 별점, 포스터
 		var $td = $("<td>").appendTo($tr)
 		
-		getPoster(movie, $tr);
+		//getPoster(review, $tr);
 		
 	});
 }
@@ -61,41 +64,48 @@ function printList() {
 // 3. 유저이름으로 영화 불러오기
 	var strArray;
 	$(function() {
-	   console.log(location.search.split('?'));
-	   strArray = location.search.split('?');
-	   console.log(strArray[1].split('=')[0]);
-	   if(strArray[1].split('=')[0]=='mno'){
-	      $.ajax({
-	         url: "/moviefactory/api/movie/review/list?mNo=" + strArray[1].split('=')[1],
-	         method: "get",
-	         success: function(result) {
-	            console.log(result);
-	         }
-	      });   
-	   }else if(strArray[1].split('=')[0]=='username'){
-	      $.ajax({
-	         url: "/moviefactory/api/movie/review/userlist?username=" + strArray[1].split('=')[1],
-	         method: "get",
-	         success: function(result) {
-	            console.log(result);
-	         }
-	      });   
-	   }
-	});
+		   console.log(location.search.split('=')[1]);
+		   //strArray = location.search.split('?');
+		   //console.log(strArray[1].split('=')[0]);
+		  	username= location.search.split('=')[1];
+			   
+		      $.ajax({
+		         url: "/moviefactory/api/usermovie/findnickname?username=" + username,
+		         method: "get",
+		         success: function(result) {
+		            console.log(result);
+		            $("#usermovie").text(result+"님이 리뷰한 영화목록");
+		         }
+		      });
+		      $.ajax({
+			         url: "/moviefactory/api/usermovie/review?username=" + username,
+			         method: "get",
+			         success: function(result) {
+			            console.log(result);
+			            reviews=result;
+			            printList();
+			         }
+			  });
+		      
+		      /*
+		      $("#review").on("click",function(){
+		    	  location.href="/moviefactory/usermovie/review?username="+username;
+		      });
+		      */
+		});
 	
 </script>
 </head>
 <body>
 <div id="section">
 	<div id="review_list">
-		<h2>OOO님이 리뷰한 영화목록</h2>
+		<h2 id="usermovie"></h2>
 		<hr>
 		<table class="review_table">
 				<colgroup>
 				<col width="30%">
 				<col width="20%">
 				<col width="50%">
-
 			</colgroup>
 			<thead>
 				<tr>

@@ -23,10 +23,14 @@ function printLists() {
 	$.each(moviereviews, function(i, moviereview) {
 		
 		var $tr = $("<tr>").appendTo($body);
+		var $td;
 		$("<td>").text(moviereview.mrevNo).appendTo($tr);
-		$("<td>").text(moviereview.username).appendTo($tr);
+		
+//		$("<td>").text(moviereview.username).appendTo($tr);
+		$td = $("<td>").appendTo($tr);
+		$("<a>").attr("href","/moviefactory/usermovie/userpage?username=" + moviereview.username).text(moviereview.username).appendTo($td);
 		$("<td>").text(moviereview.mrevContent).appendTo($tr);
-		var $td = $("<td>").appendTo($tr)
+		$td = $("<td>").appendTo($tr);
 		
 		console.log(moviereviews);
 		$("<a>").attr("href","/moviefactory/movie/review/read?mrevNo=" + moviereview.mrevNo).text("상세").appendTo($td);
@@ -247,9 +251,13 @@ function printLists() {
 	var $body = $("#list");
 	$.each(moviereviews, function(i, moviereview) {
 		
+
 		var $tr = $("<tr>").appendTo($body);
+		var $td;
 		$("<td>").text(moviereview.mrevNo).appendTo($tr);
-		$("<td>").text(moviereview.username).appendTo($tr);
+		$td = $("<td>").appendTo($tr);
+		$("<a>").attr("href","/moviefactory/usermovie/userpage?username=" + moviereview.username).text(moviereview.username).appendTo($td);
+		
 		$("<td>").text(moviereview.mrevContent).appendTo($tr);
 		var $td = $("<td>").appendTo($tr)
 		

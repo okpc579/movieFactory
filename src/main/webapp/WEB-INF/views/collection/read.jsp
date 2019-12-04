@@ -30,6 +30,7 @@ var collection;
 var coll_no;
 var $movies;
 
+<<<<<<< HEAD
 function printData() {   
    $("<a>").attr("href","/moviefactory/usermovie/userpage?username=" + collection.username).text(collection.username).appendTo($("#writer"));
    $("#title").text(collection.collName);
@@ -75,6 +76,55 @@ function printData() {
       deletemovie($("#delete9").val());
    });
    
+=======
+
+function printData() {
+	//$("#writer").text(collection.username);
+	$("<a>").attr("href","/moviefactory/usermovie/userpage?username=" + collection.username).text(collection.username).appendTo($("#writer"));
+	$("#title").text(collection.collName);
+	
+	var $movies = $("#movies");
+	$movies.empty();
+	
+	$.each(collection.detail, function(i, detail){
+		var $movie = $("<div>").appendTo($movies);
+		$("<span></span>").text(detail.mno).appendTo($movie);
+		$("<input type='hidden' id='hiddenval" + i +"'>").val(detail.mno).appendTo($movie);
+		$("<button type='button' id='delete" + i +"'>").val(detail.mno).text('x').appendTo($movie);
+	});
+	
+	$("#delete0").on("click", function() {
+		deletemovie($("#delete0").val());
+	});
+	$("#delete1").on("click", function() {
+		deletemovie($("#delete1").val());
+	});
+	$("#delete2").on("click", function() {
+		deletemovie($("#delete2").val());
+	});
+	$("#delete3").on("click", function() {
+		deletemovie($("#delete3").val());
+	});
+	$("#delete4").on("click", function() {
+		deletemovie($("#delete4").val());
+	});
+	$("#delete5").on("click", function() {
+		deletemovie($("#delete5").val());
+	});
+	$("#delete6").on("click", function() {
+		deletemovie($("#delete6").val());
+	});
+	$("#delete7").on("click", function() {
+		deletemovie($("#delete7").val());
+	});
+	$("#delete8").on("click", function() {
+		deletemovie($("#delete8").val());
+	});
+	$("#delete9").on("click", function() {
+		deletemovie($("#delete9").val());
+	});
+	
+>>>>>>> 20191204_이태호
 }
 
 

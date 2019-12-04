@@ -21,24 +21,24 @@
 	
 	<!-- 4.유저리뷰 목록보기 -->
 	<select id="findUserReviewList" resultType="moviereview">
-	select username, m_rev_no mRevNo, rating, m_rev_content mRevContent from m_rev where username=#{username}
+		select username, m_rev_no mRevNo, rating, m_rev_content mRevContent, m_no mNo from m_rev where username=#{username}
 	</select>
 	
 	<!-- 5.팔로잉(내가 그사람에게 친구를 검, 내가 팔로우 하는 사람) 목록보기 (ㅇㅇ,ㅌㅎ) -->	
 	<select id="findFollowingList" resultType="follow"><!-- 안되면 follows로 바꿔라 -->
-		select following_username followingUsername, follower_username followerUsername from follow where follower_username=#{followerUsername}
+		select following_username followingUsername, follower_username followerUsername from follow where follower_username=#{followerUsername} and following_username=#{loginname}
 	</select>
 	
 	<!-- 6.팔로워(그 사람이 친구를 건 사람들, 나를 팔로우 하는 사람) 목록보기 (ㅇㅇ,ㅌㅎ) -->	
 	<select id="findFollowerList" resultType="follow">
-		select following_username followingUsername, follower_username followerUsername from follow where following_username=#{followingUsername}
+		select following_username followingUsername, follower_username followerUsername from follow where following_username=#{followingUsername} and follower_username=#{loginname}
 	</select>
 	
 	<!-- 7.평점(영화?) 상위보기 -->	
 	<select id="findAverageRating" resultType="moviereview">
 		<![CDATA[
 			select m.* from (
-    		select m_no 영화번호, avg(rating)영화평점 from m_rev
+    		select m_no mNo, avg(rating) rating2 from m_rev
     		group by m_no order by avg(rating) desc
 			)
 			m where rownum<=5
@@ -49,7 +49,7 @@
 	<select id="findUserTopRating" resultType="moviereview">
 		<![CDATA[
 		select m.* from (
-    		select m_no 영화번호, avg(rating)영화평점 from m_rev where m_rev.username = #{username}
+    		select m_no mNo, avg(rating) rating2 from m_rev where m_rev.username = #{username}
     		group by m_no order by avg(rating) desc
 			)
 			m where rownum<=5
@@ -60,7 +60,7 @@
 	<select id="findGenretoprating" resultType="moviereview">
 		<![CDATA[
 		select m.* from (
-			select m_no 영화번호, avg(rating)영화평점 from m_rev where m_rev.genre = #{genre}
+			select m_no mNo, avg(rating) rating2 from m_rev where m_rev.genre = #{genre}
     		group by m_no                            
     		order by avg(rating) desc
     		)
@@ -85,8 +85,12 @@
 	</select>
 	
 	<!-- 13.내 선호영화 예상 목록보기 -->	
-	<select id="findPreferenceMovieList" resultType="favoritemovie">
-		select username m_like_no mLikeNo from fav_m where username=#{username} and rownum=1
+	<select id="findPreferenceMovieList" resultType="moviereview">
+	<![CDATA[
+		select m_no mNo, avg(rating) rating2 from m_rev where m_rev.genre = (select r.genre from (select avg(rating) avgrating, genre from m_rev where username=#{username} group by genre) r, (select max(avg(rating)) maxrating from m_rev where username=#{username} group by genre) r2 where r.avgrating=r2.maxrating)
+		    		group by m_no                            
+		    		order by avg(rating) desc
+		    		]]>
 	</select>
 	<!-- <resultMap type="com.icia.moviefactory.entity.FavoriteMovieDetail" id="mapForFavoriteMovieDetail">
 		<id property="mNo" column="m_no" />
@@ -98,4 +102,25 @@
 		<result property="username" column="username" />
 		<favoritemovie property="detail" javaType="java.util.ArrayList" resultMap="mapForFavoriteDetail"/>
 	</resultMap> -->
+	<select id="findNicknameByUsername" resultType="string">
+		select nick from member where username=#{username}
+	</select>
+	
+	<insert id="addfollowing">
+		insert into follow(follower_username, following_username) 
+		values(#{loginname}, #{username})
+	</insert>
+	<delete id="deletefollowing">
+		delete from follow where follower_username=#{loginname} and following_username=#{username}
+	</delete>
+	
+	<select id="checkwritereview" resultType="moviereview">
+		select m_no mNo, rating from m_rev where m_no=#{mNo} and username=#{username}
+	</select>
+	
+	<select id="checkfollowing" resultType="string">
+		select follower_username followerUsername from follow where follower_username=#{loginname} and following_username=#{username} 
+	</select>
+	
+	
 </mapper>

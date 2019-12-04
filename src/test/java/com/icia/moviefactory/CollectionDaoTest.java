@@ -33,7 +33,11 @@ public class CollectionDaoTest {
 	}
 	//@Test
 	public void collectionReadTest() {
+<<<<<<< HEAD
 		System.out.println(dao.read(2, 0, 0)); 
+=======
+		//System.out.println(dao.read(2)); 
+>>>>>>> 20191204_이태호
 		//assertThat(result, is(1));
 	}
 	//@Transactional

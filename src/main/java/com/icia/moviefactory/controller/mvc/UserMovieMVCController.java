@@ -7,14 +7,15 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class UserMovieMVCController {
 
-	// MVC-0. 영화 마이페이지 보기
+	// MVC-1. 영화 마이페이지 보기
+	/*
 	@GetMapping("/usermovie/mypage")
 	public String mypage(Model model) {
 		model.addAttribute("viewName", "usermovie/mypage.jsp");
 		return "main";
 	}
-	
-	// MVC-1. 유저 페이지 보기
+	*/
+	// MVC-2. 유저 페이지 보기
 	@GetMapping("/usermovie/userpage")
 	public String read(Model model) {
 		model.addAttribute("viewName", "usermovie/userpage.jsp");
@@ -22,9 +23,9 @@ public class UserMovieMVCController {
 	}
 
 	// MVC-3. 컬렉션 목록보기
-	@GetMapping("/usermovie/collection")
+	@GetMapping("/usermovie/collectionlist")
 	public String collection(Model model) {
-		model.addAttribute("viewName", "usermovie/collection.jsp");
+		model.addAttribute("viewName", "usermovie/collectionlist.jsp");
 		return "main";
 	}
 
