@@ -245,7 +245,7 @@
 	</script>
 </sec:authorize>
 	<div id="admin">
-		<h2>고객 센터 - 블라인드 댓글목록</h2>
+		<h2>고객 센터 - 블라인드 댓글/p>/h2>
 		<hr>
 		<div id="admin_board">
 			<table class="table">

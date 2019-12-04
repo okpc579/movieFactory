@@ -21,6 +21,25 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
 <script>
+$(function() {
+	// 로그아웃 처리 - 주소는 스프링 시큐리티로 설정. post로 요청해야함
+	$(".logout123").on("click", function(e) {
+		console.log("지랄하지미")
+		e.preventDefault();
+		$.ajax({
+			url:"/moviefactory/member/logout",
+			method:"post",
+			success:function() {
+				console.log("아 제발좀");
+				location.href = "/moviefactory"
+			}
+		})
+	});
+	
+	$("#sosick").on("click", function() {
+		window.open('/moviefactory/alarm', 'window','width=400, height=400, status=no,toolbar=no,scrollbars=no, location=no');	
+	});
+});
 /* var movies;
 var posterString;
 var repGenreNm;
@@ -193,9 +212,9 @@ section {
 			<sec:authorize access="hasRole('ROLE_USER')">
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav navbar-right" >
-						<li><a href="#"><img src="/sajin/bell (5).png"></a></li>	<!-- 내소식 : 아직 링크 없음 -->
+						<li><a href="#" id="sosick"><img src="/sajin/bell (5).png"></a></li>	<!-- 내소식 : 아직 링크 없음 -->
 						<li><a href="#" style="color: white;">내정보</a></li> <!-- 영화마이페이지 : 태호오빠꺼임 -->
-						<li><a href="member/logout" style="color: white;">로그아웃</a></li>
+						<li><a href="member/logout" style="color: white;" class="logout123">로그아웃</a></li>
 						<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: white;">고객센터 <span class="caret"></span></a>
                     	<ul class="dropdown-menu">
                       		<li><a href="adminAsk/listuser">문의 게시판</a></li>
@@ -222,7 +241,7 @@ section {
 		                      <li><a href="notice/list">공지사항</a></li>
         		            </ul>
             		    </li> 
-						<li><a href="member/logout" style="color: white;">로그아웃</a></li>
+						<li><a href="member/logout" style="color: white;" class="logout123">로그아웃</a></li>
 					</ul>
 				</div>
 			</sec:authorize>

@@ -54,7 +54,7 @@ function pwdcheck() {
 #check {
 
 	height: 50px;
-	line-height: 50px;
+	/* line-height: 50px; */
 	width: 100px;
 }
 
@@ -62,14 +62,16 @@ function pwdcheck() {
 	font-size: 25pt;
 	
 }
+#checkpasswordform {
+	margin: 0 auto;
+	width : 500px;
+}
 </style>
 </head>
 <body>
 <div id="section">
-<div class="form-group">
-	<p class="text-center" id="p1">♥ 비밀번호 확인 ♥</p>
-	</div>
-	<form>
+	<form id="checkpasswordform">
+	<legend class="text-center" id="p1"><strong>비밀번호 확인</strong></legend>
 		<div class="form-group">
 			<input hidden="hidden" />
 			<input type="password" id="pwd" class="form-control">

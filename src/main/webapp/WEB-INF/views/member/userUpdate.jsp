@@ -335,7 +335,7 @@ var mmmmmmm;
 <style>
 #updateEnd, #changePwd, #activateChangePwd {
 	height: 50px;
-	line-height: 50px;
+	/* line-height: 50px; */
 	width: 100px;
 	magin : 0 auto;
 }
@@ -346,6 +346,10 @@ var mmmmmmm;
 	font-size: 25pt;
 	
 }
+#updateForm {
+	margin: 0 auto;
+	width : 800px;
+}
 </style>
 <title>일반회원 내 정보수정</title>
 </head>
@@ -353,7 +357,7 @@ var mmmmmmm;
 	<div id="section">
 		<form id="updateForm" action="" method="post">
 			<div class="form-group">
-				<p class="text-center" id="p1"><strong>♥ 무비 팩토리 정보수정 ♥</strong></p>
+				<legend class="text-center" id="p1"><strong>무비 팩토리 정보수정</strong></legend>
 				<div>
 					<label for="username">아이디</label>
 				</div>
