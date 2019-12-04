@@ -15,6 +15,10 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
 <style>
+.center {
+	text-align : center;
+ 	font-size : 25pt;
+}
 </style>
 </head>
 <script>
@@ -63,7 +67,7 @@ $(function() {
 	</script>
 </sec:authorize>
 	<div id="admin">
-		<h2>고객 센터 - 댓글 신고내역</h2>
+		<p class="center"><strong>관리자 센터 - 댓글 신고내역</strong></p>
 		<hr>
 		<div>
 			<span>작성일 : </span><span id="writingdate"></span>
@@ -81,3 +85,9 @@ $(function() {
 	</div>
 </body>
 </html>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>

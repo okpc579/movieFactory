@@ -43,8 +43,9 @@ public class MemberRestController {
 	}
 
 	// 비밀번호 찾기 -> MemberNotFoundException
+	@ResponseBody
 	@PreAuthorize("isAnonymous()")
-	@PostMapping(path = "/member/password", produces = "application/json;charset=utf-8")
+	@PostMapping(path = "/member/password", produces = "text/plain;charset=utf-8")
 	public ResponseEntity<?> findPassword(@NonNull String username, @NonNull String email, @NonNull String name) {
 		return ResponseEntity.ok(service.findPassword(username, email, name));
 	}

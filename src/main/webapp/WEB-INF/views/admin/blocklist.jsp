@@ -20,6 +20,10 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <title>Insert title here</title>
 <style>
+.center {
+	text-align : center;
+ 	font-size : 25pt;
+}
 </style>
 </head>
 <script>
@@ -33,7 +37,7 @@
 			$("<a>").attr("href","/moviefactory/admin/readblock?username=" + member.username).text(member.username).appendTo($td);
 			$td = $("<td>").text(member.blockDate).appendTo($tr);
 			$td = $("<td>").appendTo($tr);
-			$("<button id='unblock" + idx +  "'>").text("정지해제").appendTo($td);
+			$("<button class='btn btn-default' id='unblock" + idx +  "'>").text("정지해제").appendTo($td);
 			$("<input type='hidden' id='unblocksub" + idx +  "'>").val(member.username).appendTo($td);
 		});
 		$("#unblock0").on("click", function() {
@@ -206,7 +210,7 @@
 	</script>
 </sec:authorize>
 	<div id="admin">
-		<h2>고객 센터 - 정지목록</h2>
+		<p class="center"><strong>관리자 센터 - 정지목록</strong></p>
 		<hr>
 		<div id="admin_board">
 			<table class="table">
@@ -239,3 +243,14 @@
 	</div>
 </body>
 </html>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

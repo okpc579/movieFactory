@@ -22,7 +22,7 @@ $(function() {
 			data:param,
 			success:function(result) {
 				console.log(result);
-				alert("임시비번발급됨");
+				alert("임시비밀번호가 발급되었습니다. 이메일을 확인해주세요");
 				location.href="/moviefactory/member/login";
 			}, error:function(xhr){
 				console.log(xhr);
