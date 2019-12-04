@@ -78,9 +78,10 @@ $(function() {
 			data:param,
 			method: "post",
 			success: function(result, status, xhr) {
+				location.href="/moviefactory/movie/review/list?mno=" + location.search.split('=')[1];
 				console.log(result);
 				moviereview = result;
-				location.href="/moviefactory/movie/review/list?mno=" + location.search.split('=')[1];
+				
 			}, error: function(xhr) {
 				 console.log(xhr.status);
 			}
@@ -90,14 +91,13 @@ $(function() {
 		$("#isSpo").val(1);
 	});
 });
-
 </script>	
 
 <style>
-*{
+/* *{
 	margin:0;
 	padding:0;
-}
+} */
 .starRev{
 	display: inline-block;
 }
@@ -111,14 +111,13 @@ $(function() {
   cursor: pointer;
   }
 .starR.on{background-position:0 0;}
-
 table{
 		border: 1px solid #444444;
 		border-collapse: collapse;
 		width:700px;
 		height:400px;
 		text-align: center;
-		margin:0;
+		margin:0 auto;
 		padding: 10px;
 	}
 	td{
@@ -130,6 +129,15 @@ table{
 }
 .center{
 	margin:0 auto;
+}
+#writeForm {
+width : 800px;
+		margin : 0 auto;
+}
+#reg {
+	height : 50px;
+	 width : 100px;
+	 
 }
 </style>
 </head>
@@ -166,7 +174,6 @@ table{
   							</div>		
 						</div>
 <script>
-
 	$('.starRev span').hover(function(){
 		  $(this).parent().children('span').removeClass('on');
 		  $(this).addClass('on').prevAll('span').addClass('on');
@@ -206,15 +213,14 @@ table{
 	});
 	
 	
-	
 </script>						
 </td>
 				</tr>
 				<tr>
-					<td><textarea id="content" name="mRevContent"placeholder="내용을 입력하세요" style="width: 543px; height: 231px; "></textarea><br><input id="isSpo1"type="checkbox" value="" name="isSp">스포일러</td>
+					<td><textarea id="content" name="mRevContent"placeholder="내용을 입력하세요" style="height: 231px; " class="form-control"></textarea><br><input id="isSpo1"type="checkbox" value="" name="isSp">스포일러</td>
 				</tr>
 				<tr>
-					<td><button id="reg">작별하기</button></td>
+					<td style="height:60px;"><button class="btn btn-primary" id="reg" >작성하기</button></td>
 				</tr>
 			</table>
 		</div>
@@ -224,4 +230,4 @@ table{
 </html>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>	
