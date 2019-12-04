@@ -21,7 +21,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
 <script>
-<<<<<<< HEAD
+
 	var isLogin = false;
 	var loginId = undefined;
 </script>
@@ -35,7 +35,7 @@
 </sec:authorize>
 <script>
 var movies;
-=======
+
 $(function() {
 	// 로그아웃 처리 - 주소는 스프링 시큐리티로 설정. post로 요청해야함
 	$(".logout123").on("click", function(e) {
@@ -56,7 +56,6 @@ $(function() {
 	});
 });
 /* var movies;
->>>>>>> 20191204_박동렬
 var posterString;
 var repGenreNm;
 var genreTopMovies;
