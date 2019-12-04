@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,47 +35,56 @@
 	}
 	// "/moviefactory/api/notice/read?noticeNo=" + noticeNo,
 	// 답글을 포함한 게시글을 읽어온다
-		$(function() {
-			var noticeNo = location.search.substr(10);
-			$.ajax({
-				url : "/moviefactory/api/notice/read?noticeNo=" + noticeNo,
-				method : "get",
-				success : function(result) {
-					notice = result;
-					console.log(notice);
-						$("#title").text(notice.title);
-						$("#noticeNo").text(notice.noticeNo);
-						$("#writingDate").text(notice.writingDate);
-						$("#content").text(notice.content);
-						noticeData(result);	
-				}
-			});
+	$(function() {
+		var noticeNo = location.search.substr(10);
+		$.ajax({
+			url : "/moviefactory/api/notice/read?noticeNo=" + noticeNo,
+			method : "get",
+			success : function(result) {
+				notice = result;
+				console.log(notice);
+				$("#title").text(notice.title);
+				$("#noticeNo").text(notice.noticeNo);
+				$("#writingDate").text(notice.writingDate);
+				$("#content").text(notice.content);
+				noticeData(result);
+			}
+		});
 
 		// 3. 글 수정
-		$("#notice_updateStart").on("click", function() {
-			$("#content").text("");
-			$("<textarea></textarea>").val(notice.content).appendTo("#content").attr("class","form-control").attr("id","content_update");
-				console.log(notice.content);
-			});
-		
-		$("#notice_updateEnd").on("click", function(){
-				var param =
-					{
-						noticeNo : notice.noticeNo,
-						content : $("#content_update").val()
-					};
-				//console.log(param);
-				$.ajax({
-					url : "/moviefactory/api/notice/update",
-					method : "post",
-					data : param,
-					success : function(result){
-						location.href = "/moviefactory/notice/read?noticeNo=" + noticeNo;
-					},error : function(xhr) {
-						console.log(xhr.status);
-					}
-				})
-		});
+		$("#notice_updateStart").on(
+				"click",
+				function() {
+					$("#content").text("");
+					$("<textarea></textarea>").val(notice.content).appendTo(
+							"#content").attr("class", "form-control").attr(
+							"id", "content_update");
+					console.log(notice.content);
+				});
+
+		$("#notice_updateEnd")
+				.on(
+						"click",
+						function() {
+							var param = {
+								noticeNo : notice.noticeNo,
+								content : $("#content_update").val()
+							};
+							//console.log(param);
+							$
+									.ajax({
+										url : "/moviefactory/api/notice/update",
+										method : "post",
+										data : param,
+										success : function(result) {
+											location.href = "/moviefactory/notice/read?noticeNo="
+													+ noticeNo;
+										},
+										error : function(xhr) {
+											console.log(xhr.status);
+										}
+									})
+						});
 		// 4. 글 삭제 
 		$("#notice_delete").on("click", function() {
 			var param = {
@@ -94,41 +104,73 @@
 		});
 	});
 </script>
+<style>
+#h3{
+	background-color: #4ABFD3;
+	height: 60px;
+	color: #FFFFFF;
+	padding-left: 30px;
+}
+#h3 h3{
+	line-height: 60px;
+}
+#content{
+	width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;
+}
+</style>
 <body>
-<div id="section">
-	<div id="reading">
+	<div id="section">
 		<div>
-			<div id="title_div">
-				<!-- 제목, 작성자 출력 영역 -->
-				<div id="upper_div">
-					제목:<span id="title"></span>
-				</div>
+			<h2>
+				<a href="http://localhost:8080/moviefactory/notice/list">공지사항 게시판</a>
+			</h2>
+		</div>
+		<div id="h3">
+			<h3 style="margin-bottom: 0px;">공지사항 확인</h3>
+		</div>
+		<div id="reading">
+			<div>
 				<!-- 글번호, 작성일 출력 영역 -->
-				<div id="lower_div">
-					<ul id="lower_left">
-						<li>글번호:<span id="noticeNo"></span></li>
-						<li>날짜:<span id="writingDate"></span></li>
-					</ul>
+				<div id="title_wrap">
+					<br>
+					<div>
+						<p><strong>제목 : </strong><span id="title"></span></p>
+					</div>
+					<div>
+						<strong>날짜 : </strong><span id="writingDate"></span>
+					</div>
 				</div>
-			</div>
-			<!--  본문, 갱신 버튼, 삭제 버튼 출력 영역 -->
-			<div id="content_div">
-				<div class="form-group">
-					<div id="content" class="form-control" rows="10" cols="100" name="content" >
+				<br>
+				<div></div>
+				<!--  본문, 갱신 버튼, 삭제 버튼 출력 영역 -->
+				<div>
+					<div>
+						<p>
+							<strong>내용</strong>
+						</p>
+						<div id="content" rows="10" cols="100" name="content"></div>
 					</div>
 				</div>
 			</div>
+			<hr>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<div id="btnArea">
+					<br>
+					<button type="button" class="btn btn-primary"
+						id="notice_updateStart">수정하기</button>
+					<button type="button" class="btn btn-primary" id="notice_updateEnd">수정완료</button>
+					<button type="button" class="btn btn-primary" id="notice_delete">삭제하기</button>
+				</div>
+			</sec:authorize>
 		</div>
-		<hr>
-		<sec:authorize access="hasRole('ROLE_ADMIN')">
-		<div id="btnArea">
-		<br>
-			<button type="button" class="btn btn-info" id="notice_updateStart">수정하기</button>
-			<button type="button" class="btn btn-info" id="notice_updateEnd">수정완료</button>
-			<button type="button" class="btn btn-info" id="notice_delete">삭제하기</button>
-		</div>
-		</sec:authorize>
 	</div>
-</div>	
 </body>
 </html>
