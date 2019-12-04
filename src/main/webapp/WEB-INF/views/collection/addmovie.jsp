@@ -9,6 +9,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
+<style>
+
+
+</style>
 <script>
 var movies;
 var posterString;
@@ -347,10 +351,11 @@ function printPaging(result) {
 function search(){
 	var tmpStringArray = location.search.split('=');
 	query = location.search.substr(location.search.indexOf("=") + 1);
+	
 	page = tmpStringArray[2];
 	var strArray = query.split('&');
-	query = $("#search").val();
-	
+	query = $("#search").val();		// 원래 있던거
+	// query = strArray[0];	// 다른거에 있던거
 	var locationURL= "/moviefactory/api/list?query="+query;
 	if(typeof page == "undefined"){
 		page=1;
@@ -360,7 +365,7 @@ function search(){
 		url:locationURL,
 		method: "get",
 		success:function(result) {
-			$("#list>*").remove();
+			$("#list>*").remove();		// 이거는 주소창 뭐시기 없에는 기능인듯
 			console.log(result);
 			totCnt = result[0].totCnt;
 			result.shift();
@@ -414,15 +419,6 @@ function searchPage(pageno){
 
 
 
-
-
-
-
-
-
-
-
-
 $(function() {
 	coll_no = location.search.substr(location.search.indexOf("=") + 1);
 	console.log(coll_no);
@@ -444,7 +440,12 @@ $(function() {
 		search();
 	});
 	
-	
+	$("#search").keydown(function(key) {
+		if(key.keyCode==13) {
+			key.preventDefault();
+			search();
+		}
+	});
 	
 	
 	
@@ -452,17 +453,14 @@ $(function() {
 </script>
 </head>
 <body>
-
-	addmsovie
-	<form id="addmovieForm">
+<div id="section">
+	<br>
+<!-- 	<form id="addmovieForm">
 		<input type="text" id="search" name="search">
 		<button type="button" id="searchbutton">검색</button>
-		<br> 
-		<input type="text" id="mNo" name="mNo">
-		<input type="text" id="collNo" name="collNo">
-	<button type="button" id="button">버튼</button>
-	</form>
-		<div id="main">
+	</form> -->
+	<br>
+		<div id="main1">
 		<!-- <table class="table table-hover"> -->
 		<table class="MovieTable">
 			<colgroup>
@@ -487,6 +485,7 @@ $(function() {
 			</tbody>
 		</table>
 	</div>
+	<div style="width: 50%; float: none; margin: 0 auto">
 	<div id="paging">
 		<ul class="pagination" id="pagination">
 			<!-- 
@@ -500,6 +499,7 @@ $(function() {
 			 -->
 		</ul>
 	</div>
+	</div>
 	<input id="cdval0" type="hidden">
 	<input id="cdval1" type="hidden">
 	<input id="cdval2" type="hidden">
@@ -512,5 +512,26 @@ $(function() {
 	<input id="cdval9" type="hidden">
 	
 	
+	
+	
+	<div class="center text-center">
+		<form class="form-inline" id="addmovieForm">
+			<div class="input-group">
+				<input type="text" class="form-control" size="50" placeholder="영화를 검색해주세요"  id="search" name="search" required>
+				<div class="input-group-btn">
+					<button type="button" class="btn btn-default" id="searchbutton">검색</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	
+<!-- 원본
+	<form id="addmovieForm">
+		<input type="text" id="search" name="search">
+		<button type="button" id="searchbutton">검색</button>
+	</form>
+ -->
+</div>	
 </body>
+
 </html>

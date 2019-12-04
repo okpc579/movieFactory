@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -131,8 +128,19 @@ $(function() {
 </head>
 <body>
 <div id="section">
-<div id="list"></div>
-<div id="pagination"></div>
+<div id="list">
+
+<!-- 	
+	<table>
+		<tr>
+			<th></th>
+		</tr>
+	</table>
+ -->
+	
+</div>
+<div id="pagination">
+</div>
 </div>
 </body>
 </html>
