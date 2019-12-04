@@ -41,7 +41,7 @@
 <style>
 #yes, #no {
 	height: 50px;
-	line-height: 50px;
+	/* line-height: 50px; */
 	width: 100px;
 }
 #p1 {
@@ -57,7 +57,7 @@
 <div id="section">
 	<div class="form-group">
 		<p class="text-center" id="p1">
-			<strong>♥ 서비스 동의서 ♥</strong>
+			<strong>서비스 동의서</strong>
 		</p>
 	</div>
 	<textarea class="form-control" rows="30" cols="100">							

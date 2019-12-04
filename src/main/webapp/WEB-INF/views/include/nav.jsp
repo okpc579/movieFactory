@@ -7,51 +7,33 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script>
 	$(function() {
 		// 로그아웃 처리 - 주소는 스프링 시큐리티로 설정. post로 요청해야함
-		$("#logout").on("click", function(e) {
+		$(".logout").on("click", function(e) {
 			e.preventDefault();
 			$.ajax({
 				url:"/moviefactory/member/logout",
 				method:"post",
 				success:function() {
+					console.log("아 제발좀");
 					location.href = "/moviefactory"
 				}
 			})
 		});
 		
-		// 회원 탈퇴 - 사용자 의사를 다시 확인하고 비밀번호 입력 페이지로 이동
-		$("#menu_parent").on("click", "#resign", function(e) {
-			//var choice = prompt('회원을 탈퇴하시겠습니까? 같은 아이디로 재가입할 수 없으며 모든 글은 삭제됩니다');
-			e.preventDefault();
-			$("#resignDialog").modal('show');
-		});
-		$("#pwdCheck").on("click", function() {
-			var params = {
-				password : $("#passwordCheck").val(),
-				_method : "delete"
-			}
-			$.ajax({
-				url: '/moviefactory/api/member',
-				method:'post',
-				data: params,
-				success: function(result) {
-					location.href = "/moviefactory"
-				}
-			})
-		});
 		$("#sosick").on("click", function() {
 			window.open('/moviefactory/alarm', 'window','width=400, height=400, status=no,toolbar=no,scrollbars=no, location=no');	
 		});
 	});
 </script>
 <title>무비팩토리 인덱스</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
 <style>
   * {
    margin: 0;
@@ -146,7 +128,7 @@
 
 			<!-- 검색 -->
 			<div class="center text-center" id="search">
-				<form class="form-inline" action="">
+				<form class="form-inline" action="http://localhost:8081/moviefactory/movie/list">
 					<!-- <div class="input-group" style="float: left;"> -->
 					<div class="input-group" style="padding-right: 80px;">
 						<input type="text" class="form-control" size="50"
@@ -185,7 +167,7 @@
 					<ul class="nav navbar-nav navbar-right" style="padding-right:300px ;">
 						<li><a href="#" id="sosick"><img src="/sajin/bell (5).png"></a></li> <!-- 내소식 -->
 						<li><a href="#" style="color: white;">내정보</a></li> <!-- 영화 마이페이지 -->
-						<li><a href="http://localhost:8081/moviefactory/member/logout" style="color: white;">로그아웃</a></li>
+						<li><a href="http://localhost:8081/moviefactory/member/logout" style="color: white;" class="logout123">로그아웃</a></li>
 						<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: white;">고객센터 <span class="caret"></span></a>
                     	<ul class="dropdown-menu">
                       		<li><a href="http://localhost:8081/moviefactory/adminAsk/listuser">문의 게시판</a></li>
@@ -215,7 +197,7 @@
 		                      <li><a href="http://localhost:8081/moviefactory/notice/list">공지사항</a></li>
         		            </ul>
             		    </li> 
-						<li><a href="http://localhost:8081/moviefactory/member/logout" style="color: white;">로그아웃</a></li>
+						<li><a href="http://localhost:8081/moviefactory/member/logout" style="color: white;" class="logout123">로그아웃</a></li>
 
 					</ul>
 				</div>
@@ -226,4 +208,3 @@
 	</nav>
 </body>
 </html>
-

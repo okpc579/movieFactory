@@ -79,12 +79,16 @@
 #resign2, #updateUser {
 
 	height: 50px;
-	line-height: 50px;
+	/* line-height: 50px; */
 	width: 100px;
 }
 #p1 {
 	font-size: 25pt;
 	
+}
+#infoForm {
+	margin: 0 auto;
+	width : 800px;
 }
 </style>
 <title>일반회원 내 정보</title>
@@ -93,7 +97,7 @@
 	<div id="section">
 		<form id="infoForm" action="" method="post">
 			<div class="form-group">
-				<p class="text-center" id="p1"><strong>♥ 무비 팩토리 회원정보 ♥</strong></p>
+				<legend class="text-center" id="p1"><strong>무비 팩토리 회원정보</strong></legend>
 				<div>
 					<label for="username">아이디</label>
 				</div>

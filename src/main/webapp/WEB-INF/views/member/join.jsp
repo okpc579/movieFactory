@@ -356,7 +356,7 @@ table {
 #join, #reset {
 
 	height: 50px;
-	line-height: 50px;
+	/* line-height: 50px; */
 	width: 100px;
 }
 
@@ -368,14 +368,18 @@ p {
 	font-size: 25pt;
 	
 }
+#joinForm {
+	margin: 0 auto;
+	width : 500px;
+}
 </style>
 
 </head>
 <body>
 	<div id="section">
 		<form id="joinForm" method="post">
-			<div class="form-group">
-				<p class="text-center" id="p1"><strong>♥ 무비 팩토리 회원가입 ♥</strong></p>
+			<div class="form-group" >
+				<legend class="text-center" id="p1"><strong>무비 팩토리 회원가입</strong></legend>
 				<div>
 					<label for="username">아이디</label> <span class="helper-text"
 						id="helper_username"></span>
@@ -481,13 +485,13 @@ p {
 					<label class="center">한줄소개</label>
 				</div>
 				<div class="form-group">
-					<textarea rows="5" name="intro" id="intro" cols="100"
+					<textarea rows="5" name="intro" id="intro" cols="70"
 						placeholder="한 줄 소개를 입력해주세요^^"></textarea>
 				</div>
 
 				<div>
 					<div class="row text-center" style="width: 100%">
-						<div style="width: 30%; float: none; margin: 0 auto">
+						<div style=" float: none; margin: 0 auto">
 							<button type="reset" id="reset" class="btn btn-default" >초기화</button>
 							<button id="join" class="btn btn-info"  type="button">회원가입</button>
 						</div>

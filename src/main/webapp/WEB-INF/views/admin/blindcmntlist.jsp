@@ -252,7 +252,11 @@
 	</script>
 </sec:authorize>
 	<div id="admin">
+<<<<<<< HEAD
 		<p class="center"><strong>관리자 센터 - 블라인드 댓글목록</strong></p>
+=======
+		<h2>고객 센터 - 블라인드 댓글/p>/h2>
+>>>>>>> 20191204_박동렬
 		<hr>
 		<div id="admin_board">
 			<table class="table">

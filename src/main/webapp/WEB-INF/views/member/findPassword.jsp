@@ -39,13 +39,22 @@ $(function() {
 </sec:authorize>
 <title>Insert title here</title>
 <style>
+#find {
+	height: 50px;
+	/* line-height: 50px; */
+	width: 100px;
+}
+#findPwdFrm {
+margin: 0 auto;
+	width : 500px;
+}
 </style>
 </head>
 <body>
 <div id="section">
 	<div id="password">
 		<form id="findPwdFrm" action="/moviefactory/member/findPassword" method="post">
-			<legend>비밀번호 찾기</legend>
+			<legend style="font-size: 25pt"><strong>비밀번호 찾기</strong></legend>
 			<div class="form-group">
 				<label for="findPwd_id">아이디</label>
 				<input id="username" type="text" name="username" class="form-control" placeholder="아이디 입력">

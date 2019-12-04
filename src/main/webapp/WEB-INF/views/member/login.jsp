@@ -105,6 +105,18 @@ var value;
 	})
 });
 </script>
+<style>
+#login {
+	height: 50px;
+	/* line-height: 50px; */
+	width: 100px;
+}
+#loginFrm, #msg  {
+margin: 0 auto;
+	width : 500px;
+}
+
+</style>
 <sec:authorize access="hasRole('ROLE_USER')">
 	<script>
 		location.href="http://localhost:8081/moviefactory/system/e403";
@@ -120,7 +132,7 @@ var value;
   	</div>
 	<div id="wrap">
 		<form id="loginFrm" action="/moviefactory/member/login" method="post">
-			<legend>로그인</legend>
+			<legend style="font-size: 25pt"><strong>로그인</strong></legend>
 			<div class="form-group">
 				<label for="login_username">아이디</label>
 				<input id="login_username" type="text" name="username" class="form-control" placeholder="아이디 입력">

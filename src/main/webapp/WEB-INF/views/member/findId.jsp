@@ -33,12 +33,23 @@ $(function(){
 		location.href="http://localhost:8081/moviefactory/system/e403";
 	</script>
 </sec:authorize>
+<style>
+#find {
+	height: 50px;
+	/* line-height: 50px; */
+	width: 100px;
+}
+#findIdFrm {
+margin: 0 auto;
+	width : 500px;
+}
+</style>
 </head>
 <body>
 <div id="section">
 	<div id="id">
 		<form id="findIdFrm" action="/moviefactory/member/findId" method="post">
-			<legend>아이디 찾기</legend>
+			<legend style="font-size: 25pt"><strong>아이디 찾기</strong></legend>
 			<div class="form-group">
 				<label for="findId_name">이름</label>
 				<input id="name" type="text" name="name" class="form-control" placeholder="이름 입력">
