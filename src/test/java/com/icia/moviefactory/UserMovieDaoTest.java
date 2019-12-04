@@ -59,8 +59,8 @@ public class UserMovieDaoTest {
    // @Transactional
    // @Test
    public void findFollowingTest() {
-	   	List<Follow> result = dao.findFollowing("ieb6721");
-	   	assertThat(result.size(), is(3));
+	   	//List<Follow> result = dao.findFollowing("ieb6721");
+	   	//assertThat(result.size(), is(3));
 //		System.out.println(dao.findFollowingList("xogh8121"));
 //		assertThat(result, is(1));
 //		List<Follow> result = dao.findFollowingList("abcdef", "123456");
@@ -71,8 +71,8 @@ public class UserMovieDaoTest {
    // @Transactional
    // @Test
    public void findFollowerTest() {
-	   	List<Follow> result = dao.findFollower("xogh8122");
-	   	assertThat(result.size(), is(0));
+	  // 	List<Follow> result = dao.findFollower("xogh8122");
+	   	//assertThat(result.size(), is(0));
 //		System.out.println(dao.findFollowerList("xogh8122"));
 //		assertThat(result, is(1));
    }
