@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +8,12 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+  	#writeForm {
+  		margin: 0 auto;
+  		width : 500px;
+  	}
+  </style>
   <script>
   var collection;
 
@@ -96,8 +99,10 @@
     <div class="form-group">
 		<textarea class="form-control" rows="5" id="collIntro" name="collIntro"></textarea>
 	</div>
-	<button type="button" class="btn btn-success" id="update">수정</button>
-	<button type="button" class="btn btn-success" id="delete">삭제</button>
+	<div style="width: 22.7%; float: none; margin: 0 auto">
+		<button type="button" class="btn btn-success" id="update">수정</button>
+		<button type="button" class="btn btn-success" id="delete">삭제</button>
+	</div>
 </form>
 </div>
 </body>

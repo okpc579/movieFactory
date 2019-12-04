@@ -11,6 +11,10 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
   <style>
+  	#writeForm {
+  		margin: 0 auto;
+  		width : 500px;
+  	}
   </style>
   <script>
   $(function() {
@@ -42,7 +46,9 @@
     <div class="form-group">
 		<textarea class="form-control" rows="5" id="collIntro" name="collIntro"></textarea>
 	</div>
-	<button type="button" class="btn btn-success" id="write">작성</button>
+	<div style="width: 10%; float: none; margin: 0 auto">
+		<button type="button" class="btn btn-success" id="write">작성</button>
+	</div>
 </form>
 </div>
 </body>
