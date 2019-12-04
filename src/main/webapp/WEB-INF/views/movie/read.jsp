@@ -57,12 +57,12 @@
 			cast = cast +", " + c;
 		})
 		*/
-		for(var i=0;i<=9;i++){
+		/* for(var i=0;i<=9;i++){
 			cast = cast +"," + movie.cast[i];
 		}
 		$("<td>").text(cast).appendTo($tr);
-		
-		var $td = $("<td>").appendTo($tr)
+		 */
+		//var $td = $("<td>").appendTo($tr)
 		getPoster(movie, $tr);
 	}
 	function getPoster(movie, $tr) {
@@ -75,10 +75,10 @@
 				//posterString = result.image;
 				if(typeof result.image == "undefined"){
 					var $td = $("<td>").appendTo($tr)
-					$("<img>").attr("src","http://localhost:8081/sajin/default_movie.png").attr("width", "110px").appendTo($td); 
+					$("<img>").attr("src","http://localhost:8081/sajin/default_movie.png").attr("width", "90px").appendTo($td); 
 				}else {
 				var $td = $("<td>").appendTo($tr)
-				$("<img>").attr("src",result.image).appendTo($td);
+				$("<img>").attr("src",result.image).attr("width", "90px").appendTo($td);
 				//$("<td>").text(result.image).appendTo($tr);
 				}
 				
@@ -151,10 +151,23 @@
 	table {
 		 text-align: center;
 	}
+	th {
+		text-align : center;
+	}
+	MovieTable{
+		width : 1200px;
+	}
+	#bttn {
+		height: 50px;
+   		width: 100px;
+	}
+/* 	.code, . {
+		width : 10%;
+	} */
 </style>
 </head>
 <body>
-<div id="section">
+<div id="fuck">
 <form action="/moviefactory/movie/review/write" method="get">
 		<!-- <table class="table table-hover"> -->
 		<table class="MovieTable">
@@ -162,39 +175,33 @@
 				<col width="10%">
 				<col width="10%">
 				<col width="10%">
-				<col width="5%">
-				<col width="5%">
-				<col width="5%">
-				<col width="5%">
+				<col width="11%">
+				<col width="8%">
+				<col width="11%">
 				<col width="10%">
 				<col width="5%">
-				<col width="5%">
 				<col width="10%">
-				<col width="10%">
-				<col width="10%">
+				<col width="15%">
 			</colgroup>
 			<thead>
 				<tr>
-					<th>영화코드</th>
-					<th>제목</th>
-					<th>영문제목</th>
-					<th>상영시간</th>
-					<th>제작년도</th>
-					<th>개봉년도</th>
-					<th>제작국가</th>
-					<th>장르</th>
-					<th>감독</th>
-					<th>배우</th>
-					<th>관람가</th>
-					<th>배역</th>
-					<th>포스터</th>
+					<th class="code">영화코드</th>
+					<th class="title">제목</th>
+					<th class="made">제작년도</th>
+					<th class="open">개봉년도</th>
+					<th class="country">제작국가</th>
+					<th class="genre">장르</th>
+					<th class="director">감독</th>
+					<th class="actor">배우</th>
+					<th class="grade">관람가</th>
+					<th class="poster">포스터</th>
 				</tr>
 			</thead>
 			<tbody id="read">
 			</tbody>
 		</table>
 		<div id="review">
-		<button id="bttn" type="button">리뷰 목록</button>
+		<button id="bttn" class="btn btn-primary" type="button">리뷰 목록</button>
 		</div>
 		<div id="readRev">
 		</div>
