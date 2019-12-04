@@ -21,7 +21,7 @@ var username="";
 var mno="";
 
 function printPaging(result) {
-	//$("#pagination>*").remove();
+	//$("#pagination>*").remove(); 
 	var pageno = page;
 	var pagesize = 10;
 	var totalcount = result.totalcount;
