@@ -15,7 +15,7 @@
 <script>
 	$(function() {
 		// 로그아웃 처리 - 주소는 스프링 시큐리티로 설정. post로 요청해야함
-		$(".logout").on("click", function(e) {
+		$(".logout123").on("click", function(e) {
 			e.preventDefault();
 			$.ajax({
 				url:"/moviefactory/member/logout",
