@@ -33,10 +33,10 @@ public class MovieRestController {
 	}
 	
 	@GetMapping("/movie/review/list/{mNo}")
-	public ResponseEntity<?> reviewlist(@PathVariable long mNo, Principal principal) {
+	public ResponseEntity<?> reviewlist(@PathVariable long mNo, @RequestParam(defaultValue="1") int pageno, Principal principal) {
 		String username = principal!=null? principal.getName() : null;
 		
-		return ResponseEntity.ok(service.reviewList(mNo,username));
+		return ResponseEntity.ok(service.reviewList(pageno, mNo,username));
 	}
 	
 	@PreAuthorize("isAuthenticated()")

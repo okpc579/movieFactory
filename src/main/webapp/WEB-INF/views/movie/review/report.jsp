@@ -56,7 +56,7 @@ $(function(){
 		width:700px;
 		height:400px;
 		text-align: center;
-		margin:0;
+		margin:0 auto;
 		padding: 10px;
 	}
 	td{
@@ -65,11 +65,22 @@ $(function(){
 	#singo{
 		text-align: center;
 	}
+	
+	#writeForm {
+	width : 800px;
+		margin : 0 auto;
+	}
+	#singo555 {
+		height : 50px;
+	 width : 100px;
+	 
+	}
 </style>
 </head>
 <body>
 <div id="section">
 	<form id="writeForm" action="">
+	<legend class="text-center" style="font-size:25pt"><strong>신고</strong></legend>
 		<div>
 			<table>
 				<tr>
@@ -84,14 +95,14 @@ $(function(){
 				</tr>
 				<tr>
 					<td>제목</td>
-					<td colspan="6"><input id="title" type="text" name="title"  placeholder="제목을 입력하세요" style="width: 543px; "></td>
+					<td colspan="6"><input id="title" type="text" name="title"  placeholder="제목을 입력하세요"  class="form-control"></td>
+				</tr>
+				<tr style="text-align: center">
+					<td style="height: 300px; ">내용</td>
+					<td style="height: 250px;" colspan="6" ><textarea id="content" name="content" placeholder="내용을 입력하세요" style="height: 231px; "  class="form-control" ></textarea>
 				</tr>
 				<tr>
-					<td "style="height: 300px; ">내용</td>
-					<td style="height: 250px; " colspan="6"><textarea id="content" name="content" placeholder="내용을 입력하세요" style="width: 543px; height: 231px; "></textarea>
-				</tr>
-				<tr>
-					<td colspan="7" id="report" style="height:50px;"><button type="button" >신고하기</button></td>
+					<td colspan="7" id="report" style="height:60px;"><button type="button" id="singo555" class="btn btn-danger">신고</button></td>
 				</tr>
 			</table>
 		</div>
