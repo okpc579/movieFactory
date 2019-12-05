@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
-<%@ page session = "true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,27 +28,12 @@
 
 <script>
 var moviereview;
+function printData() {
+	$("#writingDate").text(moviereview.writingDate);
+	$("#content").text(moviereview.mRevContent);
+	$("#rating").text(moviereview.rating);
+}
 $(function() {
-	$("#mNo").val(location.search.split('=')[1]);
-	
-	$(function() { 
-		$.ajax({
-			url:"/moviefactory/api/read?mno=" + location.search.split('=')[1],	//디테일 리드
-			method: "get",
-			success:function(result) {
-				console.log(result);
-				console.log(result.genres[0]);
-				console.log(result.movieNm);
-				$("#genre").val(result.genres[0]);
-				$("#title").text(result.movieNm);
-			}, error:function(xhr) {
-				
-			}
-		});
-	});
-		
-	
-	$("#genre").val(location.search.split('=')[2]);
 	$("#star1").click(function(){
 		$("#hidden").val(1);
 		$("#rating").text("1점");
@@ -74,25 +58,24 @@ $(function() {
 		var param = $("#writeForm").serialize();
 		console.log(param);
 		$.ajax({
-			url: "/moviefactory/api/movie/review/write",
+			url: "/moviefactory/api/movie/review/update",
 			data:param,
 			method: "post",
 			success: function(result, status, xhr) {
 				console.log(result);
 				moviereview = result;
-				location.href="/moviefactory/movie/review/list?mno=" + location.search.split('=')[1];
+				printData();
 			}, error: function(xhr) {
 				 console.log(xhr.status);
 			}
 		});
 	});
-	$('input[name=isSp]').click(function(){
+	$('input[name=isSpo]').click(function(){
 		$("#isSpo").val(1);
 	});
 });
 
 </script>	
-
 <style>
 *{
 	margin:0;
@@ -138,18 +121,17 @@ table{
 <form id="writeForm" action="">
 		<div>
 			<table>
-				<tr>
-				<input id="mRevNo" type="hidden" value="" name="mRevNo">
-				<input id="genre" type="hidden" value="" name="genre">
-				<input id="writingDate" type="hidden" value="" name="writingDate">
-				<input id="writer" type="hidden" value="" name="username">
-				<input id="mNo" type="hidden" value="" name="mNo">
+				<tr id="mNo" name="mNo">
+				<input id="mRevNo" type="hidden" value="1" name="mRevNo">
+				<input id="genre" type="hidden" value="액션" name="genre">
+				<input id="writingDate" type="hidden" value="2019-11-15" name="writingDate">
+				<input id="username" type="hidden" value="" name="username" var="member">
+				<input id="mNo" type="hidden" value="1" name="mNo">
 				<input id="hidden" type="hidden" value="" name="rating">
-				<input id="isSpo" type="hidden" value="" name="isSpo">
-					<td>영화 제목 : <span id="title"></span></td>
+					<td id="title">영화 제목</td>
 				</tr>
 				<tr>
-					<td><span id="revno" name="mRevNo"></span><span id="writDay" name="writingDate"></span>
+					<td>리뷰번호 : <span id="revno" name="mRevNo"> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span> 작성날짜 : <span id="writDay" name="writingDate"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 						별점 : <span id="rating" name="rating"></span></td>
 				</tr>
 				<tr>
@@ -211,17 +193,15 @@ table{
 </td>
 				</tr>
 				<tr>
-					<td><textarea id="content" name="mRevContent"placeholder="내용을 입력하세요" style="width: 543px; height: 231px; "></textarea><br><input id="isSpo1"type="checkbox" value="" name="isSp">스포일러</td>
+					<td><textarea id="content" name="mRevContent"placeholder="내용을 입력하세요" style="width: 543px; height: 231px; "></textarea><br><input id="isSpo"type="checkbox" value="" name="isSpo">스포일러</td>
 				</tr>
 				<tr>
-					<td><button id="reg">작별하기</button></td>
+					<td><button type="button" id="reg">수정하기</button></td>
 				</tr>
 			</table>
 		</div>
+		
 </form>
 </div>
 </body>
 </html>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
