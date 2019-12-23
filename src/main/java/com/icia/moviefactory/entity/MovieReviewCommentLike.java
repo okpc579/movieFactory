@@ -15,4 +15,6 @@ public class MovieReviewCommentLike {
 	private String username;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date likeRegDate;
+	private String content;
+	private long mRevNo;
 }

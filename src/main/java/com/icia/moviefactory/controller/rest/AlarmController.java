@@ -16,10 +16,14 @@ public class AlarmController {
 	
 	@GetMapping("/my")
 	public ResponseEntity<?> my(Principal principal) {
+		System.out.println(principal.getName());
+		System.out.println(service.my(principal.getName()));
 		return ResponseEntity.ok(service.my(principal.getName()));
 	}
 	@GetMapping("/you")
 	public ResponseEntity<?> you(Principal principal) {
+		System.out.println(principal.getName());
+		System.out.println(service.you(principal.getName()));
 		return ResponseEntity.ok(service.you(principal.getName()));
 	}
 }
