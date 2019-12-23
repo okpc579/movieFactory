@@ -14,7 +14,7 @@ public class MovieReview {
 	private long mRevNo;
 	private String username;
 	private long mNo;
-	private long rating;
+	private double rating;
 	private String mRevContent;
 	private long isSpo;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -25,6 +25,6 @@ public class MovieReview {
 	private long repCnt;
 	private List<MovieReviewComment> comments;
 	private List<MovieReviewReport> reviewReports;
-	private long rating2;
+	private double rating2;
 }
 

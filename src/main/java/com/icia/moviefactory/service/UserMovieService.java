@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
 import com.icia.moviefactory.dao.*;
+import com.icia.moviefactory.dto.*;
 import com.icia.moviefactory.entity.*;
 @Service
 public class UserMovieService {
@@ -18,18 +19,30 @@ public class UserMovieService {
 	}
 	
 	// 4. 유저리뷰 목록보기
+	/*
 	public List<MovieReview> findUserReview(String username) { 
 		return dao.findUserReview(username);
 	}
+	*/
+	public Page findUserReview(String username, int pageno) {
+		int pagesize=10;
+		int count = dao.findReviewMovieCount(username);//내 리뷰가 몇개있는지 세는거
+		int startRowNum = ((pageno-1) * pagesize + 1);
+		int endRowNum = startRowNum + pagesize -1;
+		if(endRowNum >= count)
+			endRowNum = count;
+		List<MovieReview> movieReviews = dao.findUserReview(username, startRowNum, endRowNum);
+		return new Page().builder().pageno(pageno).pagesize(pagesize).totalcount(count).movieReviews(movieReviews).build();
+	}
 	
 	// 5. 팔로잉 목록보기
-	public List<Follow> findFollowing(String followerUsername, String loginname) {
-		return dao.findFollowing(followerUsername, loginname);
+	public List<Follow> findFollowing(String followerUsername) {
+		return dao.findFollowing(followerUsername);
 	}
 		
 	// 6. 팔로우 목록보기
-	public List<Follow> findFollower(String followingUsername, String loginname) {
-		return dao.findFollower(followingUsername, loginname);
+	public List<Follow> findFollower(String followingUsername) {
+		return dao.findFollower(followingUsername);
 	}
 	
 	// 7. 평점상위보기
@@ -58,8 +71,18 @@ public class UserMovieService {
 	}
 	
 	// 12. 좋아하는 영화 목록
-	public List<FavoriteMovie> favoriteMovie(String username) {
-		return dao.favoriteMovie(username);		
+	public List<MovieReview> favoriteMovie(String username) {
+		//dao.favoriteMovie(username);
+		List<FavoriteMovie> favoritemovies = dao.favoriteMovie(username);
+		List<MovieReview> moviereviews = new ArrayList<MovieReview>();
+		for(int i=0; i< favoritemovies.size(); i++) {
+			if(dao.findReviewByMno(favoritemovies.get(i).getMNo())==null) {
+				moviereviews.add(new MovieReview().builder().mNo(favoritemovies.get(i).getMNo()).rating2(0).build());
+			}else {
+				moviereviews.add(dao.findReviewByMno(favoritemovies.get(i).getMNo()));
+			}
+		}
+		return moviereviews;		
 	}
 
 	public String findNickname(String username) {
@@ -104,4 +127,16 @@ public class UserMovieService {
 	public String checkfollowing(String username, String loginname) {
 		return dao.checkfollowing(username,loginname)==null?"false":"true";
 	}	
+		
+//	public Page usernameReviewMovieList(String username, int pageno) {
+//		System.out.println("===페이징 서비스=====");
+//		int pagesize=10;
+//		int count = UserMovieDao.usernameReviewMovieList(username);
+//		int startRowNum = ((pageno-1) * pagesize + 1);
+//		int endRowNum = startRowNum + pagesize -1;
+//		if(endRowNum >= count)
+//			endRowNum = count;
+//		List<MovieReview> movieReviews = UserMovieDao.usernameReviewMovieList(username);
+//		return new Page().builder().pageno(pageno).pagesize(pagesize).totalcount(count).movieReviews(movieReviews).build();
+//	}
 }

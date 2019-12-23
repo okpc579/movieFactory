@@ -20,18 +20,19 @@
 	</select>
 	
 	<!-- 4.유저리뷰 목록보기 -->
+	<!-- 
 	<select id="findUserReviewList" resultType="moviereview">
-		select username, m_rev_no mRevNo, rating, m_rev_content mRevContent, m_no mNo from m_rev where username=#{username}
+		select username, m_rev_no mRevNo, rating, m_rev_content mRevContent, m_no mNo, genre from m_rev where username=#{username}
 	</select>
-	
+	 -->
 	<!-- 5.팔로잉(내가 그사람에게 친구를 검, 내가 팔로우 하는 사람) 목록보기 (ㅇㅇ,ㅌㅎ) -->	
 	<select id="findFollowingList" resultType="follow"><!-- 안되면 follows로 바꿔라 -->
-		select following_username followingUsername, follower_username followerUsername from follow where follower_username=#{followerUsername} and following_username=#{loginname}
+		select following_username followingUsername, follower_username followerUsername from follow where follower_username=#{followerUsername}
 	</select>
 	
 	<!-- 6.팔로워(그 사람이 친구를 건 사람들, 나를 팔로우 하는 사람) 목록보기 (ㅇㅇ,ㅌㅎ) -->	
 	<select id="findFollowerList" resultType="follow">
-		select following_username followingUsername, follower_username followerUsername from follow where following_username=#{followingUsername} and follower_username=#{loginname}
+		select following_username followingUsername, follower_username followerUsername from follow where following_username=#{followingUsername}
 	</select>
 	
 	<!-- 7.평점(영화?) 상위보기 -->	
@@ -48,11 +49,11 @@
 	<!-- 8.유저 고평점(영화?) top5 상위보기 -->	
 	<select id="findUserTopRating" resultType="moviereview">
 		<![CDATA[
-		select m.* from (
-    		select m_no mNo, avg(rating) rating2 from m_rev where m_rev.username = #{username}
-    		group by m_no order by avg(rating) desc
-			)
-			m where rownum<=5
+		select m3.* from(
+select m1.rating2 rating2, m2.mno mNo, m2.rating rating, m2.genre
+from (select m_no mNo, round(avg(rating),1) rating2 from m_rev group by m_no) m1, (select m_no mNo, rating, genre from m_rev where username = #{username}) m2
+where m2.mno=m1.mno order by rating2 desc) m3
+where rownum<=5
 		]]>
 	</select>	
 	
@@ -81,13 +82,13 @@
 	
 	<!-- 12.좋아하는 영화 목록보기 (ㅌㅎ)-->	
 	<select id="favoriteMovieList" resultType="favoritemovie">
-		select m_no mNo, username,writing_date writingDate from fav_m where username=#{username}
+		select m_no mNo, username,writing_date writingDate from fav_m where username=#{username} order by writing_date 
 	</select>
 	
 	<!-- 13.내 선호영화 예상 목록보기 -->	
 	<select id="findPreferenceMovieList" resultType="moviereview">
 	<![CDATA[
-		select m_no mNo, avg(rating) rating2 from m_rev where m_rev.genre = (select r.genre from (select avg(rating) avgrating, genre from m_rev where username=#{username} group by genre) r, (select max(avg(rating)) maxrating from m_rev where username=#{username} group by genre) r2 where r.avgrating=r2.maxrating)
+		select m_no mNo, round(avg(rating),1) rating2 from m_rev where m_rev.genre = (select r.genre from (select avg(rating) avgrating, genre from m_rev where username=#{username} group by genre) r, (select max(avg(rating)) maxrating from m_rev where username=#{username} group by genre) r2 where r.avgrating=r2.maxrating)
 		    		group by m_no                            
 		    		order by avg(rating) desc
 		    		]]>
@@ -122,5 +123,32 @@
 		select follower_username followerUsername from follow where follower_username=#{loginname} and following_username=#{username} 
 	</select>
 	
+
+	<select id="findReviewMovieCount" resultType="int">
+		select count(*) from m_rev where username=#{username}
+	</select>
 	
+ 
+	<select id="findUserReviewList" resultType="moviereview">
+		<![CDATA[
+			select * from
+		       	(select rownum rnum, b.* from 
+		       		(select m_rev_no mRevNo, username, m_no mNo, rating,m_rev_content mRevContent , is_spo isSpo, writing_date writingDate, genre, is_blind isBlind, like_cnt likeCnt, rep_cnt repCnt from m_rev where username=#{username}) b
+		       	where rownum<=#{endRowNum}) 
+		    where rnum>=#{startRowNum}
+		]]>
+	</select> 
+	
+	<!-- 내정보 보기 : 아이디로 정보 가져오기(멤버메퍼) -->
+	<select id="findById" resultType="member">
+		select username, password, name, nick,
+		email, base_addr baseAddr, zip_code zipCode, tel, photo, birth, intro,
+		reg_date regDate from member where username=#{username} and rownum=1
+	</select>
+	
+	
+	<!-- round(avg(rating),1) 소수점 첫째자리 까지만 나오게 하는 -->
+	<select id="findReviewById" resultType="moviereview">
+		select round(avg(rating),1) rating2, m_no mNo from m_rev where m_no=#{mNo} group by m_no
+	</select>
 </mapper>
