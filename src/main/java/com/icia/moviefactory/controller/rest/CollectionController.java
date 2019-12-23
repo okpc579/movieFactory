@@ -30,6 +30,10 @@ public class CollectionController {
    public ResponseEntity<?> read(long collNo, int pageno) {
       return ResponseEntity.ok(service.read(collNo, pageno));      
    }
+   @GetMapping("/read/{collNo}")
+   public ResponseEntity<?> read3(@PathVariable long collNo) {
+      return ResponseEntity.ok(service.read3(collNo));      
+   }
    
    @PostMapping("/addmovie")
    public ResponseEntity<?> addmovie(long mNo, String collNo, Principal principal) {
@@ -70,7 +74,7 @@ public class CollectionController {
    }
    
    @GetMapping("/list")
-   public ResponseEntity<?> movieCollectionList(long mNo, int pageno) {
+   public ResponseEntity<?> movieCollectionList(long mNo, @RequestParam(defaultValue="1") int pageno) {
       return ResponseEntity.ok(service.movieCollectionList(mNo, pageno));
    }
 
@@ -78,4 +82,17 @@ public class CollectionController {
    public ResponseEntity<?> usernameCollectionList(String username, int pageno) {
       return ResponseEntity.ok(service.usernameCollectionList(username, pageno));      
    }
+   
+   @GetMapping("/username")
+   public ResponseEntity<?> username(Principal principal){
+	   System.out.println("===================");
+	   System.out.println(principal.getName());
+	   return ResponseEntity.ok(principal.getName());
+   }
+   
+   @GetMapping("/collposter")
+   public ResponseEntity<?> read2(long collNo) {
+      return ResponseEntity.ok(service.read2(collNo));      
+   }
+   
 }

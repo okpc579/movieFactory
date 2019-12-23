@@ -31,8 +31,8 @@
 	<delete id="delete">
 		delete from notice where notice_no=#{noticeNo}
 	</delete>
-	<!-- 답변 포함 글 읽어오기 -->
-	<select id="findByNotice" resultType="Notice">
+	<!-- 답변 포함 글 읽어오기 / mybatis-config 에러 때문에 Notice에서 notice로 바꿨다 -->
+	<select id="findByNotice" resultType="notice">
 		select notice_no noticeNo,title,content,writing_date writingDate from notice where notice_no=#{noticeNo} and rownum =1
 	</select>
 </mapper>

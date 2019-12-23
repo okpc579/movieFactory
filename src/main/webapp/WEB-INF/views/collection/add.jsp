@@ -15,6 +15,11 @@
   		margin: 0 auto;
   		width : 500px;
   	}
+  	
+  	#write {
+  		width: 100px;
+  		height: 50px;
+  		}
   </style>
   <script>
   $(function() {
@@ -27,11 +32,14 @@
 				success:function(result) {
 					console.log("성공");
 					console.log(result);
-					location.href="http://localhost:8081/moviefactory/collection/read?collNo="+result;
+					location.href="http://localhost:8081/moviefactory/collection/read?collNo="+result+"&pageno=1";
 				}, error : function(xhr) {
 					
 				}
 			});
+			
+			opener.document.location.reload();
+			
 		});
 	});
   </script>
@@ -40,14 +48,15 @@
 <div id="section">
 <form id="writeForm">
 	<div class="form-group">
-		<label for="title">제목:</label>
+		<label for="title">제목</label>
 		<input type="text" class="form-control" id="collName" placeholder="제목" name="collName">
     </div>
     <div class="form-group">
-		<textarea class="form-control" rows="5" id="collIntro" name="collIntro"></textarea>
+    	<label for="intro">내용</label>
+		<textarea class="form-control" rows="5" id="collIntro" name="collIntro"  placeholder="컬렉션을 소개해주세요"></textarea>
 	</div>
-	<div style="width: 10%; float: none; margin: 0 auto">
-		<button type="button" class="btn btn-success" id="write">작성</button>
+	<div style="width: 20%; float: none; margin: 0 auto;">
+		<button type="button" class="btn btn-primary" id="write" onclick="window.close()">작성</button>
 	</div>
 </form>
 </div>
