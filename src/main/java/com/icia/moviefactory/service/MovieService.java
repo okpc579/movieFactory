@@ -27,22 +27,23 @@ public class MovieService {
 
 	
 	public Page findAllReviewByUsername(int pageno, String username,long mno) {
-
+		System.out.println("===================ddd");
+		System.out.println(mno);
 		if(username==null) {
 			int count = dao.findCount(mno);
 			int startRowNum = ((pageno-1) * pagesize + 1);
 			int endRowNum = startRowNum + pagesize -1;
 			if(endRowNum >= count)
 				endRowNum = count;
-			List<MovieReview> reviews = dao.findAll(startRowNum, endRowNum);
-			return new Page().builder().pageno(pageno).pagesize(pageno).totalcount(count).reviews(reviews).build();
+			List<MovieReview> reviews = dao.findAll(mno,startRowNum,endRowNum);
+			return new Page().builder().pageno(pageno).pagesize(pagesize).totalcount(count).reviews(reviews).build();
 		} else {
 			int count = dao.findCountByUsername(username);
 			int startRowNum = ((pageno-1) * pagesize + 1);
 			int endRowNum = startRowNum + pagesize -1;
 			if(endRowNum >= count)
 				endRowNum = count;
-			List<MovieReview> reviews = dao.findAllByUsername(startRowNum, endRowNum, username);
+			List<MovieReview> reviews = dao.findAll(mno,startRowNum,endRowNum);
 			return new Page().builder().pageno(pageno).pagesize(pagesize).totalcount(count).reviews(reviews).build();
 		}
 	}
@@ -58,9 +59,18 @@ public class MovieService {
 		return moviereview;
 	}
 	
+	public Void updatereadrev(MovieReview moviereview,String username) {
+		if(!username.equals(dao.findUsernameById(moviereview.getMRevNo())))
+			new IllegalAccessException();
+		
+		dao.updatereadrev(moviereview);
+		return null;
+	}
+	
 	public Void updaterev(MovieReview moviereview,String username) {
 		if(!username.equals(dao.findUsernameById(moviereview.getMRevNo())))
 			new IllegalAccessException();
+		
 		dao.updaterev(moviereview);
 		return null;
 	}
@@ -74,11 +84,12 @@ public class MovieService {
 	
 	public int updatelikecnt(long mRevNo, String username) {
 		// 자신의 글 추천 막기
+		System.out.println("==========dddddddddddddddddddddd================");
 		if(!username.equals(dao.findUsernameById(mRevNo)))
 			new IllegalAccessException();
 			// 이미 추천 또는 신고한 글인지 users_board 테이블에서 조회
-		if(recommendMapper.findById(username, mRevNo)!=null) 
-			return dao.updatelikecnt(mRevNo);
+	//	if(recommendMapper.findById(username, mRevNo)!=null) 
+	//		return dao.updatelikecnt(mRevNo);
 		// users_board 테이블에 글번호와 아이디 저장(추천/신고 여부는 필요없다. 하나의 글에 대해 추천/신고 중 하나만 가능)
 		recommendMapper.insertlike(username, mRevNo);
 		// 글 추천
@@ -164,6 +175,7 @@ public class MovieService {
 	
 	
 	public MovieReviewDto findReviewByIdWithComments(Long mRevNo, String username) {
+		System.out.println("====================여기다1==============");
 		MovieReviewDto dto = modelMapper.map(dao.findByIdWithComments(mRevNo), MovieReviewDto.class);
 		dto.getIsSpo();
 		dto.setIsSpo(dto.getIsSpo());
@@ -182,14 +194,15 @@ public class MovieService {
 		return dto;
 	}
 	
-	public Map reviewList(int pageno, long mNo,String username) {
+	public List<MovieReviewDto> reviewList(int pageno,String username,long mno) {
 		//System.out.println(dao.reviewList(mNo, username));
-		int count = dao.findCount(mNo);
+		System.out.println("====================여기다2==============");
+		int count = dao.findCount(mno);
 		int startRowNum = ((pageno-1) * pagesize + 1);
 		int endRowNum = startRowNum + pagesize -1;
 		if(endRowNum >= count)
 			endRowNum = count;
-		List<MovieReview> list = dao.reviewList(mNo, username);
+		List<MovieReview> list = dao.findAll(mno,startRowNum,endRowNum);
 		
 		List<MovieReviewDto> dtolist = new ArrayList<MovieReviewDto>();
 		
@@ -202,14 +215,9 @@ public class MovieService {
 			}
 			dtolist.add(dto);
 		}
-		Map map = new HashMap();
-		map.put("moviereviews", dtolist);
-		map.put("count", count);
-		map.put("startRowNum", startRowNum);
-		map.put("endRowNum", endRowNum);
-		System.out.println(map);
+		
 		// 글쓴이 여부를 추가
-		return map;
+		return dtolist;
 	}
 	
 	public MovieReviewCommentDto findComment(Long mRevNo, String username) {
@@ -226,6 +234,27 @@ public class MovieService {
 	public MovieReview myReview(Long mno, String name) {
 		return dao.myReview(mno,name);
 	}
-	
+
+	public String checkReviewLike(Long mRevNo, String username) {
+		return recommendMapper.checkReviewLike(mRevNo, username)==null?"dontlike":"like";
+	}
+
+	public Void deleterevlike(Long mRevNo, String username) {
+		recommendMapper.deletelike(username, mRevNo);
+		System.out.println("delete실행함");
+		dao.updatedontlikecnt(mRevNo);
+		return null;
+	}
+
+	public String checkCmntLike(Long mrevCmntNo, String name) {
+		return recommendMapper.checkCmntLike(mrevCmntNo, name)==null?"dontlike":"like";
+	}
+
+	public Void deletecmntlike(Long mRevCmntNo, String username) {
+		recommendMapper.deletecmntlike(username, mRevCmntNo);
+		System.out.println("delete실행함");
+		dao.updatecmntdontlikecnt(mRevCmntNo);
+		return null;
+	}
 	
 }

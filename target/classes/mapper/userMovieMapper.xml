@@ -38,7 +38,7 @@
 	<select id="findAverageRating" resultType="moviereview">
 		<![CDATA[
 			select m.* from (
-    		select m_no mNo, avg(rating) rating2 from m_rev
+    		select m_no mNo, round(avg(rating),1) rating2 from m_rev
     		group by m_no order by avg(rating) desc
 			)
 			m where rownum<=5
@@ -60,7 +60,7 @@
 	<select id="findGenretoprating" resultType="moviereview">
 		<![CDATA[
 		select m.* from (
-			select m_no mNo, avg(rating) rating2 from m_rev where m_rev.genre = #{genre}
+			select m_no mNo, round(avg(rating),1) rating2 from m_rev where m_rev.genre = #{genre}
     		group by m_no                            
     		order by avg(rating) desc
     		)
@@ -85,11 +85,34 @@
 	</select>
 	
 	<!-- 13.내 선호영화 예상 목록보기 -->	
+	<!-- 
 	<select id="findPreferenceMovieList" resultType="moviereview">
 	<![CDATA[
-		select m_no mNo, avg(rating) rating2 from m_rev where m_rev.genre = (select r.genre from (select avg(rating) avgrating, genre from m_rev where username=#{username} group by genre) r, (select max(avg(rating)) maxrating from m_rev where username=#{username} group by genre) r2 where r.avgrating=r2.maxrating)
+		select m_no mNo, avg(rating) rating2 from m_rev where m_rev.genre = (select r.genre from (select avg(rating) avgrating, genre from m_rev where username=#{username} group by genre) r, (select max(avg(rating)) maxrating from m_rev where username=#{username} group by genre) r2 where r.avgrating=r2.maxrating and rownum =1)
 		    		group by m_no                            
 		    		order by avg(rating) desc
+		    		]]>
+	</select>
+	 -->
+	 <select id="findPreferenceMovieList" resultType="moviereview">
+	<![CDATA[
+		select m.* from (
+select m_no mNo, avg(rating) rating2
+from m_rev 
+where m_rev.genre = 
+      (select r.genre 
+      from (select round(avg(rating),1) avgrating, genre 
+            from m_rev 
+            where username=#{username} 
+            group by genre) r, 
+            (select max(avg(rating)) maxrating 
+            from m_rev 
+            where  username=#{username} 
+            group by genre) r2 
+        where r.avgrating=r2.maxrating and rownum=1)
+group by m_no                            
+order by avg(rating) desc)
+m where rownum<=5
 		    		]]>
 	</select>
 	<!-- <resultMap type="com.icia.moviefactory.entity.FavoriteMovieDetail" id="mapForFavoriteMovieDetail">
@@ -115,7 +138,7 @@
 	</delete>
 	
 	<select id="checkwritereview" resultType="moviereview">
-		select m_no mNo, rating from m_rev where m_no=#{mNo} and username=#{username}
+		select m_no mNo, rating from m_rev where m_no=#{mNo} and username=#{username} and rownum=1
 	</select>
 	
 	<select id="checkfollowing" resultType="string">

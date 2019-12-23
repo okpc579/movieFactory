@@ -14,6 +14,11 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <title>서비스 동의 페이지</title>
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+	<script>
+		location.href = "http://localhost:8081/moviefactory/system/e403";
+	</script>
+</sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
 	<script>
 		location.href = "http://localhost:8081/moviefactory/system/e403";

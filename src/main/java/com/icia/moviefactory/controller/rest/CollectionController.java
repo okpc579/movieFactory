@@ -28,6 +28,7 @@ public class CollectionController {
    @ResponseBody
    @GetMapping("/read")
    public ResponseEntity<?> read(long collNo, int pageno) {
+	   System.out.println("read에 들어옴");
       return ResponseEntity.ok(service.read(collNo, pageno));      
    }
    

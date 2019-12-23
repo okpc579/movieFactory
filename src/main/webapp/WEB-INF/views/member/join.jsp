@@ -17,7 +17,11 @@
    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+	<script>
+		location.href = "http://localhost:8081/moviefactory/system/e403";
+	</script>
+</sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
    <script>
       location.href="http://localhost:8081/moviefactory/system/e403";
