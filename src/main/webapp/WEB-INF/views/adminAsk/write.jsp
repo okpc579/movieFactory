@@ -56,6 +56,7 @@ textarea {
 				success:function(result, textStatus, request) {
 					location.href = "/moviefactory/adminAsk/listuser"
 				}, error:function(xhr) {
+					alert("제목과 내용은 필수항목입니다");
 					location.href = "/moviefactory/adminAsk/write"
 				}
 			});

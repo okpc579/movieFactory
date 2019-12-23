@@ -490,7 +490,7 @@ p {
 				</div>
 				<div class="form-group">
 					<textarea rows="5" name="intro" id="intro" cols="70"
-						placeholder="한 줄 소개를 입력해주세요^^"></textarea>
+						placeholder="한 줄 소개를 입력해주세요^^" style = "resize : none;"></textarea>
 				</div>
 
 				<div>

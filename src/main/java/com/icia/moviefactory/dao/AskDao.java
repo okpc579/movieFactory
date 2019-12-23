@@ -50,7 +50,7 @@ public class AskDao {
 		public int delete(long adminAskNo) {
 			return tpl.delete("askMapper.delete", adminAskNo);
 		}
-		// 아이디로 검색해 게시판 글 페이징
+		// 그 아이디의 게시판 글 페이징
 		public List<AdminAsk> findAllByUsername(int startRowNum, int endRowNum, String username) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("startRowNum", startRowNum);
@@ -71,5 +71,43 @@ public class AskDao {
 		// 게시판 글 상세 읽어오기
 		public AdminAsk findByAdminAsk(long adminAskNo) {
 			return tpl.selectOne("askMapper.findByAdminAsk", adminAskNo);
+		}
+		
+		// 아이디로 검색해서 리스트 불러오기
+		public List<AdminAsk> findAdminAskByUsername(int startRowNum, int endRowNum, String username) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("startRowNum", startRowNum);
+			map.put("endRowNum", endRowNum);
+			map.put("username", username);
+			return tpl.selectList("askMapper.findAdminAskByUsername", map); 
+		}
+		
+		// 아이디의 글 개수 가져오기
+		public int findAdminAskCountByUsername(String username) {
+			return tpl.selectOne("askMapper.findAdminAskCountByUsername", username); 
+		}
+		// 글제목으로 검색해서 리스트 불러오기
+		public List<AdminAsk> findAdminAskByTitle(int startRowNum, int endRowNum, String title) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("startRowNum", startRowNum);
+			map.put("endRowNum", endRowNum);
+			map.put("title", title);
+			return tpl.selectList("askMapper.findAdminAskByTitle", map); 
+		}
+		
+		// 제목의 글 개수 가져오기
+		public int findAdminAskCountByTitle(String title) {
+			return tpl.selectOne("askMapper.findAdminAskCountByTitle", title); 
+		}
+		
+		// 읽기전을 답변중으로 바꾸기
+		public int answering(long adminAskNo) {
+			return tpl.update("askMapper.answering",adminAskNo);
+		}
+		public String checkusername(String username, long adminAskNo) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("username", username);
+			map.put("adminAskNo", adminAskNo);
+			return tpl.selectOne("askMapper.checkusername",map);
 		}
 }

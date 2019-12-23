@@ -220,13 +220,13 @@ var mmmmmmm;
 			var password = $("#password").val();
 			var newPassword = $("#newPassword");
 			var newPassword2 = $("#newPassword2");
-			// 특수문자를 하나이상 포함하는 8~10자 (전방탐색 이용)
-			var patt = /(?=.*[!@#$%^&*])^[A-Za-z0-9!@#$%^&*]{8,10}$/;
+			// 특수문자를 하나이상 포함하는 8~10자 (전방탐색 이용)	- 정규식 제외하기
+			 var patt = /(?=.*[!@#$%^&*])^[A-Za-z0-9!@#$%^&*]{8,10}$/;
 			
-			if(patt.test(password)==false) {
+		/* 	if(patt.test(password)==false) {
     			  $("#helper_password").text("현재 비밀번호를 입력해주세요.").css("color","red").css("font-size","0.75em");;
     		  	return false;
-   			}			
+   			}	 */		 
    			
 			// 새 비밀번호 정규식 확인
 			if(!patt.test(newPassword.val())) {
@@ -241,6 +241,7 @@ var mmmmmmm;
 			if(newPassword.val()!=newPassword2.val()) {
 				newPassword.val("");
 				newPassword2.attr("placeholder", "새 비밀번호가 일치하지 않습니다");
+				toastr.error("새 비밀번호를 다시 확인해주세요.");
 				return;
 			}
 			var param = {
@@ -468,7 +469,7 @@ var mmmmmmm;
 				<div class="form-group">
 					<span id="intro1"></span><br>
 					<textarea rows="5" name="intro" id="intro" cols="100"
-						placeholder="한 줄 소개를 입력해주세요^^" value=""></textarea>
+						placeholder="한 줄 소개를 입력해주세요^^" value="" style = "resize : none;"></textarea>
 				</div>
 				<div></div>
 			</div>
