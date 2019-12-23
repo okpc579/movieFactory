@@ -125,6 +125,7 @@ public class CollectionService {
 	}
 
 	public Page movieCollectionList(long mNo, int pageno) {
+		System.out.println("===페이징 서비스=====");
 		int pagesize=10;
 		int count = collectionDao.findMovieCollectionCount(mNo);
 		int startRowNum = ((pageno-1) * pagesize + 1);
@@ -136,7 +137,8 @@ public class CollectionService {
 	}
 
 	public Page usernameCollectionList(String username, int pageno) {
-		int pagesize=10;
+		System.out.println("===페이징 서비스=====");
+		int pagesize=10;	
 		int count = collectionDao.findUsernameCollectionCount(username);
 		int startRowNum = ((pageno-1) * pagesize + 1);
 		int endRowNum = startRowNum + pagesize -1;

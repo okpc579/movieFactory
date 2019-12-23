@@ -26,8 +26,11 @@ public class UserMovieRestController {
 	
 	// 4. 유저리뷰 목록보기
 	@GetMapping("/review")
-	public ResponseEntity<?> reviewlist(String username) {
-		return ResponseEntity.ok(service.findUserReview(username));		
+	public ResponseEntity<?> reviewlist(String username, @RequestParam(defaultValue = "1") int pageno) {
+		System.out.println("==============================");
+		System.out.println(service.findUserReview(username, pageno));
+		System.out.println("==============================");
+		return ResponseEntity.ok(service.findUserReview(username, pageno));
 	}
 	@GetMapping("/checkfollowing")
 	public ResponseEntity<?> checkfollowing(Principal principal, String username) {
@@ -37,13 +40,13 @@ public class UserMovieRestController {
 	// 5. 팔로잉 목록보기
 	@GetMapping("/following")
 	public ResponseEntity<?> followinglist(Principal principal, String username) {
-		return ResponseEntity.ok(service.findFollowing(username, principal.getName()));		
+		return ResponseEntity.ok(service.findFollowing(username));		
 	}
 	
 	// 6. 팔로워 목록보기
 	@GetMapping("/follower")
 	public ResponseEntity<?> followerlist(Principal principal, String username) {
-		return ResponseEntity.ok(service.findFollower(username, principal.getName()));
+		return ResponseEntity.ok(service.findFollower(username));
 	}
 	
 	@PostMapping("/addfollowing")
@@ -67,8 +70,8 @@ public class UserMovieRestController {
 	
 	// 8. 유저 고평점 상위보기
 	@GetMapping("/usertoprating")
-	public ResponseEntity<?> usertoprating(Principal principal, String followingUsername) {
-		return ResponseEntity.ok(service.findUserTopRating(principal.getName()));		
+	public ResponseEntity<?> usertoprating(String username) {
+		return ResponseEntity.ok(service.findUserTopRating(username));		
 	}
 	
 	// 9. 장르별 평점 상위 보기

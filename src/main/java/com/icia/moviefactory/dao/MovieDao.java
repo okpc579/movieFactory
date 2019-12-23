@@ -126,7 +126,6 @@ public class MovieDao {
 		map.put("startRowNum", startRowNum);
 		map.put("endRowNum", endRowNum);
 		return tpl.selectList("movieMapper.findAll",map);
-		
 	}
 	
 	// 작성자로 검색해 리뷰 글 개수 읽어오기
