@@ -87,7 +87,29 @@ public class AskRestController {
 	@Secured("ROLE_ADMIN")
 	@PostMapping("/adminAsk/askAnswer")
 	public ResponseEntity<?> askAnswer(AdminAsk adminAsk){
-		System.out.println(adminAsk+"왓냐!?");
 		return ResponseEntity.ok(service.askAnswer(adminAsk));
+	}
+	
+	// 아이디 검색 문의 목록 가져오기
+	@GetMapping("/adminAsk/searchlist")		
+	public ResponseEntity<?> findAllAdminAskByUsername(@RequestParam(defaultValue="1") int pageno, String username) {
+	return ResponseEntity.ok(service.findAdminAskBySearchUsername(pageno, username));
+	}
+	
+	// 제목 검색 문의 목록 가져오기
+	@GetMapping("/adminAsk/searchlisttitle")		
+	public ResponseEntity<?> findAllAdminAskByTitle(@RequestParam(defaultValue="1") int pageno, String title) {
+	return ResponseEntity.ok(service.findAdminAskBySearchTitle(pageno, title));
+	}
+	
+	@PostMapping("/adminAsk/answering")
+	public ResponseEntity<?> answering(long adminAskNo){
+		return ResponseEntity.ok(service.answering(adminAskNo));
+	}
+	
+	// 로그인한 아이디 불러오는
+	@GetMapping("/adminAsk/username")
+	public ResponseEntity<?> username(Principal principal, long adminAskNo){
+		return ResponseEntity.ok(service.checkusername(principal.getName(), adminAskNo));
 	}
 }

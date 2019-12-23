@@ -35,4 +35,16 @@
 	<select id="findByNotice" resultType="Notice">
 		select notice_no noticeNo,title,content,writing_date writingDate from notice where notice_no=#{noticeNo} and rownum =1
 	</select>
+	<select id="findNoticeByTitle" resultType="Notice">
+		<![CDATA[
+			select * from
+				(select rownum rnum, b.* from
+					(select /*+ index_desc(notice notice_pk_notice_no) */ notice_no noticeNo,title,content,writing_date writingDate from notice where title like '%'||#{title}||'%' order by notice_no desc) b
+				where rownum<=#{endRowNum})
+			where rnum>=#{startRowNum}
+		]]>
+	</select>
+	<select id="findNoticeCountByTitle" resultType="int">
+		select /*+ index_ffs(notice notice_pk_notice_no) */ count(notice_no) from notice where title like '%'||#{title}||'%'
+	</select>
 </mapper>
