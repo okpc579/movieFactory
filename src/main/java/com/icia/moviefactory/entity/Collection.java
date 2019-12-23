@@ -18,4 +18,5 @@ public class Collection {
 	private Date writingDate;
 	private String collIntro;
 	private List<CollectionDetail> detail;
+	private long collLikeCnt;
 }

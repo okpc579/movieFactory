@@ -50,8 +50,8 @@ public class UserMovieDaoTest {
    // @Transactional
    // @Test
    public void findUserReviewTest() {
-	   	List<MovieReview> result = dao.findUserReview("ieb6721");
-	   	assertThat(result.size(), is(5));
+	   	//List<MovieReview> result = dao.findUserReview("ieb6721");
+	   	//assertThat(result.size(), is(5));
 	   	// System.out.println();
    }
    

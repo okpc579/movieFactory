@@ -165,39 +165,53 @@ $(function() {
 	         }
 	      });*/
 	      $.ajax({
-    		  url: "/moviefactory/api/usermovie/checkfollowing?username=" + username,
- 	         method: "get",
- 	         success: function(result) {
- 	            console.log(result);
- 	            if(result=="true"){
- 	            	$("<button id='unfollow' class='btn btn-default' type='button'>언팔로우</button>").appendTo($("#isfollow"));
- 	            	$("#unfollow").on("click",function(){
- 	     	    	  $.ajax({
- 	     	    		  url: "/moviefactory/api/usermovie/deletefollowing?username=" + username,
- 	     	 	         method: "post",
- 	     	 	         success: function(result) {
- 	     	 	            //console.log(result);
- 	     	 	        	location.reload();
- 	     	 	         }
- 	     	 	      });
- 	     	     	 });
- 	            	
- 	            }else if(result=="false"){
- 	            	$("<button id='follow' class='btn btn-primary' type='button'>팔로우</button>").appendTo($("#isfollow"));
- 	            	$("#follow").on("click",function(){
- 	     	    	  $.ajax({
- 	     	    		  url: "/moviefactory/api/usermovie/addfollowing?username=" + username,
- 	     	 	         method: "post",
- 	     	 	         success: function(result) {
- 	     	 	            //console.log(result);
- 	     	 	            location.reload();
- 	     	 	         }
- 	     	 	      });
- 	     	     	 });
- 	            	
- 	            }
- 	         }
- 	      });
+		         url: "/moviefactory/api/usermovie/checkmyname?username="+ username,
+		         method: "get",
+		         success: function(result) {
+		         	if(result=="false"){
+		         		$.ajax({
+		          		  url: "/moviefactory/api/usermovie/checkfollowing?username=" + username,
+		       	         method: "get",
+		       	         success: function(result) {
+		       	            console.log(result);
+		       	            if(result=="true"){
+		       	            	$("<button id='unfollow' class='btn btn-default' type='button'>언팔로우</button>").appendTo($("#isfollow"));
+		       	            	$("#unfollow").on("click",function(){
+		       	     	    	  $.ajax({
+		       	     	    		  url: "/moviefactory/api/usermovie/deletefollowing?username=" + username,
+		       	     	 	         method: "post",
+		       	     	 	         success: function(result) {
+		       	     	 	            //console.log(result);
+		       	     	 	        	location.reload();
+		       	     	 	         }
+		       	     	 	      });
+		       	     	     	 });
+		       	            	
+		       	            }else if(result=="false"){
+		       	            	$("<button id='follow' class='btn btn-primary' type='button'>팔로우</button>").appendTo($("#isfollow"));
+		       	            	$("#follow").on("click",function(){
+		       	     	    	  $.ajax({
+		       	     	    		  url: "/moviefactory/api/usermovie/addfollowing?username=" + username,
+		       	     	 	         method: "post",
+		       	     	 	         success: function(result) {
+		       	     	 	            //console.log(result);
+		       	     	 	            location.reload();
+		       	     	 	         }
+		       	     	 	      });
+		       	     	     	 });
+		       	            	
+		       	            }
+		       	         }
+		       	      });
+		         	}   
+		         
+		         }
+		 });
+	      
+	      
+	      
+	      
+	      
 	      $("#review").on("click",function(){
 	    	  location.href="/moviefactory/usermovie/review?username="+username;
 	      });

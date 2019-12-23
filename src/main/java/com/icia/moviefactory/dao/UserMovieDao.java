@@ -127,7 +127,7 @@ public class UserMovieDao {
 		map.put("loginname", loginname);
 		return tpl.selectOne("userMovieMapper.checkfollowing", map);
 	}
-<<<<<<< HEAD
+
 	
 	// 전체 리뷰 개수
 	public int findReviewMovieCount(String username) {
@@ -148,7 +148,6 @@ public class UserMovieDao {
 //		return tpl.selectList("userMovieMapper.findReviewMovieListByUsername", map);
 //	}
 
-=======
 
 	// db에 좋아요한 영화 있는 지 확인
 	public String checkFavoriteMovie(Long mNo, String username) {
@@ -156,6 +155,6 @@ public class UserMovieDao {
 		map.put("mNo", mNo);
 		map.put("username", username);
 		return tpl.selectOne("userMovieMapper.checkFavoriteMovie",map);
-	}	
->>>>>>> 20191205_은영
+	}
+
 }

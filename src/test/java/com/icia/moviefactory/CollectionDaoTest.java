@@ -26,10 +26,10 @@ public class CollectionDaoTest {
 	//@Transactional
 	//@Test
 	public void collectionAddTest() {
-		Collection collection = new Collection(1, "컬렉션1","spring",null,"짱짱컬렉션입니다",null);
-		collection.getDetail().size();
-		int result = dao.add(collection);
-		assertThat(result, is(1));
+		//Collection collection = new Collection(1, "컬렉션1","spring",null,"짱짱컬렉션입니다",null);
+		//collection.getDetail().size();
+		//int result = dao.add(collection);
+		//assertThat(result, is(1));
 	}
 	//@Test
 	public void collectionReadTest() {
@@ -49,9 +49,9 @@ public class CollectionDaoTest {
 	//@Transactional
 	//@Test
 	public void collectionUpdateTest() {
-		Collection collection = new Collection(1, "컬렉션1","spring",null,"짱짱컬렉션입니다",null);
-		int result = dao.update(collection);
-		assertThat(result, is(1));
+		//Collection collection = new Collection(1, "컬렉션1","spring",null,"짱짱컬렉션입니다",null);
+	//	int result = dao.update(collection);
+	//	assertThat(result, is(1));
 	}
 	//@Transactional
 	//@Test

@@ -103,7 +103,7 @@
 		<![CDATA[
 			select * from
 		       	(select rownum rnum, c.* from 
-		       		(select c.coll_no collNo, c.coll_name collName, c.username, c.writing_date writingDate, c.coll_intro collIntro from coll c, coll_detail cd where cd.m_no=#{mNo} and cd.coll_no(+) = c.coll_no order by c.coll_no desc) c
+		       		(select c.coll_no collNo, c.coll_name collName, c.username, c.writing_date writingDate, c.coll_intro collIntro, c.coll_like_cnt collLikeCnt from coll c, coll_detail cd where cd.m_no=#{mNo} and cd.coll_no(+) = c.coll_no order by c.coll_like_cnt desc) c
 		       	where rownum<=#{endRowNum}) 
 		    where rnum>=#{startRowNum}
 		]]>
@@ -135,5 +135,11 @@
 	<select id="findCollectionById" resultType="collections">
 		select coll_no collNo, coll_name collName, username, writing_date writingDate, coll_intro collIntro from coll where coll_no = #{collNo}
 	</select>
+	<select id="findCollectionUsernameByUsername" resultType="string">
+		select username from coll where coll_no = #{collNo} and username =#{username}
+	</select>
+	
+	
+	
 	
 </mapper>

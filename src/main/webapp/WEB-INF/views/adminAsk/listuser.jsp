@@ -187,10 +187,8 @@ background-color
 					}
 				}
 				*/
-				if(typeof result =="undefined"){
+				if(result.adminAsks.length ==0 && result.pageno!=1){
 					location.href="/moviefactory/adminAsk/listuser?pageno="+1	
-				}else if(result.adminAsks.length ==0){
-					location.href="/moviefactory/adminAsk/listuser?pageno="+1
 				}
 				adminaskList(result); // 이거 이름 안바꿈 adminaskList
 				if (params[1] != undefined)
@@ -199,7 +197,8 @@ background-color
 					adminaskPage(result); // 여기 이름 안바꿈 adminaskPage
 			},error: function(xhr) {
 				console.log(xhr);
-				 location.href="/moviefactory/adminAsk/listuser?pageno="+1
+				
+				//location.href="/moviefactory/adminAsk/listuser?pageno="+1
 	         }
 		});
 	});

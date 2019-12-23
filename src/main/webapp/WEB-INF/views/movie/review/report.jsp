@@ -29,21 +29,22 @@
 $(function(){
 		 
 		$("#report").on("click",function(){
-			$("#mRevNo").val(location.search.split('=')[1])
+			$("#mRevNo").val(location.search.split('=')[1]);
 			var param = $("#writeForm").serialize();
 			console.log($("#title").val());
 			console.log(param);
 			console.log($("#mRevNo").val());
+			if(location.search.split('=')[0] == ""){
+				location.href="/moviefactory";
+			}
 			$.ajax({
-				if(location.search.split('=')[0] == ""){
-					location.href="/moviefactory";
-				}
 				url: "/moviefactory/api/movie/report",
 				method: "post",
 				data: param,
 				success : function(result) {
 					console.log(result);
 					alert("신고 완료");
+					close();
 				}, error: function(xhr) {
 					console.log(xhr.status);
 					alert("이미 신고한 리뷰 입니다.");

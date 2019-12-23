@@ -34,16 +34,17 @@ $(function(){
 			console.log($("#title").val());
 			console.log(param);
 			console.log($("#mRevNo").val());
+			if(location.search.split('=')[0] == ""){
+				location.href="/moviefactory";
+			}
 			$.ajax({
-				if(location.search.split('=')[0] == ""){
-					location.href="/moviefactory";
-				}
 				url: "/moviefactory/api/movie/cmntreport",
 				method: "post",
 				data: param,
 				success : function(result) {
 					console.log(result);
 					alert("신고 완료");
+					close();
 				}, error: function(xhr) {
 					console.log(xhr.status);
 					alert("이미 신고한 댓글 입니다.");

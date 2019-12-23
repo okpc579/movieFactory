@@ -112,5 +112,11 @@ public class CollectionDao {
 	public Collection read3(long collNo) {
 		return tpl.selectOne("collectionMapper.findCollectionById", collNo);
 	}
+	public String checkmycollection(String username, long collNo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("username", username);
+		map.put("collNo", collNo);
+		return tpl.selectOne("collectionMapper.findCollectionUsernameByUsername", map);
+	}
 	
 }

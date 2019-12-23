@@ -4,7 +4,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
-<html>
+<html>ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet"
@@ -242,9 +242,18 @@ function deletemovie(mno){   // 영화번호로 영화 삭제
 $(function() {      // 문자열을 나누어는(split) 기능
    coll_no = location.search.split("&")[0].split("=")[1];
    console.log(location.search.split("&")[0].split("=")[1]);
-   console.log(location.search.split("&")[1].split("=")[1]);
+   console.log(location.search.split("&")[1]);
+   var pageno;
+   if(typeof location.search.split("&")[1]== "undefined"){
+	   pageno=1;
+	}else{
+	   pageno = location.search.split("&")[1].split("=")[1];
+	}
+   
+   console.log(pageno);
+   
       $.ajax({
-         url: "/moviefactory/api/collection/read?collNo=" + location.search.split("&")[0].split("=")[1] + "&pageno="+location.search.split("&")[1].split("=")[1],
+         url: "/moviefactory/api/collection/read?collNo=" + location.search.split("&")[0].split("=")[1] + "&pageno="+pageno,
          method: "get",
          success: function(result, status, xhr) {
             console.log(result);
@@ -267,6 +276,29 @@ $(function() {      // 문자열을 나누어는(split) 기능
 	  console.log("클릭 완료");
       deletemovie($(this).val());
    });
+   var param = {
+			collNo : coll_no
+	}
+   $("#delete").on("click", function() {
+	   $.ajax({
+	         url: "/moviefactory/api/collection/delete",
+	         method: "post",
+	         data:param,
+	         success: function(result, status, xhr) {
+	        	 $.ajax({
+	    	         url: "/moviefactory/api/collection/username",
+	    	         method: "get",
+	    	         success: function(result, status, xhr) {
+	    					location.href="/moviefactory/collection/list?username="+result; 	 
+	    	         }, error: function(xhr) {
+	    	            
+	    	         }
+	    	      });	        	 
+	         }, error: function(xhr) {
+	            
+	         }
+	      });
+	});
 });
 </script>
 <sec:authorize access="hasRole('ROLE_USER')">	<!-- 특정 권한을 가지는 사용자(role_user)만 접근할 수 있다 -->
@@ -275,52 +307,88 @@ $(function() {      // 문자열을 나누어는(split) 기능
    var $movies;
    $(function() {
       $movies = $("#movies");
-      $.ajax({	// 좋아요 버튼 기능(좋아요/좋아요취소)♥♡
-         url: "/moviefactory/api/collection/checklike?collNo=" + coll_no,
-         method: "get",
-         success: function(result, status, xhr) {
-            console.log(result);
-            if(result=="true"){
-               $("<button type='button' id='cancellike' class='btn btn-default'>").text('좋아요취소').appendTo($("#doyoulike"));
-               $("#cancellike").on("click", function() {
-                  var param = {
-                        collNo:coll_no,
-                  }
-                  $.ajax({
-                     url: "/moviefactory/api/collection/cancellike?collNo=" + coll_no,
-                     method: "post",
-                     data: param,
-                     success: function(result, status, xhr) {
-                    	console.log(result);
-                        location.reload();
-                     }, error: function(xhr) {
-                        console.log(xhr);
-                     }
-                  });
-               });
-               
-            }else if(result=="false"){
-               $("<button type='button' id='like' class='btn btn-primary'>").text('좋아요').appendTo($("#doyoulike"));
-               $("#like").on("click", function() {
-                  var param = {
-                        collNo:coll_no,
-                  }
-                  $.ajax({
-                     url: "/moviefactory/api/collection/like",
-                     method: "post",
-                     data: param,
-                     success: function(result, status, xhr) {
-                        location.reload();
-                     }, error: function(xhr) {
-                        
-                     }
-                  });
-               });
-            }
-         }, error: function(xhr) {
-            
-         }
-     });	// 좋아요 버튼 기능(좋아요/좋아요취소)♥♡
+      var param = {
+				collNo : coll_no
+		}
+      $.ajax({
+			url: "/moviefactory/api/collection/checkmycollection",
+			method:"get",
+			data: param,
+			success:function(result) {
+				console.log(result);
+				console.log("성공진입");
+				if(result=="true"){
+					
+
+					$("#popup").show();
+					$("#update").show();
+					$("#delete").show();
+				}				
+				
+				if(result=="false"){
+					
+				      $.ajax({	// 좋아요 버튼 기능(좋아요/좋아요취소)♥♡
+				          url: "/moviefactory/api/collection/checklike?collNo=" + coll_no,
+				          method: "get",
+				          success: function(result, status, xhr) {
+				             console.log(result);
+				             if(result=="true"){
+				                $("<button type='button' id='cancellike' class='btn btn-default'>").text('좋아요취소').appendTo($("#doyoulike"));
+				                $("#cancellike").on("click", function() {
+				                   var param = {
+				                         collNo:coll_no,
+				                   }
+				                   $.ajax({
+				                      url: "/moviefactory/api/collection/cancellike?collNo=" + coll_no,
+				                      method: "post",
+				                      data: param,
+				                      success: function(result, status, xhr) {
+				                     	console.log(result);
+				                         location.reload();
+				                      }, error: function(xhr) {
+				                         console.log(xhr);
+				                      }
+				                   });
+				                });
+				                
+				             }else if(result=="false"){
+				                $("<button type='button' id='like' class='btn btn-primary'>").text('좋아요').appendTo($("#doyoulike"));
+				                $("#like").on("click", function() {
+				                   var param = {
+				                         collNo:coll_no,
+				                   }
+				                   $.ajax({
+				                      url: "/moviefactory/api/collection/like",
+				                      method: "post",
+				                      data: param,
+				                      success: function(result, status, xhr) {
+				                         location.reload();
+				                      }, error: function(xhr) {
+				                         
+				                      }
+				                   });
+				                });
+				             }
+				          }, error: function(xhr) {
+				             
+				          }
+				      });	// 좋아요 버튼 기능(좋아요/좋아요취소)♥♡
+				}
+				//location.href="http://localhost:8081/moviefactory/collection/read?collNo="+result+"&pageno=1";
+			}, error : function(xhr) {
+				//location.href="http://localhost:8081/moviefactory/collection/read?collNo="+coll_no+"&pageno=1";
+			
+			}
+		});
+      
+      
+      
+      
+      
+      
+      
+      
+
    });
    </script>
 </sec:authorize>
@@ -334,8 +402,9 @@ $(function() {      // 문자열을 나누어는(split) 기능
 				</div>
 				<div id="btn" class="top">
 					<span>제목: </span><span id="title"></span>
-					<button type="button" class="btn btn-info" id="popup" >추가</button>
-					<button class="btn btn-info" id="update">수정</button>
+					<button type="button" class="btn btn-info" id="popup" style="display: none">추가</button>
+					<button class="btn btn-info" id="update" style="display: none">수정</button>
+					<button class="btn btn-info" id="delete" style="display: none">삭제</button>
 				</div>
 <!-- 상단 div --></div><br><br>
 <!-- 영화보여주는 div -->

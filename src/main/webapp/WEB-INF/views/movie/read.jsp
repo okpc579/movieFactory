@@ -3,7 +3,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
 <%@ page session = "true" %>    
 <!DOCTYPE html>
-<html>
+<html>sssssssss
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -28,7 +28,7 @@
 	var $tr11;
 	var $tr10;
 	var $body;
-
+	var collections;
 	function printList() {
 		$body = $("#read");
 		var $head = $("#head_");
@@ -224,15 +224,10 @@
 				success:function(result) {
 					console.log(result);
 					if(result==""){
-<<<<<<< HEAD
-						$("<button type='button'>").attr("id","revWrite").css("height","50px").css("width","100px").attr("class","btn btn-default").text("리뷰 작성").appendTo($("#review"));
-					}else{
-						$("<button type='button'>").attr("id","updateWrite").css("height","50px").css("width","100px").attr("class","btn btn-default").attr("href","/moviefactory/movie/review/update?mrevNo=" + result.mrevNo).text("리뷰수정").appendTo("#review");
-=======
+
 						$("<button type='button'>").attr("id","revWrite").attr("class","btn btn-primary").text("리뷰 작성").appendTo($("#review"));
 					}else{
 						$("<button type='button'>").attr("id","updateWrite").attr("href","/moviefactory/movie/review/read?mrevNo=" + result.mrevNo).attr("class","btn btn-primary").text("리뷰수정").appendTo("#review");
->>>>>>> 20191205_은영
 						console.log(result.mrevNo);
 					}
 					$("#revWrite").on("click", function() {
@@ -246,8 +241,8 @@
 					});
 					$("#updateWrite").on("click", function() {
 						if(isLogin==true){
-							console.log(mno);
-						location.href="/moviefactory/movie/review/update?mno="+mno;
+							//console.log(mno);
+							location.href="/moviefactory/movie/review/update?mno="+m_no;
 						}
 						else{
 							location.href="/moviefactory/member/login"
@@ -274,7 +269,125 @@
 			location.href="/moviefactory/movie/review/list?mno="+m_no;
 		});
 		
+		var param = {
+				mNo : location.search.split("=")[1]
+			};
+		m_no=location.search.split("=")[1];
+		$.ajax({
+			url:"/moviefactory/api/collection/list",
+			data:param,
+			method: "get",
+			success:function(result) {
+				console.log("============================");
+				console.log(result);
+				console.log("============================");
+				collections = result.collections;
+				printData();
+			}, error:function(xhr) {
+		}
 	});
+		
+		
+	});
+	
+	
+
+	
+	
+	
+	
+	function printData() {
+		var $body = $("#list");
+		$("<a>").attr("href","http://localhost:8081/moviefactory/collection/list?mno="+ m_no + "&pageno=1").text("더보기").appendTo($body);
+		$.each(collections, function(i, collection) {
+			
+			var $movies = $("#movies");
+			var $movie = $("<span>").css("display", "inline-block").css("margin", "2px").appendTo($movies);   
+			var $title = $("<div>").css("display", "inline-block").appendTo($movie);
+			
+			var $div = $("<div>").attr("class", "w3-third").css("padding", "33px").appendTo($body); // .attr("class", "w3-third") 3x3 부트스트랩 클래스 지정
+			var $table = $("<table>").appendTo($div);
+			var $tr = $("<tr>").appendTo($table);
+			$("<td colspan=2>").text(collection.writingDate + "좋아요수" + collection.collLikeCnt).css("padding", "10px").appendTo($tr); // 작성일
+			
+			
+			var $tr = $("<tr>").appendTo($table);
+			var $td = $("<td colspan=2>").css("padding-left", "30px").css("padding-right", "30px").css("padding-top", "10px").css("padding-bottom", "10px").css("text-align", "center")
+			.css("border-top", "solid 3px #00D8FF").css("border-bottom", "solid 3px #00D8FF").css("height","240px").appendTo($tr);
+			$.ajax({
+		          url: "/moviefactory/api/collection/collposter?collNo=" + collection.collNo,
+		          method: "get",
+		          success: function(result, status, xhr) { // 요청이 성공했을 때 수행되는 함수 뜻함(포스터,영화이름 가져옴)
+		          	// console.log(result.detail[0]);
+		          if(typeof result.detail[0] =="undefined"){
+		        	  $td.text("영화를 추가해주세요.");
+		          }
+		             $.each(result.detail, function(i, detail){
+		         	 	$.ajax({
+				 	    	url: "http://kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.xml?key=147d96f90a50a05230287f0f02412bfd&movieCd=" + detail.mno,
+				 	    	method: "get",
+							success: function(result, status, xhr) { // 요청이 성공했을 때 수행되는 함수 뜻함(포스터,영화이름 가져옴)
+				 	        	console.log(result);   // result 값을 출력
+				 	        	getPoster2($(result).find('movieNm').text(), $(result).find('prdtYear').text(), $td);
+				 	        }, error: function(xhr) {   // 에러발생시 
+				 	             console.log(xhr.status);   // 오류번호 발생번호 출력
+				 	        }
+				 	    });
+		             });
+		          }, error: function(xhr) {   // 에러발생시 
+		              console.log(xhr.status);   // 오류번호 발생번호 출력
+		              console.log("오류");
+		          }
+		    });
+			// .css("overflow","hidden").css("text-overflow","ellipsis").css("white-space","nowrap").css("width","50px")
+			// text-overflow:ellipsis
+			var $tr = $("<tr>").appendTo($table);
+			$("<td colspan=2>").text(collection.collName).css("white-space","nowrap").css("overflow","hidden").css("text-overflow","ellipsis").css("padding", "10px").css("height","50px").appendTo($tr); // 콜렉션 이름
+			var $tr = $("<tr>").appendTo($table);
+			$("<td colspan=2>").text(collection.collIntro).css("white-space","nowrap").css("overflow","hidden").css("text-overflow","ellipsis").css("padding", "10px").css("height","50px").appendTo($tr); // 콜렉션 내용
+			var $tr = $("<tr>").css("text-align", "center").appendTo($table);
+			var $td2 = $("<td colspan=2>").css("padding", "10px").css("border-top", "solid 3px #00D8FF").appendTo($tr);
+			$("<a>").attr("href", "/moviefactory/collection/read?collNo=" + collection.collNo + "&pageno=1").text("보기").appendTo($td2);	// 콜렉션 상세 링크
+			// 상세, 열기, 읽기, 보기, 열람,  
+	});
+}
+	
+	function getPoster2(movieNm, prdtYear, $tr) {   // (영화제목,제작년도)로 포스터 불러오는 기능
+			console.log("포스터함수실행");
+		   console.log(movieNm);
+		   console.log(prdtYear);
+		   $.ajax({
+		      url:"/moviefactory/api/image?subtitle=" + movieNm + "&pubData=" + prdtYear,
+		      method: "get",
+		      success:function(result) {
+		         console.log(result.image);
+		         //posterString = result.image;
+		         if(typeof result.image == "undefined"){   // 이미지가 정해지지 않을 경우
+		        	 console.log("디폴트이미지");
+		         		
+		            //var $td = $("<td>").appendTo($tr)   // td에 tr를 넣어라
+		            $("<img>").attr("src","http://localhost:8081/sajin/default_movie.png").attr("height","100px").attr("width", "80px").appendTo($tr); 
+		         }else {
+		         	//var $td = $("<td>").appendTo($tr)   // 이미지가 들어있는 td를 tr에 넣어라
+		         	$("<img>").attr("src",result.image).attr("height","100px").attr("width", "80px").appendTo($tr);   // result.image를 td안에 넣어라
+		         	console.log("이미지들가냐");
+		         //$("<td>").text(result.image).appendTo($tr);
+		         }
+		         
+		      }, error:function(xhr) {
+		         console.log(xhr);
+		      }
+		   });
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </script>
 <style>
 	table {
@@ -353,21 +466,7 @@
 				<col width="6%">
 				<col width="13%">
 			</colgroup>
-<<<<<<< HEAD
-			<thead>
-				<tr>
-					<th class="code">영화코드</th>
-					<th class="title">제목</th>
-					<th class="made">제작년도</th>
-					<th class="open">개봉년도</th>
-					<th class="country">제작국가</th>
-					<th class="genre">장르</th>
-					<th class="director">감독</th>
-					<th class="actor">배우</th>
-					<th class="grade">관람가</th>
-					<th class="poster">포스터</th>
-				</tr> 
-=======
+
 			<thead id="head">
 				<!-- <tr id="head_">
 					<th class="head_detail">제목</th>
@@ -383,7 +482,6 @@
 					<!-- <img src="/sajin/ar.svg" id="back"> -->
 					<!-- <th colspan="2" class="head_detail">영화정보</th> -->
 				</tr>
->>>>>>> 20191205_은영
 			</thead>
 			<tbody id="read">
 			</tbody>
@@ -395,6 +493,9 @@
 		<div id="readRev">
 		</div>
 </form>
+</div>
+<div class="w3-row-padding" id="list">
+			
 </div>
 </body>
 </html>

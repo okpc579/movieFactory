@@ -132,7 +132,8 @@ public class UserMovieService {
 	public String checkFavoriteMovie(Long mNo, String username) {
 		String checkFavoriteMovie = dao.checkFavoriteMovie(mNo,username);
 		return checkFavoriteMovie==null?"false":"true";
-	}	
+	}
+
 		
 //	public Page usernameReviewMovieList(String username, int pageno) {
 //		System.out.println("===페이징 서비스=====");

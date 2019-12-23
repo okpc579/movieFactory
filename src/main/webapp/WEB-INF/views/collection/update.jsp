@@ -43,6 +43,27 @@
   $(function() {
 	  	var coll_no = location.search.substr(location.search.indexOf("=") + 1);
 		console.log(coll_no);
+		
+		var param = {
+				collNo : coll_no
+		}
+		$.ajax({
+			url: "/moviefactory/api/collection/checkmycollection",
+			method:"get",
+			data: param,
+			success:function(result) {
+				console.log(result);
+				if(result=="false"){
+					location.href="http://localhost:8081/moviefactory/collection/read?collNo="+coll_no+"&pageno=1";
+				}
+				//location.href="http://localhost:8081/moviefactory/collection/read?collNo="+result+"&pageno=1";
+			}, error : function(xhr) {
+				location.href="http://localhost:8081/moviefactory/collection/read?collNo="+coll_no+"&pageno=1";
+			}
+		});
+		
+		
+		
 		$.ajax({
 			url: "/moviefactory/api/collection/read/" + coll_no,
 			method: "get",

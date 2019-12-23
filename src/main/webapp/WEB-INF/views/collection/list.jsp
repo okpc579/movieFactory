@@ -189,23 +189,26 @@ a:hover {
 	$(function() {
 		console.log(location.search.split('&'));
 		strArray = location.search.split('&');
-		console.log(strArray[0].split('=')[0]);
-		console.log(strArray[1].split('=')[0]);
-		console.log(strArray[0].split('=')[1]);
-		console.log(strArray[1].split('=')[1]);
-		page = strArray[1].split('=')[1];
+		   if(typeof location.search.split("&")[1]== "undefined"){
+			   page = 1;
+			}else{
+				page = strArray[1].split('=')[1];
+			}
+		
 		if (strArray[0].split('=')[0] == '?mno') {
 			mno = strArray[0].split('=')[1];
 			$.ajax({
 				url : "/moviefactory/api/collection/list?mNo="
 						+ strArray[0].split('=')[1] + "&pageno="
-						+ strArray[1].split('=')[1],
+						+ page,
 				method : "get",
 				success : function(result,xhr) {
 					console.log(result);
 					collections = result.collections;
 					printData();
 					printPaging(result);
+				}, error: function(){
+					location.href="/moviefactory";
 				}
 			});
 		} else if (strArray[0].split('=')[0] == '?username') {
@@ -213,7 +216,7 @@ a:hover {
 			$.ajax({
 				url : "/moviefactory/api/collection/userlist?username="
 						+ strArray[0].split('=')[1] + "&pageno="
-						+ strArray[1].split('=')[1],
+						+ page,
 				method : "get",
 				success : function(result,xhr) {
 					$.ajax({
@@ -234,6 +237,8 @@ a:hover {
 					collections = result.collections;
 					printData();
 					printPaging(result);
+				}, error: function(){
+					location.href="/moviefactory";
 				}
 			});
 		}

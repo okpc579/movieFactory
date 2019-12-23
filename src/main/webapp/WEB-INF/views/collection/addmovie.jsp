@@ -56,8 +56,8 @@
 				mNo : $("#cdval0").val(),
 				collNo : coll_no,
 			};
-			console.log(mNo);
-			console.log(coll_no);
+			console.log(param);
+			//console.log(coll_no);
 			$.ajax({
 				url : "/moviefactory/api/collection/addmovie",
 				method : "post",
@@ -464,7 +464,23 @@
 				search();
 			}
 		});
-
+		var param = {
+				collNo : coll_no
+		}
+		$.ajax({
+			url: "/moviefactory/api/collection/checkmycollection",
+			method:"get",
+			data: param,
+			success:function(result) {
+				console.log(result);
+				if(result=="false"){
+					close();
+				}
+				//location.href="http://localhost:8081/moviefactory/collection/read?collNo="+result+"&pageno=1";
+			}, error : function(xhr) {
+				
+			}
+		});
 	});
 </script>
 </head>

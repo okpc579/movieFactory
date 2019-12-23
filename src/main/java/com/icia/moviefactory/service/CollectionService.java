@@ -163,5 +163,9 @@ public class CollectionService {
 	public Collection read3(long collNo) {
 		return collectionDao.read3(collNo);
 	}
+
+	public String checkmycollection(String username, long collNo) {
+		return collectionDao.checkmycollection(username, collNo)==null?"false":"true";
+	}
 	
 }

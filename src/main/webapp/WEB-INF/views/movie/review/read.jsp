@@ -665,7 +665,7 @@ var isLike;
 			$("#lower_right").on("click","#c",function() {
 				if (isLogin == false || moviereview.own == true)
 							return;
-				window.open('/moviefactory/movie/review/report?mrevno='+mRevNo,'window','width=400, height=400, status=no,toolbar=no,scrollbars=no, location=no');
+				window.open('/moviefactory/movie/review/report?mrevno='+mRevNo,'window','width=800, height=600, status=no,toolbar=no,scrollbars=no, location=no');
 			});
 			// 7. 댓글 작성
 			$("#comment_write").on("click", function() {
@@ -782,7 +782,7 @@ var isLike;
 				if (isLogin == false || moviereview.own == true)
 						return;
 				console.log("===들어옴===")
-				window.open('/moviefactory/movie/review/cmntreport?mrevcmntno='+mRevCmntNo,'window','width=400, height=400, status=no,toolbar=no,scrollbars=no, location=no');
+				window.open('/moviefactory/movie/review/cmntreport?mrevcmntno='+mRevCmntNo,'window','width=800, height=600, status=no,toolbar=no,scrollbars=no, location=no');
 			});
 		});
 	</script>

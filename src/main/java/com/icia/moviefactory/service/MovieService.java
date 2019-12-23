@@ -235,7 +235,7 @@ public class MovieService {
 		return dao.myReview(mno,name);
 	}
 
-<<<<<<< HEAD
+
 	public String checkReviewLike(Long mRevNo, String username) {
 		return recommendMapper.checkReviewLike(mRevNo, username)==null?"dontlike":"like";
 	}
@@ -257,11 +257,9 @@ public class MovieService {
 		dao.updatecmntdontlikecnt(mRevCmntNo);
 		return null;
 	}
-=======
+
 	public double movieavgrating(Long mNo) {
 		return dao.movieavgrating(mNo);
 	}
-	
->>>>>>> 20191205_은영
 	
 }

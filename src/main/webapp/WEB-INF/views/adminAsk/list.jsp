@@ -260,8 +260,8 @@ th {
 						location.href="/moviefactory/adminAsk/list?pageno=1";
 					}*/
 					if(typeof result =="undefined"){
-						location.href="/moviefactory/adminAsk/list?pageno=" + (location.search.split("=")[1]) +  "&pageno="+1	
-					}else if(result.adminAsks.length ==0){
+						//location.href="/moviefactory/adminAsk/list?pageno=" + (location.search.split("=")[1]) +  "&pageno="+1	
+					}else if(result.adminAsks.length ==0 && result.pageno!=1){
 						location.href="/moviefactory/adminAsk/list?pageno="+1
 					}
 					console.log(result);

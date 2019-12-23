@@ -96,4 +96,11 @@ public class CollectionController {
       return ResponseEntity.ok(service.read2(collNo));      
    }
    
+   @GetMapping("/checkmycollection")
+   public ResponseEntity<?> checkmycollection(Principal principal, long collNo) {
+      return ResponseEntity.ok(service.checkmycollection(principal.getName(), collNo));      
+   }
+   
+   
+   
 }
