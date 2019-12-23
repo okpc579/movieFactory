@@ -55,6 +55,7 @@ public class CollectionService {
 	}
 
 	public Collection update(Collection collection) {
+		System.out.println(collection);
 		String collectionUsername = collectionDao.collectionFindUsername(collection.getCollNo());
 		if(collectionUsername==null) {
 			//해당되는 아이디가 없을경우
@@ -94,6 +95,7 @@ public class CollectionService {
 			//아이디가 같을경우
 			collectionDao.delete(collNo);
 		}else {
+			
 			//DB랑 로그인한 유저랑 다를경우 
 		}
 		
@@ -151,4 +153,13 @@ public class CollectionService {
 		return collectionLikeUsername==null?"false":"true";
 	}
 
+	
+	public Map read2(long collNo) {
+		return collectionDao.read2(collNo);
+	}
+
+	public Collection read3(long collNo) {
+		return collectionDao.read3(collNo);
+	}
+	
 }

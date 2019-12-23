@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.*;
 public class CollectionMVCController {
 	@GetMapping("/collection/add") 
 	public String add(Model model) {
-		model.addAttribute("viewName", "collection/add.jsp");
-		return "main";
+		return "collection/add";
 	}
 	@GetMapping("/collection/addmovie") 
 	public String addmovie(Model model) {
@@ -22,8 +21,7 @@ public class CollectionMVCController {
 	}
 	@GetMapping("/collection/update") 
 	public String update(Model model) {
-		model.addAttribute("viewName", "collection/update.jsp");
-		return "main";
+		return "collection/update";
 	}
 	@GetMapping("/collection/list") 
 	public String list(Model model) {
