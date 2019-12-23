@@ -111,15 +111,24 @@
 				success:function(result) {
 					console.log(result);
 					if(result==""){
-						$("<button type='button'>").attr("id","revWrite").text("리뷰 작성").appendTo($("#review"));
+						$("<button type='button'>").attr("id","revWrite").css("height","50px").css("width","100px").attr("class","btn btn-default").text("리뷰 작성").appendTo($("#review"));
 					}else{
-						$("<a>").attr("id","updateWrite").attr("href","/moviefactory/movie/review/read?mrevNo=" + result.mrevNo).text("리뷰수정").appendTo("#review");
+						$("<button type='button'>").attr("id","updateWrite").css("height","50px").css("width","100px").attr("class","btn btn-default").attr("href","/moviefactory/movie/review/update?mrevNo=" + result.mrevNo).text("리뷰수정").appendTo("#review");
 						console.log(result.mrevNo);
 					}
 					$("#revWrite").on("click", function() {
 						if(isLogin==true){
 							console.log(mno);
 						location.href="/moviefactory/movie/review/write?mno="+mno;
+						}
+						else{
+							location.href="/moviefactory/member/login"
+						}
+					});
+					$("#updateWrite").on("click", function() {
+						if(isLogin==true){
+							console.log(mno);
+						location.href="/moviefactory/movie/review/update?mno="+mno;
 						}
 						else{
 							location.href="/moviefactory/member/login"
@@ -196,7 +205,7 @@
 					<th class="actor">배우</th>
 					<th class="grade">관람가</th>
 					<th class="poster">포스터</th>
-				</tr>
+				</tr> 
 			</thead>
 			<tbody id="read">
 			</tbody>

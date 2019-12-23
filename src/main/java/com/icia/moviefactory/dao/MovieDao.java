@@ -23,6 +23,10 @@ public class MovieDao {
 		return tpl.update("movieMapper.updaterev",moviereview);
 	}
 	
+	public int updatereadrev(MovieReview moviereview) {
+		return tpl.update("movieMapper.updatereadrev",moviereview);
+	}
+	
 	// 리뷰 삭제
 	public int deleterev(long mRevNo) {
 		return tpl.delete("movieMapper.deleterev",mRevNo);
@@ -31,6 +35,9 @@ public class MovieDao {
 	// 리뷰 좋아요 증가
 	public int updatelikecnt(long mRevNo) {
 		return tpl.update("movieMapper.updatelikecnt",mRevNo);
+	}
+	public int updatedontlikecnt(long mRevNo) {
+		return tpl.update("movieMapper.updatedontlikecnt",mRevNo);
 	}
 	
 	// 좋아요 수 읽어오기
@@ -97,6 +104,7 @@ public class MovieDao {
 	
 	// 댓글 좋아요
 	public int insertcmntlike(MovieReviewCommentLike moviereviewcommentlike) {
+		
 		return tpl.insert("movieMapper.insertcmntlike",moviereviewcommentlike);
 	}
 	
@@ -121,10 +129,11 @@ public class MovieDao {
 	}
 	
 	// 전체 리뷰의 개수를 이용한 페이징
-	public List<MovieReview> findAll(int startRowNum, int endRowNum){
+	public List<MovieReview> findAll(long mno,int startRowNum, int endRowNum){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("startRowNum", startRowNum);
 		map.put("endRowNum", endRowNum);
+		map.put("mno", mno);
 		return tpl.selectList("movieMapper.findAll",map);
 		
 	}
@@ -173,18 +182,9 @@ public class MovieDao {
 		map.put("username", username);
 		return tpl.selectOne("movieMapper.myReview", map);
 	}
-	
-	
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public int updatecmntdontlikecnt(Long mRevCmntNo) {
+		return tpl.update("movieMapper.updatecmntdontlike",mRevCmntNo);
+		
+	}
 }

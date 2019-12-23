@@ -35,63 +35,84 @@ $(function(){
 			console.log(param);
 			console.log($("#mRevNo").val());
 			$.ajax({
+				if(location.search.split('=')[0] == ""){
+					location.href="/moviefactory";
+				}
 				url: "/moviefactory/api/movie/cmntreport",
 				method: "post",
 				data: param,
 				success : function(result) {
 					console.log(result);
-					location.href="/moviefactory"
+					alert("신고 완료");
 				}, error: function(xhr) {
 					console.log(xhr.status);
+					alert("이미 신고한 댓글 입니다.");
 				}
 			});
 	})
 });
 </script>
 <style>
+
+	table {
+	 width : 800px;
+	 margin : 0 auto;
+	 text-align: center;
+		border-radius: 2px #BDBDBD solid;
+	}
 	
-	table{
-		border: 1px solid #444444;
-		border-collapse: collapse;
-		width:700px;
-		height:400px;
-		text-align: center;
-		margin:0;
-		padding: 10px;
+	th {
+	text-align: center;
+	background-color : #5CD1E5;
+	color: white;
 	}
-	td{
-		border: 1px solid #444444;
+	
+	tr {
+		text-align:center;
+		height: 60px;
 	}
+	
 	#singo{
 		text-align: center;
+	}
+	
+	#writeForm {
+		margin : 0 auto;
+		
+	}
+	#singo555 {
+		height : 50px;
+	 width : 100px;
+	 
 	}
 </style>
 </head>
 <body>
 <div id="section">
 	<form id="writeForm" action="">
+	<legend class="text-center" style="font-size:25pt"><strong>신고</strong></legend>
 		<div>
 			<table>
 				<tr>
-					<td>문의 종류</td>
+					<th>문의 종류</th>
 					<input type="hidden" name="mRevCmntNo" id="mRevCmntNo" value="">
-					<td><input type="radio" name="mRepCate" value="욕설">욕설</td>
-					<td><input type="radio" name="mRepCate" value="광고">광고</td>
-					<td><input type="radio" name="mRepCate" value="불건">불건</td>
-					<td><input type="radio" name="mRepCate" value="의도적 스포">의도적 스포</td>
-					<td><input type="radio" name="mRepCate" value="도배">도배</td>
-					<td><input type="radio" name="mRepCate" value="기타">기타</td>
+					<th><input type="radio" class="radio-inline" name="mRepCate" value="욕설"> 욕설</th>
+					<th><input type="radio" class="radio-inline" name="mRepCate" value="광고"> 광고</th>
+					<th><input type="radio" class="radio-inline" name="mRepCate" value="불건"> 불건</th>
+					<th><input type="radio" class="radio-inline" name="mRepCate" value="의도적 스포"> 의도적 스포</th>
+					<th><input type="radio" class="radio-inline" name="mRepCate" value="도배"> 도배</th>
+					<th><input type="radio" class="radio-inline" name="mRepCate" value="기타"> 기타</th>
 				</tr>
 				<tr>
-					<td>제목</td>
-					<td colspan="6"><input id="title" type="text" name="title"  placeholder="제목을 입력하세요" style="width: 543px; "></td>
+					<th>제목</th>
+					<td colspan="6"><input id="title" type="text" name="title"  placeholder="제목을 입력하세요"  class="form-control"></td>
 				</tr>
 				<tr>
-					<td "style="height: 300px; ">내용</td>
-					<td style="height: 250px; " colspan="6"><textarea id="content" name="content" placeholder="내용을 입력하세요" style="width: 543px; height: 231px; "></textarea>
+					<th style="height: 300px; ">내용</th>
+					<td style="height: 250px; " colspan="6"><textarea id="content" name="content" placeholder="내용을 입력하세요" style="height: 250px; " class="form-control"></textarea>
 				</tr>
 				<tr>
-					<td colspan="7" id="report" style="height:50px;"><button type="button" >신고하기</button></td>
+					<td colspan="7" id="report" style="height:50px;"><button type="button" id="singo555" class="btn btn-danger">신고</button></td>
 				</tr>
 			</table>
 		</div>

@@ -25,6 +25,6 @@ public class MovieReview {
 	private long repCnt;
 	private List<MovieReviewComment> comments;
 	private List<MovieReviewReport> reviewReports;
-	private long rating2;
+	private double rating2;
 }
 

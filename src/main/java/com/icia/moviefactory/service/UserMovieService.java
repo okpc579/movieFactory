@@ -91,7 +91,7 @@ public class UserMovieService {
 		List<MovieReview> newlist = new ArrayList<MovieReview>();
 		for(int i=0; i<list.size(); i++) {
 			if(dao.checkwritereview(username, list.get(i).getMNo())==null) {
-				newlist.add(new MovieReview().builder().mNo(list.get(i).getMNo()).rating(list.get(i).getRating()).build());
+				newlist.add(new MovieReview().builder().mNo(list.get(i).getMNo()).rating2(list.get(i).getRating2()).build());
 				if(newlist.size()>9)
 					break;
 			}

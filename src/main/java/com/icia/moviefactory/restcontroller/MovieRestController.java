@@ -29,14 +29,15 @@ public class MovieRestController {
 	
 	@GetMapping("/movie/review/list")
 	public ResponseEntity<?> findAllBoardByWriter(@RequestParam(defaultValue="1") int pageno, @RequestParam(required = false) String username, long mno) {
+		System.out.println("findAllBoardByWriter");
 		return ResponseEntity.ok(service.findAllReviewByUsername(pageno, username,mno));
 	}
 	
 	@GetMapping("/movie/review/list/{mNo}")
-	public ResponseEntity<?> reviewlist(@PathVariable long mNo, @RequestParam(defaultValue="1") int pageno, Principal principal) {
+	public ResponseEntity<?> reviewlist(@RequestParam(defaultValue="1") int pageno,@PathVariable long mno, Principal principal) {
 		String username = principal!=null? principal.getName() : null;
-		
-		return ResponseEntity.ok(service.reviewList(pageno, mNo,username));
+		System.out.println("reviewlist");
+		return ResponseEntity.ok(service.reviewList(pageno, username, mno));
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -53,6 +54,7 @@ public class MovieRestController {
 	// board-4. 글 읽기 : 글을 읽는 사람이 글쓴 사람인지 여부를 확인하기 위해 principal 필요
 		@GetMapping("/movie/review/read/{mRevNo}")
 		public ResponseEntity<?> readBoard(@PathVariable Long mRevNo, Principal principal) {
+			System.out.println("readBoard");
 			// 로그인하지 않아도 글을 읽을 수 있다. username은 로그인하지 않은 경우 null이 된다
 			String username = principal!=null? principal.getName() : null;
 			System.out.println(service.findReviewByIdWithComments(mRevNo, username));
@@ -61,8 +63,18 @@ public class MovieRestController {
 		}
 	
 	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/movie/review/readupdate")
+	public ResponseEntity<?> updatetreadrev(@Valid MovieReview moviereview,BindingResult result, Principal principal) {
+		System.out.println("=======================");
+		System.out.println(moviereview);
+		moviereview.setUsername(principal.getName());
+		return ResponseEntity.ok(service.updatereadrev(moviereview, principal.getName()));
+	}
+	
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/movie/review/update")
 	public ResponseEntity<?> updatetrev(@Valid MovieReview moviereview,BindingResult result, Principal principal) {
+		System.out.println("=======================");
 		System.out.println(moviereview);
 		moviereview.setUsername(principal.getName());
 		return ResponseEntity.ok(service.updaterev(moviereview, principal.getName()));
@@ -128,10 +140,9 @@ public class MovieRestController {
 		return ResponseEntity.ok(service.deleterevcmnt(mRevCmntNo));
 	}
 	
-	@PreAuthorize("isAuthenticated()")
 	@DeleteMapping("/movie/comment/deletebycmntno")
 	public ResponseEntity<?> deleterevcmnt(@NonNull Long mRevCmntNo,@NonNull Long mRevNo){
-		System.out.println(mRevCmntNo);
+		System.out.println("일로들어옴");
 		System.out.println(mRevNo);
 		return ResponseEntity.ok(service.deleteByCmntByMRevNo(mRevNo, mRevCmntNo));
 	}
@@ -150,6 +161,7 @@ public class MovieRestController {
 	
 	@GetMapping("/list")	// read -> list
 	public ResponseEntity<?> list(String query, @RequestParam(defaultValue = "1") int page) {
+		System.out.println("list");
 		System.out.println(query);
 		System.out.println(page);
 		System.out.println(kservice.searchKMovie(query, page));
@@ -157,20 +169,46 @@ public class MovieRestController {
 	}
 	@GetMapping("/image")
 	public ResponseEntity<?> readImage(@RequestParam String subtitle, @RequestParam String pubData) {
+		System.out.println("readImage");
 		System.out.println(subtitle + "," + pubData);
 		return ResponseEntity.ok(nservice.searchNMovie(subtitle, 1, 1, pubData));
 	}
 	@GetMapping("/read")	//디테일 리드
 	public ResponseEntity<?> read(@RequestParam String mno) {
+		System.out.println("read");
 		//System.out.println(kservice.searchKMovie("터미네이터", 10, 1));
 		return ResponseEntity.ok(kservice.searchKMovieRead(mno));	//디테일 리드
 	}
 	
 	@GetMapping("/movie/review/myreview")	//디테일 리드
 	public ResponseEntity<?> myReview(@RequestParam Long mno, Principal principal) {
+		System.out.println("myReview");
 		//System.out.println(kservice.searchKMovie("터미네이터", 10, 1));
 		return ResponseEntity.ok(service.myReview(mno, principal.getName()));	//디테일 리드
 	}
 	
+	@GetMapping("/movie/review/checkreviewlike")
+	public ResponseEntity<?> checkReviewLike(@RequestParam Long mRevNo, Principal principal) {
+		System.out.println("=============================check=====================================");
+		return ResponseEntity.ok(service.checkReviewLike(mRevNo, principal.getName()));	
+	}
+	@GetMapping("/movie/review/checkcmntlike")
+	public ResponseEntity<?> checkCmntLike(@RequestParam Long mrevCmntNo, Principal principal) {
+		return ResponseEntity.ok(service.checkCmntLike(mrevCmntNo, principal.getName()));	
+	}
+	
+	
+	@PreAuthorize("isAuthenticated()")
+	@PatchMapping("/movie/review/dontlike")
+	public ResponseEntity<?> deleterevlike(@NonNull Long mRevNo, Principal principal) {
+		return ResponseEntity.ok(service.deleterevlike(mRevNo,principal.getName()));
+	}
+	
+	
+	@PreAuthorize("isAuthenticated()")
+	@PatchMapping("/movie/comment/dontlike")
+	public ResponseEntity<?> deletecmntlike(@NonNull Long mRevCmntNo, Principal principal) {
+		return ResponseEntity.ok(service.deletecmntlike(mRevCmntNo,principal.getName()));
+	}
 	
 }
