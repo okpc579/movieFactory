@@ -157,6 +157,7 @@ public class MovieRestController {
 	}
 	@GetMapping("/image")
 	public ResponseEntity<?> readImage(@RequestParam String subtitle, @RequestParam String pubData) {
+		System.out.println("readImage");
 		System.out.println(subtitle + "," + pubData);
 		return ResponseEntity.ok(nservice.searchNMovie(subtitle, 1, 1, pubData));
 	}
@@ -172,5 +173,11 @@ public class MovieRestController {
 		return ResponseEntity.ok(service.myReview(mno, principal.getName()));	//디테일 리드
 	}
 	
+	
+	
+	@GetMapping("/movie/review/movieavgrating")	//디테일 리드
+	public ResponseEntity<?> movieavgrating(@RequestParam Long mNo) {
+		return ResponseEntity.ok(service.movieavgrating(mNo));	//디테일 리드
+	}
 	
 }

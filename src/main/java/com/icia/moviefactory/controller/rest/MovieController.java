@@ -48,4 +48,6 @@ public class MovieController {
 		model.addAttribute("viewName", "movie/review/list.jsp");
 		return "main";
 	}
+	
+	
 }

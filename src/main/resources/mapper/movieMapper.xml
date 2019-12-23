@@ -158,5 +158,9 @@
 		select m_rev_no mRevNo,username,m_rev_content mRevContent from m_rev where m_no=#{mNo} and username = #{username} and rownum=1
 	</select>
 
+	<select id="movieavgrating" resultType="double">
+		select avg(rating) from m_rev where m_no=#{mNo} group by m_no
+	</select>
+
 
 </mapper>

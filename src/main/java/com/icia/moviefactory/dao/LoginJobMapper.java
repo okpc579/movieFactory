@@ -16,5 +16,13 @@ public interface LoginJobMapper {
 	// LDAO-03. 로그인 성공하면 로그인 실패 횟수 리셋
 	@Update("update member set login_failure_cnt = 0 where username=#{username}")
 	public long resetLoginFailureCount(String name);
+	
+	// LDAO-03. 로그인 성공하면 로그인 실패 횟수 리셋
+	@Update("update member set LAST_LOGIN_DATE = RECENT_LOGIN_DATE where username=#{username}")
+	public long recentLoginDate(String username);
+	
+	@Update("update member set RECENT_LOGIN_DATE = sysdate where username=#{username}")
+	public long recentLoginDate2(String username);
+	
 }
 

@@ -173,6 +173,11 @@ public class MovieDao {
 		map.put("username", username);
 		return tpl.selectOne("movieMapper.myReview", map);
 	}
+
+	public double movieavgrating(Long mNo) {
+		// TODO Auto-generated method stub
+		return tpl.selectOne("movieMapper.movieavgrating", mNo);
+	}
 	
 	
 	

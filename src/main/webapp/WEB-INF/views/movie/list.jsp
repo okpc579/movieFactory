@@ -8,6 +8,20 @@
 <title>Insert title here</title>
 <style>
 	#paging { text-align: center; }
+	.what {
+		width : 550px;
+		height : 220px;
+	}
+	#title{
+		width : 400px;
+		height : 220px;
+	}
+	#poster{
+		width : 150px;
+		height : 220px;
+		text-align: center;
+	}
+	
 </style>
 <script>
 var movies;
@@ -15,38 +29,77 @@ var posterString;
 var totCnt;
 var page;
 var query;
+var $a1
+var $body;
 function printList() {
 	// 테이블의 <tbody>를 선택한다
-	var $body = $("#list");
-	$.each(movies, function(i, movie) {
+	$body = $("#list_");
+	
+	$.each(movies, function(i,movie){
+		$div = $("<div>").attr("class","what").css('display',"inline-block").appendTo($body);
+		var $div2 = $("<div>").attr("id","poster").css('display',"inline-block").appendTo($div);
+		$a1 = $("<a>").attr("href","/moviefactory/movie/read?mno=" + movie.movieCd).appendTo($div2);
+		getPoster(movie, $a1);
+		var $div3 = $("<div>").attr("id","title").css('display',"inline-block").appendTo($div);
+		$a = $("<a>").attr("href","/moviefactory/movie/read?mno=" + movie.movieCd).appendTo($div3);
+		
+		//$li = $("<li>").attr("").appendTo($body);
+		//$br = $("<br>").appendTo();
+		
+		$("<li>").text(movie.movieNm).css("width","380px").css("font-size",'17pt').css("white-space","nowrap").css("word-break","break-all").css("text-overflow", "ellipsis").css("overflow", "hidden").appendTo($a);
+		$("<li>").text(movie.prdtYear).css("font-size",'13pt').appendTo($div3);
+		$("<li>").text(movie.repGenreNm).css("font-size",'13pt').appendTo($div3);
+		$("<li>").text(movie.repNationNm).css("font-size",'13pt').appendTo($div3);
+		$("<li>").text(movie.directors).css("font-size",'13pt').appendTo($div3);
+	});
+	/* $.each(movies, function(i, movie) {
+	if(i%2==0){
+		var $tr = $("<tr>").appendTo($body);
+		var $tr2 = $("<tr>").appendTo($body);
+		var $tr3 = $("<tr>").appendTo($body);
+		var $tr4 = $("<tr>").appendTo($body);
+		var $tr5 = $("<tr>").appendTo($body);
+	}
 		
 		var $tr = $("<tr>").appendTo($body);
-		$("<td>").text(movie.movieCd).appendTo($tr);
-		$("<td>").text(movie.movieNm).appendTo($tr);
-		$("<td>").text(movie.prdtYear).appendTo($tr);
-		$("<td>").text(movie.repGenreNm).appendTo($tr);
-		$("<td>").text(movie.repNationNm).appendTo($tr);
+		$tr1 = $("<tr>").appendTo($body);
+		var $tr2 = $("<tr>").appendTo($body);
+		var $tr3 = $("<tr>").appendTo($body);
+		var $tr4 = $("<tr>").appendTo($body);
+		var $tr5 = $("<tr>").appendTo($body);
+		var $tr6 = $("<tr>").appendTo($body);
+		$("<td>").text(movie.movieCd).css('display',"none").appendTo($tr);
+		getPoster(movie, $tr1);
+		$("<td>").text(movie.movieNm).appendTo($tr2);
+		$("<td>").text(movie.prdtYear).appendTo($tr3);
+		$("<td>").text(movie.repGenreNm).appendTo($tr4);
+		$("<td>").text(movie.repNationNm).appendTo($tr5);
+		$("<td>").text(movie.directors).appendTo($tr6);
+		
+				
+		
+		var $tr = $("<tr>").appendTo($body);
 		var $td = $("<td>").appendTo($tr)
 		
-		getPoster(movie, $tr);
 		$("<a>").attr("href","/moviefactory/movie/read?mno=" + movie.movieCd).text("링크열기").appendTo($td);
 		
-	});
+	}); */ 
 }
-function getPoster(movie, $tr) {
+function getPoster(movie, $a1) {
 	console.log(movie);
 	$.ajax({
 		url:"/moviefactory/api/image?subtitle=" + movie.movieNm + "&pubData=" + movie.prdtYear,
 		method: "get",
 		success:function(result) {
+			console.log(result);
 			console.log(result.image);
 			//posterString = result.image;
 			if(typeof result.image == "undefined" || result.image==""){
-				var $td = $("<td>").appendTo($tr)
-				$("<img>").attr("src","http://localhost:8081/sajin/default_movie.png").attr("width", "110px").appendTo($td); 
+				//var $td = $("<td rowspan='6'>").appendTo($a)
+				$("<img>").attr("src","http://localhost:8081/sajin/default_movie.png").attr("width", "140px").appendTo($a1); 
 			}else {
-			var $td = $("<td>").appendTo($tr)
-			$("<img>").attr("src",result.image).appendTo($td);
+			//var $td = $("<td rowspan='6'>").appendTo($a)
+			$("<img>").attr("src",result.image).attr("width", "140px").appendTo($a1);
 			//$("<td>").text(result.image).appendTo($tr);
 			}
 			
@@ -130,36 +183,15 @@ $(function() {
 
 </script>
 <style>
-	table {
-		 text-align: center;
-	}
+	
 </style>
 </head>
 <body>
 	<div id="section">
 		<!-- <table class="table table-hover"> -->
-		<table class="MovieTable">
-			<colgroup>
-				<col width="20%">
-				<col width="20%">
-				<col width="10%">
-				<col width="10%">
-				<col width="10%">
-				<col width="30%">
-			</colgroup>
-			<thead>
-				<tr>
-					<th>영화코드</th>
-					<th>제목</th>
-					<th>제작년도</th>
-					<th>장르</th>
-					<th>제작국가</th>
-					<th>포스터</th>
-				</tr>
-			</thead>
-			<tbody id="list">
-			</tbody>
-		</table>
+		<span id="list_">
+		
+		</span>
 	</div>
 	<div id="paging">
 		<ul class="pagination" id="pagination">

@@ -113,21 +113,23 @@ public class UserMovieDaoTest {
    // 10. 좋아하는 영화 추가 (mNo, username, sysdate) OK
    // @Transactional
    // @Test
-   public void insertFavoriteMovieTest() {
-	   assertThat(dao.insertFavoriteMovie(new FavoriteMovie(119,"ieb6721",null)), is(1));
-	   assertThat(dao.insertFavoriteMovie(new FavoriteMovie(120,"ieb67210",null)), is(1));
-	   assertThat(dao.insertFavoriteMovie(new FavoriteMovie(125,"xogh8121",null)), is(1));
-	   assertThat(dao.insertFavoriteMovie(new FavoriteMovie(1556,"xogh8123",null)), is(0));
-   }
+	/*
+	 * public void insertFavoriteMovieTest() {
+	 * assertThat(dao.insertFavoriteMovie(new FavoriteMovie(119,"ieb6721",null)),
+	 * is(1)); assertThat(dao.insertFavoriteMovie(new
+	 * FavoriteMovie(120,"ieb67210",null)), is(1));
+	 * assertThat(dao.insertFavoriteMovie(new FavoriteMovie(125,"xogh8121",null)),
+	 * is(1)); assertThat(dao.insertFavoriteMovie(new
+	 * FavoriteMovie(1556,"xogh8123",null)), is(0)); }
+	 */
    
    // 11. 좋아하는 영화 삭제 (long mNo) OK
    // @Transactional
    //@Test
-   public void deleteFavoriteMovieTest() {
-	   long result =dao.deleteFavoriteMovie(1556);
-//	   assertThat(result, is(0L));
-   }
-   
+	/*
+	 * public void deleteFavoriteMovieTest() { long result
+	 * =dao.deleteFavoriteMovie(1556); // assertThat(result, is(0L)); }
+	 */
    // 12. 좋아하는 영화 목록 보기 (String username) OK
    // @Transactional
    // @Test

@@ -226,6 +226,10 @@ public class MovieService {
 	public MovieReview myReview(Long mno, String name) {
 		return dao.myReview(mno,name);
 	}
+
+	public double movieavgrating(Long mNo) {
+		return dao.movieavgrating(mNo);
+	}
 	
 	
 }

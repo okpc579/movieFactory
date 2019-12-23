@@ -48,13 +48,13 @@ public class UserMovieService {
 	}
 	
 	// 10. 좋아하는 영화 추가
-	public int insertFavoriteMovie(FavoriteMovie favoritemovie, String string) {
-		return dao.insertFavoriteMovie(favoritemovie);
+	public int insertFavoriteMovie(Long mNo, String username) {
+		return dao.insertFavoriteMovie(mNo,username);
 	}			
 		
 	// 11. 좋아하는 영화 삭제
-	public long deleteFavoriteMovie(long mNo) {
-		return dao.deleteFavoriteMovie(mNo); 
+	public long deleteFavoriteMovie(Long mNo,String username) {
+		return dao.deleteFavoriteMovie(mNo,username); 
 	}
 	
 	// 12. 좋아하는 영화 목록
@@ -103,5 +103,11 @@ public class UserMovieService {
 
 	public String checkfollowing(String username, String loginname) {
 		return dao.checkfollowing(username,loginname)==null?"false":"true";
+	}
+
+	// db에 좋아요한 영화 있는 지 확인
+	public String checkFavoriteMovie(Long mNo, String username) {
+		String checkFavoriteMovie = dao.checkFavoriteMovie(mNo,username);
+		return checkFavoriteMovie==null?"false":"true";
 	}	
 }

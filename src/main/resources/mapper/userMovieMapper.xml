@@ -76,7 +76,7 @@
 	
 	<!-- 11.좋아하는 영화 삭제 (지요)-->	
 	<delete id="deleteFavoriteMovie">
-		delete from fav_m where m_no=#{mNo}
+		delete from fav_m where m_no=#{mNo} and username=#{username}
 	</delete>
 	
 	<!-- 12.좋아하는 영화 목록보기 (ㅌㅎ)-->	
@@ -122,5 +122,8 @@
 		select follower_username followerUsername from follow where follower_username=#{loginname} and following_username=#{username} 
 	</select>
 	
+	<select id="checkFavoriteMovie"	resultType="string">
+		select username from fav_m where m_no=#{mNo} and username=#{username}
+	</select>
 	
 </mapper>

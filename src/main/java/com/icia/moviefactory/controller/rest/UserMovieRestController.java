@@ -2,14 +2,10 @@ package com.icia.moviefactory.controller.rest;
 
 import java.security.*;
 
-import javax.validation.*;
-
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
-import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
 
-import com.icia.moviefactory.entity.*;
 import com.icia.moviefactory.service.*;
 
 @RequestMapping("/api/usermovie")
@@ -78,15 +74,21 @@ public class UserMovieRestController {
 	}
 	
 	// 10. 좋아하는 영화 추가
-	@PostMapping("/addfavoirtemovie")
-	public ResponseEntity<?> insertfavoritemovie(@Valid FavoriteMovie favoritemovie, BindingResult results ,Principal principal) {
-		return ResponseEntity.ok(service.insertFavoriteMovie(favoritemovie, principal.getName()));
+	@PostMapping("/addfavoritemovie")
+	public ResponseEntity<?> insertfavoritemovie(Long mNo,Principal principal){
+		return ResponseEntity.ok(service.insertFavoriteMovie(mNo, principal.getName()));
 	}
 	
 	// 11. 좋아하는 영화 삭제
 	@PostMapping("/deletefavoritemovie")
-	public ResponseEntity<?> deletefavoritemovie(long mNo ,Principal principal) {
-		return ResponseEntity.ok(service.deleteFavoriteMovie(mNo));
+	public ResponseEntity<?> deletefavoritemovie(Long mNo ,Principal principal) {
+		return ResponseEntity.ok(service.deleteFavoriteMovie(mNo,principal.getName()));
+	}
+	
+	// db에 좋아요한 영화 있는 지 확인
+	@GetMapping("/checkfavoritemovie")
+	public ResponseEntity<?> checkfavoritemovie(Long mNo, Principal principal){
+		return ResponseEntity.ok(service.checkFavoriteMovie(mNo,principal.getName()));
 	}
 	
 	// 12. 좋아하는 영화 목록 보기

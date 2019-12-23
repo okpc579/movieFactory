@@ -68,13 +68,19 @@ public class UserMovieDao {
 	}
 	
 	// 10.좋아하는 영화 추가
-	 public int insertFavoriteMovie(FavoriteMovie favoritemovie) {
-	     return tpl.insert("userMovieMapper.insertFavoriteMovie",favoritemovie);
+	 public int insertFavoriteMovie(Long mNo, String username) {
+		 Map<String, Object> map = new HashMap<String, Object>();
+		 map.put("mNo", mNo);
+		 map.put("username", username);
+	     return tpl.insert("userMovieMapper.insertFavoriteMovie",map);
 	}
 	
 	// 11.좋아하는 영화 삭제
-	public long deleteFavoriteMovie(long mNo) {
-		return tpl.delete("userMovieMapper.deleteFavoriteMovie",mNo);
+	public long deleteFavoriteMovie(Long mNo, String username) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("mNo", mNo);
+		map.put("username", username);
+		return tpl.delete("userMovieMapper.deleteFavoriteMovie",map);
 	}
 //	public long deleteFavoriteMovie(long mLikeNo, long mNo) {
 //		Map<String, Long> map = new HashMap<String, Long>();
@@ -141,5 +147,13 @@ public class UserMovieDao {
 		map.put("username", username);
 		map.put("loginname", loginname);
 		return tpl.selectOne("userMovieMapper.checkfollowing", map);
+	}
+
+	// db에 좋아요한 영화 있는 지 확인
+	public String checkFavoriteMovie(Long mNo, String username) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("mNo", mNo);
+		map.put("username", username);
+		return tpl.selectOne("userMovieMapper.checkFavoriteMovie",map);
 	}	
 }
