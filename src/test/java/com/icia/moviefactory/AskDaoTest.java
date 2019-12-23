@@ -78,8 +78,14 @@ public class AskDaoTest {
 	}
 	// 글 상세
 	//@Transactional
-	@Test
+	//@Test
 	public void findByAdminAsk() {
 		assertThat(askDao.findByAdminAsk(16),is(1));
 	}
+	
+	@Test
+	public void findByAdminAskUsername() {
+		assertThat(askDao.findAdminAskByUsername(1, 10, "asdf1234").size(),is(10));
+	}
+	
 }

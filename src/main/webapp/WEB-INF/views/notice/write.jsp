@@ -48,34 +48,46 @@ textarea {
 		$("#write").on("click", function() {
 			// form을 서버로 전송할 수 있는 urlencoded 형식으로 변환하는 함수가 serialize
 			var param = $("#writeForm").serialize();
-			$.ajax({
-				url:"/moviefactory/api/notice/write",
-				data: param,
-				method:"post",
-				success:function(result, textStatus, request) {
-					location.href = "/moviefactory/notice/list"
-				}, error:function(xhr) {
-					location.href = "/moviefactory/notice/write"
-				}
-			});
+			var content = $("#content").val();
+			var title = $("#title").val();
+			if(content!="" && title!=""){
+				console.log(content);
+				console.log(title);
+				$.ajax({
+					url:"/moviefactory/api/notice/write",
+					data: param,
+					method:"post",
+						success:function(result, textStatus, request) {
+						location.href = "/moviefactory/notice/list"
+					}, error:function(xhr) {
+						alert("제목과 내용은 필수항목입니다");
+						location.href = "/moviefactory/notice/write"
+					}
+				});
+			}else {
+				alert("제목과 내용은 필수항목입니다");
+			}
 		});
 	});
 </script>
 </head>
 <body>
 <div>
-	<h2><a href="http://localhost:8080/moviefactory/adminAsk/listuser">공지사항 게시판</a></h2>
+	<h2><a href="http://localhost:8080/moviefactory/notice/list">공지사항 게시판</a></h2>
 </div>
 <div id="h3">
 	<h3 style="margin-bottom: 0px;">공지사항 작성</h3>
 </div>
 <div id="section">
 	<form id="writeForm">
+		<div>
 		<strong>제목 :</strong>
-		<input type="text" name="title" id="title" size="80"><br><br>
+		<input type="text" name="title" id="title" size="80"><br>
+		</div><br>
+		<div>
 		<p><strong>내용</strong></p>
 		<textarea rows="10" cols="20" id="content" name="content"></textarea>
-		<br>
+		</div><br>
 		<br>
 		<input type=button class="btn btn-primary" id="write" value="작성완료"> 
 		<input type=button class="btn btn-default" value="작성취소" OnClick="javascript:history.back(-1)">

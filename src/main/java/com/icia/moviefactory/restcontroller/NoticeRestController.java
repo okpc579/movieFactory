@@ -28,25 +28,23 @@ public class NoticeRestController {
 	@Autowired
 	private NoticeService service;
 
-	// 관리자가 전체공지글 가져오기
+	// 관리자 전체공지글 가져오기
 	@GetMapping("/notice/list")
-	public ResponseEntity<?> findAllNotice(@RequestParam(defaultValue = "1") int pageno, Principal username) {
-		return ResponseEntity.ok(service.findAll(pageno, username.getName()));
+	public ResponseEntity<?> findAllNotice(@RequestParam(defaultValue = "1") int pageno) {
+		return ResponseEntity.ok(service.findAll(pageno));
 	}
 
 	// 관리자가 공지글 쓰기
 	@Secured("ROLE_ADMIN")
 	@PostMapping("/notice/write")
-	public ResponseEntity<?> writeNotice(@Valid Notice notice, BindingResult results, Principal principal,
-			HttpServletRequest req) throws BindException {
+	public ResponseEntity<?> writeNotice(@Valid Notice notice, BindingResult results, Principal principal,HttpServletRequest req) throws BindException {
 		if (results.hasErrors())
 			// 오류처리
 			throw new BindException(results);
 		// 글작성
 		Notice result = service.writeNotice(notice);
 		// 이동 url 생성
-		URI location = UriComponentsBuilder.newInstance().path("moviefactory/notice/list")
-				.path(result.getNoticeNo() + "").build().toUri();
+		URI location = UriComponentsBuilder.newInstance().path("moviefactory/notices/list").path(result.getNoticeNo()+"").build().toUri();
 		// 생성된 url로 이동
 		return ResponseEntity.created(location).body(result.getNoticeNo());
 	}
@@ -68,7 +66,11 @@ public class NoticeRestController {
 	// 글 하나 읽기
 	@GetMapping("/notice/read")
 	public ResponseEntity<?> readNotice(long noticeNo) {
-		System.out.println(noticeNo + "레스트컨트롤러 작동하니??");
 		return ResponseEntity.ok(service.readNotice(noticeNo));
+	}
+	// 제목 검색 문의 목록 가져오기
+	@GetMapping("/notice/searchlisttitle")		
+	public ResponseEntity<?> findAllNoticeByTitle(@RequestParam(defaultValue="1") int pageno, String title) {
+	return ResponseEntity.ok(service.findNoticeBySearchTitle(pageno, title));
 	}
 }

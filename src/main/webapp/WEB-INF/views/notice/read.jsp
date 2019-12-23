@@ -41,6 +41,7 @@
 			url : "/moviefactory/api/notice/read?noticeNo=" + noticeNo,
 			method : "get",
 			success : function(result) {
+				$("#notice_updateEnd").hide();
 				notice = result;
 				console.log(notice);
 				$("#title").text(notice.title);
@@ -55,11 +56,11 @@
 		$("#notice_updateStart").on(
 				"click",
 				function() {
-					$("#content").text("");
-					$("<textarea></textarea>").val(notice.content).appendTo(
-							"#content").attr("class", "form-control").attr(
-							"id", "content_update");
-					console.log(notice.content);
+					$("#notice_updateEnd").show(); // 수정하기 버튼을 눌럿을때 수정완료 버튼 뜨기
+					$("#notice_updateStart").hide(); // 수정하기 버튼 눌렀을때 수정하기버튼 사라지게 하기
+					$("#content").hide();
+					$("<textarea></textarea>").val(notice.content)
+					.appendTo("#content_div").attr("id","content_update");
 				});
 
 		$("#notice_updateEnd")
@@ -87,9 +88,11 @@
 						});
 		// 4. 글 삭제 
 		$("#notice_delete").on("click", function() {
+			var result = confirm("삭제하시겠습니까?");
 			var param = {
 				_method : "delete",
 			};
+			if (result == true) {	
 			$.ajax({
 				url : "/moviefactory/api/notice/delete?noticeNo=" + noticeNo,
 				method : "post",
@@ -101,6 +104,10 @@
 					console.log("삭제에 실패했습니다");
 				}
 			});
+			}else{
+				console.log("삭제 안함");
+				return false;
+			}
 		});
 	});
 </script>
@@ -116,6 +123,17 @@
 }
 #content{
 	width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;
+}
+textarea {
+  width: 100%;
   height: 150px;
   padding: 12px 20px;
   box-sizing: border-box;
@@ -151,12 +169,13 @@
 				<br>
 				<div></div>
 				<!--  본문, 갱신 버튼, 삭제 버튼 출력 영역 -->
-				<div>
+				<div id="content_div">
 					<div>
 						<p>
 							<strong>내용</strong>
 						</p>
-						<div id="content" rows="10" cols="100" name="content"></div>
+						<textarea readonly="readonly" id="content" rows="10" cols="100" name="content">
+						</textarea>
 					</div>
 				</div>
 			</div>
@@ -165,7 +184,7 @@
 				<div id="btnArea">
 					<br>
 					<button type="button" class="btn btn-primary"
-						id="notice_updateStart">수정하기</button>
+						id="notice_updateStart">수정</button>
 					<button type="button" class="btn btn-primary" id="notice_updateEnd">수정완료</button>
 					<button type="button" class="btn btn-primary" id="notice_delete">삭제하기</button>
 				</div>

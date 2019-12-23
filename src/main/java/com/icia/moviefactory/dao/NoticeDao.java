@@ -65,4 +65,16 @@ public class NoticeDao {
 		System.out.println(noticeNo + "dao로 옵니까???");
 		return tpl.selectOne("noticeMapper.findByNotice", noticeNo);
 	}
+	// 글제목으로 검색해서 리스트 불러오기
+	public List<Notice> findNoticeByTitle(int startRowNum, int endRowNum, String title) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("startRowNum", startRowNum);
+		map.put("endRowNum", endRowNum);
+		map.put("title", title);
+		return tpl.selectList("noticeMapper.findNoticeByTitle", map); 
+	}
+	// 제목의 글 개수 가져오기
+	public int findNoticeCountByTitle(String title) {
+		return tpl.selectOne("noticeMapper.findNoticeCountByTitle", title); 
+	}
 }

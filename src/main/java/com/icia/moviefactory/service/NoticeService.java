@@ -18,7 +18,7 @@ public class NoticeService {
 	private int pagesize;
 	
 	// 관리자가 모든 공지글을 가져오기
-		public Page findAll(int pageno, String username) {
+		public Page findAll(int pageno) {
 			int count = noticeDao.findAllCount();
 			int startRowNum = (pageno-1) * pagesize + 1;
 			int endRowNum = startRowNum + pagesize - 1;
@@ -45,5 +45,25 @@ public class NoticeService {
 		public Notice readNotice(long noticeNo) {
 			System.out.println(noticeNo + "서비스로 옵니까???");
 			return noticeDao.findByNotice(noticeNo);
+		}
+		// 글제목으로 검색해 글 페이징 가져오기
+		public Page findNoticeBySearchTitle(int pageno, String title) {
+			if(title==null) {
+				int count = noticeDao.findAllCount();
+				int startRowNum = ((pageno-1) * pagesize + 1);
+				int endRowNum = startRowNum + pagesize -1;
+				if(endRowNum >= count)
+					endRowNum = count;
+				List<Notice> notices = noticeDao.findAll(startRowNum, endRowNum);
+				return new Page().builder().pageno(pageno).pagesize(pagesize).totalcount(count).notices(notices).build();
+			} else {
+				int count = noticeDao.findNoticeCountByTitle(title);
+				int startRowNum = ((pageno-1) * pagesize + 1);
+				int endRowNum = startRowNum + pagesize -1;
+				if(endRowNum >= count)
+					endRowNum = count;
+				List<Notice> notices = noticeDao.findNoticeByTitle(startRowNum, endRowNum,title);
+				return new Page().builder().pageno(pageno).pagesize(pagesize).totalcount(count).notices(notices).build();
+			}
 		}
 }
