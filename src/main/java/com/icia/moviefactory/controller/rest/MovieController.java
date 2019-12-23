@@ -18,17 +18,17 @@ public class MovieController {
 		return "main";
 	}
 	
-	@GetMapping("/movie/review/report{mRevNo}")
+	@GetMapping("/movie/review/report")
 	public String insertrevrep(Model model) {
-		model.addAttribute("viewName", "movie/review/report.jsp");
-		return "main";
+//		model.addAttribute("viewName", "movie/review/report.jsp");
+		return "movie/review/report";
 	}
 	
 	
 	@GetMapping("/movie/review/cmntreport")
 	public String insertcmntrep1(Model model) {
-		model.addAttribute("viewName", "movie/review/cmntreport.jsp");
-		return "main";
+		//model.addAttribute("viewName", "movie/review/cmntreport.jsp");
+		return "movie/review/cmntreport";
 	}
 	
 	@GetMapping("/movie/comment/update")

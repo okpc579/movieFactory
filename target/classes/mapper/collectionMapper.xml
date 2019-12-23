@@ -103,7 +103,7 @@
 		<![CDATA[
 			select * from
 		       	(select rownum rnum, c.* from 
-		       		(select c.coll_no collNo, c.coll_name collName, c.username, c.writing_date writingDate, c.coll_intro collIntro from coll c, coll_detail cd where cd.m_no=#{mNo} and cd.coll_no(+) = c.coll_no) c
+		       		(select c.coll_no collNo, c.coll_name collName, c.username, c.writing_date writingDate, c.coll_intro collIntro from coll c, coll_detail cd where cd.m_no=#{mNo} and cd.coll_no(+) = c.coll_no order by c.coll_no desc) c
 		       	where rownum<=#{endRowNum}) 
 		    where rnum>=#{startRowNum}
 		]]>
@@ -113,9 +113,27 @@
 		<![CDATA[
 			select * from
 		       	(select rownum rnum, c.* from 
-		       		(select coll_no collNo, coll_name collName, username, writing_date writingDate, coll_intro collIntro from coll where username=#{username}) c
+		       		(select coll_no collNo, coll_name collName, username, writing_date writingDate, coll_intro collIntro from coll where username=#{username} order by coll_no) c
 		       	where rownum<=#{endRowNum}) 
 		    where rnum>=#{startRowNum}
 		]]>
 	</select>
+	
+	
+	<select id="findByIdWithDetail2" resultMap="mapForCollection">
+		<![CDATA[
+			select * from
+		       	(select rownum rnum, c.* from 
+		       		(select c.coll_no, c.coll_name, c.username, c.writing_date, c.coll_intro, cd.m_no, cd.reg_date from coll c, coll_detail cd where c.coll_no = #{collNo} and  c.coll_no = cd.coll_no(+) order by c.writing_date desc) c  
+		       	where rownum<=4) 
+		    where rnum>=1
+		]]>
+	</select>
+	
+	
+	
+	<select id="findCollectionById" resultType="collections">
+		select coll_no collNo, coll_name collName, username, writing_date writingDate, coll_intro collIntro from coll where coll_no = #{collNo}
+	</select>
+	
 </mapper>

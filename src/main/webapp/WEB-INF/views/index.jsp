@@ -20,6 +20,9 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+</head>
+      
 <script>
 
 	var isLogin = false;
@@ -34,18 +37,14 @@
 	</script>
 </sec:authorize>
 <script>
-var movies;
-
 $(function() {
 	// 로그아웃 처리 - 주소는 스프링 시큐리티로 설정. post로 요청해야함
-	$(".logout123").on("click", function(e) {
-		console.log("지랄하지미")
+	$(".logout123").on("click", function(e) {	
 		e.preventDefault();
 		$.ajax({
 			url:"/moviefactory/member/logout",
 			method:"post",
 			success:function() {
-				console.log("아 제발좀");
 				location.href = "/moviefactory"
 			}
 		})
@@ -55,51 +54,105 @@ $(function() {
 		window.open('/moviefactory/alarm', 'window','width=400, height=400, status=no,toolbar=no,scrollbars=no, location=no');	
 	});
 });
-/* var movies;
+
+var movies;
 var posterString;
 var repGenreNm;
 var genreTopMovies;
 var starTopMovies;
 var preferenceMovies;
-function printList() {
-	var $body = $("#index");
-	$.each(movies, function(i, movie) {
+
+function getMovieDetail(mno, rating, $li){   // 영화번호, 별점, 장르를 tr에 넣는다
+	   $.ajax({   
+	      url: "http://kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.xml?key=e2ef68048ccb5620b012c9ec411d0407&movieCd=" + mno,
+	      method: "get",
+	      success: function(result, status, xhr) { // 요청이 성공했을 때 수행되는 함수 뜻함(포스터,영화이름 가져옴)
+	         console.log(result);   // result 값을 출력
+	            printmovie(mno, $(result).find('movieNm').text(), rating, $(result).find('prdtYear').text(),  $li);
+	      }, error: function(xhr) {   // 에러발생시 
+	          console.log(xhr.status);   // 오류번호 발생번호 출력
+	      }
+	   });
+	}
+
+	function printmovie(mno, movieNm, rating, prdtyear, $li){
+	   
+	   var $div = $("<div>").appendTo($li);
+	   var $div2 = $("<div>").css("width", "150px").appendTo($li);
+	   //getPoster2(movieNm, prdtyear, $div);
+	   //var $a = $("<a>").attr("href","/moviefactory/movie/read?mno=" + mno).text(movieNm).appendTo($div2);
+	   var $a = $("<a>").attr("href","/moviefactory/movie/read?mno=" + mno).appendTo($div);
+	   getPoster2(movieNm, prdtyear, $a);
+	   //$("<td>").text(movieNm).appendTo($tr);   // 제목
+	   //$("<div>").text("평점 : "  + rating).appendTo($li);   // 평점
+	   $("<div>").text(movieNm).css("overflow","hidden").css("white-space","nowrap").css("text-overflow","ellipsis").css("color","black").css("font-weight","bold").appendTo($div2);   // 제목
+	   var $i = $("<i>").attr("class","fas fa-star").css("color","red").appendTo($div2);	//별모양
+	   $("<span></span>").text(" 평점 : "  + rating).css("color","black").appendTo($div2);   // 평점
+
+	
+	        // 포스터
+	   /* $("<a>").attr("href","/moviefactory/movie/read?mno=" + movie.movieCd).text("영화정보").appendTo($td); */
+	}
+
+	function getPoster2(movieNm, prdtYear, $li) {   // (영화제목,제작년도)로 포스터 불러오는 기능
+	   //console.log(movie);
+	   console.log(movieNm);
+	   console.log(prdtYear);
+	   $.ajax({
+	      url:"/moviefactory/api/image?subtitle=" + movieNm
+	            + "&pubData=" + prdtYear,
+	      method: "get",
+	      success:function(result) {
+	         console.log(result.image);
+	         //posterString = result.image;
+	         if(typeof result.image == "undefined"){   // 이미지가 정해지지 않을 경우
+	            var $div = $("<div>").appendTo($li)   // td에 tr를 넣어라
+	            $("<img>").attr("src","http://localhost:8081/sajin/default_movie.png").attr("height","200px").attr("width", "150px").appendTo($li); 
+	         }else {
+	        	 var $div = $("<div>").appendTo($li)   // 이미지가 들어있는 td를 tr에 넣어라
+	         $("<img>").attr("src",result.image).attr("height","200px").attr("width", "150px").appendTo($li);   // result.image를 td안에 넣어라
+	         //$("<td>").text(result.image).appendTo($tr);
+	         }
+	         
+	      }, error:function(xhr) {
+	         console.log(xhr);
+	      }
+	   });
+	}
+	
+   function printstm() {
+	var $body = $("#alist");
+	$.each(starTopMovies, function(i, starTopMovie) {
 		
-		var $tr = $("<tr>").appendTo($body);
-		$("<td>").text(movie.movieCd).appendTo($tr);
-		$("<td>").text(movie.movieNm).appendTo($tr);
-		$("<td>").text(movie.prdtYear).appendTo($tr);
-		$("<td>").text(movie.repGenreNm).appendTo($tr);
-		$("<td>").text(movie.repNationNm).appendTo($tr);
-		var $td = $("<td>").appendTo($tr)
-		
-		getPoster(movie, $tr);
-		$("<a>").attr("href","/moviefactory/movie/read?mno=" + movie.movieCd).text("링크열기").appendTo($td);
-		
-	});
-}
-function getPoster(movie, $tr) {
-	console.log(movie);
-	$.ajax({
-		url:"/moviefactory/api/image?subtitle=" + movie.movieNm + "&pubData=" + movie.prdtYear,
-		method: "get",
-		success:function(result) {
-			console.log(result.image);
-			//posterString = result.image;
-			if(typeof result.image == "undefined" || result.image==""){
-				var $td = $("<td>").appendTo($tr)
-				$("<img>").attr("src","http://localhost:8081/sajin/default_movie.png").attr("width", "110px").appendTo($td); 
-			}else {
-			var $td = $("<td>").appendTo($tr)
-			$("<img>").attr("src",result.image).appendTo($td);
-			//$("<td>").text(result.image).appendTo($tr);
-			}
-			
-		}, error:function(xhr) {
-			console.log(xhr);
-		}
-	});
-}
+		var $li = $("<li>").attr("class","lists").appendTo($body);
+		//$("<td>").text(starTopMovie.mno).appendTo($tr);
+		//$("<td>").text(starTopMovie.rating2).appendTo($tr);
+		getMovieDetail(starTopMovie.mno, starTopMovie.rating2, $li);
+		});	
+	}  
+  
+  function printu() {
+	  var $body = $("#ulist");
+		 $.each(preferenceMovies, function(i, preferenceMovie) {
+			var $li = $("<li>").attr("class","lists").appendTo($body);
+			//$("<td>").text(preferenceMovie.mno).appendTo($tr);
+			getMovieDetail(preferenceMovie.mno, preferenceMovie.rating2, $li);
+			//$("<td>").text(preferenceMovie.rating2).appendTo($tr);
+			});	 
+	  
+  }
+  
+  function printgr() {
+	  var $body = $("#glist");
+		$.each(genreTopMovies, function(i, genreTopMovie) {
+			var $li = $("<li>").attr("class","lists").appendTo($body);
+			//$("<td>").text(genreTopMovie.mno).appendTo($tr);
+			getMovieDetail(genreTopMovie.mno, genreTopMovie.rating2, $li);
+			//$("<td>").text(genreTopMovie.rating2).appendTo($tr);
+			});	
+	  
+  }
+ 
 function printPaging(result) {
 	var pageno = page;
 	var pagesize = 5;
@@ -115,16 +168,14 @@ function printPaging(result) {
 	
 	var $pagination = $("#pagination");	
 	var serverUrl = "http://localhost:8081/moviefactory/movie/list?repGenreNm="+ repGenreNm.value;
-	// console.log("페이징함수 들어옴");	
+	 console.log("페이징함수 들어옴");	
 	
 }
 
 $(function() {
-	/*
-	var param = {
-			mNo: mno
-		};
-	*/
+	/* var param = {mNo: mno}; */
+	
+	 
 	$.ajax({
 		url: "/moviefactory/api/usermovie/averagerating",
 //		data:mno,
@@ -132,12 +183,13 @@ $(function() {
 		success: function(result, status, xhr) {
 			starTopMovies = result;
 			console.log(starTopMovies);
-			//printLists();
+			printstm();
 			
 		}, error: function(xhr) {
 			 console.log(xhr.status);
 		}
 	});
+	
 	
 	var genre = $("#repGenreNm option:selected").val();
 	console.log(genre);
@@ -148,14 +200,15 @@ $(function() {
 		success: function(result, status, xhr) {
 			genreTopMovies = result;
 			console.log(genreTopMovies);
-			//printLists();
-			
+			printgr();
 		}, error: function(xhr) {
 			 console.log(xhr.status);
 		}
 	});
 	
+	
 	$("#repGenreNm").on("change", function(){
+		$("#glist>*").remove();
 		genre = $("#repGenreNm option:selected").val();
 		console.log(genre);
 		$.ajax({
@@ -165,37 +218,38 @@ $(function() {
 			success: function(result, status, xhr) {
 				genreTopMovies = result;
 				console.log(genreTopMovies);
-				//printLists();
-				
+				printgr();
 			}, error: function(xhr) {
 				 console.log(xhr.status);
 			}
 		});
 	});
 	
-			$.ajax({
-				url: "/moviefactory/api/usermovie/preferencemovie?username="+loginId,
-				method:"get",
-				success:function(result) {
-					preferenceMovies=result;
-					console.log(preferenceMovies);
-				}, error : function(xhr) {
+	$.ajax({
+		url: "/moviefactory/api/usermovie/preferencemovie?username="+loginId,
+			method:"get",
+			success:function(result) {
+				preferenceMovies=result;
+				console.log(preferenceMovies);
+				 printu(); 
+			}, error : function(xhr) {
 					
-				}
-			});
-			 $.ajax({
-		         url: "/moviefactory/api/usermovie/findnickname?username=" + loginId,
-		         method: "get",
-		         success: function(result) {
-		            console.log(result);
-		            $("#usermovie").text(result+"님이 리뷰한 영화목록");
-		         }
-		      });
-	
-});
+			}
+		});
+			
+	 $.ajax({
+		       url: "/moviefactory/api/usermovie/findnickname?username=" + loginId,
+		       method: "get",
+		       success: function(result) {
+		          console.log(result);
+		          $("#usermovie").text(result);
+		       }
+		    });
+		});
+
 </script>
 
-<title>Insert title here</title>
+<title>무비팩토리</title>
 <style>
 .material-icons.md-18 {font-size:18px;}
 .jumbotron {
@@ -251,26 +305,38 @@ hr {
 
 #asideleft {
 	float: left;
-	width: 400px;
-	/* background-color: #F6F6F6; */
-	height: 1000px;
+	width: 20%;
+	display: inline-block;
+	height: 1px;
 }
 
 #asideright {
 	float: right;
-	width: 400px;
-	/* background-color: #F6F6F6; */
-	height: 1000px;
+	width: 20%;
+	
 }
 section {
-   width:1100px;   
+   width:60%;   
    float:left;
 }
 #main123 {
-   width:1900px;
-   height : 1100px;
+   height : 100%;
    overflow: hidden;
+   
 }
+
+.lists {
+display: inline-block;
+margin : 0 auto;
+padding : 30px;
+}
+
+
+#ulist, #glist, #alist {
+	margin : 0 auto;
+}
+
+ul, li { list-style:none; }
 
 </style>
 </head>
@@ -363,7 +429,7 @@ section {
 		
 			<!-- <table class="table table-hover"> -->
 			<!-- 장르를 선택하여 평균점수가 높은 영화 5개 -->
-			<p>장르별 평점 상위 영화</p>
+			<h3 style="font-weight: bold"><i class="fas fa-film" ></i> 장르별 평점 상위 영화</h3>
 			<select id="repGenreNm" name="repGenreNm">
 				<option value="애니메이션">애니메이션</option>
 				<option value="액션">액션</option>
@@ -380,105 +446,30 @@ section {
 				<option value="성인물(에로)">성인물(에로)</option>
 				<option value="미스터리">미스터리</option>
 			</select> <br> <br>
-			<table class="GenreTopTable">
-				<colgroup>
-					<col width="20%">
-					<col width="10%">
-					<col width="20%">
-					<col width="10%">
-					<col width="40%">
-				</colgroup>
-				<thead>
-					<tr>
-						<th>제목</th>
-						<th>제작년도</th>
-						<th>장르</th>
-						<th>제작국가</th>
-						<th>포스터</th>
-					</tr>
-				</thead>
-				<tbody id="list">
-				</tbody>
-			</table>
+			<div class="GenreTopTable">
+				<ul id="glist">
+				</ul>
+			</div>
 			<br>
 			<hr>
 			<!-- 모든 영화중에 평점이 높은 영화 5개 -->
-			<p>평균 평점 상위 영화</p>
-			<table class="StarTopTable">
-				<colgroup>
-					<col width="20%">
-					<col width="10%">
-					<col width="20%">
-					<col width="10%">
-					<col width="40%">
-				</colgroup>
-				<thead>
-					<tr>
-						<th>제목</th>
-						<th>제작년도</th>
-						<th>장르</th>
-						<th>제작국가</th>
-						<th>포스터</th>
-					</tr>
-				</thead>
-				<tbody id="list">
-				</tbody>
-			</table>
+			<h3 style="font-weight: bold"><i class="fas fa-film" ></i> 평균 평점 상위 영화</h3>
+			<div class="StarTopTable" >
+				<ul id="alist">
+				</ul>
+			</div>
 			<br>
 
 			<!-- 유저가 좋아하는 장르중에 안본 평점 상위 영화 -->
 
-			<!-- 비회원, 관리자는 안보임 -->
-			<!--
-		<hr>
-		<p>OO님이 좋아하실 영화</p>
-		<table class="UserLikeTable">
-			<colgroup>
-				<col width="20%">
-				<col width="10%">
-				<col width="20%">
-				<col width="10%">
-				<col width="40%">
-			</colgroup>
-			<thead>
-				<tr>
-					<th>제목</th>
-					<th>제작년도</th>
-					<th>장르</th>
-					<th>제작국가</th>
-					<th>포스터</th>
-				</tr>
-			</thead>
-			<tbody id="list">
-			</tbody>
-		</table>
-		-->
-
-
 			<!--  로그인 회원  -->
 			<sec:authorize access="hasRole('ROLE_USER')">
 				<hr>
-				<p id="usermovie"></p>
-				<table class="UserLikeTable">
-					<colgroup>
-						<col width="20%">
-						<col width="10%">
-						<col width="20%">
-						<col width="10%">
-						<col width="40%">
-					</colgroup>
-					<thead>
-						<tr>
-							<th>제목</th>
-							<th>제작년도</th>
-							<th>장르</th>
-							<th>제작국가</th>
-							<th>포스터</th>
-						</tr>
-					</thead>
-					<tbody id="list">
-					</tbody>
-				</table>
+				<h3 style="font-weight: bold"><i class="fas fa-hand-holding-heart " style="color:#FFB2D9"></i> <span id="usermovie"></span> 님 이 영화 어때요? :)</h3>
+				<div class="UserLikeTable">
+					<ul id="ulist">
+					</ul>
+				</div>
 			</sec:authorize>
 
 	
@@ -493,10 +484,6 @@ section {
 	<!-- 사이드 -->
 	<div id="asideright"></div>
 	<br>
-	<!-- <form action="movie/list">
-		<input type="text" id="query" name="query">
-		<button id="button">검색</button>
-	</form> -->
 </div>
 
 	<!-- 푸터 -->

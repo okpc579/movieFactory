@@ -28,7 +28,8 @@
 }
 
 #paging {
-	width: 300px;
+	width: 600px;
+	padding-right: 130px;
 }
 
 .pagination a {
@@ -84,11 +85,11 @@ th {
 }
 </style>
 <script>
+var title;
 	function noticeList(page) {
 		var $body = ("#list");
 		$.each(page.notices, function(noticeNo, notice) {
 			var $tr = $("<tr>").appendTo($body);
-			$("<td>").text(notice.noticeNo).appendTo($tr)
 			var $td = $("<td>").appendTo($tr)
 			$("<td>").text(notice.Content).appendTo($td);
 			$("<a>").attr("href",
@@ -98,7 +99,7 @@ th {
 		});
 	}
 	function noticePage(page, username) {
-		var $ul = $("<ul>").attr("class", "Page").appendTo($("#paging"));
+		var $ul = $("<ul>").attr("class", "pagination").appendTo($("#paging"));
 
 		var cntOfPage = Math.floor(page.totalcount / page.pagesize);
 		if (page.totalcount % page.pagesize != 0)
@@ -121,73 +122,162 @@ th {
 		if (username != undefined)
 			usernameParam = '&username=' + username;
 		// 블록 번호가 1보다 큰 경우 앞으로 버튼 출력
-		if (blockNo > 1) {
-			var $li = $("<li>").attr("class", "previous").appendTo($ul);
-			$("<a>").attr(
-					"href",
-					"/moviefactory/notice/list?pageno=" + (startPage - 1)
-							+ usernameParam).text("이전").appendTo($li);
-		}
+		 if (blockNo > 1) {
+         if(typeof title == "undefined"){
+            var $li = $("<li>").attr("class", "previous").appendTo($ul);
+            $("<a>").attr(
+                  "href",
+                  "/moviefactory/notice/list?pageno="
+                        + (startPage - 1) + usernameParam).text("이전")
+                  .appendTo($li);
+         }
+         else if(typeof title == "string"){
+            var $li = $("<li>").attr("class", "previous").appendTo($ul);
+            $("<a>").attr(
+                  "href",
+                  "/moviefactory/notice/list?title=" + title + "&pageno="
+                        + (startPage - 1) + usernameParam).text("이전")
+                  .appendTo($li);
+         }
+      }
 		// 현재 페이지인 경우 li에 active 클래스를 지정하면서 페이지 번호 출력
-		for (var i = startPage; i <= endPage; i++) {
-			if (i == page.pageno) {
-				var $li = $("<li>").attr("class", "active").appendTo($ul);
-				$("<a>")
-						.attr(
-								"href",
-								"/moviefactory/notice/list?pageno=" + i
-										+ usernameParam).text(i).appendTo($li);
-			} else {
-				var $li = $("<li>").appendTo($ul);
-				$("<a>")
-						.attr(
-								"href",
-								"/moviefactory/notice/list?pageno=" + i
-										+ usernameParam).text(i).appendTo($li);
-			}
-		}
+		  for (var i = startPage; i <= endPage; i++) {
+         if (i == page.pageno) {
+            if(typeof title == "undefined"){
+               var $li = $("<li>").attr("class", "active").appendTo($ul);
+               $("<a>").attr(
+                     "href",
+                     "/moviefactory/notice/list?pageno=" + i
+                           + usernameParam).text(i).appendTo($li);
+               }
+            else if(typeof title == "string"){
+               var $li = $("<li>").attr("class", "active").appendTo($ul);
+               $("<a>").attr(
+                     "href",
+                     "/moviefactory/notice/list?title=" + title + "&pageno=" + i
+                           + usernameParam).text(i).appendTo($li);
+            }
+            } else {
+            if(typeof title == "undefined"){
+               var $li = $("<li>").appendTo($ul);
+               $("<a>").attr(
+                     "href",
+                     "/moviefactory/notice/list?pageno=" + i
+                           + usernameParam).text(i).appendTo($li);
+            }
+            else if(typeof title == "string"){
+               var $li = $("<li>").appendTo($ul);
+               $("<a>").attr(
+                     "href",
+                     "/moviefactory/notice/list?title=" + title + "&pageno=" + i
+                           + usernameParam).text(i).appendTo($li);
+            }
+         }
+      }
 
 		// 블록의 마지막 페이지가 페이지 개수보다 작은 경우 다음으로 버튼 출력
-		if (endPage < cntOfPage) {
-			var $li = $("<li>").attr("class", "next").appendTo($ul);
-			$("<a>").attr(
-					"href",
-					"/moviefactory/notice/list?pageno=" + (endPage + 1)
-							+ usernameParam).text("다음").appendTo($li);
-		}
-	}
-
+		  if (endPage < cntOfPage) {
+		         if(typeof title == "undefined"){
+		            var $li = $("<li>").attr("class", "next").appendTo($ul);
+		            $("<a>").attr(
+		                  "href",
+		                  "/moviefactory/notice/list?pageno=" + (endPage + 1)
+		                        + usernameParam).text("다음으로").appendTo($li);
+		         }
+		         else if(typeof title == "string"){
+		            var $li = $("<li>").attr("class", "next").appendTo($ul);
+		            $("<a>").attr(
+		                  "href",
+		                  "/moviefactory/notice/list?title=" + title + "&pageno=" + (endPage + 1)
+		                        + usernameParam).text("다음으로").appendTo($li);
+		         }       
+		      }    
 	$("body").on("click", "#write", function() {
 		location.href = "/moviefactory/notice/write";
 	})
-
+}
 	$(function() {
-		toastr.options = {
-			"progressBar" : true
-		}
-
-		// 전체 글을 페이징하면 주소가 ?pageno=11
-		// 특정 사용자가 작성한 글을 페이징하면 ?pageno=11&writer=spring11
-		// &를 기준으로 문자열을 자른다
-		var params = location.search.split('&');
-
-		// pageno=11
-		//console.log(params[0]);
-		// 전체 글 페이징 : undefined, 사용자가 작성한 글 페이징: writer=spring11
-		console.log(params[1]);
-		$.ajax({
-			url : "/moviefactory/api/notice/list", //여기 주소 니가 이상하게 적어놨어
-			method : "get",
-			data : location.search.substr(1),
-			success : function(result) {
-				console.log(result);
-				noticeList(result); // 이거 이름 안바꿈 adminaskList
-				if (params[1] != undefined)
-					noticePage(result, params[1].substr(7)); //여기 이름 안바꿈 adminaskPage
-				else
-					noticePage(result); // 여기 이름 안바꿈 adminaskPage
-			}
-		});
+	      toastr.options = {
+	            "progressBar" : true
+	         }
+	         // var params = location.search.split('=');
+	         // console.log(params);
+	         var params = location.search.split('&');
+	         var url = "/moviefactory/api/notice/list";
+	         console.log(params);
+	         
+	         if(typeof params[1] == "undefined"){   
+	            if (params[0] == "") {
+	               url = url + "?pageno=" + 1;
+	            } else {
+	               url = url + "?pageno=" + params[0].split('=')[1];
+	            }
+	            
+	            $.ajax({
+	               url : url,
+	               method : "get",
+	               success : function(result) {
+	            	   if(result.totalcount/10+1<result.pageno){
+							location.href="/moviefactory/notice/list?pageno=1";
+						}else if(result.totalcount%10==0 && result.totalcount/10<result.pageno){
+							location.href="/moviefactory/notice/list?pageno=1";
+						}else if(result.pageno<=0){
+							location.href="/moviefactory/notice/list?pageno=1";
+						}
+	                  console.log(result);
+	                  noticeList(result);
+	                  noticePage(result);
+	               }
+	            });
+	         }else if(params[0].split('=')[0] == "?title"){
+	             console.log("?username 들어옴");
+	             title = params[0].split('=')[1];
+	             //url = url + "?pageno=" + params[1].split('=')[1];
+	             $.ajax({
+	                url : "/moviefactory/api/notice/searchlisttitle?pageno="+params[1].split('=')[1] + "&title="+params[0].split('=')[1],
+	                method : "get",
+	                success : function(result) {
+	                   console.log(result);
+	                   noticeList(result);
+	                   noticePage(result);
+	                }
+	             });
+	          }
+	       });
+	function check() {
+        if (document.searchForm.search.value == "") {
+           alert("검색어를 입력하세요.");
+           document.searchForm.search.focus();
+           return;
+        }
+        document.searchForm.submit();
+     }
+     
+     
+     
+     $(function() {
+        $("#search1").keydown(function(key) {
+           if(key.keyCode==13) {
+              key.preventDefault();
+              if($("#search1").val()=="") {
+                 alert("검색어를 입력하세요.");
+              }else{
+                 if($("#searchType").val()=="title"){
+                    location.href="/moviefactory/notice/list?title=" + $("#search1").val() + "&pageno=1";
+                 }
+              }
+           }
+        });
+        
+        $("#searchBtn").on("click", function() {
+           if($("#search1").val()=="") {
+              alert("검색어를 입력하세요.");
+           } else {
+              if($("#searchType").val()=="title"){
+                 location.href="/moviefactory/notice/list?title=" + $("#search1").val() + "&pageno=1";
+              }      
+           }
+        });
 	});
 </script>
 <body>
@@ -205,23 +295,23 @@ th {
 						<sec:authorize access="hasRole('ROLE_USER')">
 						<p class="user">일반 회원</p>
 						</sec:authorize>
-						<select name="searchType">
-							<option value="all">전체검색</option>
+						<sec:authorize access="isAnonymous()">
+						<p>비회원</p>
+						</sec:authorize>
+						<select name="searchType" id="searchType">
 							<option value="title">제목</option>
-						</select> <input type="text" name="searchText" value="" size="40" /> <input
-							type="submit" value="검색" class="btn" />
+						</select> <input type="text" name="search1" value="" size="40" id=search1 /> 
+						<button type="button" class="btn" id="searchBtn">검색</button>
 						</p>
 					</form>
 					<table class="table">
 						<colgroup>
-							<col width="10%">
 							<col width="70%">
-							<col width="20%">
+							<col width="30%">
 						</colgroup>
 						<thead class="board_top">
 							<tr>
-								<th>글번호</th>
-								<th id="title_center">제목</th>
+								<th id="title">제목</th>
 								<th>작성일</th>
 							</tr>
 						</thead>
@@ -248,3 +338,12 @@ th {
 	</div>
 </body>
 </html>
+<link rel="icon" type="image/png" href="http://example.com/myicon.png">
+<link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

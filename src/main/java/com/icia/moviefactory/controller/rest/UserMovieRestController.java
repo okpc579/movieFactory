@@ -107,6 +107,7 @@ public class UserMovieRestController {
 	
 	@GetMapping("/preferencemovie")
 	public ResponseEntity<?> findPreferenceMovie(String username) {
+		System.out.println(service.findPreferenceMovie(username));
 		return ResponseEntity.ok(service.findPreferenceMovie(username));		
 	}
 	

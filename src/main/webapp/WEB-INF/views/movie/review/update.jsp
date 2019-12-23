@@ -32,39 +32,68 @@
 	</script>	
 </sec:authorize>
 <script>
-var moviereview;
+var moviereview; 
+
+/* //수정전 내용 출력
+function printR(moviereview) {
+	$("#content").text(moviereview.mrevContent);
+	console.log(moviereview);
+	
+}
+ */
+/* $(function() {
+
+	var mRevNo = location.search.substr(8);
+	console.log(mRevNo);
+	$.ajax({
+		url : "/moviefactory/api/movie/review/read/" + mRevNo,
+		method : "get",
+		success : function(result, status, xhr) {
+			console.log(result);
+			moviereview = result;
+			printR(result);
+		},
+		error : function(xhr) {
+			console.log(xhr.status);
+		}
+	});
+}); */
 
 $(function() {
-	var mno1 = $("#mNo").val(location.search.split('=')[1]);
+	$("#mNo").val(location.search.split('=')[1]);
 	if(location.search.split('=')[0] == ""){
 		location.href="/moviefactory";
 	}
-	$(function() { 
-		$.ajax({
-			url:"/moviefactory/api/read?mno=" + location.search.split('=')[1],	//디테일 리드
-			method: "get",
-			success:function(result) {
-				console.log(result);
-				console.log(result.genres[0]);
-				console.log(result.movieNm);
-				$("#genre").val(result.genres[0]);
-				$("#title").text(result.movieNm);
-			}, error:function(xhr) {
-				
+	 
+	$.ajax({
+		url:"/moviefactory/api/read?mno=" + location.search.split('=')[1],	//디테일 리드
+		method: "get",
+		success:function(result) {
+			/* console.log(result);
+			console.log(result.genres[0]);
+			console.log(result.movieNm); */
+			$("#genre").val(result.genres[0]);
+			$("#title").text(result.movieNm);
+		}, error:function(xhr) {
+			
+		}
+	});
+	$.ajax({
+		url:"/moviefactory/api/movie/review/myreview?mno=" + location.search.split('=')[1],	//디테일 리드
+		method: "get",
+		success:function(result) {
+			console.log(result);
+			if(result==""){
+				location.href="/moviefactory/movie/read?mno=" + location.search.split('=')[1];
+				alert("작성된 리뷰가 없습니다");
 			}
-		});
-		$.ajax({
-			url:"/moviefactory/api/movie/review/myreview?mno=" + location.search.split('=')[1],	//디테일 리드
-			method: "get",
-			success:function(result) {
-				console.log(result);
-					if(result!=""){
-						alert("이미 작성된 리뷰가 존재합니다.")
-						location.href="/moviefactory/movie/read?mno=" + location.search.split('=')[1];
-					}
-				}
-			});
-		});
+			$("#content").text(result.mrevContent);
+			$("#rating").text(result.rating);
+			$("#hidden").val(result.rating);
+		}, error:function(xhr) {
+			
+		}
+	});
 	
 		
 	
@@ -89,17 +118,16 @@ $(function() {
 		$("#hidden").val(5);
 		$("#rating").text("5점");
 	})
-	
 	$("#reg").on("click", function() {
+		console.log(moviereview);
 		var param = $("#writeForm").serialize();
 		var content = $("#content").val();
-		console.log(param);
 		if(content==""){
 			alert("내용을 입력해주세요.");
 			return false;
 		}	
 		$.ajax({
-			url: "/moviefactory/api/movie/review/write",
+			url: "/moviefactory/api/movie/review/update",
 			data:param,
 			method: "post",
 			success: function(result, status, xhr) {
@@ -112,7 +140,6 @@ $(function() {
 			}
 		});
 	});
-
 	$('input[name=isSp]').click(function(){
 		$("#isSpo").val(1);
 	});
@@ -243,10 +270,10 @@ width : 800px;
 </td>
 				</tr>
 				<tr>
-					<td><textarea style="resize: none;" id="content" name="mRevContent"placeholder="내용을 입력하세요" style="height: 231px; " class="form-control"></textarea><br><input id="isSpo1"type="checkbox" value="" name="isSp">스포일러</td>
+					<td><textarea style="resize: none;" id="content" name="mRevContent"placeholder="내용을 입력하세요"  class="form-control"></textarea><br><input id="isSpo1"type="checkbox" value="" name="isSp">스포일러</td>
 				</tr>
 				<tr>
-					<td style="height:60px;"><button class="btn btn-primary" id="reg" type="button" >작성</button></td>
+					<td style="height:60px;"><button type="button" class="btn btn-primary" id="reg" >수정하기</button></td>
 				</tr>
 			</table>
 		</div>

@@ -76,4 +76,53 @@ public class AskService {
 	public int askAnswer(AdminAsk adminAsk) {
 		return askDao.askAnswer(adminAsk);
 	}
+	
+	// 아이디로 검색해 글 페이징 가져오기
+	public Page findAdminAskBySearchUsername(int pageno, String username) {
+		if(username==null) {
+			int count = askDao.findAllCount();
+			int startRowNum = ((pageno-1) * pagesize + 1);
+			int endRowNum = startRowNum + pagesize -1;
+			if(endRowNum >= count)
+				endRowNum = count;
+			List<AdminAsk> adminAsks = askDao.findAll(startRowNum, endRowNum);
+			return new Page().builder().pageno(pageno).pagesize(pagesize).totalcount(count).adminAsks(adminAsks).build();
+		} else {
+			int count = askDao.findAdminAskCountByUsername(username);
+			int startRowNum = ((pageno-1) * pagesize + 1);
+			int endRowNum = startRowNum + pagesize -1;
+			if(endRowNum >= count)
+				endRowNum = count;
+			List<AdminAsk> adminAsks = askDao.findAdminAskByUsername(startRowNum, endRowNum,username);
+			return new Page().builder().pageno(pageno).pagesize(pagesize).totalcount(count).adminAsks(adminAsks).build();
+		}
+	}
+	// 글제목으로 검색해 글 페이징 가져오기
+	public Page findAdminAskBySearchTitle(int pageno, String title) {
+		if(title==null) {
+			int count = askDao.findAllCount();
+			int startRowNum = ((pageno-1) * pagesize + 1);
+			int endRowNum = startRowNum + pagesize -1;
+			if(endRowNum >= count)
+				endRowNum = count;
+			List<AdminAsk> adminAsks = askDao.findAll(startRowNum, endRowNum);
+			return new Page().builder().pageno(pageno).pagesize(pagesize).totalcount(count).adminAsks(adminAsks).build();
+		} else {
+			int count = askDao.findAdminAskCountByTitle(title);
+			int startRowNum = ((pageno-1) * pagesize + 1);
+			int endRowNum = startRowNum + pagesize -1;
+			if(endRowNum >= count)
+				endRowNum = count;
+			List<AdminAsk> adminAsks = askDao.findAdminAskByTitle(startRowNum, endRowNum,title);
+			return new Page().builder().pageno(pageno).pagesize(pagesize).totalcount(count).adminAsks(adminAsks).build();
+		}
+	}
+	
+	// 읽기전 답변중으로 바꾸기
+	public int answering(long adminAskNo) {
+		return askDao.answering(adminAskNo);
+	}
+	public String checkusername(String username, long adminAskNo) {
+		return askDao.checkusername(username, adminAskNo)==null?"false":"true";
+	}
 }

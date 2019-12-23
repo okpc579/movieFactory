@@ -75,7 +75,8 @@ public class UserMovieDao {
 	
 	// 13.내 선호영화 예상 목록 보기(좋아하는 영화 목록에 장르와 비슷한것?, 컬렉션 목록?
 		public List<FavoriteMovie> findPreferenceMovie(FavoriteMovie favoritemovie) { 
-			return tpl.selectList("userMovieMapper.findPreferenceMovie", favoritemovie); 		
+			List<FavoriteMovie> list = tpl.selectList("userMovieMapper.findPreferenceMovie", favoritemovie);
+			return list;
 		}
 		
 	// 14. 영화번호로 아이디 찾기
@@ -102,7 +103,9 @@ public class UserMovieDao {
 	}
 
 	public List<MovieReview> findPreferenceMovie(String username) {
-		return tpl.selectList("userMovieMapper.findPreferenceMovieList", username);
+		List<MovieReview> list =  tpl.selectList("userMovieMapper.findPreferenceMovieList", username);
+		list.stream().forEach(s->System.out.println(s));
+		return list;
 	}
 
 	public MovieReview checkwritereview(String username, long mNo) {

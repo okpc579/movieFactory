@@ -23,10 +23,9 @@
 <title>고객센터</title>
 </head>
 <style>
-#admin_board {
+#admin_board{
 	text-align: center;
 }
-
 th {
 	text-align: center;
 }
@@ -40,7 +39,8 @@ th {
 }
 
 #paging {
-	width: 300px;
+	width: 600px;
+	padding-right: 130px;
 }
 
 .pagination a {
@@ -78,7 +78,6 @@ background-color
 		var $body = ("#list");
 		$.each(page.adminAsks, function(adminAskNo, adminAsk) {
 			var $tr = $("<tr>").appendTo($body);
-			$("<td>").text(adminAsk.adminAskNo).appendTo($tr)
 			$("<td>").text(adminAsk.askStateContent).appendTo($tr);
 			var $td = $("<td>").appendTo($tr);
 			$("<a>").attr(
@@ -94,7 +93,7 @@ background-color
 		});
 	}
 	function adminaskPage(page, username) {
-		var $ul = $("<ul>").attr("class", "Page").appendTo($("#paging"));
+		var $ul = $("<ul>").attr("class", "pagination").appendTo($("#paging"));
 
 		var cntOfPage = Math.floor(page.totalcount / page.pagesize);
 		if (page.totalcount % page.pagesize != 0)
@@ -155,16 +154,6 @@ background-color
 		location.href = "/moviefactory/adminAsk/write";
 	})
 
-	// 3. .username 클릭 처리
-	$("body").on(
-			"click",
-			".username",
-			function() {
-				// 글쓴사람 아이디를 클릭하면 모달 메뉴를 출력
-				// 아이디는 td에 data-username으로 저장. 모달 메뉴를 띄우는 순간에 메뉴쪽에 복사	
-				$(".modal-body li").attr("data-username",
-						$(this).attr("data-username"));
-			});
 	$(function() {
 		toastr.options = {
 			"progressBar" : true
@@ -184,12 +173,34 @@ background-color
 			method : "get",
 			data : location.search.substr(1),
 			success : function(result) {
+				console.log(result);
+				console.log(result.adminAsks);
+				console.log(result.adminAsks.length);
+				/*
+				if(result.totalcount!=0){
+					if(result.totalcount/10+1<result.pageno){
+						location.href="/moviefactory/adminAsk/listuser?pageno=1";
+					}else if(result.totalcount%10==0 && result.totalcount/10<result.pageno){
+						location.href="/moviefactory/adminAsk/listuser?pageno=1";
+					}else if(result.pageno<=0){
+						location.href="/moviefactory/adminAsk/listuser?pageno=1";
+					}
+				}
+				*/
+				if(typeof result =="undefined"){
+					location.href="/moviefactory/adminAsk/listuser?pageno="+1	
+				}else if(result.adminAsks.length ==0){
+					location.href="/moviefactory/adminAsk/listuser?pageno="+1
+				}
 				adminaskList(result); // 이거 이름 안바꿈 adminaskList
 				if (params[1] != undefined)
 					adminaskPage(result, params[1].substr(7)); //여기 이름 안바꿈 adminaskPage
 				else
 					adminaskPage(result); // 여기 이름 안바꿈 adminaskPage
-			}
+			},error: function(xhr) {
+				console.log(xhr);
+				 location.href="/moviefactory/adminAsk/listuser?pageno="+1
+	         }
 		});
 	});
 </script>
@@ -201,32 +212,15 @@ background-color
 			<div id="menu_list">
 				<div id="admin_board">
 					<!-- 검색 폼 영역 -->
-					<form name="searchForm" action="" method="get">
-						<p>
-						<p class="user">일반 회원</p>
-						<select name="searchType">
-							<option value="all">전체검색</option>
-							<option value="title">제목</option>
-							<option value="username">작성자</option>
-						</select> <input type="text" name="searchText" value="" size="40" /> <input
-							type="submit" value="검색" class="btn" />
-						</p>
-					</form>
+					<hr>
+					<br><br><br>
 					<table class="table">
-						<colgroup>
-							<col width="10%">
-							<col width="10%">
-							<col width="52%">
-							<col width="14%">
-							<col width="14%">
-						</colgroup>
-						<thead class="board_top">
+						<thead>
 							<tr>
-								<th class="title_center">글번호</th>
-								<th class="title_center">문의상태</th>
-								<th class="title_center">제목</th>
-								<th class="title_center">아이디</th>
-								<th class="title_center">작성일</th>
+								<th style="width: 111px;">문의상태</th>
+								<th style="width: 682px;">제목</th>
+								<th style="width: 153px;">아이디</th>
+								<th style="width: 153px;">작성일</th>
 							</tr>
 						</thead>
 						<tbody id="list">
@@ -253,8 +247,6 @@ background-color
 	href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script

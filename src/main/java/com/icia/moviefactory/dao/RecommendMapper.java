@@ -29,6 +29,19 @@ public interface RecommendMapper {
 	
 	@Insert("insert into m_cmnt_like values(#{mRevCmntNo},#{username},#{likeRegDate})")
 	public void insertCmntlike(@ModelAttribute MovieReviewCommentLike moviereviewcommentlike);
+
+	@Select("select username from m_rev_like where username=#{username} and m_rev_no=#{mRevNo}")
+	public String checkReviewLike(@Param("mRevNo")Long mRevNo, @Param("username")String username);
+
+	//delete from m_cmnt where m_rev_no=#{mRevNo}
+	@Delete("delete from m_rev_like where username=#{username} and m_rev_no=#{mRevNo} ")
+	public void deletelike(@Param("username") String username, @Param("mRevNo") Long mRevNo);
+
+	@Select("select username from m_cmnt_like where username=#{username} and m_rev_cmnt_no=#{mrevCmntNo}")
+	public Object checkCmntLike(@Param("mrevCmntNo") Long mrevCmntNo, @Param("username") String username);
+	
+	@Delete("delete from m_cmnt_like where username=#{username} and m_rev_cmnt_no=#{mRevCmntNo} ")
+	public void deletecmntlike(@Param("username") String username, @Param("mRevCmntNo") Long mRevCmntNo);
 	
 	
 }

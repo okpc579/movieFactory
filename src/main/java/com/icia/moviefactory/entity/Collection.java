@@ -2,7 +2,7 @@ package com.icia.moviefactory.entity;
 
 import java.util.*;
 
-import org.springframework.format.annotation.*;
+import com.fasterxml.jackson.annotation.*;
 
 import lombok.*;
 
@@ -14,7 +14,7 @@ public class Collection {
 	private long collNo;
 	private String collName;
 	private String username;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date writingDate;
 	private String collIntro;
 	private List<CollectionDetail> detail;

@@ -18,9 +18,9 @@
 		<![CDATA[
 			select * from
 		       	(select rownum rnum, b.* from 
-		       		(select /*+ index_desc(m_rev m_rev_pk_m_rev_no) */ m_rev_no mRevNo, username, m_no mNo, rating,m_rev_content mRevContent , is_spo isSpo, writing_date writingDate, genre, is_blind isBlind, like_cnt likeCnt, rep_cnt repCnt from m_rev) b
+		       		(select /*+ index_desc(m_rev m_rev_pk_m_rev_no) */ m_rev_no mRevNo, username, m_no mno, rating,m_rev_content mRevContent , is_spo isSpo, writing_date writingDate, genre, is_blind isBlind, like_cnt likeCnt, rep_cnt repCnt from m_rev where m_no=#{mno} order by m_rev_no desc) b
 		       	where rownum<=#{endRowNum}) 
-		    where rnum>=#{startRowNum} 
+		    where rnum>=#{startRowNum}
 		]]>
 	</select>
 	
@@ -80,13 +80,19 @@
 		select username from m_cmnt where m_rev_cmnt_no=#{mRevCmntNo} and rownum = 1
 	</select>
 	
-	<update id="updaterev"> update m_rev set m_rev_content=#{mRevContent} where
-		m_rev_no=#{mRevNo} </update>
+	<update id="updatereadrev"> update m_rev set m_rev_content=#{mRevContent} where
+		m_rev_no=#{mRevNo}</update>
+		
+	<update id="updaterev"> update m_rev set rating=#{rating}, m_rev_content=#{mRevContent}, is_spo=#{isSpo} where
+		username=#{username} and m_no=#{mNo} </update>
 
 	<delete id="deleterev"> delete from m_rev where m_rev_no=#{mRevNo} </delete>
 
 	<update id="updatelikecnt">
 		update m_rev set like_cnt = like_cnt+1 where m_rev_no = #{mRevNo}
+	</update>
+	<update id="updatedontlikecnt">
+		update m_rev set like_cnt = like_cnt-1 where m_rev_no = #{mRevNo}
 	</update>
 
 	<select id="findLikeCnt" resultType="int">
@@ -139,6 +145,9 @@
 	<update id="updatecmntlike">
 		update m_cmnt set cmnt_like_cnt = cmnt_like_cnt+1 where m_rev_cmnt_no = #{mRevCmntNo}
 	</update>
+	<update id="updatecmntdontlike">
+		update m_cmnt set cmnt_like_cnt = cmnt_like_cnt-1 where m_rev_cmnt_no = #{mRevCmntNo}
+	</update>
 	
 	<select id="findCmntlikecnt" resultType="int">
 		select cmnt_like_cnt from m_cmnt where m_rev_cmnt_no=#{mRevCmntNo} 
@@ -155,7 +164,7 @@
 
 
 	<select id="myReview" resultType="moviereview">
-		select m_rev_no mRevNo,username,m_rev_content mRevContent from m_rev where m_no=#{mNo} and username = #{username} and rownum=1
+		select m_rev_no mRevNo,username,m_rev_content mRevContent, rating from m_rev where m_no=#{mNo} and username = #{username} and rownum=1
 	</select>
 
 
