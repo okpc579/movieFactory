@@ -171,7 +171,7 @@ function printPaging(result) {
 	 console.log("페이징함수 들어옴");	
 	
 }
-
+*/
 $(function() {
 	/* var param = {mNo: mno}; */
 	
