@@ -18,13 +18,13 @@ public class AdminService {
 	private int pagesize;
 	@Autowired
 	private ModelMapper modelMapper;
-	// 모든 블락된 계정 리스트 불러오기
+	
 	/* public List<Member> findAllEnabledList() {
 		List<Member> memberlist = dao.findAllEnabledList();
 		return memberlist;
 		return dao.findallEnabledlist();
 	}*/	
-	
+	// 모든 블락된 계정 리스트 불러오기
 	public Page findAllEnabledList(int pageno) {
 		int count = adminDao.findEnabledCount();
 		int startRowNum = ((pageno-1) * pagesize + 1);
@@ -34,6 +34,18 @@ public class AdminService {
 		List<Member> members = adminDao.findAllEnabledList(startRowNum, endRowNum);
 		return new Page().builder().pageno(pageno).pagesize(pagesize).totalcount(count).members(members).build();
 		}
+	
+	// 아이디로 검색한 블락 목록 불러오기
+	public Page searchByUsernameEnabledList(int pageno, String search) {
+		int count = adminDao.searchByUsernameEnabledCount(search);
+		int startRowNum = ((pageno-1) * pagesize + 1);
+		int endRowNum = startRowNum + pagesize -1;
+		if(endRowNum >= count)
+			endRowNum = count;
+		List<Member> members = adminDao.searchByUsernameEnabledList(startRowNum, endRowNum, search);
+		return new Page().builder().pageno(pageno).pagesize(pagesize).totalcount(count).members(members).build();
+		}
+	
 	// 블라인드 된 리뷰 전체 불러오기(블라인드 게시판)
 	public Page findRevBlind(int pageno) {
 		int count = adminDao.findRevBlindCount();
@@ -44,6 +56,29 @@ public class AdminService {
 		List<MovieReview> movieReviews = adminDao.findRevBlind(startRowNum, endRowNum);
 		return new Page().builder().pageno(pageno).pagesize(pagesize).totalcount(count).movieReviews(movieReviews).build();
 		}
+	
+	// 내용으로 검색한 블라인드 리뷰 불러오기
+	public Page searchByContentRevBlind(int pageno, String search) {
+		int count = adminDao.searchByContentRevBlindCount(search);
+		int startRowNum = ((pageno-1) * pagesize + 1);
+		int endRowNum = startRowNum + pagesize -1;
+		if(endRowNum >= count)
+			endRowNum = count;
+		List<MovieReview> movieReviews = adminDao.searchByContentRevBlind(startRowNum, endRowNum, search);
+		return new Page().builder().pageno(pageno).pagesize(pagesize).totalcount(count).movieReviews(movieReviews).build();
+		}
+	
+	// 아이디로 검색한 블라인드 리뷰 불러오기
+	public Page searchByUsernameRevBlind(int pageno, String search) {
+		int count = adminDao.searchByUsernameRevBlindCount(search);
+		int startRowNum = ((pageno-1) * pagesize + 1);
+		int endRowNum = startRowNum + pagesize -1;
+		if(endRowNum >= count)
+			endRowNum = count;
+		List<MovieReview> movieReviews = adminDao.searchByUsernameRevBlind(startRowNum, endRowNum, search);
+		return new Page().builder().pageno(pageno).pagesize(pagesize).totalcount(count).movieReviews(movieReviews).build();
+		}
+	
 	// 블라인드 된 댓글 전체 불러오기(블라인드 게시판)
 	public Page findRevCmntBlind(int pageno) {
 		int count = adminDao.findRevCmntBlindCount();
@@ -57,6 +92,28 @@ public class AdminService {
 		List<MovieReviewComment> movieReviewComments = adminDao.findRevCmntBlind(startRowNum, endRowNum);
 		return new Page().builder().pageno(pageno).pagesize(pagesize).totalcount(count).movieReviewComments(movieReviewComments).build();
 		}
+	
+	// 내용으로 검색한 블라인드 댓글 불러오기
+	public Page searchByContentCmntBlind(int pageno, String search) {
+		int count = adminDao.searchByContentCmntBlindCount(search); 
+		int startRowNum = ((pageno-1) * pagesize + 1);
+		int endRowNum = startRowNum + pagesize -1;
+		if(endRowNum >= count)
+			endRowNum = count;
+		List<MovieReviewComment> movieReviewComments = adminDao.searchByContentCmntBlind(startRowNum, endRowNum, search);
+		return new Page().builder().pageno(pageno).pagesize(pagesize).totalcount(count).movieReviewComments(movieReviewComments).build();
+	}
+	
+	// 아이디로 검색한 블라인드 댓글 불러오기
+	public Page searchByUsernameCmntBlind(int pageno, String search) {
+		int count = adminDao.searchByUsernameCmntBlindCount(search); 
+		int startRowNum = ((pageno-1) * pagesize + 1);
+		int endRowNum = startRowNum + pagesize -1;
+		if(endRowNum >= count)
+			endRowNum = count;
+		List<MovieReviewComment> movieReviewComments = adminDao.searchByUsernameCmntBlind(startRowNum, endRowNum, search);
+		return new Page().builder().pageno(pageno).pagesize(pagesize).totalcount(count).movieReviewComments(movieReviewComments).build();
+	}
 	
 	// 블락계정 상세(블락된 유저의 블라인드된 리뷰 불러오기)
 	public List<MovieReview> findRevBlindByUser(String username) {

@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <link rel="stylesheet"
@@ -21,121 +22,202 @@
 <title>Insert title here</title>
 <style>
 .center {
-	text-align : center;
- 	font-size : 25pt;
+	text-align: center;
+}
+
+a:link {
+	color: black;
+	text-decoration: none;
+}
+
+a:visited {
+	color: black;
+	text-decoration: none;
+}
+
+a:hover {
+	color: black;
+	text-decoration: none;
+}
+
+#listbar {
+	background-color: #4ABFD3;
+	color: white;
+}
+
+tr th {
+	text-align: center;
+	height: 37px;
+}
+
+td {
+	text-align: center;
+	height: 37px;
+}
+
+table {
+	table-layout: fixed;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th,
+	.table>thead>tr>td, .table>thead>tr>th {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.totaltable {
+	margin: 0;
+	width: 1100px;
 }
 </style>
 </head>
 <script>
-function printReviews(result) {
-	var $body= $("#list");
-	//$body.empty();
-	$.each(result, function(idx, movieReview) {
-		//console.log(movieReview);
-		var $tr = $("<tr>").appendTo($body);
-		$("<td>").text(movieReview.mrevNo).appendTo($tr);
-		$("<td>").text(movieReview.mrevContent).appendTo($tr);
-		$("<td>").text(movieReview.username).appendTo($tr);
-	}); 
-/* 	$.each(result.movieReviewComments, function(idx, movieReviewComment) {
-		//console.log(movieReviewComment);
-		var $tr = $("<tr>").appendTo($body);
-		$("<td>").text(movieReviewComment.mrevCmntNo).appendTo($tr);
-		var $td = $("<td>").appendTo($tr);
-		$("<td>").text(movieReviewComment.content).appendTo($tr);
-		$("<td>").text(movieReviewComment.username).appendTo($tr);
-	}); */
-}
-function printCmnt(result) {
-	var $body= $("#list");
-	//$body.empty();
-	$.each(result, function(idx, movieReview) {
-		//console.log(movieReview);
-		var $tr = $("<tr>").appendTo($body);
-		$("<td>").text(movieReview.mrevCmntNo).appendTo($tr);
-		$("<td>").text(movieReview.content).appendTo($tr);
-		$("<td>").text(movieReview.username).appendTo($tr);
-	}); 
-/* 	$.each(result.movieReviewComments, function(idx, movieReviewComment) {
-		//console.log(movieReviewComment);
-		var $tr = $("<tr>").appendTo($body);
-		$("<td>").text(movieReviewComment.mrevCmntNo).appendTo($tr);
-		var $td = $("<td>").appendTo($tr);
-		$("<td>").text(movieReviewComment.content).appendTo($tr);
-		$("<td>").text(movieReviewComment.username).appendTo($tr);
-	}); */
-}
+	function printRev(result) {
+		var $body = $("#revlist");
+		//$body.empty();
+		$.each(result, function(idx, movieReview) {
+			//console.log(movieReview);
+			var $tr = $("<tr>").appendTo($body);
+			$("<td>").text(movieReview.mrevNo).appendTo($tr);
+			var $td = $("<td>").appendTo($tr);
+			
+			$("<a>").attr( 
+					"href",
+					"/moviefactory/admin/readrevblind?mrevNo="
+							+ movieReview.mrevNo)
+							.text(movieReview.mrevContent).appendTo($td);
+			$("<td>").text(movieReview.username).appendTo($tr);
+		});
+	}
+	 
+	function printCmnt(cmnt) {
+		var $body = $("#cmntlist");
+		$.each(cmnt, function(idx, movieReviewComment) {
+			//console.log(movieReview);
+			var $tr = $("<tr>").appendTo($body);
+			$("<td>").text(movieReviewComment.mrevCmntNo).appendTo($tr);
+			//$("<td>").text(movieReviewComment.content).appendTo($tr);
+			var $td = $("<td>").appendTo($tr);
+			
+			$("<a>").attr("href","/moviefactory/admin/readrevcmntblind?mrevCmntNo="
+							+ movieReviewComment.mrevCmntNo)
+							.text(movieReviewComment.content).css("overflow","hidden").css("white-space","nowrap").appendTo($td);
+			$("<td>").text(movieReviewComment.username).appendTo($tr);
+		});
 
-
-$(function() {
-	var username = location.search.split("=");
-	//console.log(username[1]);
-	$.ajax({
-		url: "/moviefactory/api/findrevblindbyuser?username=" + username[1],
-		method: "get",
-		success: function(result) {
-			console.log(result);
-			printReviews(result);
-		}
-	});
-	$.ajax({	
-		url: "/moviefactory/api/findcmntblindbyuser?username=" + username[1],
-		method: "get",
-		success: function(result) {
-			console.log(result);
-			printCmnt(result);
-		}
-	});
+	}
 	
-});
+	/* 	$.each(result.movieReviewComments, function(idx, movieReviewComment) {
+	 //console.log(movieReviewComment);
+	 var $tr = $("<tr>").appendTo($body);
+	 $("<td>").text(movieReviewComment.mrevCmntNo).appendTo($tr);
+	 var $td = $("<td>").appendTo($tr);
+	 $("<td>").text(movieReviewComment.content).appendTo($tr);
+	 $("<td>").text(movieReviewComment.username).appendTo($tr);
+	 }); */
 
+	$(function() {
+		var username = location.search.split("=");
+		//console.log(username[1]);
+		$.ajax({
+			url : "/moviefactory/api/findrevblindbyuser?username="
+					+ username[1],
+			method : "get",
+			success : function(result) {
+				console.log(result);
+				printRev(result);
+				if(result.length==0) {
+					location.href="/moviefactory/admin/blocklist"
+				}
+			} , error: function(result){
+				location.href="/moviefactory/admin/blocklist"
+			}
+		});
+		$.ajax({
+			url : "/moviefactory/api/findcmntblindbyuser?username="
+					+ username[1],
+			method : "get",
+			success : function(cmnt) {
+				console.log(cmnt);
+				printCmnt(cmnt);
+					if(cmnt.length==0) {
+						location.href="/moviefactory/admin/blocklist"
+					}
+			} , error: function(result){
+				location.href="/moviefactory/admin/blocklist"
+			}
+		});
+	});
 </script>
 
 <body>
-<div id="section">
-<sec:authorize access="isAnonymous()">
-	<script>
-		location.href="http://localhost:8081/moviefactory/system/e403";
-	</script>
-</sec:authorize>
-<sec:authorize access="hasRole('ROLE_USER')">
-	<script>
-		location.href="http://localhost:8081/moviefactory/system/e403";
-	</script>
-</sec:authorize>
-	<div id="admin">
-		<p class="center"><strong>관리자 센터 - 블라인드내역</strong></p>
+	<div id="section">
+		<sec:authorize access="isAnonymous()">
+			<script>
+				location.href = "http://localhost:8081/moviefactory/system/e403";
+			</script>
+		</sec:authorize>
+		<sec:authorize access="hasRole('ROLE_USER')">
+			<script>
+				location.href = "http://localhost:8081/moviefactory/system/e403";
+			</script>
+		</sec:authorize>
+
+		<h2 class="center">
+			<strong> <a
+				href="http://localhost:8081/moviefactory/admin/blocklist"> 관리자
+					센터 - 블라인드 목록</a>
+			</strong>
+		</h2>
+
+		<br>
 		<hr>
-		<div id="admin_board">
-			<table class="table">
-				<colgroup>
+		<div id="admin">
+			<table class="totaltable">
+
+				<%-- <colgroup>
 					<col width="10%">
-					<col width="60%">
-					<col width="30%">
-				</colgroup>
+					<col width="70%">
+					<col width="20%">
+				</colgroup> --%>
 				<thead class="board_top">
-					<tr>  
-						<th id=number>번호</th>
+					<tr id="listbar">
+						<th id=number>리뷰번호</th>
 						<th id=content>내용</th>
 						<th id=username>아이디</th>
 					</tr>
 				</thead>
-				<tbody id="list">
+
+
+				<tbody id="revlist">
+
+				</tbody>
+
+				<colgroup>
+					<col width="10%">
+					<col width="70%">
+					<col width="20%">
+				</colgroup>
+				<thead class="board_top">
+					<tr id="listbar">
+						<th id=number>댓글번호</th>
+						<th id=content>내용</th>
+						<th id=username>아이디</th>
+					</tr>
+				</thead>
+
+
+				<tbody id="cmntlist">
 
 				</tbody>
 			</table>
-			<div class="row text-center" style="width: 100%">
-				<div style="width: 30%; float: none; margin: 0 auto">
-					<div id="paging" class="pagination" style="text-align: center;">
-					</div>
-				</div>
-			</div>
 		</div>
-	</div>
 	</div>
 </body>
 </html>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <link rel="stylesheet"

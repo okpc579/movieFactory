@@ -23,6 +23,34 @@ public class AdminRestController {
 	public ResponseEntity<?> findRevBlind(int pageno) {
 		return ResponseEntity.ok(service.findRevBlind(pageno));
 	}
+	// 내용으로 검색한 리뷰 블라인드
+	@GetMapping("/searchbycontentrevblind")
+	public ResponseEntity<?> searchByContentRevBlind(int pageno, String search) {
+		return ResponseEntity.ok(service.searchByContentRevBlind(pageno,search));
+	}
+	// 아이디로 검색한 리뷰 블라인드
+	@GetMapping("/searchbyusernamerevblind")
+	public ResponseEntity<?> searchByUsernameRevBlind(int pageno, String search) {
+		return ResponseEntity.ok(service.searchByUsernameRevBlind(pageno,search));
+	}
+	
+	// 내용으로 검색한 블라인드된 댓글
+	@GetMapping("/searchbycontentcmntblind")
+	public ResponseEntity<?> searchByContentCmntBlind(int pageno, String search) {
+		return ResponseEntity.ok(service.searchByContentCmntBlind(pageno,search));
+	}
+	
+	// 아이디로 검색한 블라인드된 댓글
+	@GetMapping("/searchbyusernamecmntblind")
+	public ResponseEntity<?> searchByUsernameCmntBlind(int pageno, String search) {
+		return ResponseEntity.ok(service.searchByUsernameCmntBlind(pageno,search));
+	}
+	
+	// 아이디로 검색한 블락목록
+	@GetMapping("/searchbyusernameenabledlist")
+	public ResponseEntity<?> searchByUsernameEnabledList(int pageno, String search) {
+		return ResponseEntity.ok(service.searchByUsernameEnabledList(pageno,search));
+	}
 	
 	@GetMapping("/findcmntblind")
 	public ResponseEntity<?> findRevCmntBlind(int pageno) {
@@ -36,6 +64,7 @@ public class AdminRestController {
 	
 	@GetMapping("/read/blind/comment")
 	public ResponseEntity<?> readRevCmntBlind(long mRevCmntNo) {
+		System.out.println("readRevCmntBlind");
 		return ResponseEntity.ok(service.readRevCmntBlind(mRevCmntNo));
 	}
 	
