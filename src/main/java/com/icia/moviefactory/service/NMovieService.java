@@ -21,6 +21,8 @@ public class NMovieService {
         try {
             url = new URL("https://openapi.naver.com/v1/search/movie.xml?query=" + URLEncoder.encode(keyword, "UTF-8")	// book에서 movie로 바꿈
                     + (display != 0 ? "&display=" + display : "") + (start != 0 ? "&start=" + start : "") + (pubDate != null ? "&yearfrom=" + pubDate : "")+ (pubDate != null ? "&yearto=" + pubDate : ""));
+            
+            System.out.println(url);
             URLConnection urlConn;
             
  

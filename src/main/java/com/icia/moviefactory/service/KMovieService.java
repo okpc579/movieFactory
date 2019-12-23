@@ -73,6 +73,10 @@ public class KMovieService {
                         if (b != null)
                             b.setRepNationNm(parser.nextText());
                         break;
+                    case "peopleNm":
+                        if (b != null)
+                            b.setDirectors(parser.nextText());
+                        break;
                     case "repGenreNm":
                         if (b != null)
                             b.setRepGenreNm(parser.nextText());

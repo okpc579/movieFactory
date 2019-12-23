@@ -77,7 +77,7 @@ where rownum<=5
 	
 	<!-- 11.좋아하는 영화 삭제 (지요)-->	
 	<delete id="deleteFavoriteMovie">
-		delete from fav_m where m_no=#{mNo}
+		delete from fav_m where m_no=#{mNo} and username=#{username}
 	</delete>
 	
 	<!-- 12.좋아하는 영화 목록보기 (ㅌㅎ)-->	
@@ -150,6 +150,7 @@ m where rownum<=5
 		select follower_username followerUsername from follow where follower_username=#{loginname} and following_username=#{username} 
 	</select>
 	
+<<<<<<< HEAD
 
 	<select id="findReviewMovieCount" resultType="int">
 		select count(*) from m_rev where username=#{username}
@@ -165,6 +166,11 @@ m where rownum<=5
 		    where rnum>=#{startRowNum}
 		]]>
 	</select> 
+=======
+	<select id="checkFavoriteMovie"	resultType="string">
+		select username from fav_m where m_no=#{mNo} and username=#{username}
+	</select>
+>>>>>>> 20191205_은영
 	
 	<!-- 내정보 보기 : 아이디로 정보 가져오기(멤버메퍼) -->
 	<select id="findById" resultType="member">

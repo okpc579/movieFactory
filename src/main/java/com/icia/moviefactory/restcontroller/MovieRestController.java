@@ -211,4 +211,10 @@ public class MovieRestController {
 		return ResponseEntity.ok(service.deletecmntlike(mRevCmntNo,principal.getName()));
 	}
 	
+	
+	@GetMapping("/movie/review/movieavgrating")	//디테일 리드
+	public ResponseEntity<?> movieavgrating(@RequestParam Long mNo) {
+		return ResponseEntity.ok(service.movieavgrating(mNo));	//디테일 리드
+	}
+	
 }

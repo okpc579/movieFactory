@@ -181,6 +181,17 @@ public class MovieDao {
 		map.put("username", username);
 		return tpl.selectOne("movieMapper.myReview", map);
 	}
+<<<<<<< HEAD
+=======
+
+	public double movieavgrating(Long mNo) {
+		// TODO Auto-generated method stub
+		return tpl.selectOne("movieMapper.movieavgrating", mNo);
+	}
+	
+	
+	
+>>>>>>> 20191205_은영
 
 	public int updatecmntdontlikecnt(Long mRevCmntNo) {
 		return tpl.update("movieMapper.updatecmntdontlike",mRevCmntNo);
