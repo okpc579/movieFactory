@@ -56,10 +56,20 @@ public class AdminDao {
 		return tpl.update("adminMapper.updateEnabled", username);
 	}
 	// 블라인드 당한 리뷰 수
-		public int findRevBlindCount() {
-			return tpl.selectOne("adminMapper.findRevBlindCount");
+	public int findRevBlindCount() {
+		return tpl.selectOne("adminMapper.findRevBlindCount");
 	}
-			
+	
+	// 	내용으로 검색한 블라인드 리뷰 수 
+	public int searchByContentRevBlindCount(String search) {
+		return tpl.selectOne("adminMapper.searchByContentRevBlindCount", search);
+	}
+		
+	// 	아이디으로 검색한 블라인드 리뷰 수 
+	public int searchByUsernameRevBlindCount(String search) {
+		return tpl.selectOne("adminMapper.searchByUsernameRevBlindCount", search);
+	}
+	
 	// 블라인드당한 리뷰를 이용한 페이징
 	public List<MovieReview> findRevBlind(int startRowNum, int endRowNum) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -67,12 +77,40 @@ public class AdminDao {
 		map.put("endRowNum", endRowNum);
 		return tpl.selectList("adminMapper.findRevBlind", map);
 	}
+	
+	// 블라인드 리뷰 - 내용으로 검색해 페이징
+	public List<MovieReview> searchByContentRevBlind(int startRowNum, int endRowNum, String search) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("startRowNum", startRowNum);
+		map.put("endRowNum", endRowNum);
+		map.put("search",search);
+		return tpl.selectList("adminMapper.searchByContentRevBlind", map);
+	}
+	
+	// 블라인드 리뷰 - 내용으로 검색해 페이징
+		public List<MovieReview> searchByUsernameRevBlind(int startRowNum, int endRowNum, String search) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("startRowNum", startRowNum);
+			map.put("endRowNum", endRowNum);
+			map.put("search",search);
+			return tpl.selectList("adminMapper.searchByUsernameRevBlind", map);
+		}
 		
 	// 블라인드 당한 댓글 수
 	public int findRevCmntBlindCount() {
 		return tpl.selectOne("adminMapper.findRevCmntBlindCount");
 	}
 				
+	// 내용으로 검색한 블라인드 댓글 수 
+	public int searchByContentCmntBlindCount(String search) {
+		return tpl.selectOne("adminMapper.searchByContentCmntBlindCount", search);
+	}
+	
+	// 아이디로 검색한 블라인드 댓글 수 
+	public int searchByUsernameCmntBlindCount(String search) {
+		return tpl.selectOne("adminMapper.searchByUsernameCmntBlindCount", search);
+	}
+	
 	// 블라인드당한 댓글을 이용한 페이징
 	public List<MovieReviewComment> findRevCmntBlind(int startRowNum, int endRowNum) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -81,11 +119,34 @@ public class AdminDao {
 		return tpl.selectList("adminMapper.findRevCmntBlind", map);
 	}	
 	
+	// 블라인드 댓글 - 내용으로 검색해 페이징
+		public List<MovieReviewComment> searchByContentCmntBlind(int startRowNum, int endRowNum, String search) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("startRowNum", startRowNum);
+			map.put("endRowNum", endRowNum);
+			map.put("search",search);
+			return tpl.selectList("adminMapper.searchByContentCmntBlind", map);
+		}
+		
+	// 블라인드 댓글 - 내용으로 검색해 페이징
+	public List<MovieReviewComment> searchByUsernameCmntBlind(int startRowNum, int endRowNum, String search) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("startRowNum", startRowNum);
+		map.put("endRowNum", endRowNum);
+		map.put("search",search);
+		return tpl.selectList("adminMapper.searchByUsernameCmntBlind", map);
+	}		
+	
 	// 블락 당한 유저 수
 	public int findEnabledCount() {
 		return tpl.selectOne("adminMapper.findEnabledCount");
 	}
 
+	// 아이디로 검색한 블락유저수 
+	public int searchByUsernameEnabledCount(String search) {
+		return tpl.selectOne("adminMapper.searchByUsernameEnabledCount", search);
+	}
+	
 	// 블락당한 전체유저를 이용한 페이징
 	public List<Member> findAllEnabledList(int startRowNum, int endRowNum) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -93,6 +154,15 @@ public class AdminDao {
 		map.put("endRowNum", endRowNum);
 		return tpl.selectList("adminMapper.findAllEnabledList", map);
 	}
+	
+	// 블락유저 목록 - 아이디로 검색해 페이징
+		public List<Member> searchByUsernameEnabledList(int startRowNum, int endRowNum, String search) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("startRowNum", startRowNum);
+			map.put("endRowNum", endRowNum);
+			map.put("search",search);
+			return tpl.selectList("adminMapper.searchByUsernameEnabledList", map);
+		}	
 	
 	// 리뷰 신고 횟수 불러오기
 	public long findRevRepCnt(long mRevNo) {

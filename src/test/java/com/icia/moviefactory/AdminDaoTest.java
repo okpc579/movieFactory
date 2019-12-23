@@ -105,4 +105,5 @@ public class AdminDaoTest {
 		System.out.println(dao.findAllEnabledList(1,20));
 		assertThat(dao.findAllEnabledList(1, 20).size(),is(2));
 	}
+	
 }

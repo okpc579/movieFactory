@@ -11,42 +11,127 @@
 		<![CDATA[
 			select * from
 		       	(select rownum rnum, b.* from 
-		       		(select m_rev_no mRevNo, username, m_rev_content mRevContent from m_rev where is_blind=1) b
+		       		(select m_rev_no mRevNo, username, m_rev_content mRevContent from m_rev where is_blind=1 order by m_rev_no desc) b
 		       	where rownum<=#{endRowNum}) 
 		    where rnum>=#{startRowNum}
 		]]>
 	</select>
+	<!-- 내용으로 검색한 블라인드 리뷰 수 -->
+	<select id="searchByContentRevBlindCount" resultType="int" parameterType="string">
+		select count(m_rev_no) from m_rev where is_blind=1 and m_rev_content like '%'||#{search}||'%' 
+	</select>
+	
+	
+	<!-- 아이디로 검색한 블라인드 리뷰 수 -->
+	<select id="searchByUsernameRevBlindCount" resultType="int" parameterType="string">
+		select count(m_rev_no) from m_rev where is_blind=1 and username like '%'||#{search}||'%'
+	</select>
+	
+	<!-- 블라인드 리뷰 - 내용으로 검색해 페이징 -->
+	<select id="searchByContentRevBlind" resultType="moviereview">
+		<![CDATA[
+			select * from
+		       	(select rownum rnum, b.* from 
+		       		(select m_rev_no mRevNo, username, m_rev_content mRevContent from m_rev 
+		       		where is_blind=1 and m_rev_content like '%'||#{search}||'%') b
+		       	where rownum<=#{endRowNum}) 
+		    where rnum>=#{startRowNum}
+		]]>
+	</select>
+	
+		<!-- 블라인드 리뷰 - 아이디로 검색해 페이징 -->
+	<select id="searchByUsernameRevBlind" resultType="moviereview">
+		<![CDATA[
+			select * from
+		       	(select rownum rnum, b.* from 
+		       		(select m_rev_no mRevNo, username, m_rev_content mRevContent from m_rev 
+		       		where is_blind=1 and username like '%'||#{search}||'%') b
+		       	where rownum<=#{endRowNum}) 
+		    where rnum>=#{startRowNum}
+		]]>
+	</select>
+	
 	
 	<!-- 블라인드 당한 댓글 수 -->
 	<select id="findRevCmntBlindCount" resultType="int" parameterType="string">
 		select count(m_rev_cmnt_no) from m_cmnt where is_blind=1
 	</select>
 	
+	<!-- 내용으로 검색한 블라인드 댓글 수 -->
+	<select id="searchByContentCmntBlindCount" resultType="int" parameterType="string">
+		select count(m_rev_cmnt_no) from m_cmnt where is_blind=1 and content like '%'||#{search}||'%' 
+	</select>
+	
+	<!-- 아이디로 검색한 블라인드 댓글 수 -->
+	<select id="searchByUsernameCmntBlindCount" resultType="int" parameterType="string">
+		select count(m_rev_cmnt_no) from m_cmnt where is_blind=1 and username like '%'||#{search}||'%' 
+	</select>
+		
 	<!-- 블라인드당한 댓글을 이용한 페이징 -->
 	<select id="findRevCmntBlind" resultType="moviereviewcomment">
 		<![CDATA[
 			select * from
 		       	(select rownum rnum, b.* from 
-		       		(select m_rev_cmnt_no mRevCmntNo, username, content from m_cmnt where is_blind=1) b
+		       		(select m_rev_cmnt_no mRevCmntNo, username, content from m_cmnt where is_blind=1 order by m_rev_cmnt_no desc) b
 		       	where rownum<=#{endRowNum}) 
 		    where rnum>=#{startRowNum}
 		]]>
 	</select>
 	
+	<!-- 블라인드 댓글 - 내용으로 검색해 페이징 -->
+	<select id="searchByContentCmntBlind" resultType="moviereviewcomment">
+		<![CDATA[
+			select * from
+		       	(select rownum rnum, b.* from 
+		       		(select m_rev_cmnt_no mRevCmntNo, username, content from m_cmnt where is_blind=1 and content like '%'||#{search}||'%') b
+		       	where rownum<=#{endRowNum}) 
+		    where rnum>=#{startRowNum}
+		]]>
+	</select>	
+	
+	<!-- 블라인드 댓글 - 아이디로 검색해 페이징 -->
+	<select id="searchByUsernameCmntBlind" resultType="moviereviewcomment">
+		<![CDATA[
+			select * from
+		       	(select rownum rnum, b.* from 
+		       		(select m_rev_cmnt_no mRevCmntNo, username, content from m_cmnt where is_blind=1 and username like '%'||#{search}||'%') b
+		       	where rownum<=#{endRowNum}) 
+		    where rnum>=#{startRowNum}
+		]]>
+	</select>	
+	
 	<!-- 블락 당한 유저 수 -->
 	<select id="findEnabledCount" resultType="int" parameterType="string">
 		select count(username) from member where enabled=0
 	</select>
+	
+	<!-- 아이디로 검색한 블라인드 댓글 수 -->
+	<select id="searchByUsernameEnabledCount" resultType="int" parameterType="string">
+		select count(username) from member where enabled=0 and username like '%'||#{search}||'%' 
+	</select>	
+	
 	<!-- 블락당한 전체유저를 이용한 페이징 -->
 	<select id="findAllEnabledList" resultType="member">
 		<![CDATA[
 			select * from
 		       	(select rownum rnum, b.* from 
-		       		(select username, nick,block_date blockDate from member where enabled=0) b
+		       		(select username, nick,block_date blockDate from member where enabled=0 order by block_date desc) b
 		       	where rownum<=#{endRowNum}) 
 		    where rnum>=#{startRowNum}
 		]]>
 	</select>
+	
+	<!-- 블락유저 목록 - 아이디로 검색해 페이징 -->
+	<select id="searchByUsernameEnabledList" resultType="member">
+		<![CDATA[
+			select * from
+		       	(select rownum rnum, b.* from 
+		       		(select username, nick,block_date blockDate from member where enabled=0 and username like '%'||#{search}||'%') b
+		       	where rownum<=#{endRowNum}) 
+		    where rnum>=#{startRowNum}
+		]]>
+	</select>	
+	
 	
 	<!-- 블라인드 된 리뷰 블라인드 여부 수정(블라인드해제) -->
 	<update id="updateRevBlind">
