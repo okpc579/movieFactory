@@ -54,11 +54,11 @@
 			success:function(result) {
 				console.log(result);
 				if(result=="false"){
-					location.href="http://localhost:8081/moviefactory/collection/read?collNo="+coll_no+"&pageno=1";
+					location.href="/moviefactory/collection/read?collNo="+coll_no+"&pageno=1";
 				}
-				//location.href="http://localhost:8081/moviefactory/collection/read?collNo="+result+"&pageno=1";
+				//location.href="/moviefactory/collection/read?collNo="+result+"&pageno=1";
 			}, error : function(xhr) {
-				location.href="http://localhost:8081/moviefactory/collection/read?collNo="+coll_no+"&pageno=1";
+				location.href="/moviefactory/collection/read?collNo="+coll_no+"&pageno=1";
 			}
 		});
 		
@@ -87,7 +87,7 @@
 					success:function(result) {
 						console.log("성공");
 						console.log(result);
-						location.href="http://localhost:8081/moviefactory/collection/read?collNo="+result;
+						location.href="/moviefactory/collection/read?collNo="+result;
 					}, error : function(xhr) {
 						
 					}
@@ -111,7 +111,7 @@
 							method:"get",
 							success:function(str){
 								console.log(str);
-								opener.parent.location.href="http://localhost:8081/moviefactory/collection/list?username=" + str + "&pageno=1";
+								opener.parent.location.href="/moviefactory/collection/list?username=" + str + "&pageno=1";
 								window.close();
 							}
 						

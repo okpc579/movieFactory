@@ -54,7 +54,6 @@ function pwdcheck() {
 #check {
 
 	height: 50px;
-	/* line-height: 50px; */
 	width: 100px;
 }
 

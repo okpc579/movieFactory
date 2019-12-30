@@ -1,4 +1,4 @@
-package com.icia.moviefactory.restcontroller;
+package com.icia.moviefactory.controller.rest;
 
 import java.net.URI;
 import java.security.Principal;

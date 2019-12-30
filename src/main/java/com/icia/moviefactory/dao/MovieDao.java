@@ -183,14 +183,10 @@ public class MovieDao {
 	}
 
 	public double movieavgrating(Long mNo) {
-		// TODO Auto-generated method stub
 		return tpl.selectOne("movieMapper.movieavgrating", mNo);
 	}
 	
-	
-	
 	public int updatecmntdontlikecnt(Long mRevCmntNo) {
-		return tpl.update("movieMapper.updatecmntdontlike",mRevCmntNo);
-		
+		return tpl.update("movieMapper.updatecmntdontlike",mRevCmntNo);	
 	}
 }

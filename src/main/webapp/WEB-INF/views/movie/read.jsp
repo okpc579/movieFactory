@@ -3,7 +3,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
 <%@ page session = "true" %>    
 <!DOCTYPE html>
-<html>sssssssss
+<html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -107,7 +107,7 @@
 				//posterString = result.image;
 				if(typeof result.image == "undefined"){
 					var $td = $("<td rowspan='9'>").appendTo($tr2)
-					$("<img>").attr("src","http://localhost:8081/sajin/default_movie.png").attr("width", "120px").appendTo($td); 
+					$("<img>").attr("src","/sajin/default_movie.png").attr("width", "120px").appendTo($td); 
 				}else {
 				var $td = $("<td rowspan='9'>").appendTo($tr2)
 				$("<img>").attr("src",result.image).attr("width", "250px").appendTo($td);
@@ -298,7 +298,7 @@
 	
 	function printData() {
 		var $body = $("#list");
-		$("<a>").attr("href","http://localhost:8081/moviefactory/collection/list?mno="+ m_no + "&pageno=1").text("더보기").appendTo($body);
+		$("<a>").attr("href","/moviefactory/collection/list?mno="+ m_no + "&pageno=1").text("더보기").appendTo($body);
 		$.each(collections, function(i, collection) {
 			
 			var $movies = $("#movies");
@@ -366,7 +366,7 @@
 		        	 console.log("디폴트이미지");
 		         		
 		            //var $td = $("<td>").appendTo($tr)   // td에 tr를 넣어라
-		            $("<img>").attr("src","http://localhost:8081/sajin/default_movie.png").attr("height","100px").attr("width", "80px").appendTo($tr); 
+		            $("<img>").attr("src","/sajin/default_movie.png").attr("height","100px").attr("width", "80px").appendTo($tr); 
 		         }else {
 		         	//var $td = $("<td>").appendTo($tr)   // 이미지가 들어있는 td를 tr에 넣어라
 		         	$("<img>").attr("src",result.image).attr("height","100px").attr("width", "80px").appendTo($tr);   // result.image를 td안에 넣어라
@@ -423,7 +423,6 @@
 		color : #fff;
 		font-size : 12pt;
 		text-align : center;
-		/* text-shadow: 2px 2px 2px gray; */
 	}
 	.m_info {
 		font-size : 13pt;
@@ -442,18 +441,11 @@
 	#back:hover{
 		cursor : pointer;
 	}
-	/* .MovieTable, #head, .m_info, tr {
-		border : 1px solid;
-	} */
-/* 	.code, . {
-		width : 10%;
-	} */
 </style>
 </head>
 <body>
 <div id="fuck">
 <form action="/moviefactory/movie/review/write" method="get">
-		<!-- <table class="table table-hover"> -->
 		<table class="MovieTable">
 			<colgroup>
 				<col width="10%">
@@ -468,22 +460,12 @@
 			</colgroup>
 
 			<thead id="head">
-				<!-- <tr id="head_">
-					<th class="head_detail">제목</th>
-					<th class="head_detail">제작년도</th>
-					<th class="head_detail">개봉년도</th>
-					<th class="head_detail">제작국가</th>
-					<th class="head_detail">장르</th>
-					<th class="head_detail">감독</th>
-					<th class="head_detail">배우</th>
-					<th class="head_detail">관람가</th>
-				</tr> -->
 				<tr id="head_">
-					<!-- <img src="/sajin/ar.svg" id="back"> -->
-					<!-- <th colspan="2" class="head_detail">영화정보</th> -->
+				
 				</tr>
 			</thead>
 			<tbody id="read">
+			
 			</tbody>
 		</table>
 		<br><br><br>

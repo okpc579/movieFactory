@@ -1,30 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="userMovieMapper">
-	
-
-	<!-- 1.영화 마이 페이지 보기 -->	
-	<select id="findByUsernameMoviePage" resultType="member">
-		select username, nick, photo,  from user where username=#{username}
-	</select>
-	
-	<!-- 2.유저 페이지 보기 -->	
-	<select id="findByUsernameUserPage" resultType="member">
-		select username, nick, photo,  from user where username=#{username}
-	</select>
-	
+		
 	<!-- 3.컬렉션 목록보기 -->	
 	<select id="findByUsernameCollectionList" resultType="collections">
 	<!-- mybatis type alias="collections" 과 resultType="collections" 과 타입이 같아야 한다.-->
 		select username, coll_no collNo, coll_name collName, coll_intro collIntro from coll where username=#{username}
 	</select>
 	
-	<!-- 4.유저리뷰 목록보기 -->
-	<!-- 
-	<select id="findUserReviewList" resultType="moviereview">
-		select username, m_rev_no mRevNo, rating, m_rev_content mRevContent, m_no mNo, genre from m_rev where username=#{username}
-	</select>
-	 -->
 	<!-- 5.팔로잉(내가 그사람에게 친구를 검, 내가 팔로우 하는 사람) 목록보기 (ㅇㅇ,ㅌㅎ) -->	
 	<select id="findFollowingList" resultType="follow"><!-- 안되면 follows로 바꿔라 -->
 		select following_username followingUsername, follower_username followerUsername from follow where follower_username=#{followerUsername}
@@ -85,51 +68,6 @@ where rownum<=5
 		select m_no mNo, username,writing_date writingDate from fav_m where username=#{username} order by writing_date 
 	</select>
 	
-	<!-- 13.내 선호영화 예상 목록보기 -->	
-	<!-- 
-	<select id="findPreferenceMovieList" resultType="moviereview">
-	<![CDATA[
-<<<<<<< HEAD
-		select m_no mNo, round(avg(rating),1) rating2 from m_rev where m_rev.genre = (select r.genre from (select avg(rating) avgrating, genre from m_rev where username=#{username} group by genre) r, (select max(avg(rating)) maxrating from m_rev where username=#{username} group by genre) r2 where r.avgrating=r2.maxrating)
-=======
-		select m_no mNo, avg(rating) rating2 from m_rev where m_rev.genre = (select r.genre from (select avg(rating) avgrating, genre from m_rev where username=#{username} group by genre) r, (select max(avg(rating)) maxrating from m_rev where username=#{username} group by genre) r2 where r.avgrating=r2.maxrating and rownum =1)
->>>>>>> f4e72056c3d8b5e89025ab7f7a43687f0d093d89
-		    		group by m_no                            
-		    		order by avg(rating) desc
-		    		]]>
-	</select>
-	 -->
-	 <select id="findPreferenceMovieList" resultType="moviereview">
-	<![CDATA[
-		select m.* from (
-select m_no mNo, avg(rating) rating2
-from m_rev 
-where m_rev.genre = 
-      (select r.genre 
-      from (select round(avg(rating),1) avgrating, genre 
-            from m_rev 
-            where username=#{username} 
-            group by genre) r, 
-            (select max(avg(rating)) maxrating 
-            from m_rev 
-            where  username=#{username} 
-            group by genre) r2 
-        where r.avgrating=r2.maxrating and rownum=1)
-group by m_no                            
-order by avg(rating) desc)
-m where rownum<=5
-		    		]]>
-	</select>
-	<!-- <resultMap type="com.icia.moviefactory.entity.FavoriteMovieDetail" id="mapForFavoriteMovieDetail">
-		<id property="mNo" column="m_no" />
-		<result property="writingDate" column="writing_date" />
-	</resultMap>
-	
-	<resultMap type="hashmap" id="mapForFavorite" >
-		<id property="mLikeNo" column="m_like_no"/>
-		<result property="username" column="username" />
-		<favoritemovie property="detail" javaType="java.util.ArrayList" resultMap="mapForFavoriteDetail"/>
-	</resultMap> -->
 	<select id="findNicknameByUsername" resultType="string">
 		select nick from member where username=#{username}
 	</select>
@@ -170,15 +108,6 @@ m where rownum<=5
 	<select id="checkFavoriteMovie"	resultType="string">
 		select username from fav_m where m_no=#{mNo} and username=#{username}
 	</select>
-
-	
-	<!-- 내정보 보기 : 아이디로 정보 가져오기(멤버메퍼) -->
-	<select id="findById" resultType="member">
-		select username, password, name, nick,
-		email, base_addr baseAddr, zip_code zipCode, tel, photo, birth, intro,
-		reg_date regDate from member where username=#{username} and rownum=1
-	</select>
-	
 	
 	<!-- round(avg(rating),1) 소수점 첫째자리 까지만 나오게 하는 -->
 	<select id="findReviewById" resultType="moviereview">

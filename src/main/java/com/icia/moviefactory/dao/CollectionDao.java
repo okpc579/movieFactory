@@ -104,12 +104,12 @@ public class CollectionDao {
 		return tpl.selectOne("collectionMapper.findcollNoCollectionDetailCount", collNo);
 	}
 	
-	public Map read2(long collNo) {
+	public Map collposter(long collNo) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("collNo", collNo);
 		return tpl.selectOne("collectionMapper.findByIdWithDetail2", map);
 	}
-	public Collection read3(long collNo) {
+	public Collection readByCollNo(long collNo) {
 		return tpl.selectOne("collectionMapper.findCollectionById", collNo);
 	}
 	public String checkmycollection(String username, long collNo) {

@@ -87,7 +87,7 @@ function getPoster2(movieNm, prdtYear, $tr) {	// (영화제목,제작년도)로 
 			//posterString = result.image;
 			if(typeof result.image == "undefined"){	// 이미지가 정해지지 않을 경우
 				var $td = $("<td>").appendTo($tr)	// td에 tr를 넣어라
-				$("<img>").attr("src","http://localhost:8081/sajin/default_movie.png").attr("height","150px").attr("width", "150px").appendTo($td); 
+				$("<img>").attr("src","/sajin/default_movie.png").attr("height","150px").attr("width", "150px").appendTo($td); 
 			}else {
 			var $td = $("<td>").appendTo($tr)	// 이미지가 들어있는 td를 tr에 넣어라
 			$("<img>").attr("src",result.image).attr("height","150px").attr("width", "150px").appendTo($td);	// result.image를 td안에 넣어라

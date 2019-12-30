@@ -236,7 +236,6 @@ th {
 		// &를 기준으로 문자열을 자른다
 		var params = location.search.split('&');
 		var url = "/moviefactory/api/adminAsk/list";
-		console.log(params[1]);
 
 		if (typeof params[1] == "undefined") {
 			if (params[0] == "") {
@@ -249,33 +248,19 @@ th {
 				url : url ,
 				method : "get",
 				success : function(result) {
-					/*
-					if(result.totalcount/10+1<result.pageno){
-						location.href="/moviefactory/adminAsk/list?pageno=1";
-					}else if(result.totalcount%10==0 && result.totalcount/10<result.pageno){
-						location.href="/moviefactory/adminAsk/list?pageno=1";
-					}else if(result.pageno<=0){
-						location.href="/moviefactory/adminAsk/list?pageno=1";
-					}else if(result.pageno==){
-						location.href="/moviefactory/adminAsk/list?pageno=1";
-					}*/
 					if(typeof result =="undefined"){
 						//location.href="/moviefactory/adminAsk/list?pageno=" + (location.search.split("=")[1]) +  "&pageno="+1	
 					}else if(result.adminAsks.length ==0 && result.pageno!=1){
 						location.href="/moviefactory/adminAsk/list?pageno="+1
 					}
-					console.log(result);
 					adminaskList(result);
 					adminaskPage(result);
 				}, error: function(xhr) {
-					console.log(xhr);
 					 location.href="/moviefactory/adminAsk/list?pageno="+1
 		         }
 			});
-		} else if (params[0].split('=')[0] == "?username") {
-			console.log("들어왔다.");
+		} else if (params[0].split('=')[0] == "?checkusername") {
 			typeUsername = params[0].split('=')[1];
-			console.log(username);
 			console.log(params[0].split('=')[1]);
 			//url = url + "?pageno=" + params[1].split('=')[1];
 			$.ajax({
@@ -284,24 +269,19 @@ th {
 						+ params[0].split('=')[1],
 				method : "get",
 				success : function(result) {
-					console.log(result);
 					adminaskList(result);
 					adminaskPage(result);
 				}
 			});
 		} else if (params[0].split('=')[0] == "?title") {
-			console.log("?title 들어옴");
 			//url = url + "?pageno=" + params[1].split('=')[1];
-			console.log(params[0].split('=')[1]);
 			title = params[0].split('=')[1];
-			console.log(typeof title);
 			$.ajax({
 				url : "/moviefactory/api/adminAsk/searchlisttitle?pageno="
 						+ params[1].split('=')[1] + "&title="
 						+ params[0].split('=')[1],
 				method : "get",
 				success : function(result) {
-					console.log(result);
 					adminaskList(result);
 					adminaskPage(result);
 				}

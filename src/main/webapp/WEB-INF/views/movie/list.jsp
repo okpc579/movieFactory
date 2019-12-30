@@ -96,7 +96,7 @@ function getPoster(movie, $a1) {
 			//posterString = result.image;
 			if(typeof result.image == "undefined" || result.image==""){
 				//var $td = $("<td rowspan='6'>").appendTo($a)
-				$("<img>").attr("src","http://localhost:8081/sajin/default_movie.png").attr("width", "140px").appendTo($a1); 
+				$("<img>").attr("src","/sajin/default_movie.png").attr("width", "140px").appendTo($a1); 
 			}else {
 			//var $td = $("<td rowspan='6'>").appendTo($a)
 			$("<img>").attr("src",result.image).attr("width", "140px").appendTo($a1);
@@ -124,7 +124,7 @@ function printPaging(result) {
 		endPage = cntOfPage;
 	
 	var $pagination = $("#pagination");	
-	var serverUrl = "http://localhost:8081/moviefactory/movie/list?query="+ query+"&pageno=";
+	var serverUrl = "/moviefactory/movie/list?query="+ query+"&pageno=";
 	// console.log("페이징함수 들어옴");
 	if(blockNo>0) {
 		var $li = $("<li>").attr("class","previous").appendTo($pagination);

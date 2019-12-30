@@ -188,7 +188,7 @@ th td {
 	function unblindreview(param) {
 		console.log(param);
 		$.ajax({
-			url : "/moviefactory/api/update/blind/review",
+			url : "/moviefactory/api/blind/updatereview",
 			method : "post",
 			data : param,
 			success : function(result) {
@@ -335,7 +335,7 @@ th td {
 		// console.log(params);
 
 		var params = location.search.split('&');
-		var url = "/moviefactory/api/findrevblind";
+		var url = "/moviefactory/api/blind/reviewlist";
 		console.log(params[1]);
 
 		if (typeof params[1] == "undefined") {
@@ -378,7 +378,7 @@ th td {
 			mrevcontent = params[0].split('=')[1];
 			console.log(typeof mrevcontent);
 			$.ajax({
-				url : "/moviefactory/api/searchbycontentrevblind?pageno="
+				url : "/moviefactory/api/blind/search/reviewbycontent?pageno="
 						+ params[1].split('=')[1] + "&search="
 						+ params[0].split('=')[1],
 				method : "get",
@@ -394,7 +394,7 @@ th td {
 			typeUsername = params[0].split('=')[1];
 			//url = url + "?pageno=" + params[1].split('=')[1];
 			$.ajax({
-				url : "/moviefactory/api/searchbyusernamerevblind?pageno="
+				url : "/moviefactory/api/blind/search/reviewbyusername?pageno="
 						+ params[1].split('=')[1] + "&search="
 						+ params[0].split('=')[1],
 				method : "get",
@@ -472,17 +472,17 @@ th td {
 	<div id="section">
 		<sec:authorize access="isAnonymous()">
 			<script>
-				location.href = "http://localhost:8081/moviefactory/system/e403";
+				location.href = "/moviefactory/system/e403";
 			</script>
 		</sec:authorize>
 		<sec:authorize access="hasRole('ROLE_USER')">
 			<script>
-				location.href = "http://localhost:8081/moviefactory/system/e403";
+				location.href = "/moviefactory/system/e403";
 			</script>
 		</sec:authorize>
 		<div id="admin">
 			<h2>
-				<a href="http://localhost:8081/moviefactory/admin/blindrevlist">관리자
+				<a href="/moviefactory/admin/blindrevlist">관리자
 					센터 - 블라인드 리뷰</a>
 			</h2>
 			<br>

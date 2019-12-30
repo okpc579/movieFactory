@@ -16,12 +16,12 @@
 <title>서비스 동의 페이지</title>
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<script>
-		location.href = "http://localhost:8081/moviefactory/system/e403";
+		location.href = "/moviefactory/system/e403";
 	</script>
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
 	<script>
-		location.href = "http://localhost:8081/moviefactory/system/e403";
+		location.href = "/moviefactory/system/e403";
 	</script>
 </sec:authorize>
 <script>
@@ -31,7 +31,7 @@
 		});
 		$("#yes").on('click', function() {
 			$.ajax({
-				url : "/moviefactory/api/member/yesorno",
+				url : "/moviefactory/api/member/agree",
 				method : "get",
 				success : function(result) {
 					location.href = "/moviefactory/member/join";
@@ -46,7 +46,6 @@
 <style>
 #yes, #no {
 	height: 50px;
-	/* line-height: 50px; */
 	width: 100px;
 }
 #p1 {

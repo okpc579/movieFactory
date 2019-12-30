@@ -17,9 +17,9 @@ public class MemberMVCController {
 	private MemberService service;
 
 	// MVC-1. 서비스 동의 페이지
-	@GetMapping("/member/yesorno")
+	@GetMapping("/member/agree")
 	public String yesorno(Model model) {
-		model.addAttribute("viewName", "member/YesOrNo.jsp");
+		model.addAttribute("viewName", "member/agree.jsp");
 		return "main";
 	}
 
@@ -27,7 +27,7 @@ public class MemberMVCController {
 	@GetMapping("/member/join")
 	public String join(Model model, HttpSession session) {
 		if (session.getAttribute("yes") == null) { 
-			return "redirect:/member/yesorno"; 
+			return "redirect:/member/agree"; 
 		}
 		model.addAttribute("viewName", "member/join.jsp");
 		return "main";
@@ -95,18 +95,6 @@ public class MemberMVCController {
 	@GetMapping("/member/pwd")
 	public String checkPwd(Model model) {
 		model.addAttribute("viewName", "member/pwd.jsp");
-		return "main";
-	}
-  
-	@GetMapping("/ap/api1")
-	public String api(Model model) {
-		model.addAttribute("viewName", "ap/api1.jsp");
-		return "main";
-	}
-	
-	@GetMapping("/ap/app")
-	public String api2(Model model) {
-		model.addAttribute("viewName", "ap/app.jsp");
 		return "main";
 	}
 }

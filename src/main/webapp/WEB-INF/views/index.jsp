@@ -107,7 +107,7 @@ function getMovieDetail(mno, rating, $li){   // 영화번호, 별점, 장르를 
 	         //posterString = result.image;
 	         if(typeof result.image == "undefined"){   // 이미지가 정해지지 않을 경우
 	            var $div = $("<div>").appendTo($li)   // td에 tr를 넣어라
-	            $("<img>").attr("src","http://localhost:8081/sajin/default_movie.png").attr("height","200px").attr("width", "150px").appendTo($li); 
+	            $("<img>").attr("src","/sajin/default_movie.png").attr("height","200px").attr("width", "150px").appendTo($li); 
 	         }else {
 	        	 var $div = $("<div>").appendTo($li)   // 이미지가 들어있는 td를 tr에 넣어라
 	         $("<img>").attr("src",result.image).attr("height","200px").attr("width", "150px").appendTo($li);   // result.image를 td안에 넣어라
@@ -167,7 +167,7 @@ function printPaging(result) {
 		endPage = cntOfPage;
 	
 	var $pagination = $("#pagination");	
-	var serverUrl = "http://localhost:8081/moviefactory/movie/list?repGenreNm="+ repGenreNm.value;
+	var serverUrl = "/moviefactory/movie/list?repGenreNm="+ repGenreNm.value;
 	 console.log("페이징함수 들어옴");	
 	
 }
@@ -176,7 +176,7 @@ $(function() {
 	/* var param = {mNo: mno}; */
 	$("#myinfo").on("click", function() {
 		console.log("입력함");
-		location.href="http://localhost:8081/moviefactory/usermovie/userpage?username="+loginId;	
+		location.href="/moviefactory/usermovie/userpage?username="+loginId;	
 	});
 	 
 	$.ajax({

@@ -1,15 +1,13 @@
 package com.icia.moviefactory.dao;
 
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.mybatis.spring.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.stereotype.*;
 
-import com.icia.moviefactory.entity.AdminAsk;
+import com.icia.moviefactory.entity.*;
 
 
 @Repository
@@ -50,7 +48,7 @@ public class AskDao {
 		public int delete(long adminAskNo) {
 			return tpl.delete("askMapper.delete", adminAskNo);
 		}
-		// 그 아이디의 게시판 글 페이징
+		// 일반회원 의 게시판 글 페이징
 		public List<AdminAsk> findAllByUsername(int startRowNum, int endRowNum, String username) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("startRowNum", startRowNum);
@@ -82,7 +80,7 @@ public class AskDao {
 			return tpl.selectList("askMapper.findAdminAskByUsername", map); 
 		}
 		
-		// 아이디의 글 개수 가져오기
+		// 일반회원의 글 개수 가져오기
 		public int findAdminAskCountByUsername(String username) {
 			return tpl.selectOne("askMapper.findAdminAskCountByUsername", username); 
 		}
@@ -104,6 +102,7 @@ public class AskDao {
 		public int answering(long adminAskNo) {
 			return tpl.update("askMapper.answering",adminAskNo);
 		}
+		// 로그인한 아이디인지 확인하기
 		public String checkusername(String username, long adminAskNo) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("username", username);

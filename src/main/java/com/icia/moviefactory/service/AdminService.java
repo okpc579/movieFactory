@@ -19,11 +19,6 @@ public class AdminService {
 	@Autowired
 	private ModelMapper modelMapper;
 	
-	/* public List<Member> findAllEnabledList() {
-		List<Member> memberlist = dao.findAllEnabledList();
-		return memberlist;
-		return dao.findallEnabledlist();
-	}*/	
 	// 모든 블락된 계정 리스트 불러오기
 	public Page findAllEnabledList(int pageno) {
 		int count = adminDao.findEnabledCount();
@@ -141,13 +136,6 @@ public class AdminService {
 		System.out.println(mr);
 		return mr;
 	}
-	// 블라인드 된 댓글 상세(그 댓글에 대한 신고목록 불러오기)
-	/*
-	public List<MovieReviewCommentReport> readCmntBlind(long mRevCmntNo) {
-		List<MovieReviewCommentReport> commentreportlist = adminDao.readCmntBlind(mRevCmntNo);
-		return commentreportlist;	
-	}
-	*/
 	public MovieReviewComment readRevCmntBlind(long mRevCmntNo) {
 		System.out.println(adminDao.readCmntBlind(mRevCmntNo));
 		MovieReviewComment mrc = modelMapper.map(adminDao.readCmntBlind(mRevCmntNo), MovieReviewComment.class);

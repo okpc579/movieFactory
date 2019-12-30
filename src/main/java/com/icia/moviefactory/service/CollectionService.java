@@ -156,12 +156,12 @@ public class CollectionService {
 	}
 
 	
-	public Map read2(long collNo) {
-		return collectionDao.read2(collNo);
+	public Map collposter(long collNo) {
+		return collectionDao.collposter(collNo);
 	}
 
-	public Collection read3(long collNo) {
-		return collectionDao.read3(collNo);
+	public Collection readByCollNo(long collNo) {
+		return collectionDao.readByCollNo(collNo);
 	}
 
 	public String checkmycollection(String username, long collNo) {

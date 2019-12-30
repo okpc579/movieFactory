@@ -79,7 +79,7 @@ span, div {
 		var mRevNo = location.search.split("=");
 		console.log(mRevNo[1]);
 		$.ajax({
-			url : "/moviefactory/api/read/blind/review?mRevNo=" + mRevNo[1],
+			url : "/moviefactory/api/blind/readreview?mRevNo=" + mRevNo[1],
 			method : "get",
 			success : function(result) {
 				console.log(result);
@@ -96,17 +96,17 @@ span, div {
 <body>
 		<sec:authorize access="isAnonymous()">
 			<script>
-				location.href = "http://localhost:8081/moviefactory/system/e403";
+				location.href = "/moviefactory/system/e403";
 			</script>
 		</sec:authorize>
 		<sec:authorize access="hasRole('ROLE_USER')">
 			<script>
-				location.href = "http://localhost:8081/moviefactory/system/e403";
+				location.href = "/moviefactory/system/e403";
 			</script>
 		</sec:authorize>
 		<h2 class="center">
 			<strong>
-			<a href="http://localhost:8081/moviefactory/admin/blindrevlist">
+			<a href="/moviefactory/admin/blindrevlist">
 			관리자 센터 - 리뷰 신고내역
 			</a>
 			</strong>

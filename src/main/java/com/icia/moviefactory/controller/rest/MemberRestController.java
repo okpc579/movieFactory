@@ -1,4 +1,4 @@
-package com.icia.moviefactory.restcontroller;
+package com.icia.moviefactory.controller.rest;
 
 import java.io.*;
 import java.net.*;
@@ -37,7 +37,7 @@ public class MemberRestController {
 
 	// 아이디 찾기 -> MemberNotFoundException
 	@PreAuthorize("isAnonymous()")
-	@GetMapping(path = "/member/username", produces = "text/plain;charset=utf-8")
+	@GetMapping(path = "/member/findusername", produces = "text/plain;charset=utf-8")
 	public ResponseEntity<?> findId(@NonNull String email, @RequestParam String name) {
 		return ResponseEntity.ok(service.findId(email, name));
 	}
@@ -45,7 +45,7 @@ public class MemberRestController {
 	// 비밀번호 찾기 -> MemberNotFoundException
 	@ResponseBody
 	@PreAuthorize("isAnonymous()")
-	@PostMapping(path = "/member/password", produces = "text/plain;charset=utf-8")
+	@PostMapping(path = "/member/findpassword", produces = "text/plain;charset=utf-8")
 	public ResponseEntity<?> findPassword(@NonNull String username, @NonNull String email, @NonNull String name) {
 		return ResponseEntity.ok(service.findPassword(username, email, name));
 	}
@@ -57,8 +57,8 @@ public class MemberRestController {
 			@ApiResponse(code = 409, message = "yes를 받지 못했습니다") })
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "yes", value = "동의", required = true, dataType = "", paramType = "query") })
-	@GetMapping(path = "/member/yesorno", produces = "text/plain;charset=utf-8")
-	public ResponseEntity<?> yesorno(HttpSession session) {
+	@GetMapping(path = "/member/agree", produces = "text/plain;charset=utf-8")
+	public ResponseEntity<?> agree(HttpSession session) {
 		session.setAttribute("yes", "yes");
 		return ResponseEntity.ok(null);
 	}
@@ -198,7 +198,8 @@ public class MemberRestController {
 			@ApiImplicitParam(name = "password", value = "기존 비밀번호", required = true, dataType = "string", paramType = "query"),
 			@ApiImplicitParam(name = "newPassword", value = "새로운 비밀번호", required = true, dataType = "string", paramType = "query") })
 	@PatchMapping(path = "/member/newpassword", produces = "text/plain;charset=utf-8")
-	public ResponseEntity<?> updateNewPassword(@NonNull String password, @NonNull String newPassword, Principal principal) {
+	public ResponseEntity<?> updateNewPassword(@NonNull String password, @NonNull String newPassword,
+			Principal principal) {
 		return ResponseEntity.ok(service.updateNewPassword(principal.getName(), password, newPassword));
 	}
 

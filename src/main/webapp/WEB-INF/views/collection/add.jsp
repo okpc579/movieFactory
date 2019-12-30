@@ -32,7 +32,7 @@
 				success:function(result) {
 					console.log("성공");
 					console.log(result);
-					location.href="http://localhost:8081/moviefactory/collection/read?collNo="+result+"&pageno=1";
+					location.href="/moviefactory/collection/read?collNo="+result+"&pageno=1";
 				}, error : function(xhr) {
 					
 				}

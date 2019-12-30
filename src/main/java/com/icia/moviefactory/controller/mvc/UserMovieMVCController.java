@@ -8,24 +8,11 @@ import org.springframework.web.bind.annotation.*;
 public class UserMovieMVCController {
 
 	// MVC-1. 영화 마이페이지 보기
-	/*
-	@GetMapping("/usermovie/mypage")
-	public String mypage(Model model) {
-		model.addAttribute("viewName", "usermovie/mypage.jsp");
-		return "main";
-	}
-	*/
+	
 	// MVC-2. 유저 페이지 보기
 	@GetMapping("/usermovie/userpage")
 	public String read(Model model) {
 		model.addAttribute("viewName", "usermovie/userpage.jsp");
-		return "main";
-	}
-
-	// MVC-3. 컬렉션 목록보기
-	@GetMapping("/usermovie/collectionlist")
-	public String collection(Model model) {
-		model.addAttribute("viewName", "usermovie/collectionlist.jsp");
 		return "main";
 	}
 
@@ -40,13 +27,6 @@ public class UserMovieMVCController {
 	@GetMapping("/usermovie/following")
 	public String following(Model model) {
 		model.addAttribute("viewName", "usermovie/following.jsp");
-		return "main";
-	}
-
-	// MVC-6. 팔로워 목록보기
-	@GetMapping("/usermovie/follower")
-	public String follower(Model model) {
-		model.addAttribute("viewName", "usermovie/follower.jsp");
 		return "main";
 	}
 	
@@ -75,13 +55,6 @@ public class UserMovieMVCController {
 	@GetMapping("/usermovie/favoritemovie")
 	public String favoritemovie(Model model) {
 		model.addAttribute("viewName", "usermovie/favoritemovie.jsp");
-		return "main";
-	}
-
-	// MVC-13. 내 선호영화 예상 목록 보기(미정)
-	@GetMapping("/usermovie/preferencemovie")
-	public String preferencemovie(Model model) {
-		model.addAttribute("viewName", "usermovie/preferencemovie.jsp");
 		return "main";
 	}
 }

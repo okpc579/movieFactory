@@ -185,7 +185,7 @@ var typeUsername;
 	function unblindcomment(param) {
 		console.log(param);
 		$.ajax({
-			url : "/moviefactory/api/update/blind/comment",
+			url : "/moviefactory/api/blind/updatecomment",
 			method : "post",
 			data : param,
 			success : function(result) {
@@ -362,7 +362,7 @@ var typeUsername;
 			cmntcontent = params[0].split('=')[1];
 			console.log(typeof cmntcontent);			
 			$.ajax({
-				url : "/moviefactory/api/searchbycontentcmntblind?pageno="+params[1].split('=')[1] + "&search="+params[0].split('=')[1],
+				url : "/moviefactory/api/blind/search/commentbycontent?pageno="+params[1].split('=')[1] + "&search="+params[0].split('=')[1],
 				method : "get",
 				success : function(result) {
 					console.log(result);
@@ -376,7 +376,7 @@ var typeUsername;
 			typeUsername = params[0].split('=')[1];
 			//url = url + "?pageno=" + params[1].split('=')[1];
 			$.ajax({
-				url : "/moviefactory/api/searchbyusernamecmntblind?pageno="+params[1].split('=')[1] + "&search="+params[0].split('=')[1],
+				url : "/moviefactory/api/blind/search/commentbyusername?pageno="+params[1].split('=')[1] + "&search="+params[0].split('=')[1],
 				method : "get",
 				success : function(result) {
 					console.log(result);
@@ -431,17 +431,17 @@ var typeUsername;
 	<div id="section">
 		<sec:authorize access="isAnonymous()">
 			<script>
-				location.href = "http://localhost:8081/moviefactory/system/e403";
+				location.href = "/moviefactory/system/e403";
 			</script>
 		</sec:authorize>
 		<sec:authorize access="hasRole('ROLE_USER')">
 			<script>
-				location.href = "http://localhost:8081/moviefactory/system/e403";
+				location.href = "/moviefactory/system/e403";
 			</script>
 		</sec:authorize>
 		<div id="admin">
 			<h2>
-				<a href="http://localhost:8081/moviefactory/admin/blindcmntlist">관리자
+				<a href="/moviefactory/admin/blindcmntlist">관리자
 					센터 - 블라인드 댓글</a>
 			</h2>
 			<br>

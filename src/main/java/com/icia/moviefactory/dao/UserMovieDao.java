@@ -12,10 +12,6 @@ import com.icia.moviefactory.entity.*;
 public class UserMovieDao {
 	@Autowired
 	private SqlSessionTemplate tpl;
-	// 3. 컬렉션 목록보기 
-	public List<Collections> findByUsernameCollection(String username) {
-		return tpl.selectList("userMovieMapper.findByUsernameCollection", username);
-	}
 	
 	// 4. 유저리뷰 목록보기 (유저리뷰를 보려면 유저의 아이디를 알아야되고, 영화리뷰번호, 영화리뷰내용 알아야된다)
 	public List<MovieReview> findUserReview(String username, int startRowNum, int endRowNum ) { 
@@ -79,12 +75,6 @@ public class UserMovieDao {
 		return tpl.selectList("userMovieMapper.favoriteMovieList", username); 
 	}
 	
-	// 13.내 선호영화 예상 목록 보기(좋아하는 영화 목록에 장르와 비슷한것?, 컬렉션 목록?
-		public List<FavoriteMovie> findPreferenceMovie(FavoriteMovie favoritemovie) { 
-			List<FavoriteMovie> list = tpl.selectList("userMovieMapper.findPreferenceMovie", favoritemovie);
-			return list;
-		}
-		
 	// 14. 영화번호로 아이디 찾기
 	public long userMovieFindUsername(long mNo) {
 		return tpl.selectOne("userMovieMapper.userMovieFindUsername", mNo);
@@ -108,12 +98,6 @@ public class UserMovieDao {
 		return tpl.delete("userMovieMapper.deletefollowing", map); 		
 	}
 
-	public List<MovieReview> findPreferenceMovie(String username) {
-		List<MovieReview> list =  tpl.selectList("userMovieMapper.findPreferenceMovieList", username);
-		list.stream().forEach(s->System.out.println(s));
-		return list;
-	}
-
 	public MovieReview checkwritereview(String username, long mNo) {
 		Map<String, Object> map = new HashMap<String,Object>();
 		map.put("username", username);
@@ -127,7 +111,6 @@ public class UserMovieDao {
 		map.put("loginname", loginname);
 		return tpl.selectOne("userMovieMapper.checkfollowing", map);
 	}
-
 	
 	// 전체 리뷰 개수
 	public int findReviewMovieCount(String username) {
@@ -137,17 +120,6 @@ public class UserMovieDao {
 	public MovieReview findReviewByMno(long mno) {
 		return tpl.selectOne("userMovieMapper.findReviewById", mno);
 	}
-	
-	// 전체 리뷰의 개수를 이용한 페이징
-//	public List<MovieReview> usernameReviewMovieList(String username, int startRowNum, int endRowNum) {
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		map.put("username", username);
-//		map.put("startRowNum", startRowNum);
-//		map.put("endRowNum", endRowNum);
-		
-//		return tpl.selectList("userMovieMapper.findReviewMovieListByUsername", map);
-//	}
-
 
 	// db에 좋아요한 영화 있는 지 확인
 	public String checkFavoriteMovie(Long mNo, String username) {

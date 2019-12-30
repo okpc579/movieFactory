@@ -79,7 +79,6 @@
 #resign2, #updateUser {
 
 	height: 50px;
-	/* line-height: 50px; */
 	width: 100px;
 }
 #p1 {

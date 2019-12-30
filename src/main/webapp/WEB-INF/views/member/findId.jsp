@@ -13,10 +13,11 @@
 <script>
 $(function(){
 	$("#find").on("click",function(){
+		var formData = $("#findIdFrm").serialize();
 		$.ajax({
-			url:"/moviefactory/api/member/username",
+			url:"/moviefactory/api/member/findusername",
 			method:'get',
-			data: $("#findIdFrm").serialize(),
+			data: formData,
 			success:function(result) {
 				alert("아이디는 "+result+"입니다.");
 				location.href="/moviefactory/member/login";
@@ -30,13 +31,12 @@ $(function(){
 </script>
 <sec:authorize access="hasRole('ROLE_USER')">
 	<script>
-		location.href="http://localhost:8081/moviefactory/system/e403";
+		location.href="/moviefactory/system/e403";
 	</script>
 </sec:authorize>
 <style>
 #find {
 	height: 50px;
-	/* line-height: 50px; */
 	width: 100px;
 }
 #findIdFrm {

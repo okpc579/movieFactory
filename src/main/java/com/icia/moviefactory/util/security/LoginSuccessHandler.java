@@ -35,8 +35,8 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
       
       // 로그인 성공하면 실패횟수 초기화
       mapper.resetLoginFailureCount(authentication.getName());
-      mapper.recentLoginDate(authentication.getName());
-      mapper.recentLoginDate2(authentication.getName());
+      mapper.updateLastLoginDate(authentication.getName());
+      mapper.updateRecentLoginDate(authentication.getName());
       SavedRequest savedRequest = cache.getRequest(request, response);
       
       // 로그인 성공 후 이동할 페이지가 있을 경우 세션에 저장

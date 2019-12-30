@@ -230,7 +230,6 @@ var title;
 	               }
 	            });
 	         }else if(params[0].split('=')[0] == "?title"){
-	             console.log("?username 들어옴");
 	             title = params[0].split('=')[1];
 	             //url = url + "?pageno=" + params[1].split('=')[1];
 	             $.ajax({

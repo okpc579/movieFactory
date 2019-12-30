@@ -15,7 +15,7 @@ import com.icia.moviefactory.service.*;
 
 @RequestMapping("/api/collection")
 @RestController
-public class CollectionController {
+public class CollectionRestController {
    @Autowired
    private CollectionService service;
    
@@ -28,12 +28,11 @@ public class CollectionController {
    @ResponseBody
    @GetMapping("/read")
    public ResponseEntity<?> read(long collNo, int pageno) {
-	   System.out.println("read에 들어옴");
       return ResponseEntity.ok(service.read(collNo, pageno));      
    }
    @GetMapping("/read/{collNo}")
-   public ResponseEntity<?> read3(@PathVariable long collNo) {
-      return ResponseEntity.ok(service.read3(collNo));      
+   public ResponseEntity<?> readByCollNo(@PathVariable long collNo) {
+      return ResponseEntity.ok(service.readByCollNo(collNo));      
    }
    
    @PostMapping("/addmovie")
@@ -86,14 +85,12 @@ public class CollectionController {
    
    @GetMapping("/username")
    public ResponseEntity<?> username(Principal principal){
-	   System.out.println("===================");
-	   System.out.println(principal.getName());
 	   return ResponseEntity.ok(principal.getName());
    }
    
    @GetMapping("/collposter")
    public ResponseEntity<?> read2(long collNo) {
-      return ResponseEntity.ok(service.read2(collNo));      
+      return ResponseEntity.ok(service.collposter(collNo));      
    }
    
    @GetMapping("/checkmycollection")

@@ -105,7 +105,6 @@
 				}
 			});
 			}else{
-				console.log("삭제 안함");
 				return false;
 			}
 		});

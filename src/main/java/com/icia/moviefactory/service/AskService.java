@@ -1,14 +1,13 @@
 package com.icia.moviefactory.service;
 
-import java.util.List;
+import java.util.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.stereotype.*;
 
-import com.icia.moviefactory.dao.AskDao;
-import com.icia.moviefactory.dto.Page;
-import com.icia.moviefactory.entity.AdminAsk;
+import com.icia.moviefactory.dao.*;
+import com.icia.moviefactory.dto.*;
+import com.icia.moviefactory.entity.*;
 
 @Service
 public class AskService {
@@ -28,10 +27,8 @@ public class AskService {
 		List<AdminAsk> adminAsks = askDao.findAll(startRowNum, endRowNum);
 		return new Page().builder().pageno(pageno).pagesize(pagesize).totalcount(count).adminAsks(adminAsks).build();
 	}
-	// 그 유저의 목록을 가져온다 페이징
+	// 유저의 목록을 가져온다 페이징
 	public Page findAllAdminAskByUsername(int pageno, String username) {
-		//동민아 여기서 username이 null이라서 if문에 null쪽으로 출력되고 있어
-		// 해결법 : rest에서 로그인확인시켰어
 		if(username==null) {
 			int count = askDao.findAllCount();
 			int startRowNum = ((pageno-1) * pagesize + 1);

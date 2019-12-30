@@ -8,7 +8,7 @@ import com.icia.moviefactory.service.*;
 
 @RequestMapping("/api")
 @RestController
-public class CaptchaController {
+public class CaptchaRestController {
 	@Autowired
 	private CaptchaService service;
 	
@@ -19,9 +19,6 @@ public class CaptchaController {
 	
 	@GetMapping("/captcha/image")
 	public ResponseEntity<?> image(String key, String value) {
-		System.out.println("controller 내려옴");
-		System.out.println(key);
-		System.out.println(value);
 		return ResponseEntity.ok(service.captchaImage(key, value));
 	}
 	

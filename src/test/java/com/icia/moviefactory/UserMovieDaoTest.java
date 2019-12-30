@@ -42,8 +42,8 @@ public class UserMovieDaoTest {
    // @Transactional
    // @Test
    public void findByUsernameCollectionTest() {
-	   	List<Collections> result = dao.findByUsernameCollection("ieb6721");
-	   	assertThat(result.size(), is(3));
+//	   	List<Collections> result = dao.findByUsernameCollection("ieb6721");
+//	   	assertThat(result.size(), is(3));
    }
    
    // 4. 유저리뷰 목록보기 OK

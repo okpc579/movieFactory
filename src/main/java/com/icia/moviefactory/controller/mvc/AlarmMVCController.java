@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class AlarmMVCController {
 	@GetMapping("/alarm") 
-	public String add() {
+	public String alarm() {
 		return "alarm/alarm";
 	}
 }

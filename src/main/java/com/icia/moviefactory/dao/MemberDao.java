@@ -68,15 +68,13 @@ public class MemberDao {
 		return tpl.selectOne("memberMapper.findById", username);
 	}
 
-	// UDAO-10. 회원 정보 변경
+	// 회원 정보 변경
 	public int update(Member member) {
-		System.out.println(member);
 		return tpl.update("memberMapper.update", member);
 	}
 
-	// UDAO-6. 비밀번호 변경
+	// 비밀번호 변경
 	public int updateNewPassword(String username, String newEncodedPassword) {
-		System.out.println("비번변경 dao에 왔니?");
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("username", username);
 		map.put("newEncodedPassword", newEncodedPassword);

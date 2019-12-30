@@ -19,12 +19,12 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<script>
-		location.href = "http://localhost:8081/moviefactory/system/e403";
+		location.href = "/moviefactory/system/e403";
 	</script>
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_USER')">
    <script>
-      location.href="http://localhost:8081/moviefactory/system/e403";
+      location.href="/moviefactory/system/e403";
    </script>
 </sec:authorize>
 
@@ -176,7 +176,7 @@ function checkNick() {
 	return true;
 }
 
-//8. 우편번호 입력
+// 8. 우편번호 입력
 function checkZipCode() {
    var zipCodePattern = /^[0-9]{5,5}$/;
    var zipCode = $("#zipCode").val();
@@ -193,7 +193,7 @@ function checkZipCode() {
    return true;
 }
 
-// 8. 생년월일 필수입력
+// 9. 생년월일 필수입력
 function checkBirth() {
    var birthPattern = /^[0-9]{6,6}$/;
    var birth = $("#birth").val();
@@ -211,7 +211,7 @@ function checkBirth() {
 }
 
 
-//8. 성별 필수입력
+// 10. 성별 필수입력
 function checkGender() {
    var genderPattern = /^[1-4]{1,1}$/;
    var gender = $("#gender").val();
@@ -229,7 +229,7 @@ function checkGender() {
 }
 
 
-// 9. 회원 가입
+// 11. 회원 가입
 function join() {
 	// 사진을 포함할 수 있으므로 FormData 형식
 	var formData = new FormData(document.getElementById("joinForm"));
@@ -238,8 +238,6 @@ function join() {
 		$.ajax({
 					url:"/moviefactory/api/member/join",
 					method: "post",
-					// formData를 보내기 위한 ajax 설정 2가지
-					// querystring 변환 금지
 					processData:false,
 					// multipart 지정
 					contentType:false,
@@ -340,10 +338,8 @@ $(function() {
 			console.log(isUsernameAvailable);
 			console.log(isNickNameAvailable);
 			console.log(isEmailAvailable);
-			console.log("가입안되는곳");
 			return ;
 		}
-		console.log("==============가입되는곳");
 		join();
 	});
 	
@@ -360,7 +356,6 @@ table {
 #join, #reset {
 
 	height: 50px;
-	/* line-height: 50px; */
 	width: 100px;
 }
 

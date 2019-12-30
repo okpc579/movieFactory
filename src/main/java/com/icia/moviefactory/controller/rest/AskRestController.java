@@ -1,26 +1,21 @@
-package com.icia.moviefactory.restcontroller;
+package com.icia.moviefactory.controller.rest;
 
-import java.net.URI;
-import java.security.Principal;
+import java.net.*;
+import java.security.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import javax.servlet.http.*;
+import javax.validation.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.*;
+import org.springframework.security.access.annotation.*;
+import org.springframework.validation.*;
 import org.springframework.validation.BindException;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.*;
 
-import com.icia.moviefactory.entity.AdminAsk;
-import com.icia.moviefactory.service.AskService;
+import com.icia.moviefactory.entity.*;
+import com.icia.moviefactory.service.*;
 
 @RequestMapping("/api")
 @RestController
@@ -60,24 +55,22 @@ public class AskRestController {
 	}  
 	
 
-	// 글 변경 : 글을 변경하려는 사람이 글쓴 사람인지 여부를 확인하기 위해 principal 필요
+	// 글 변경
 	@Secured("ROLE_USER")
 	@PostMapping("/adminAsk/update")
 	public ResponseEntity<?> updateAdminAsk(long adminAskNo,String content, Principal principal) {
-		System.out.println(adminAskNo);
-		System.out.println(content);
 		return ResponseEntity.ok(service.updateAdminAsk(adminAskNo,content, principal.getName()));
 	}
 
 	
-	// 글 삭제: 글을 삭제하려는 사람이 글쓴 사람인지 여부를 확인하기 위해 principal 필요
+	// 글 삭제
 	@Secured("ROLE_USER")
 	@DeleteMapping("/adminAsk/{admin_ask_no}")
 	public ResponseEntity<?> deleteAdminAsk(long adminAskNo, Principal principal) {
 		return ResponseEntity.ok(service.deleteAdminAsk(adminAskNo, principal.getName()));
 	}
 	
-	// 관리자가 글 하나 읽기: 게시판에서 글제목을 눌러 글을 읽을때
+	// 글 읽기
 	@GetMapping("/adminAsk/read")
 	public ResponseEntity<?> readAdminAsk(long adminAskNo, Principal principal){
 		return ResponseEntity.ok(service.readAdminAsk(adminAskNo, principal.getName()));
@@ -102,13 +95,14 @@ public class AskRestController {
 	return ResponseEntity.ok(service.findAdminAskBySearchTitle(pageno, title));
 	}
 	
+	// 문의상태
 	@PostMapping("/adminAsk/answering")
 	public ResponseEntity<?> answering(long adminAskNo){
 		return ResponseEntity.ok(service.answering(adminAskNo));
 	}
 	
-	// 로그인한 아이디 불러오는
-	@GetMapping("/adminAsk/username")
+	// 로그인한 아이디 확인하기
+	@GetMapping("/adminAsk/checkusername")
 	public ResponseEntity<?> username(Principal principal, long adminAskNo){
 		return ResponseEntity.ok(service.checkusername(principal.getName(), adminAskNo));
 	}

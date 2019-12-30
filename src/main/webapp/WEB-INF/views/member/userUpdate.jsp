@@ -170,7 +170,7 @@ var mmmmmmm;
 								$("#helper_nick").text("사용중인 닉네임입니다").css(
 										"color", "red").css("font-size",
 										"0.75em").attr("data-pass", "true");
-								isNickNameAvailable=false;		// 여기는 왜 isEmailAvailable=false; 이게 없어여??
+								isNickNameAvailable=false;	
 							}
 						});
 					}
@@ -196,7 +196,7 @@ var mmmmmmm;
 										"color", "red").css("font-size",
 										"0.75em").attr("data-pass", "true");
 								isEmailAvailable=false;
-								isNickNameAvailable=false;	// 여기는 얘가 있는데
+								isNickNameAvailable=false;	
 							}
 						});
 					}
@@ -221,12 +221,7 @@ var mmmmmmm;
 			var newPassword = $("#newPassword");
 			var newPassword2 = $("#newPassword2");
 			// 특수문자를 하나이상 포함하는 8~10자 (전방탐색 이용)	- 정규식 제외하기
-			 var patt = /(?=.*[!@#$%^&*])^[A-Za-z0-9!@#$%^&*]{8,10}$/;
-			
-		/* 	if(patt.test(password)==false) {
-    			  $("#helper_password").text("현재 비밀번호를 입력해주세요.").css("color","red").css("font-size","0.75em");;
-    		  	return false;
-   			}	 */		 
+			 var patt = /(?=.*[!@#$%^&*])^[A-Za-z0-9!@#$%^&*]{8,10}$/;	 
    			
 			// 새 비밀번호 정규식 확인
 			if(!patt.test(newPassword.val())) {
@@ -256,7 +251,6 @@ var mmmmmmm;
 				data:param,
 				success: function() {
 					$("#myFrm").submit();
-					console.log("ffffff");
 					location.reload();
 					alert('비밀번호를 변경하였습니다.');
 				}, error: function(xhr) {
@@ -310,7 +304,6 @@ var mmmmmmm;
 			}
 			var result = confirm("회원정보를 수정하시겠습니까?");
 			if (result == true) {
-				console.log("수정완료");
 				$.ajax({
 					url: "/moviefactory/api/member/userupdate",
 					method: "post",
@@ -327,7 +320,6 @@ var mmmmmmm;
 				
 			 }
 			else {
-				console.log("수정안해줌 ㅎㅎㅎ");
 				return false;
 			}		
 		});
@@ -336,7 +328,6 @@ var mmmmmmm;
 <style>
 #updateEnd, #changePwd, #activateChangePwd {
 	height: 50px;
-	/* line-height: 50px; */
 	width: 100px;
 	magin : 0 auto;
 }

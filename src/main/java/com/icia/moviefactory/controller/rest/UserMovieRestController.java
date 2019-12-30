@@ -14,20 +14,12 @@ public class UserMovieRestController {
 	@Autowired
 	private UserMovieService service;
 
-	// 3. 컬렉션 목록보기
-	@GetMapping("/collectionlist")
-	public ResponseEntity<?> collectionlist(Principal principal) {
-		return ResponseEntity.ok(service.findByUsernameCollection(principal.getName()));		
-	}
-	
 	// 4. 유저리뷰 목록보기
 	@GetMapping("/review")
 	public ResponseEntity<?> reviewlist(String username, @RequestParam(defaultValue = "1") int pageno) {
-		System.out.println("==============================");
-		System.out.println(service.findUserReview(username, pageno));
-		System.out.println("==============================");
 		return ResponseEntity.ok(service.findUserReview(username, pageno));
 	}
+	
 	@GetMapping("/checkfollowing")
 	public ResponseEntity<?> checkfollowing(Principal principal, String username) {
 		return ResponseEntity.ok(service.checkfollowing(username, principal.getName()));		
@@ -47,17 +39,12 @@ public class UserMovieRestController {
 	
 	@PostMapping("/addfollowing")
 	public ResponseEntity<?> addfollowing(String username ,Principal principal) {
-		System.out.println(username);
-		System.out.println(principal.getName());
 		return ResponseEntity.ok(service.addfollowing(username,principal.getName()));
 	}
 	@PostMapping("/deletefollowing")
 	public ResponseEntity<?> deletefollowing(String username ,Principal principal) {
 		return ResponseEntity.ok(service.deletefollowing(username,principal.getName()));
 	}
-	
-	
-	
 	// 7. 평점상위 보기
 	@GetMapping("/averagerating")
 	public ResponseEntity<?> averagerating(Principal principal) {
@@ -105,20 +92,9 @@ public class UserMovieRestController {
 		return ResponseEntity.ok(service.findNickname(username));		
 	}
 	
-	
-	
-	@GetMapping("/preferencemovie")
-	public ResponseEntity<?> findPreferenceMovie(String username) {
-		System.out.println(service.findPreferenceMovie(username));
-		return ResponseEntity.ok(service.findPreferenceMovie(username));		
-	}
-	
 	@GetMapping("/checkmyname")
 	public ResponseEntity<?> checkmyname(String username, Principal principal) {
 		return ResponseEntity.ok(username.equals(principal.getName())==true?"true":"false");		
 	}
-	
-	
-	
-	
+		
 }

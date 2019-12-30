@@ -167,15 +167,12 @@ background-color
 		// pageno=11
 		//console.log(params[0]);
 		// 전체 글 페이징 : undefined, 사용자가 작성한 글 페이징: writer=spring11
-		console.log(params[1]);
 		$.ajax({
 			url : "/moviefactory/api/adminAsk/listuser", //여기 주소 니가 이상하게 적어놨어
 			method : "get",
 			data : location.search.substr(1),
 			success : function(result) {
 				console.log(result);
-				console.log(result.adminAsks);
-				console.log(result.adminAsks.length);
 				/*
 				if(result.totalcount!=0){
 					if(result.totalcount/10+1<result.pageno){
@@ -190,14 +187,13 @@ background-color
 				if(result.adminAsks.length ==0 && result.pageno!=1){
 					location.href="/moviefactory/adminAsk/listuser?pageno="+1	
 				}
-				adminaskList(result); // 이거 이름 안바꿈 adminaskList
+				adminaskList(result);
 				if (params[1] != undefined)
-					adminaskPage(result, params[1].substr(7)); //여기 이름 안바꿈 adminaskPage
+					adminaskPage(result, params[1].substr(7));
 				else
-					adminaskPage(result); // 여기 이름 안바꿈 adminaskPage
+					adminaskPage(result);
 			},error: function(xhr) {
 				console.log(xhr);
-				
 				//location.href="/moviefactory/adminAsk/listuser?pageno="+1
 	         }
 		});

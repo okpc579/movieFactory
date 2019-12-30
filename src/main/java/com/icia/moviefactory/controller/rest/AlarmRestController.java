@@ -10,7 +10,7 @@ import com.icia.moviefactory.service.*;
 
 @RequestMapping("/api/alarm")
 @RestController
-public class AlarmController {
+public class AlarmRestController {
 	@Autowired
 	private AlarmService service;
 	

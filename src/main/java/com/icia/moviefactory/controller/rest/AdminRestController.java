@@ -1,4 +1,4 @@
-package com.icia.moviefactory.restcontroller;
+package com.icia.moviefactory.controller.rest;
 
 import javax.validation.*;
 
@@ -14,81 +14,81 @@ public class AdminRestController {
 	@Autowired
 	private AdminService service;
 	
-	@GetMapping("/enabledlist")
+	@GetMapping("/block/list")
 	public ResponseEntity<?> findAllEnabledList(int pageno) {
 		return ResponseEntity.ok(service.findAllEnabledList(pageno));
 	}
 	
-	@GetMapping("/findrevblind")
+	@GetMapping("/blind/reviewlist")
 	public ResponseEntity<?> findRevBlind(int pageno) {
 		return ResponseEntity.ok(service.findRevBlind(pageno));
 	}
 	// 내용으로 검색한 리뷰 블라인드
-	@GetMapping("/searchbycontentrevblind")
+	@GetMapping("/blind/search/reviewbycontent")
 	public ResponseEntity<?> searchByContentRevBlind(int pageno, String search) {
 		return ResponseEntity.ok(service.searchByContentRevBlind(pageno,search));
 	}
 	// 아이디로 검색한 리뷰 블라인드
-	@GetMapping("/searchbyusernamerevblind")
+	@GetMapping("/blind/search/reviewbyusername")
 	public ResponseEntity<?> searchByUsernameRevBlind(int pageno, String search) {
 		return ResponseEntity.ok(service.searchByUsernameRevBlind(pageno,search));
 	}
 	
 	// 내용으로 검색한 블라인드된 댓글
-	@GetMapping("/searchbycontentcmntblind")
+	@GetMapping("/blind/search/commentbycontent")
 	public ResponseEntity<?> searchByContentCmntBlind(int pageno, String search) {
 		return ResponseEntity.ok(service.searchByContentCmntBlind(pageno,search));
 	}
 	
 	// 아이디로 검색한 블라인드된 댓글
-	@GetMapping("/searchbyusernamecmntblind")
+	@GetMapping("/blind/search/commentbyusername")
 	public ResponseEntity<?> searchByUsernameCmntBlind(int pageno, String search) {
 		return ResponseEntity.ok(service.searchByUsernameCmntBlind(pageno,search));
 	}
 	
 	// 아이디로 검색한 블락목록
-	@GetMapping("/searchbyusernameenabledlist")
+	@GetMapping("block/search/listbyusername")
 	public ResponseEntity<?> searchByUsernameEnabledList(int pageno, String search) {
 		return ResponseEntity.ok(service.searchByUsernameEnabledList(pageno,search));
 	}
 	
-	@GetMapping("/findcmntblind")
+	@GetMapping("/blind/findcomment")
 	public ResponseEntity<?> findRevCmntBlind(int pageno) {
 		return ResponseEntity.ok(service.findRevCmntBlind(pageno));
 	}
 	
-	@GetMapping("/read/blind/review")
+	@GetMapping("/blind/readreview")
 	public ResponseEntity<?> readRevBlind(long mRevNo) {
 		return ResponseEntity.ok(service.readRevBlind(mRevNo));
 	}
 	
-	@GetMapping("/read/blind/comment")
+	@GetMapping("/blind/readcomment")
 	public ResponseEntity<?> readRevCmntBlind(long mRevCmntNo) {
 		System.out.println("readRevCmntBlind");
 		return ResponseEntity.ok(service.readRevCmntBlind(mRevCmntNo));
 	}
 	
-	@PostMapping("/update/block")
+	@PostMapping("/block/update")
 	public ResponseEntity<?> updateblock(String username) {
 		return ResponseEntity.ok(service.updateEnabled(username));
 	}
 	
-	@PostMapping("/update/blind/review")
+	@PostMapping("/blind/updatereview")
 	public ResponseEntity<?> updateRevBlind(long mRevNo) {
 		return ResponseEntity.ok(service.updateRevBlind(mRevNo));
 	}
 	
-	@PostMapping("/update/blind/comment")
+	@PostMapping("/blind/updatecomment")
 	public ResponseEntity<?> updateCmntBlind(@Valid long mRevCmntNo) {
 		return ResponseEntity.ok(service.updateCmntBlind(mRevCmntNo));
 	}
 	
-	@GetMapping("/findrevblindbyuser")
+	@GetMapping("/blind/findreviewbyuser")
 	public ResponseEntity<?> findRevBlindByUser(String username) {
 		return ResponseEntity.ok(service.findRevBlindByUser(username));
 	}
 	
-	@GetMapping("/findcmntblindbyuser")
+	@GetMapping("/blind/findcommentbyuser")
 	public ResponseEntity<?> findRevCmntBlindByUser(String username) {
 		return ResponseEntity.ok(service.findRevCmntBlindByUser(username));
 	}

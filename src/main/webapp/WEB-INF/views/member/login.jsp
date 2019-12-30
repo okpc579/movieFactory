@@ -108,7 +108,6 @@ var value;
 <style>
 #login {
 	height: 50px;
-	/* line-height: 50px; */
 	width: 100px;
 }
 #loginFrm, #msg  {
@@ -119,7 +118,7 @@ margin: 0 auto;
 </style>
 <sec:authorize access="hasRole('ROLE_USER')">
 	<script>
-		location.href="http://localhost:8081/moviefactory/system/e403";
+		location.href="/moviefactory/system/e403";
 	</script>
 </sec:authorize>
 <title>Insert title here</title>
@@ -154,9 +153,9 @@ margin: 0 auto;
 			</div>
 			<br>
 			<button class="btn btn-success" id="login" type="button">로그인</button><br>
-			<a class="joinsoon" href="http://localhost:8081/moviefactory/member/join">회원가입</a>
-			<a class="findId" href="http://localhost:8081/moviefactory/member/findId">아이디</a>/
-            <a class="findPwd" href="http://localhost:8081/moviefactory/member/findPassword">비밀번호 찾기</a>
+			<a class="joinsoon" href="/moviefactory/member/join">회원가입</a>
+			<a class="findId" href="/moviefactory/member/findId">아이디</a>/
+            <a class="findPwd" href="/moviefactory/member/findPassword">비밀번호 찾기</a>
 		</form>
 	</div>
 	</div>

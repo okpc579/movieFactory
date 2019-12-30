@@ -43,7 +43,6 @@ function adminaskData(adminAsk) {
 	// 로그인 을 해야 자신의 문의목록을 볼수있다
 	// 답글출력
 	printAskAnswer();
-	
 }
 
 // 2. 답글 출력
@@ -51,7 +50,7 @@ function printAskAnswer(AskAnswers) {
 	if (AskAnswers == undefined)
 		AskAnswers = adminAsk.askAnswer;
 
-	// 답글을 출력할 영역(#askAnswer)를 읽어와 초기화(출력중인 모든 댓글을 삭제)
+	// 답글을 출력할 영역(#askAnswer)를 읽어와 초기화
 	var $askAnswer = $("#askAnswer");
 	$askAnswer.empty();
 }
@@ -241,7 +240,7 @@ function printAskAnswer(AskAnswers) {
 		if (AskAnswers == undefined)
 			AskAnswers = adminAsk.askAnswer;
 
-		// 답글을 출력할 영역(#askAnswer)를 읽어와 초기화(출력중인 모든 댓글을 삭제)
+		// 답글을 출력할 영역(#askAnswer)를 읽어와 초기화
 		var $askAnswer = $("#askAnswer");
 		$askAnswer.empty();
 	}
@@ -462,12 +461,12 @@ textarea {
 	<div id="section">
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<div>
-			<h2><a href="http://localhost:8080/moviefactory/adminAsk/list">문의 게시판</a></h2>
+			<h2><a href="/moviefactory/adminAsk/list">문의 게시판</a></h2>
 		</div>
 		</sec:authorize>
 		<sec:authorize access="hasRole('ROLE_USER')">
 		<div>
-			<h2><a href="http://localhost:8080/moviefactory/adminAsk/listuser">문의 게시판</a></h2>
+			<h2><a href="/moviefactory/adminAsk/listuser">문의 게시판</a></h2>
 		</div>
 		</sec:authorize>
 		<div id="h3">

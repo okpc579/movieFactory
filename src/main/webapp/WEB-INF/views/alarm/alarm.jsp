@@ -65,7 +65,7 @@ function printMy() {
 		//var $mydiv = $("#my");
 		var $mydiv = $("<div>").appendTo($("#my"));
 		//$("<div>").text(reviewlike.mrevNo +"이리뷰에" +"누가? " + reviewlike.username + "이 좋아요했습니다").appendTo($mydiv);
-		//$("<a onclick='urlLocation('http://www.naver.com')>").attr("href","http://localhost:8081/moviefactory/movie/review/read?mrevNo="+reviewlike.mrevNo).text("good").appendTo($mydiv);
+		//$("<a onclick='urlLocation('http://www.naver.com')>").attr("href","/moviefactory/movie/review/read?mrevNo="+reviewlike.mrevNo).text("good").appendTo($mydiv);
 		var locations = "/moviefactory/movie/review/read?mrevNo=" + reviewlike.mrevNo;
 		$("<a onclick=\"opener.location.href = \'" + locations +"\'\">").attr("href","#").text(reviewlike.username + "님이 \"" + reviewlike.content + "\"리뷰에 좋아요를 눌렀습니다").appendTo($mydiv);
 		//~~님이 "리뷰내용" 리뷰에 좋아요 했습니다

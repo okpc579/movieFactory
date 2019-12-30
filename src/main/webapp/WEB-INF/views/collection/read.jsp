@@ -4,7 +4,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
-<html>ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ
+<html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet"
@@ -158,7 +158,7 @@ function getPoster2(movieNm, prdtYear, $tr) {	// (영화제목,제작년도)로 
 			//posterString = result.image;
 			if(typeof result.image == "undefined"){	// 이미지가 정해지지 않을 경우
 				var $td = $("<td>").appendTo($tr)	// td에 tr를 넣어라
-				$("<img>").attr("src","http://localhost:8081/sajin/default_movie.png").attr("height","300px").attr("width", "200px").appendTo($td); 
+				$("<img>").attr("src","/sajin/default_movie.png").attr("height","300px").attr("width", "200px").appendTo($td); 
 			}else {
 			var $td = $("<td>").appendTo($tr)	// 이미지가 들어있는 td를 tr에 넣어라
 			$("<img>").attr("src",result.image).attr("height","300px").attr("width", "200px").appendTo($td);	// result.image를 td안에 넣어라
@@ -205,9 +205,9 @@ function deletemovie(mno){   // 영화번호로 영화 삭제
    
    var $pagination = $("#pagination");   
    
-   var serverUrl = "http://localhost:8081/moviefactory/collection/read?collNo="+coll_no+"&pageno=";
-	//http://localhost:8081/moviefactory/collection/read?collNo=60&pageno=1
-	// (컬렉션.리스트) http://localhost:8081/moviefactory/collection/list?username=dlwndud8120&pageno=1
+   var serverUrl = "/moviefactory/collection/read?collNo="+coll_no+"&pageno=";
+	///moviefactory/collection/read?collNo=60&pageno=1
+	// (컬렉션.리스트) /moviefactory/collection/list?username=dlwndud8120&pageno=1
    console.log("페이징함수 들어옴");
    console.log(result);
    
@@ -266,7 +266,7 @@ $(function() {      // 문자열을 나누어는(split) 기능
          }
       });
    $("#update").on("click", function() {	// 영화 컬렉션 수정으로 페이지 이동
-      location.href="http://localhost:8081/moviefactory/collection/update?collno=" + coll_no;
+      location.href="/moviefactory/collection/update?collno=" + coll_no;
    });
    
    $("#popup").on("click", function() {		// 영화 컬렉션 추가 팝업창 띄우기
@@ -374,9 +374,9 @@ $(function() {      // 문자열을 나누어는(split) 기능
 				          }
 				      });	// 좋아요 버튼 기능(좋아요/좋아요취소)♥♡
 				}
-				//location.href="http://localhost:8081/moviefactory/collection/read?collNo="+result+"&pageno=1";
+				//location.href="/moviefactory/collection/read?collNo="+result+"&pageno=1";
 			}, error : function(xhr) {
-				//location.href="http://localhost:8081/moviefactory/collection/read?collNo="+coll_no+"&pageno=1";
+				//location.href="/moviefactory/collection/read?collNo="+coll_no+"&pageno=1";
 			
 			}
 		});

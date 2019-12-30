@@ -87,16 +87,9 @@ public class MemberService {
 	@Transactional
 	public Member insert(Member member, MultipartFile photo) throws IllegalStateException, IOException {
 		if (photo != null) {
-			// 업로드한 파일의 contentType이 image인지 확인
 			if (photo.getContentType().toLowerCase().startsWith("image/")) {
-				// 프사의 파일명은 사용자 아이디와 같지만 이미지의 확장자는 여러 종류가 있다
-				// 즉 아이디가 hasaway일 경우 프사는 hasaway.jpg일 수도 hasaway.png 일 수도 있다
-				// 확장자를 잘라내자
-				// 1. 파일이름에서 마지막 . 의 위치를 찾는다
 				int lastIndexOfDot = photo.getOriginalFilename().lastIndexOf('.');
-				// 2. 파일 이름에서 마지막 . 뒷 부분을 잘라낸다
 				String extension = photo.getOriginalFilename().substring(lastIndexOfDot);
-				// 3. 아이디 뒤에 잘라낸 확장자를 붙인다
 				String imageName = member.getUsername() + extension;
 				File file = new File(PROFILE_FOLDER, imageName);
 				photo.transferTo(file);
@@ -106,7 +99,6 @@ public class MemberService {
 			member.setPhoto("http://localhost:8081/sajin/18default.png");
 			}
 		}
-		System.out.println("여기는 사진까지 처리한 후=========");
 		member.setPassword(pwdEncoder.encode(member.getPassword()));
 		member.setRegDate(new Date());
 		dao.insert(member);
@@ -167,7 +159,6 @@ public class MemberService {
 
 	// 비밀번호 변경
 	public String updateNewPassword(String username, String password, String newPassword) {
-		//String username =  principal.getName();
 		String encodedPassword = dao.findById(username).getPassword();
 		if (pwdEncoder.matches(password, encodedPassword) == false)
 			throw new IllegalArgumentException("비밀번호를 확인하지 못했습니다");

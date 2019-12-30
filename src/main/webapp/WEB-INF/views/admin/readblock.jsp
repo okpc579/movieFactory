@@ -121,7 +121,7 @@ table {
 		var username = location.search.split("=");
 		//console.log(username[1]);
 		$.ajax({
-			url : "/moviefactory/api/findrevblindbyuser?username="
+			url : "/moviefactory/api/blind/findreviewbyuser?username="
 					+ username[1],
 			method : "get",
 			success : function(result) {
@@ -135,7 +135,7 @@ table {
 			}
 		});
 		$.ajax({
-			url : "/moviefactory/api/findcmntblindbyuser?username="
+			url : "/moviefactory/api/blind/findcommentbyuser?username="
 					+ username[1],
 			method : "get",
 			success : function(cmnt) {
@@ -155,18 +155,18 @@ table {
 	<div id="section">
 		<sec:authorize access="isAnonymous()">
 			<script>
-				location.href = "http://localhost:8081/moviefactory/system/e403";
+				location.href = "/moviefactory/system/e403";
 			</script>
 		</sec:authorize>
 		<sec:authorize access="hasRole('ROLE_USER')">
 			<script>
-				location.href = "http://localhost:8081/moviefactory/system/e403";
+				location.href = "/moviefactory/system/e403";
 			</script>
 		</sec:authorize>
 
 		<h2 class="center">
 			<strong> <a
-				href="http://localhost:8081/moviefactory/admin/blocklist"> 관리자
+				href="/moviefactory/admin/blocklist"> 관리자
 					센터 - 블라인드 목록</a>
 			</strong>
 		</h2>

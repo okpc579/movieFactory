@@ -72,10 +72,10 @@ a:hover {
 
 		var $pagination = $("#pagination");
 		if (username != "")
-			var serverUrl = "http://localhost:8081/moviefactory/collection/list?username="
+			var serverUrl = "/moviefactory/collection/list?username="
 					+ username + "&pageno=";
 		else if (mno != "")
-			var serverUrl = "http://localhost:8081/moviefactory/collection/list?mno="
+			var serverUrl = "/moviefactory/collection/list?mno="
 					+ mno + "&pageno=";
 		console.log("페이징함수 들어옴");
 
@@ -172,7 +172,7 @@ a:hover {
 	        	 console.log("디폴트이미지");
 	         		
 	            //var $td = $("<td>").appendTo($tr)   // td에 tr를 넣어라
-	            $("<img>").attr("src","http://localhost:8081/sajin/default_movie.png").attr("height","100px").attr("width", "80px").appendTo($tr); 
+	            $("<img>").attr("src","/sajin/default_movie.png").attr("height","100px").attr("width", "80px").appendTo($tr); 
 	         }else {
 	         	//var $td = $("<td>").appendTo($tr)   // 이미지가 들어있는 td를 tr에 넣어라
 	         	$("<img>").attr("src",result.image).attr("height","100px").attr("width", "80px").appendTo($tr);   // result.image를 td안에 넣어라

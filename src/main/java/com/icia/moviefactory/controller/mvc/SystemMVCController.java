@@ -19,7 +19,6 @@ public class SystemMVCController {
 
 	@GetMapping("/")
 	public String home(Model model) {
-//		model.addAttribute("viewName", "index.jsp");
 		return "index";
 	}
 

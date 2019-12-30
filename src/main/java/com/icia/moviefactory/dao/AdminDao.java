@@ -22,22 +22,10 @@ public class AdminDao {
 	public long updateCmntBlind(long mRevCmntNo) {
 		return tpl.update("adminMapper.updateRevCmntBlind", mRevCmntNo);
 	}
-
-	// 블라인드 된 댓글 상세(신고내역)
-	/*
-	public List<MovieReviewCommentReport> readCmntBlind(long mRevCmntNo) {
-		return tpl.selectList("adminMapper.readCmntBlind", mRevCmntNo);
-	}
-	*/
 	public Map readCmntBlind(long mRevCmntNo) {
 		return tpl.selectOne("adminMapper.readCmntBlind", mRevCmntNo);
 	}
 	
-	// 블라인드 된 리뷰 상세(신고내역)
-	/*public List<MovieReviewReport> readRevBlind(long mRevNo) {
-		return tpl.selectList("adminMapper.readRevBlind", mRevNo);
-	}
-	*/
 	public Map readRevBlind(long mRevNo) {
 		return tpl.selectOne("adminMapper.readRevBlind", mRevNo);
 	}

@@ -43,7 +43,7 @@
 			window.open('/moviefactory/alarm', 'window','width=400, height=400, status=no,toolbar=no,scrollbars=no, location=no');	
 		});
 		$("#myinfo").on("click", function() {
-			location.href="http://localhost:8081/moviefactory/usermovie/userpage?username="+loginId;	
+			location.href="/moviefactory/usermovie/userpage?username="+loginId;	
 		});
 		
 		
@@ -138,14 +138,14 @@
 						class="icon-bar"></span>
 				</button>
 				<!-- <a class="navbar-brand" href="#myPage" style="float: right;">무비팩토리</a>  -->
-				<a class="navbar-brand" href="http://localhost:8081/moviefactory/"
+				<a class="navbar-brand" href="/moviefactory/"
 					style="padding-left: 381.5px; color:white;">무비팩토리</a>
 			</div>
 			<!-- 무비팩토리 : 홈화면 -->
 
 			<!-- 검색 -->
 			<div class="center text-center" id="search">
-				<form class="form-inline" action="http://localhost:8081/moviefactory/movie/list">
+				<form class="form-inline" action="/moviefactory/movie/list">
 					<!-- <div class="input-group" style="float: left;"> -->
 					<div class="input-group" style="padding-right: 80px;">
 						<input type="text" class="form-control" size="50"
@@ -161,9 +161,9 @@
 		<sec:authorize access="isAnonymous()">
             <div class="myNavbar" id="myNavbar">
                <ul class="nav navbar-nav navbar-right" style="padding-right: 80px;">
-                  <li><a href="http://localhost:8081/moviefactory/member/yesorno" style="color: white;">회원가입</a></li>
-                  <li><a href="http://localhost:8081/moviefactory/member/login" style="color: white;">로그인</a></li>
-                  <li><a href="http://localhost:8081/moviefactory/notice/list" style="color: white;">공지사항</a></li>
+                  <li><a href="/moviefactory/member/yesorno" style="color: white;">회원가입</a></li>
+                  <li><a href="/moviefactory/member/login" style="color: white;">로그인</a></li>
+                  <li><a href="/moviefactory/notice/list" style="color: white;">공지사항</a></li>
                   </ul>
             </div>
          </sec:authorize>
@@ -184,11 +184,11 @@
 					<ul class="nav navbar-nav navbar-right" style="padding-right:300px ;">
 						<li><a href="#" id="sosick"><img src="/sajin/bell (5).png"></a></li> <!-- 내소식 -->
 						<li><a href="#" style="color: white;" id="myinfo">내정보</a></li> <!-- 영화 마이페이지 -->
-						<li><a href="http://localhost:8081/moviefactory/member/logout" style="color: white;" class="logout123">로그아웃</a></li>
+						<li><a href="/moviefactory/member/logout" style="color: white;" class="logout123">로그아웃</a></li>
 						<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: white;">고객센터 <span class="caret"></span></a>
                     	<ul class="dropdown-menu">
-                      		<li><a href="http://localhost:8081/moviefactory/adminAsk/listuser">문의 게시판</a></li>
-                      		<li><a href="http://localhost:8081/moviefactory/notice/list">공지사항</a></li>
+                      		<li><a href="/moviefactory/adminAsk/listuser">문의 게시판</a></li>
+                      		<li><a href="/moviefactory/notice/list">공지사항</a></li>
                     	</ul>
                   </li> 
 					</ul>
@@ -203,18 +203,18 @@
 						style="padding-right:357.65px ;">
 						<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: white;">관리자<span class="caret"></span></a>
 	    	                <ul class="dropdown-menu">
-    	    	              <li><a href="http://localhost:8081/moviefactory/admin/blindcmntlist">블라인드댓글</a></li>
-                	      	  <li><a href="http://localhost:8081/moviefactory/admin/blindrevlist">블라인드리뷰</a></li>
-                    		  <li><a href="http://localhost:8081/moviefactory/admin/blocklist">영구정지</a></li>
+    	    	              <li><a href="/moviefactory/admin/blindcmntlist">블라인드댓글</a></li>
+                	      	  <li><a href="/moviefactory/admin/blindrevlist">블라인드리뷰</a></li>
+                    		  <li><a href="/moviefactory/admin/blocklist">영구정지</a></li>
                     		</ul>
 	                    </li> 
 						<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: white;">고객센터 <span class="caret"></span></a>
                     		<ul class="dropdown-menu">
 	                	      <li><a href="http://localhost:8080/moviefactory/adminAsk/list">문의 게시판</a></li>
-		                      <li><a href="http://localhost:8081/moviefactory/notice/list">공지사항</a></li>
+		                      <li><a href="/moviefactory/notice/list">공지사항</a></li>
         		            </ul>
             		    </li> 
-						<li><a href="http://localhost:8081/moviefactory/member/logout" style="color: white;" class="logout123">로그아웃</a></li>
+						<li><a href="/moviefactory/member/logout" style="color: white;" class="logout123">로그아웃</a></li>
 
 					</ul>
 				</div>

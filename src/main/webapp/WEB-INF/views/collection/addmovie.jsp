@@ -255,7 +255,7 @@
 				if (typeof result.image == "undefined" || result.image == "") {
 					var $td = $("<td>").appendTo($tr)
 					$("<img>").attr("src",
-							"http://localhost:8081/sajin/default_movie.png")
+							"/sajin/default_movie.png")
 							.attr("width", "110px").appendTo($td);
 				} else {
 					var $td = $("<td>").appendTo($tr)
@@ -286,7 +286,7 @@
 			endPage = cntOfPage;
 
 		var $pagination = $("#pagination");
-		var serverUrl = "http://localhost:8081/moviefactory/movie/list?query="
+		var serverUrl = "/moviefactory/movie/list?query="
 				+ query + "&pageno=";
 		console.log("페이징함수 들어옴");
 
@@ -476,7 +476,7 @@
 				if(result=="false"){
 					close();
 				}
-				//location.href="http://localhost:8081/moviefactory/collection/read?collNo="+result+"&pageno=1";
+				//location.href="/moviefactory/collection/read?collNo="+result+"&pageno=1";
 			}, error : function(xhr) {
 				
 			}
