@@ -84,18 +84,5 @@ public class MemberMVCController {
 		return "main";
 	}
 
-	// MVC-4. 아이디 알려주는 창
-	@GetMapping("/member/id")
-	public String checkId(Model model) {
-		model.addAttribute("viewName", "member/id.jsp");
-		return "main";
-	}
-
-	// MVC-5. 비밀번호 알려주는 창
-	@GetMapping("/member/pwd")
-	public String checkPwd(Model model) {
-		model.addAttribute("viewName", "member/pwd.jsp");
-		return "main";
-	}
 }
 
