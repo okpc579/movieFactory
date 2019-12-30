@@ -161,7 +161,7 @@
 		<sec:authorize access="isAnonymous()">
             <div class="myNavbar" id="myNavbar">
                <ul class="nav navbar-nav navbar-right" style="padding-right: 80px;">
-                  <li><a href="/moviefactory/member/yesorno" style="color: white;">회원가입</a></li>
+                  <li><a href="/moviefactory/member/join" style="color: white;">회원가입</a></li>
                   <li><a href="/moviefactory/member/login" style="color: white;">로그인</a></li>
                   <li><a href="/moviefactory/notice/list" style="color: white;">공지사항</a></li>
                   </ul>

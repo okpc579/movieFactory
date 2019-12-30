@@ -363,7 +363,7 @@ ul, li { list-style:none; }
 			<sec:authorize access="isAnonymous()">
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav navbar-right" >
-						<li><a href="member/yesorno" style="color: white;">회원가입</a></li>
+						<li><a href="member/join" style="color: white;">회원가입</a></li>
 						<li><a href="member/login" style="color: white;">로그인</a></li>
 						<li><a href="notice/list" style="color: white;">공지사항</a></li>
 					</ul>
