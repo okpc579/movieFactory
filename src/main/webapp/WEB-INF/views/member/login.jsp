@@ -12,7 +12,49 @@
 <script type="text/javascript">
 var isCaptcha;
 var imageDiv;
-var msg
+var msg;
+function login(){
+	var formData = $("#loginFrm").serialize();
+	console.log(formData);
+		if(isCaptcha=="true"){ // isCaptcha가 true면 로그인에 실패한경우임
+			console.log(isCaptcha);
+			$.ajax({
+				url : "/moviefactory/api/captcha/image",
+				data : formData,
+				dataType:"json",
+				success : function(data) {
+					console.log(data.result);
+					// 캡차 해서 결과가 false이면 로그인 불가
+					if (data.result==false){ 
+						console.log(data.result);
+						//btn.disabeld = true;
+						console.log("fuckU");
+						$.ajax({
+							url : "/moviefactory/api/captcha/key",
+							dataType:"json",
+							success : function(data) {
+								console.log(data.key);	// 캡차키값 출력
+								key = data.key;
+								$("#key").val(data.key);
+								$("#div01").html("<img src='https://openapi.naver.com/v1/captcha/ncaptcha.bin?key="+key+"'>");
+							}, error: function(result){
+								console.log(result);
+							}
+						});
+					}else if(data.result==true){
+						$("#loginFrm").submit();
+					}
+				},error : function(result) {
+					console.log(result);
+					console.log("실패입니더");
+				}
+			});		
+		} else{
+			$("#loginFrm").submit();
+		}
+}
+
+
 $(function() {
 	isCaptcha ="${isCaptcha}";
 	imageDiv = $("#image_captcha");
@@ -34,6 +76,20 @@ $(function() {
 $(function() {
 var key;
 var value;
+	$("#login_username").keydown(function(key) {
+		if(key.keyCode==13) {
+			key.preventDefault();
+			login();
+		}
+	});
+	$("#login_pwd").keydown(function(key) {
+		if(key.keyCode==13) {
+			key.preventDefault();
+			login();
+		}
+	});
+
+
 	$.ajax({
 		url : "/moviefactory/api/captcha/key",
 		dataType:"json",
@@ -49,45 +105,7 @@ var value;
 	
 	
 	$("#login").on("click",function(){
-		var formData = $("#loginFrm").serialize();
-		console.log(formData);
-			if(isCaptcha=="true"){ // isCaptcha가 true면 로그인에 실패한경우임
-				console.log(isCaptcha);
-				$.ajax({
-					url : "/moviefactory/api/captcha/image",
-					data : formData,
-					dataType:"json",
-					success : function(data) {
-						console.log(data.result);
-						// 캡차 해서 결과가 false이면 로그인 불가
-						if (data.result==false){ 
-							console.log(data.result);
-							//btn.disabeld = true;
-							console.log("fuckU");
-							$.ajax({
-								url : "/moviefactory/api/captcha/key",
-								dataType:"json",
-								success : function(data) {
-									console.log(data.key);	// 캡차키값 출력
-									key = data.key;
-									$("#key").val(data.key);
-									$("#div01").html("<img src='https://openapi.naver.com/v1/captcha/ncaptcha.bin?key="+key+"'>");
-								}, error: function(result){
-									console.log(result);
-								}
-							});
-						}else if(data.result==true){
-							$("#loginFrm").submit();
-						}
-					},error : function(result) {
-						console.log(result);
-						console.log("실패입니더");
-					}
-				});		
-			} else{
-				$("#loginFrm").submit();
-			}
-		
+		login();
 	});
  	$("#f5").on("click", function(){
 		$.ajax({
