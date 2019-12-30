@@ -23,7 +23,7 @@ $(function(){
 				location.href="/moviefactory/member/login";
 			},error:function(xhr){
 				console.log(xhr.responseText);
-				alert(xhr.responseText);
+				alert("일치하는 계정이 없습니다.");
 			}
 		})	
 	});
