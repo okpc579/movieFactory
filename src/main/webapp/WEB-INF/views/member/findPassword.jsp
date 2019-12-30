@@ -13,7 +13,6 @@
 $(function() {
 	$("#find").on("click",function(){
 		var formData = $("#findPwdFrm").serialize();
-		console.log(param);
 		var username= $("#username").val();
 		console.log(username);
 		$.ajax({
