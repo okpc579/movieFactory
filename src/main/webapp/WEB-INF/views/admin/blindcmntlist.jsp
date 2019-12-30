@@ -328,12 +328,15 @@ var typeUsername;
 		var params = location.search.split('&');
 		var url = "/moviefactory/api/findcmntblind";
 		console.log(params);
+		var pageno;
 		
 		if(typeof params[1] == "undefined"){	
 			if (params[0] == "") {
 				url = url + "?pageno=" + 1;
+				pageno=1;
 			} else {
 				url = url + "?pageno=" + params[0].split('=')[1];
+				pageno=params[0].split('=')[1];
 			}
 			
 			$.ajax({
@@ -347,11 +350,15 @@ var typeUsername;
 					   if(typeof result =="undefined"){
 			                  location.href="/moviefactory/admin/blindcmntlist?pageno=" + (location.search.split("=")[1]) +  "&pageno="+1   
 			           }else if(result.movieReviewComments.length==0){
+			        	   if(pageno!=1){
 			                  location.href="/moviefactory/admin/blindcmntlist?pageno="+1
+			        	   }
 			           } 
 				}, error: function(xhr) {
 		               console.log(xhr);
-		                location.href="/moviefactory/admin/blindcmntlist?pageno="+1
+		               if(pageno!=1){
+		                	location.href="/moviefactory/admin/blindcmntlist?pageno="+1
+		               }
 				}
 			});
 			
