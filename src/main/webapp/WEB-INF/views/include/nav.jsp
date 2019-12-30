@@ -210,7 +210,7 @@
 	                    </li> 
 						<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: white;">고객센터 <span class="caret"></span></a>
                     		<ul class="dropdown-menu">
-	                	      <li><a href="http://localhost:8080/moviefactory/adminAsk/list">문의 게시판</a></li>
+	                	      <li><a href="/moviefactory/adminAsk/list">문의 게시판</a></li>
 		                      <li><a href="/moviefactory/notice/list">공지사항</a></li>
         		            </ul>
             		    </li> 
