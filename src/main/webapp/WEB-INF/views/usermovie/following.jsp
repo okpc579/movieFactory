@@ -47,9 +47,6 @@
    	color: white;
    	font-size: 25px;
 	}
-	.info {
-		height : 50px;
-	}
 </style>
   <script>
   var followers;
@@ -81,6 +78,8 @@
   
   
   
+  
+  
 //3. 유저이름으로 영화 불러오기
   $(function() {
      console.log(location.search.split('&'));
@@ -108,14 +107,6 @@
 				console.log(result);
 				followers = result;
 				printfollower();
-				if(result.length==0){
-					var $body = $("#follower_list");	
-					var $tr = $("<tr>").appendTo($body);
-					var $td = $("<td>").appendTo($tr);
-					$("<span>").text("팔로우 유저가 없습니다.").css("text-align","center")
-	            	   .css("margin","100px").css("color","gray").css("font-size","20px").css("font-style" ,"italic").appendTo($td);
-					//$("#emptyfollower").text("팔로워 유저가 없습니다.")
-				}
 			}, error : function(xhr) {
 				
 			}
@@ -126,13 +117,6 @@
 			success:function(result) {
 				followings = result;
   	          	printfollowing();
-  	          if(result.length==0){
-  	        	var $body = $("#following_list");	
-				var $tr = $("<tr>").appendTo($body);
-				var $td = $("<td>").appendTo($tr);
-				$("<span>").text("팔로잉 유저가 없습니다.").css("text-align","center")
-            	   .css("margin","100px").css("color","gray").css("font-size","20px").css("font-style" ,"italic").appendTo($td);
-  	          }
 				}, error : function(xhr) {
 					}
 		});
@@ -149,7 +133,7 @@
 	  		<table class="following_table">
 	  			<thead>
 	  				<tr>
-	  					<th class='info'>팔로잉 유저</th>
+	  					<th>팔로잉 유저</th>
 	  				</tr>
 	  			</thead>
 	  			<tbody id="following_list">
@@ -160,7 +144,7 @@
 	  			<table class="follower_table">
 	  			<thead>
 	  				<tr>
-	  					<th class='info'>팔로우 유저</th>
+	  					<th>팔로우 유저</th>
 	  				</tr>
 	  			</thead>
 	  			<tbody id="follower_list"">

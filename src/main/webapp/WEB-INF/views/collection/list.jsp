@@ -212,11 +212,6 @@ a:hover {
 					collections = result.collections;
 					printData();
 					printPaging(result);
-					if(result.collections.length==0){
-			               $("#emptytext").text("등록한 컬렉션이 없습니다.").css("text-align","center")
-			               .css("margin","100px").css("color","gray").css("font-size","20px").css("font-style" ,"italic");
-			        }
-					
 				}, error: function(){
 					location.href="/moviefactory";
 				}
@@ -249,10 +244,6 @@ a:hover {
 					collections = result.collections;
 					printData();
 					printPaging(result);
-					if(result.collections.length==0){
-			               $("#emptytext").text("등록한 컬렉션이 없습니다.").css("text-align","center")
-			               .css("margin","100px").css("color","gray").css("font-size","20px").css("font-style" ,"italic");
-			        }
 				}, error: function(){
 					location.href="/moviefactory";
 				}
@@ -277,7 +268,6 @@ a:hover {
 		<div class="w3-row-padding" id="list">
 			
 		</div>
-		<div id="emptytext"></div>
 	</div>
 </body>
 </html>

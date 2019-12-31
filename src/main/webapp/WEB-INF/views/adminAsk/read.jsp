@@ -121,14 +121,19 @@ function printAskAnswer(AskAnswers) {
 			}
 		});
 	// 3. 글 수정
-	$("#adminAsk_updateStart").on("click",function() {
+	$("#adminAsk_updateStart").on(
+			"click",
+			function() {
 				$("#adminAsk_updateEnd").show();
 				$("#adminAsk_updateStart").hide();
 				$("#content").hide();
 				$("<textarea></textarea>").val(adminAsk.content).appendTo("#content_div").attr("id","content_update");
 			});
 
-	$("#adminAsk_updateEnd").on("click",function() {
+	$("#adminAsk_updateEnd")
+			.on(
+					"click",
+					function() {
 						var param = {
 							adminAskNo : adminAsk.adminAskNo,
 							content : $("#content_update").val()

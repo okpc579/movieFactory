@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script
@@ -35,37 +34,19 @@
    }
    
    #title {
-   	width: 1141.8px;
+   	width: 900px;
    	float: left; 
    }
    
    #isfollow {
     width: 200px;
     float: right;
-    margin:0;
-    
    }
    
    #follow, #unfollow {
    height: 50px;
    width: 100px;
-   margin:0;
    }
-   
-   .btn-group, .btn-group-vertical{
-   	left : 300px;
-   }
-   .info {
-   	height : 50px;
-   }
-   .fas, .fa-star{
-   	width : 20px;
-   	height : 18px;
-   }
-   #review,#collection,#following,#favorite{
-   	margin-bottom: 20px;
-   } 
-
 </style>
 <script>
 	var isLogin = false;
@@ -105,15 +86,12 @@ function getMovieDetail(mno, rating, avg, genre, $tr){	// 영화번호, 별점, 
 }
 
 function printmovie(mno, movieNm, rating, avg, genre, prdtyear, $tr){
+	
 	var $td = $("<td>").appendTo($tr);	// 제목
 	$("<a>").attr("href","/moviefactory/movie/read?mno=" + mno).css("font-size","20px").text(movieNm).appendTo($td);
 	//$("<td>").text(movieNm).appendTo($tr);	// 제목
-	$td =  $("<td>").appendTo($tr);	// 내가매긴평점
-	$("<i>").attr("class","fas fa-star").css("color","red").appendTo($td);	//별모양
-	$("<span></span>").css("font-size","20px").text(rating).css("color","black").appendTo($td);   // 평점
-	$td =  $("<td>").appendTo($tr);	// 내가매긴평점
-	$("<i>").attr("class","fas fa-star").css("color","red").appendTo($td);	//별모양
-	$("<span></span>").css("font-size","20px").text(avg).css("color","black").appendTo($td);   // 평점
+	$("<td>").css("font-size","20px").text(rating).appendTo($tr);	// 내가매긴평점
+	$("<td>").css("font-size","20px").text(avg).appendTo($tr);	// 평균평점
 	$("<td>").css("font-size","20px").text(genre).appendTo($tr);	// 장르
 	$("<td>").css("font-size","20px").text(prdtyear).appendTo($tr);	// 제작년도
 	getPoster2(movieNm, prdtyear, $tr);		// 포스터
@@ -173,10 +151,6 @@ $(function() {
 	            //$("#titul").text(result+"님의 페이지");
 	            reviews=result;
 	        	 printRating();
-	        	 if(result.length==0){
-	                 $("#emptytext").text("리뷰한 영화가 없습니다.").css("text-align","center")
-	                 .css("margin","100px").css("color","gray").css("font-size","20px").css("font-style" ,"italic");
-	              }
 	         }
 	      });
 	     
@@ -201,7 +175,7 @@ $(function() {
 		       	         success: function(result) {
 		       	            console.log(result);
 		       	            if(result=="true"){
-		       	            	$("<button id='unfollow' class='btn' type='button'>언팔로우</button>").appendTo($("#isfollow"));
+		       	            	$("<button id='unfollow' class='btn btn-default' type='button'>언팔로우</button>").appendTo($("#isfollow"));
 		       	            	$("#unfollow").on("click",function(){
 		       	     	    	  $.ajax({
 		       	     	    		  url: "/moviefactory/api/usermovie/deletefollowing?username=" + username,
@@ -214,7 +188,7 @@ $(function() {
 		       	     	     	 });
 		       	            	
 		       	            }else if(result=="false"){
-		       	            	$("<button id='follow' class='btn btn-default' type='button'>팔로우</button>").appendTo($("#isfollow"));
+		       	            	$("<button id='follow' class='btn btn-primary' type='button'>팔로우</button>").appendTo($("#isfollow"));
 		       	            	$("#follow").on("click",function(){
 		       	     	    	  $.ajax({
 		       	     	    		  url: "/moviefactory/api/usermovie/addfollowing?username=" + username,
@@ -229,9 +203,6 @@ $(function() {
 		       	            }
 		       	         }
 		       	      });
-		         	}else {
-		         		$("#isfollow").css("display","hidden");
-		         		$("<a>").attr("href","/moviefactory/member/userinfo").css("vertical-align","middle").css("line-height","32px").attr("class","btn btn-default").text("내정보 수정").appendTo($("#isfollow"));
 		         	}   
 		         
 		         }
@@ -260,15 +231,15 @@ $(function() {
 <body>
 <div id="section">
 	<div id="titletop">
-		<strong><legend class="text-center" id="title"></legend></strong>
-		<strong><p class="text-center" id="isfollow" ></p></strong>
+		<strong><legend class="text-center" id="title" style="font-size:28pt"></legend></strong>
+		<strong><legend class="text-center" id="isfollow" style="font-size:28pt"></legend></strong>
 		
 	</div>
 	<div class="btn-group btn-group-lg">
-		<button id="review"   class="btn btn-default ">리뷰보기</button>
-		<button id="collection"  class="btn btn-default">콜렉션</button>
-		<button id="following"   class="btn btn-default">팔로잉목록</button>
-		<button id="favorite"  class="btn btn-default">좋아하는 영화 목록</button>
+		<button id="review" class="btn btn-primary">리뷰보기</button>
+		<button id="collection" class="btn btn-primary">콜렉션</button>
+		<button id="following" class="btn btn-primary">팔로잉목록</button>
+		<button id="favorite" class="btn btn-primary">좋아하는 영화 목록</button>
 <!-- 		<button id="preferencemovie" class="btn btn-primary">선호할만한 영화 목록</button> -->
 		
 	</div>
@@ -284,17 +255,16 @@ $(function() {
 			</colgroup>
 			<thead>
 				<tr><!-- /moviefactory/usermovie/userpage?username=dlwndud8120 ㄴ-->
-					<th class='info'>영화제목</th>
-					<th class='info'>나의평점</th>
-					<th class='info'>종합평점</th>
-					<th class='info'>장르</th>
-					<th class='info'>제작년도</th>
-					<th class='info'>포스터</th>
+					<th>영화제목</th>
+					<th>나의평점</th>
+					<th>종합평점</th>
+					<th>장르</th>
+					<th>제작년도</th>
+					<th>포스터</th>
 				</tr>
 			</thead>
 			<tbody id="list">
 			</tbody>
 		</table>
-		<div id="emptytext"></div>
 </body>
 </html>

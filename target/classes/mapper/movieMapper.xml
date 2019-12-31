@@ -168,7 +168,7 @@
 	</select>
 
 	<select id="movieavgrating" resultType="double">
-		select round(avg(rating),1) from m_rev where m_no=#{mNo} group by m_no
+		select avg(rating) from m_rev where m_no=#{mNo} group by m_no
 	</select>
 
 
