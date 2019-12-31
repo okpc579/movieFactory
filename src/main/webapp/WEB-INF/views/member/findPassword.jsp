@@ -13,7 +13,6 @@
 $(function() {
 	$("#find").on("click",function(){
 		var formData = $("#findPwdFrm").serialize();
-		console.log(param);
 		var username= $("#username").val();
 		console.log(username);
 		$.ajax({
@@ -26,7 +25,7 @@ $(function() {
 				location.href="/moviefactory/member/login";
 			}, error:function(xhr){
 				console.log(xhr);
-				alert("일치하는 계정이없습니다.");
+				alert("일치하는 계정이 없습니다.");
 			}
 		})
 	});

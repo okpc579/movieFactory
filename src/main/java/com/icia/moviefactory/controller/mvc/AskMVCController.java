@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class AdminaskMVCController {
+public class AskMVCController {
 	// 유저가보는 공지글 리스트
 	@Secured("ROLE_USER")
 	@GetMapping("/adminAsk/listuser")

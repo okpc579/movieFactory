@@ -116,7 +116,13 @@ table {
 	 $("<td>").text(movieReviewComment.content).appendTo($tr);
 	 $("<td>").text(movieReviewComment.username).appendTo($tr);
 	 }); */
-
+	var isreviews = true;
+	var iscomments = true;
+	function checkfill(){
+		if(isreviews == false && iscomments == false){
+			location.href="/moviefactory/admin/blocklist"
+		}
+	}
 	$(function() {
 		var username = location.search.split("=");
 		//console.log(username[1]);
@@ -127,9 +133,12 @@ table {
 			success : function(result) {
 				console.log(result);
 				printRev(result);
+				
 				if(result.length==0) {
-					location.href="/moviefactory/admin/blocklist"
+					//location.href="/moviefactory/admin/blocklist"
+					isreviews = false;
 				}
+				checkfill();
 			} , error: function(result){
 				location.href="/moviefactory/admin/blocklist"
 			}
@@ -141,9 +150,13 @@ table {
 			success : function(cmnt) {
 				console.log(cmnt);
 				printCmnt(cmnt);
-					if(cmnt.length==0) {
-						location.href="/moviefactory/admin/blocklist"
-					}
+				
+				if(cmnt.length==0) {
+					//location.href="/moviefactory/admin/blocklist"
+					iscomments = false;
+				}
+				checkfill();
+				
 			} , error: function(result){
 				location.href="/moviefactory/admin/blocklist"
 			}

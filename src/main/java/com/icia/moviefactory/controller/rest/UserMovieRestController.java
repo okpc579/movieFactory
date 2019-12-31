@@ -96,5 +96,9 @@ public class UserMovieRestController {
 	public ResponseEntity<?> checkmyname(String username, Principal principal) {
 		return ResponseEntity.ok(username.equals(principal.getName())==true?"true":"false");		
 	}
-		
+	
+	@GetMapping("/preferencemovie")
+	public ResponseEntity<?> findPreferenceMovie(String username) {
+		return ResponseEntity.ok(service.findPreferenceMovie(username));		
+	}
 }

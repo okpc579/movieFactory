@@ -95,7 +95,8 @@ $(function() {
 			endPage = cntOfPage;
 		
 		var $pagination = $("#pagination");	
-		/moviefactory/movie/review/list?mno=20197803
+		
+		/*//moviefactory/movie/review/list?mno=20197803*/
 		var serverUrl = "/moviefactory/movie/review/list?mno=" + mno+ "&pageno=";
 		console.log("페이징함수 들어옴");
 		
@@ -237,7 +238,8 @@ $(function() {
 			endPage = cntOfPage;
 		
 		var $pagination = $("#pagination");	
-		/moviefactory/movie/review/list?mno=20197803
+		/*
+		/moviefactory/movie/review/list?mno=20197803*/
 		var serverUrl = "/moviefactory/movie/review/list?mno=" + mno+ "&pageno=";
 		console.log("페이징함수 들어옴");
 		
@@ -447,7 +449,9 @@ $(function() {
 			endPage = cntOfPage;
 		
 		var $pagination = $("#pagination");	
+		/*
 		/moviefactory/movie/review/list?mno=20197803
+				*/
 		var serverUrl = "/moviefactory/movie/review/list?mno=" + mno+ "&pageno=";
 		console.log("페이징함수 들어옴");
 		
