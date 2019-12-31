@@ -12,13 +12,14 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <title>리뷰한 영화 목록</title>
 <style>
  #review_list {
  	display: inline-block;
  }
 .review_table{
-	width : 800px;
+	width : 1141.8px;
 	}
    	table, th, td {
     width : 400px;
@@ -28,7 +29,9 @@
     border-color: #EAEAEA;  
     font-style:
    }
-   
+     .info {
+   	height : 50px;
+   }
    th {
    	background-color: #5CD1E5;
    	color: white;
@@ -42,7 +45,9 @@
    text-align: center;      /* 페이징 ul,ol 요소를 div로 감싸 스타일을 주면 가운데 정렬이 된다 */
    position: fixed; bottom: 0; width: 120%;
 	}
-
+	#user_name {
+		width : 1141.8px;
+	}
 </style>
 
 <script>	
@@ -80,7 +85,9 @@ function printmovie(mno, movieNm, rating, genre, prdtyear, $tr){
 	
 	var $td = $("<td>").appendTo($tr);	// 제목
 	$("<a>").attr("href","/moviefactory/movie/read?mno=" + mno).text(movieNm).appendTo($td);
-	$("<td>").text(rating).appendTo($tr);	// 별점
+	var $td = $("<td>").appendTo($tr);
+	$("<i>").attr("class","fas fa-star").css("color","red").appendTo($td);	//별모양
+	$("<span>").text(rating).appendTo($td);	// 별점
 	$("<td>").text(genre).appendTo($tr);	// 장르
 	getPoster2(movieNm, prdtyear, $tr);		// 포스터
 	/* $("<a>").attr("href","/moviefactory/movie/read?mno=" + movie.movieCd).text("영화정보").appendTo($td); */
@@ -197,6 +204,10 @@ function printPaging(result) {      // 여기는 페이징 하는곳
             reviews=result.movieReviews;
             printReview();
             printPaging(result);
+            if(result.movieReviews.length==0){
+                $("#emptytext").text("리뷰한 영화가 없습니다.").css("text-align","center")
+                .css("margin","100px").css("color","gray").css("font-size","20px").css("font-style" ,"italic");
+             }
          	}, error: function(xhr) {   
          		}
       		});
@@ -217,10 +228,10 @@ function printPaging(result) {      // 여기는 페이징 하는곳
 			</colgroup>
 			<thead>
 				<tr>
-					<th>제목</th>
-					<th>별점</th>
-					<th>장르</th>
-					<th>포스터</th>	<!--style="width: 150px"  -->
+					<th class='info'>제목</th>
+					<th class='info'>별점</th>
+					<th class='info'>장르</th>
+					<th class='info'>포스터</th>	<!--style="width: 150px"  -->
 				</tr>
 			</thead>
 			<tbody id="list">
@@ -241,6 +252,7 @@ function printPaging(result) {      // 여기는 페이징 하는곳
             </ul>
          </div>
       <!-- </div> -->
+            <div id="emptytext"></div>
 	</div>
 </div>	
 </body>

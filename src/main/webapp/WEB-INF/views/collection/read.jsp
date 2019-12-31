@@ -14,11 +14,18 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 	
 <title>Insert title</title>
 
 <style>
-
+#contentdiv{
+	display: inline-block; 
+	width: 400px; white-space: nowrap; 
+	overflow: hidden; 
+	text-overflow: ellipsis;
+	font-size: 20px;
+}
 
 .top{
 	border : 1px solid gray;
@@ -47,7 +54,22 @@
 	text-overflow: ellipsis;
 	font-size: 20px;
 }
+	#delete{
+	float: right;
+}
+#updateTitle, #updateContent{
+	border: 2px solid #ccc;
+	 border-radius: 4px;
+ 	background-color: #f8f8f8;
+	 padding: 7px 10px;
+ 	font-size: 16px;
+ 	resize: none;
+ 	height: 30px;
+ 	width:400px;
+}
+#updateEnd{
 	
+}
 
    
 
@@ -71,11 +93,12 @@ var $movies;
 var mno;
 
 function printData() {	
-
+	$("#likecnt").text(collection.collLikeCnt);
    //$("#writer").text(collection.username);
    /* $("<a>").attr("href","/moviefactory/usermovie/userpage?username=" + collection.username).text(collection.username).appendTo($("#writer")); */
    $("<a>").attr("href","/moviefactory/usermovie/userpage?username=" + collection.username).text(collection.username).appendTo($("#writer"));
    $("#title").text(collection.collName);
+   $("#content").text(collection.collIntro);
 //   var $totalmovies = $("#totalMovies");
 //  var $movies = $("#movies").appendTo($totalmovies);  
    var $movies = $("#movies"); 
@@ -266,7 +289,30 @@ $(function() {      // 문자열을 나누어는(split) 기능
          }
       });
    $("#update").on("click", function() {	// 영화 컬렉션 수정으로 페이지 이동
-      location.href="/moviefactory/collection/update?collno=" + coll_no;
+    	$("#title").hide();
+   		$("#content").hide();
+   		$("<input type='text'>").val(collection.collName).attr("id","updateTitle").appendTo("#btn");
+   		$("<input type='text'>").val(collection.collIntro).attr("id","updateContent").appendTo("#divContent");
+   		$("#update").hide();
+   		$("<button type='button'></button>").text("수정완료").css("float","right").attr("id","updateEnd").attr("class","btn btn-info").appendTo("#btn").on("click", function() {
+  		  var param = {
+				  	collName :	$("#updateTitle").val(),
+				 	collIntro :  $("#updateContent").val(),
+				 	collNo: coll_no
+		  }
+  		  console.log(param);
+			$.ajax({
+				url: "/moviefactory/api/collection/update",
+				method:"post",
+				data: param,
+				success:function(result) {
+					location.reload();
+					console.log("성공");
+				}, error : function(xhr) {
+					console.log("실패");
+				}
+			});
+		});       
    });
    
    $("#popup").on("click", function() {		// 영화 컬렉션 추가 팝업창 띄우기
@@ -399,12 +445,17 @@ $(function() {      // 문자열을 나누어는(split) 기능
 				<div>
 				<div class="top">
 					<span>작성자 : </span><span id="writer"></span> <span id="doyoulike"></span>
+					<button class="btn btn-info" id="delete" style="display: none">삭제</button>
 				</div>
 				<div id="btn" class="top">
 					<span>제목: </span><span id="title"></span>
 					<button type="button" class="btn btn-info" id="popup" style="display: none">추가</button>
 					<button class="btn btn-info" id="update" style="display: none">수정</button>
-					<button class="btn btn-info" id="delete" style="display: none">삭제</button>
+					<i class="fab fa-gratipay" style="color:red;"></i>
+					<span id="likecnt"></span>
+				</div>
+				<div id="divContent"class="top">
+					<span>소개: </span><span id="content"></span>
 				</div>
 <!-- 상단 div --></div><br><br>
 <!-- 영화보여주는 div -->

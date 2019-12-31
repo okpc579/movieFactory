@@ -20,6 +20,7 @@
 		<result property="collName" column="coll_name" />
 		<result property="username" column="username" />
 		<result property="writingDate" column="writing_date" />
+		<result property="collLikeCnt" column="coll_like_cnt" />
 		<result property="collIntro" column="coll_intro" jdbcType="CLOB" javaType="java.lang.String" />
 		<collection property="detail" javaType="java.util.ArrayList" resultMap="mapForCollectionDetail"/>
 	</resultMap>
@@ -28,7 +29,7 @@
 		<![CDATA[
 			select * from
 		       	(select rownum rnum, c.* from 
-		       		(select c.coll_no, c.coll_name, c.username, c.writing_date, c.coll_intro, cd.m_no, cd.reg_date from coll c, coll_detail cd where c.coll_no = #{collNo} and  c.coll_no = cd.coll_no(+)) c
+		       		(select c.coll_no, c.coll_name, c.username, c.writing_date, c.coll_intro, cd.m_no, cd.reg_date from, c.coll_like_cnt coll c, coll_detail cd where c.coll_no = #{collNo} and  c.coll_no = cd.coll_no(+)) c
 		       	where rownum<=#{endRowNum}) 
 		    where rnum>=#{startRowNum}
 		]]>

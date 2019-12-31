@@ -11,6 +11,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <title>좋아하는 영화 목록</title>
 <style>
 	
@@ -27,6 +28,9 @@
    	background-color: #5CD1E5;
    	color: white;
    	font-size: 22px;
+	}
+	.info {
+		height : 50px;
 	}
 </style>
 <script>
@@ -62,7 +66,9 @@ function getMovieDetail(mno, avgrating, $tr){	// 영화번호, 별점, 장르를
 function printmovie(mno, movieNm, avgrating, genre, prdtyear, $tr){
 	var $td = $("<td>").appendTo($tr);	// 제목
 	$("<a>").attr("href","/moviefactory/movie/read?mno=" + mno).css("font-size","20px").text(movieNm).appendTo($td);
-	$("<td>").css("font-size","25px").text(avgrating).appendTo($tr);	// 별점
+	$td = $("<td>").appendTo($tr);
+	$("<i>").attr("class","fas fa-star").css("color","red").appendTo($td);	//별모양
+	$("<span>").css("font-size","25px").text(avgrating).appendTo($td);	// 별점
 	$("<td>").css("font-size","20px").text(genre).appendTo($tr);	// 장르
 	$("<td>").css("font-size","20px").text(prdtyear).appendTo($tr);	// 장르
 	getPoster2(movieNm, prdtyear, $tr);		// 포스터
@@ -153,6 +159,13 @@ $(function() {
 	         success: function(result) {
 	            console.log(result);
 	            printReview(result);
+	            if(result.movieReviews.length==0){
+	                $("#emptytext").text("좋아하는 영화가 비어있습니다.").css("text-align","center")
+	                .css("margin","100px").css("color","gray").css("font-size","20px").css("font-style" ,"italic");
+	             }
+	         }, error:function(){
+	        	 $("#emptytext").text("좋아하는 영화가 비어있습니다.").css("text-align","center")
+	                .css("margin","100px").css("color","gray").css("font-size","20px").css("font-style" ,"italic");
 	         }
    });
 });
@@ -172,16 +185,17 @@ $(function() {
   			</colgroup>
   			<thead>
   				<tr><!-- /moviefactory/usermovie/favoritemovie?username=xogh8123 -->
-  					<th>제목</th>
-  					<th>종합 평점</th>
-  					<th>장르</th>
-  					<th>제작년도</th>
-  					<th>포스터</th>
+  					<th class='info'>제목</th>
+  					<th class='info'>종합 평점</th>
+  					<th class='info'>장르</th>
+  					<th class='info'>제작년도</th>
+  					<th class='info'>포스터</th>
   				</tr>
 			</thead>
 			<tbody id="list">
 			</tbody>
 		</table>
+		<div id="emptytext"></div>
 	</div>
 </div>
 </body>
