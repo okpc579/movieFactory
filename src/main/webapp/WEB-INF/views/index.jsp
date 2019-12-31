@@ -207,6 +207,10 @@ $(function() {
 			genreTopMovies = result;
 			console.log(genreTopMovies);
 			printgr();
+			if(result.length==0){
+				$("#startoptext").text("사이트에 정보가 부족한데 리뷰를 써주시겠어요?").css("text-align","center")
+				.css("margin","100px").css("color","gray").css("font-size","20px").css("font-style" ,"italic");
+			}
 		}, error: function(xhr) {
 			 console.log(xhr.status);
 		}
@@ -225,6 +229,10 @@ $(function() {
 				genreTopMovies = result;
 				console.log(genreTopMovies);
 				printgr();
+				if(result.length==0){
+					$("#genretoptext").text("사이트에 정보가 부족한데 리뷰를 써주시겠어요?").css("text-align","center")
+					.css("margin","100px").css("color","gray").css("font-size","20px").css("font-style" ,"italic");
+				}
 			}, error: function(xhr) {
 				 console.log(xhr.status);
 			}
@@ -237,7 +245,12 @@ $(function() {
 			success:function(result) {
 				preferenceMovies=result;
 				console.log(preferenceMovies);
-				 printu(); 
+				printu(); 
+				if(result.length==0){
+					$("#userliketext").text("고객님이 어떤 영화를 좋아할지 정보가 부족한데 리뷰를 써주시겠어요?").css("text-align","center")
+					.css("margin","100px").css("color","gray").css("font-size","20px").css("font-style" ,"italic");
+					
+				}
 			}, error : function(xhr) {
 					
 			}
@@ -336,6 +349,7 @@ section {
 display: inline-block;
 margin : 0 auto;
 padding : 30px;
+
 }
 
 
@@ -456,6 +470,7 @@ ul, li { list-style:none; }
 			<div class="GenreTopTable">
 				<ul id="glist">
 				</ul>
+				<div id="genretoptext"></div>
 			</div>
 			<br>
 			<hr>
@@ -464,6 +479,7 @@ ul, li { list-style:none; }
 			<div class="StarTopTable" >
 				<ul id="alist">
 				</ul>
+				<div id="startoptext"></div>
 			</div>
 			<br>
 
@@ -476,6 +492,7 @@ ul, li { list-style:none; }
 				<div class="UserLikeTable">
 					<ul id="ulist">
 					</ul>
+					<div id="userliketext"></div>
 				</div>
 			</sec:authorize>
 

@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <script>
 	var isLogin = false;
 	var loginId = undefined;
@@ -19,6 +20,13 @@
 		loginId = '${member}';
 	</script>
 </sec:authorize>
+<style>
+#list table {
+	border: 5px solid #00D8FF;
+	width: 298px;
+	table-layout: fixed;
+}
+</style>
 <script>
 	var movie;
 	var m_no;
@@ -185,7 +193,10 @@
 			method:"get",
 			success:function(result){
 				console.log(result);
-				$("<td>").text("평점 : "+result).attr("class","m_info").appendTo($tr10);
+				var $td = $("<td>").attr("class","m_info").appendTo($tr10);
+				var $i = $("<i>").attr("class","fas fa-star").css("color","red").appendTo($td);
+				//$("<td>").text("평점 : "+result).attr("class","m_info").appendTo($td);
+				$("<span></span>").text(" 평점 : "  + result).css("color","black").appendTo($td);   // 평점
 			},error:function(xhr){
 				console.log(xhr);
 				$("<td>").text("평점 : "+"아직 작성된 리뷰가 없습니다.").attr("class","m_info").appendTo($tr10);
@@ -301,6 +312,8 @@
 		
 		$.each(collections, function(i, collection) {
 			if(i==3){
+				var plus = $("<a>").css("text-align","center").attr("href","/moviefactory/collection/list?mno="+ m_no + "&pageno=1").css("overflow","hidden").appendTo($body);
+				$("<img>").attr("src","/sajin/plus.png").appendTo(plus);
 				return false;
 			}
 			
@@ -314,7 +327,10 @@
 			var $tr = $("<tr>").appendTo($table);
 			//$("<td colspan=2>").text(collection.writingDate + " 좋아요수 " + collection.collLikeCnt).css("padding", "10px").appendTo($tr); // 작성일
 			$("<td>").text(collection.writingDate).css("padding", "10px").appendTo($tr);   
-			$("<td>").text( "좋아요 " + collection.collLikeCnt).css("padding", "10px").appendTo($tr);
+			var $td = $("<td>").appendTo($tr);
+			var $i = $("<i>").attr("class","fab fa-gratipay").css("color","red").appendTo($td);	//별모양
+			$("<span></span>").text(" " + collection.collLikeCnt).css("color","black").appendTo($td);   // 평점
+			
 			var $tr = $("<tr>").appendTo($table);
 			var $td = $("<td colspan=2>").css("padding-left", "30px").css("padding-right", "30px").css("padding-top", "10px").css("padding-bottom", "10px").css("text-align", "center")
 			.css("border-top", "solid 3px #00D8FF").css("border-bottom", "solid 3px #00D8FF").css("height","240px").appendTo($tr);
@@ -354,8 +370,7 @@
 			$("<a>").attr("href", "/moviefactory/collection/read?collNo=" + collection.collNo + "&pageno=1").attr("class","btn").css("background-color","#00D8FF").css("color","black").text("상세 보기").appendTo($td2);	// 콜렉션 상세 링크
 			// 상세, 열기, 읽기, 보기, 열람,  
 		});
-			var plus = $("<a>").css("text-align","center").attr("href","/moviefactory/collection/list?mno="+ m_no + "&pageno=1").css("overflow","hidden").appendTo($body);
-			$("<img>").attr("src","/sajin/plus.png").appendTo(plus);
+		
 }
 	
 	function getPoster2(movieNm, prdtYear, $tr) {   // (영화제목,제작년도)로 포스터 불러오는 기능

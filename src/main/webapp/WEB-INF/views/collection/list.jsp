@@ -8,6 +8,7 @@
 	charset="UTF-8">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <!-- 3x3 부트스트랩 -->
 <script
@@ -116,7 +117,11 @@ a:hover {
 			var $div = $("<div>").attr("class", "w3-third").css("padding", "33px").appendTo($body); // .attr("class", "w3-third") 3x3 부트스트랩 클래스 지정
 			var $table = $("<table>").appendTo($div);
 			var $tr = $("<tr>").appendTo($table);
-			$("<td colspan=2>").text(collection.writingDate).css("padding", "10px").appendTo($tr); // 작성일
+			$("<td>").text(collection.writingDate).css("padding", "10px").appendTo($tr); // 작성일
+			var $td = $("<td>").appendTo($tr);
+			var $i = $("<i>").attr("class","fab fa-gratipay").css("color","red").appendTo($td);	//별모양
+			$("<span></span>").text(" " + collection.collLikeCnt).css("color","black").appendTo($td);   // 평점
+			
 			
 			var $tr = $("<tr>").appendTo($table);
 			var $td = $("<td colspan=2>").css("padding-left", "30px").css("padding-right", "30px").css("padding-top", "10px").css("padding-bottom", "10px").css("text-align", "center")
@@ -226,6 +231,8 @@ a:hover {
 							console.log(str);
 							if(username!=str) {
 								$("#add").hide();
+							}else {
+								$("#add").show();
 							}
 						}, error: function(xhr){
 							$("#add").hide();
@@ -256,7 +263,7 @@ a:hover {
 <body>
 	<div id="section">
 		<h1 id="pageName">컬렉션 목록</h1>
-		<button class="btn btn-primary" id="add">컬렉션 추가</button>
+		<button class="btn btn-primary" id="add" style="display: none">컬렉션 추가</button>
 		<br>		<!-- 불편한거 정리함 : 폰트 굵기, 체크박스와 글자 위치 정렬 완료 -->
 		<div class="w3-row-padding" id="list">
 			

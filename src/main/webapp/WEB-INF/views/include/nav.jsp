@@ -106,6 +106,11 @@
     /* margin: 0 auto; */
 }
 
+#sosick {
+	padding-top: 13px;
+	padding-bottom: 13px;
+}
+
 
 .navbar li a, .navbar .navbar-brand {
    color: black;

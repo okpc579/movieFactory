@@ -33,6 +33,11 @@ header, nav, aside, footer, section {
     height: 50px;
 }
 
+#sosick {
+	padding-top: 13px;
+	padding-bottom: 13px;
+}
+
 section {
    width:60%;   
    float:left;

@@ -16,6 +16,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <title>Insert title here</title>
 <script>
 	var isLogin = false;
@@ -53,7 +54,9 @@ var isLike;
 					$('#doyoulike').text('취소');					
 				}
 				if(isLike=="dontlike"){
-					$('#doyoulike').text('좋아요');					
+					$('#doyoulike').text('좋아요');	
+					$('#a').css("color","gray");
+					
 				}
 			},
 			error : function(xhr) {
@@ -83,7 +86,8 @@ var isLike;
 			console.log(moviereview);
 			$("#bno").text(moviereview.mrevNo);
 			$("#writeDate").text(moviereview.writingDate);
-			$("#recommend").text(moviereview.likeCnt);
+			//$("#recommend").text(moviereview.likeCnt);
+			$("#likecnt").text(moviereview.likeCnt);
 			$("#content").text(moviereview.mrevContent);
 
 			// 추천수, 신고수	
@@ -257,7 +261,7 @@ var isLike;
 					
 					});
 			// 5. 글 추천
-			$("#lower_right").on("click", "#a", function() {
+			$("#a").on("click", function() {
 				console.log("====================")
 				// 비로그인이거나 글쓴 사람 본인이면 추천 금지
 				if (isLogin == false || moviereview.own == true)
@@ -400,7 +404,8 @@ var isLike;
 			console.log(moviereview);
 			$("#bno").text(moviereview.rating);
 			$("#writeDate").text(moviereview.writingDate);
-			$("#recommend").text(moviereview.likeCnt);
+			//$("#recommend").text(moviereview.likeCnt);
+			$("#likecnt").text(moviereview.likeCnt);
 			$("#content").text(moviereview.mrevContent);
 
 			// 추천수, 신고수	
@@ -482,7 +487,11 @@ var isLike;
 							"readonly", true).appendTo($center_div);
 				}
 				//$("<span>").text(comment.cmntLikeCnt).appendTo(".like_commentt");
-				$("<span>").text(comment.writingDate).attr("id","date").appendTo($lower_div);
+				$("<span>").text(comment.writingDate + " ").attr("id","date").appendTo($lower_div);
+				var $i = $("<i>").attr("class","fab fa-gratipay").css("color","red").appendTo($lower_div);	//별모양
+				$("<span></span>").text(comment.cmntLikeCnt).css("color","black").appendTo($lower_div);   // 평점
+				
+				
 				if (comment.username == loginId) {
 					var btn = $("<button>").attr("id", "delete_commentt").attr(
 							"class", "btn btn-default").attr("data-mrevcmntno",
@@ -526,7 +535,7 @@ var isLike;
 											moviereview.mRevNo).attr("data-username",
 											comment.username).attr("data-isLike",
 													"like").css("margin", "2px").text(
-											"취소" + comment.cmntLikeCnt).appendTo($center_div);
+											"취소").appendTo($center_div);
 									btn3.css("float", "right");
 									var btn4 = $("<button>").attr("id", "rep_commentt").attr(
 											"class", "btn btn-danger").attr("data-mrevcmntno",
@@ -543,7 +552,7 @@ var isLike;
 											moviereview.mRevNo).attr("data-username",
 											comment.username).attr("data-isLike",
 											"dontlike").css("margin", "2px").text(
-											"좋아요" + comment.cmntLikeCnt).appendTo($center_div);
+											"좋아요").appendTo($center_div);
 									btn3.css("float", "right");
 									var btn4 = $("<button>").attr("id", "rep_commentt").attr(
 											"class", "btn btn-danger").attr("data-mrevcmntno",
@@ -629,7 +638,7 @@ var isLike;
 					
 					});
 			// 5. 글 추천
-			$("#lower_right").on("click", "#a", function() {
+			$("#a").on("click", function() {
 				console.log("====================")
 				// 비로그인이거나 글쓴 사람 본인이면 추천 금지
 				if (isLogin == false || moviereview.own == true)
@@ -798,9 +807,10 @@ var isLike;
 							+ moviereview.username).text(moviereview.username)
 					.appendTo($("#writer"));
 			console.log(moviereview);
-			$("#bno").text(moviereview.mrevNo);
+			$("#bno").text(moviereview.rating);
 			$("#writeDate").text(moviereview.writingDate);
-			$("#recommend").text(moviereview.likeCnt);
+			//$("#recommend").text(moviereview.likeCnt);
+			$("#likecnt").text(moviereview.likeCnt);
 			$("#content").text(moviereview.mrevContent);
 			// 추천수, 신고수	
 			$("#content").prop("readonly", true);
@@ -852,8 +862,10 @@ var isLike;
 				$("<span id=update_com>").text(comment.content).prop(
 							"readonly", true).appendTo($center_div);				
 				//$("<span>").text(comment.cmntLikeCnt).appendTo(".like_commentt");
-				$("<span>").text(comment.writingDate).appendTo($lower_div);
-
+				$("<span>").text(comment.writingDate +" ").appendTo($lower_div);
+				var $i = $("<i>").attr("class","fab fa-gratipay").css("color","red").appendTo($lower_div);	//별모양
+				$("<span></span>").text(comment.cmntLikeCnt).css("color","black").appendTo($lower_div);   // 평점
+				
 				$("<hr>").appendTo($lower_div);
 			});
 		}
@@ -887,7 +899,9 @@ var isLike;
 	width: 100px;
 	
 }
-
+#a{
+		cursor :pointer
+}
 
 #lower_right, #btnDelete, #btnUpdate {
 	float: right;
@@ -935,27 +949,42 @@ th {
 					<input type="hidden" name="mRevNo" id="mRevNo" val="">
 					<table>
 						<colgroup>
-							<col width="30%">
-							<col width="30%">
-							<col width="40%">
+							<col width="22%">
+							<col width="22%">
+							<col width="22%">
+							<col width="22%">
+							<col width="12%">
 						</colgroup>
 						<tr>
 							<th>평점</th>
 							<th>작성자</th>
 							<th>작성일</th>
+							<th>좋아요</th>
+							<th rowspan="2"><i class="fas fa-heart fa-2x" style="color:red;" id="a"></i></th>
 						</tr>
 						<tr>
-							<th id="bno"></th>
+							<th>
+							<i class="fas fa-star" style="color: red;"><span id="bno"></span></i>
+							</th>
 							<th id="writer"></th>
-							<th id="writeDate"></th>
+							<th id="writeDate">
+							</th>
+							<th><span id="likecnt"></span></th>
+							
 						</tr>
+						
 					</table>
 					<br>
 					<ul id="lower_right">
 						<li>
+						
+						</li>
+						<li>
+							<!-- 
 							<button type="button" class="btn btn-primary" id="a">
 								<span id="doyoulike"></span><span class="badge" id="recommend"></span>
 							</button>
+							 -->
 							<button type="button" class="btn btn-danger" id="c">
 								신고 <span class="badge" id="report"></span>
 							</button>

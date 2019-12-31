@@ -82,7 +82,7 @@ function printAskAnswer(AskAnswers) {
 					location.href="/moviefactory/adminAsk/list"
 				}
 				$.ajax({
-					url:"/moviefactory/api/adminAsk/username",
+					url:"/moviefactory/api/adminAsk/checkusername",
 					method:"get",
 					success:function(status){
 						console.log(result.username);
@@ -254,7 +254,7 @@ function printAskAnswer(AskAnswers) {
 			
 			
 			$.ajax({
-				url:"/moviefactory/api/adminAsk/username",
+				url:"/moviefactory/api/adminAsk/checkusername",
 				method:"get",
 				data:param,
 				success:function(status){

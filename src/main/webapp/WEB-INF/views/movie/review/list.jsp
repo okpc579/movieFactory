@@ -11,6 +11,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <title>Insert title here</title>
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 <script>
@@ -22,10 +23,13 @@ function printLists() {
 	console.log(moviereviews);
 	var $body = $("#list");
 	$.each(moviereviews.reviews, function(i, moviereview) {
-		
 		var $tr = $("<tr>").appendTo($body);
 		
-		$("<td nowrap>").text(moviereview.rating).appendTo($tr);
+		//$("<td nowrap>").text(moviereview.rating).appendTo($tr);
+		var $td = $("<td nowrap>").appendTo($tr);
+		var $i = $("<i>").attr("class","fas fa-star").css("color","red").appendTo($td);	//별모양
+		$("<span></span>").text(moviereview.rating).css("color","black").appendTo($td);   // 평점		
+		
 		//$("<td>").text(moviereview.username).appendTo($tr);
 		$td = $("<td nowrap>").appendTo($tr);
 		$("<a>").attr("href","/moviefactory/usermovie/userpage?username=" + moviereview.username).text(moviereview.username).appendTo($td);
@@ -177,7 +181,10 @@ function printLists() {
 		
 		var $tr = $("<tr>").appendTo($body);
 		var $td;
-		$("<td nowrap>").text(moviereview.rating).appendTo($tr);
+		//$("<td nowrap>").text(moviereview.rating).appendTo($tr);
+		var $td = $("<td nowrap>").appendTo($tr);
+		var $i = $("<i>").attr("class","fas fa-star").css("color","red").appendTo($td);	//별모양
+		$("<span></span>").text(moviereview.rating).css("color","black").appendTo($td);   // 평점		
 		//$("<td>").text(moviereview.username).appendTo($tr);
 		$td = $("<td>").appendTo($tr);
 		$("<a>").attr("href","/moviefactory/usermovie/userpage?username=" + moviereview.username).text(moviereview.username).appendTo($td);
@@ -320,7 +327,10 @@ function printLists() {
 	$.each(moviereviews.reviews, function(i, moviereview) {
 		var td;
 		var $tr = $("<tr>").appendTo($body);
-		$("<td nowrap>").text(moviereview.rating).appendTo($tr);
+		//$("<td nowrap>").text(moviereview.rating).appendTo($tr);
+		var $td = $("<td nowrap>").appendTo($tr);
+		var $i = $("<i>").attr("class","fas fa-star").css("color","red").appendTo($td);	//별모양
+		$("<span></span>").text(moviereview.rating).css("color","black").appendTo($td);   // 평점		
 		//$("<td>").text(moviereview.username).appendTo($tr);
 		$td = $("<td nowrap>").appendTo($tr);
 		$("<a>").attr("href","/moviefactory/usermovie/userpage?username=" + moviereview.username).text(moviereview.username).appendTo($td);

@@ -58,7 +58,9 @@ function loadImage() {
 
 // 1.아이디 사용여부 확인
 function checkUsername() {
-   var patt = /^[A-Za-z0-9]{8,12}$/;
+   /*var patt = /^[A-Za-z]+[A-Za-z0-9]{7,11}$/;*/
+   var patt = /^(?=.*[0-9]+)[a-zA-Z][a-zA-Z0-9]{7,11}$/;
+
    var username = $("#username").val();
    if(username.length==0) { 
       $("#helper_username").text("필수입력입니다").css("color","red").css("font-size","0.75em");
