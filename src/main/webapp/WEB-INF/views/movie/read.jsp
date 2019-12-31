@@ -66,7 +66,7 @@
 				genre = genre +", " + g;
 			}
 		})
-		$("<td>").text("장르 : "+genre).attr("class","m_info").appendTo($tr5);
+		$("<td>").css("width","").text("장르 : "+genre).attr("class","m_info").appendTo($tr5);
 		$("<td>").text("감독 : "+movie.directors).attr("class","m_info").appendTo($tr6);
 		$.each(movie.actors,function(i,g){
 			//actor = actor +"," + movie.actors[i];
@@ -433,6 +433,8 @@
 	.m_info {
 		font-size : 13pt;
 		text-align : left;
+		display: inline-block;
+		width: 900px;
 	}
 	#unlike:hover{
 		cursor : pointer;
