@@ -137,6 +137,9 @@ function getMovieDetail(mno, rating, $li){   // 영화번호, 별점, 장르를 
 			var $li = $("<li>").attr("class","lists").appendTo($body);
 			//$("<td>").text(preferenceMovie.mno).appendTo($tr);
 			getMovieDetail(preferenceMovie.mno, preferenceMovie.rating2, $li);
+			if(i==4){
+				return false;
+			}
 			//$("<td>").text(preferenceMovie.rating2).appendTo($tr);
 			});	 
 	  
@@ -374,7 +377,7 @@ ul, li { list-style:none; }
 			<sec:authorize access="hasRole('ROLE_USER')">
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav navbar-right" >
-						<li><a href="#" id="sosick"><img src="/sajin/bell (5).png"></a></li>	<!-- 내소식 : 아직 링크 없음 -->
+						<li><a href="#" id="sosick"><img src="/sajin/bell.png"></a></li>	<!-- 내소식 : 아직 링크 없음 -->
 						<li><a href="#" style="color: white;" id="myinfo">내정보</a></li> <!-- 영화마이페이지 : 태호오빠꺼임 -->
 						<li><a href="member/logout" style="color: white;" class="logout123">로그아웃</a></li>
 						<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: white;">고객센터 <span class="caret"></span></a>

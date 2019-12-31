@@ -5,8 +5,8 @@
 		<selectKey keyProperty="collNo" resultType="int" order="BEFORE">
 			select coll_seq.nextval from dual
 		</selectKey>
-		insert into coll(coll_no, coll_name, username, writing_date, coll_intro) 
-		values(#{collNo},#{collName},#{username}, sysdate, #{collIntro})
+		insert into coll(coll_no, coll_name, username, writing_date, coll_intro, coll_like_cnt) 
+		values(#{collNo},#{collName},#{username}, sysdate, #{collIntro}, 0)
 	</insert>
 	
 	<!--2번 콜렉션디테일 보기 -->
@@ -72,11 +72,11 @@
 	</select>
 	<!--13번좋아요횟수증가 -->
 	<update id="increaselikecnt">
-		update coll_like set coll_like_cnt = coll_like_cnt+1 where coll_no=#{collNo}
+		update coll set coll_like_cnt = coll_like_cnt+1 where coll_no=#{collNo}
 	</update>
 	<!--14번 좋아요횟수감소 coll_no=#{collNo} -->
 	<update id="decreaselikecnt">
-		update coll_like set coll_like_cnt = coll_like_cnt-1 where coll_no=#{collNo}
+		update coll set coll_like_cnt = coll_like_cnt-1 where coll_no=#{collNo}
 	</update>
 	
 	<!-- 아이디로 유저가 리뷰한 목록 찾기 -->

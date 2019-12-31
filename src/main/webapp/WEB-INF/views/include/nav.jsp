@@ -182,7 +182,7 @@
 
 				<div id="myNavbar">
 					<ul class="nav navbar-nav navbar-right" style="padding-right:300px ;">
-						<li><a href="#" id="sosick"><img src="/sajin/bell (5).png"></a></li> <!-- 내소식 -->
+						<li><a href="#" id="sosick"><img src="/sajin/bell.png"></a></li> <!-- 내소식 -->
 						<li><a href="#" style="color: white;" id="myinfo">내정보</a></li> <!-- 영화 마이페이지 -->
 						<li><a href="/moviefactory/member/logout" style="color: white;" class="logout123">로그아웃</a></li>
 						<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: white;">고객센터 <span class="caret"></span></a>

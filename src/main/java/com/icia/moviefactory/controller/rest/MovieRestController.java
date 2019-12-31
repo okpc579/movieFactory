@@ -193,5 +193,6 @@ public class MovieRestController {
 	public ResponseEntity<?> movieavgrating(@RequestParam Long mNo) {
 		return ResponseEntity.ok(service.movieavgrating(mNo));
 	}
+	
 
 }

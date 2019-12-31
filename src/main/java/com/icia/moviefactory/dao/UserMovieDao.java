@@ -129,4 +129,7 @@ public class UserMovieDao {
 		return tpl.selectOne("userMovieMapper.checkFavoriteMovie",map);
 	}
 
+	public List<MovieReview> findPreferenceMovie(String username) {
+		return tpl.selectList("userMovieMapper.findPreferenceMovieList", username);
+	}
 }

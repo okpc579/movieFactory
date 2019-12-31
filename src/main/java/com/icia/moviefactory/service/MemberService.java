@@ -90,13 +90,26 @@ public class MemberService {
 			if (photo.getContentType().toLowerCase().startsWith("image/")) {
 				int lastIndexOfDot = photo.getOriginalFilename().lastIndexOf('.');
 				String extension = photo.getOriginalFilename().substring(lastIndexOfDot);
-				String imageName = member.getUsername() + extension;
+				//String imageName = member.getUsername() + extension;
+				String imageName = member.getUsername() + ".jpg";
 				File file = new File(PROFILE_FOLDER, imageName);
 				photo.transferTo(file);
 				String fileUrl = PROFILE_URI + imageName;
 				member.setPhoto(fileUrl);
 			} else {
-			member.setPhoto("http://localhost:8081/sajin/18default.png");
+				//File file = new File("D:\\upload\\sajin");
+				byte[] imageData = new byte[1000000]; // 1.jpg파일크기 859KB이므로 배열크기를 크게 잡음 
+				InputStream is = new FileInputStream("D:\\upload\\sajin\\18default.png");
+				int numOfBytes = is.read(imageData);  // 이미지데이터가 imageData byte배열에 저장된다.
+				
+				// byte배열의 내용을 image 파일로 저장하기
+				OutputStream os = new FileOutputStream(PROFILE_FOLDER +"\\" + member.getUsername() + ".jpg");
+				for(int i=0; i < numOfBytes; i++){
+					os.write( imageData[i] );  // 읽은 byte 갯수 만큼 byte내용을 저장 
+				}
+				os.close();
+				member.setPhoto(PROFILE_URI + member.getUsername() + ".jpg");
+				//member.setPhoto("http://localhost:8081/sajin/18default.png");
 			}
 		}
 		member.setPassword(pwdEncoder.encode(member.getPassword()));
